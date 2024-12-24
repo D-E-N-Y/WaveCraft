@@ -98,6 +98,12 @@ public class CameraControler : MonoBehaviour
         // zoom
         if(Input.mouseScrollDelta.y != 0)
             newZoom += Input.mouseScrollDelta.y * zoomAmount;
+
+        if(newZoom.z < -500f)
+            newZoom = new Vector3(newZoom.x, 500f, -500f);
+
+        if(newZoom.z > -5f)
+            newZoom = new Vector3(newZoom.x, 5f, -5f);
     }
 
     private void HandleMovementInput()
@@ -138,5 +144,11 @@ public class CameraControler : MonoBehaviour
         
         if(Input.GetKey(KeyCode.F))
             newZoom -= zoomAmount;
+
+        if(newZoom.z < -500f)
+            newZoom = new Vector3(newZoom.x, 500f, -500f);
+
+        if(newZoom.z > -5f)
+            newZoom = new Vector3(newZoom.x, 5f, -5f);
     }
 }
