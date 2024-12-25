@@ -66,8 +66,11 @@
   <ItemGroup>
     <Compile Include="Assets\Assets\Enemy\Supercyan Character Pack Zombie Sample\Scripts\ZombieCharacterControl.cs" />
     <Compile Include="Assets\Assets\Enemy\Supercyan Character Pack Zombie Sample\Scripts\ZombieCameraLogic.cs" />
+    <Compile Include="Assets\Scripts\Build\PlaceableObject.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraControler.cs" />
+    <Compile Include="Assets\Scripts\Build\BuildingSystem.cs" />
     <Compile Include="Assets\Assets\Enemy\Supercyan Character Pack Zombie Sample\Scripts\ZombieFree.cs" />
+    <Compile Include="Assets\Scripts\Build\ObjectDrag.cs" />
     <Compile Include="Assets\Assets\Enemy\Kevin Iglesias\Characters\Humanoid Giant\Demo Scene\Scripts\HumanoidGiantDemo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -917,6 +920,10 @@
       <HintPath>D:\Programs\Unity\Hub\Editor\2022.3.31f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
       <Private>False</Private>
@@ -993,12 +1000,20 @@
       <HintPath>Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.2D.Tilemap.Extras">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Extras.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualScripting.State">
       <HintPath>Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.VisualScripting.Flow">

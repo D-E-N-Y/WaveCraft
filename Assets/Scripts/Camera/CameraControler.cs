@@ -52,7 +52,7 @@ public class CameraControler : MonoBehaviour
     private void HandleMouseInput()
     {
         // move
-        if(Input.GetMouseButtonDown((int)MouseButton.Left))
+        if(Input.GetMouseButtonDown((int)MouseButton.Right))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -63,7 +63,7 @@ public class CameraControler : MonoBehaviour
                 dragStartPosition = ray.GetPoint(entry);
         }
 
-        if(Input.GetMouseButton((int)MouseButton.Left))
+        if(Input.GetMouseButton((int)MouseButton.Right))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
