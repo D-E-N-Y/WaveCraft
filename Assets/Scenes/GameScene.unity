@@ -2406,7 +2406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridLayout: {fileID: 702722837}
   mainTilemap: {fileID: 2106370422}
-  whiteTile: {fileID: 11400000, guid: c564d2cc36f41014cad7c609be2505f9, type: 2}
+  notCanPlaceTile: {fileID: 11400000, guid: 482b1278c812df84f9045890cc305455, type: 2}
+  CanPlaceTile: {fileID: 11400000, guid: c564d2cc36f41014cad7c609be2505f9, type: 2}
   prefabs:
   - {fileID: 2403223556043391348, guid: e84b51cd802b95541a3bef819e3f1261, type: 3}
   - {fileID: 7480937576350113931, guid: 7394a637fa414a9408d613afdcc477af, type: 3}
@@ -3754,28 +3755,28 @@ Tilemap:
     m_Data:
       e00: 0
       e01: 0
-      e02: -2.0328811e-19
-      e03: -2.0328811e-19
+      e02: 6.917536e+19
+      e03: 6.917536e+19
       e10: 0
       e11: 0
-      e12: 9.87e-43
-      e13: 9.87e-43
-      e20: -8.5320785e+21
-      e21: 0.00000021527308
-      e22: 2.0306384e-19
-      e23: 8396.016
-      e30: 4.5904e-41
-      e31: 9.9e-43
-      e32: 9.88e-43
-      e33: 9.88e-43
+      e12: 7.05e-43
+      e13: 7.05e-43
+      e20: -113.131226
+      e21: 1.2136949e-27
+      e22: -3.466592e-19
+      e23: -1452.5312
+      e30: 4.5905e-41
+      e31: 7.05e-43
+      e32: 7.05e-43
+      e33: 7.05e-43
   m_TileColorArray:
   - m_RefCount: 0
-    m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
+    m_Data: {r: 3.2729e-41, g: 3.2729e-41, b: 3.2729e-41, a: 3.2729e-41}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Origin: {x: -28, y: 0, z: 0}
-  m_Size: {x: 28, y: 83, z: 1}
+  m_Origin: {x: -89, y: 0, z: 0}
+  m_Size: {x: 89, y: 83, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
   m_TileOrientation: 1
   m_TileOrientationMatrix:
