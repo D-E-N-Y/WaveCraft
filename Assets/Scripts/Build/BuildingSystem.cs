@@ -10,7 +10,7 @@ public class BuildingSystem : MonoBehaviour
 
     [SerializeField] private Tilemap mainTilemap;
     [SerializeField] private TileBase notCanPlaceTile;
-    [SerializeField] private TileBase CanPlaceTile;
+    [SerializeField] private TileBase canPlaceTile;
 
     public GameObject[] prefabs;
 
@@ -45,7 +45,11 @@ public class BuildingSystem : MonoBehaviour
         if(!objectToPlace)
             return;
         
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            objectToPlace.Rotate();
+        }
+        else if(Input.GetKeyDown(KeyCode.Space))
         {
             if(CanBePlaced(objectToPlace))
             {
