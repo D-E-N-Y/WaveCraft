@@ -8,9 +8,13 @@ public class BuildingSystem : MonoBehaviour
     public GridLayout gridLayout;
     private Grid grid;
 
-    [SerializeField] private Tilemap mainTilemap;
+    [SerializeField] private Tilemap gridTilemap;
+    [SerializeField] private Tilemap freeTilemap;
+    [SerializeField] private Tilemap busyTilemap;
+
     [SerializeField] private TileBase notCanPlaceTile;
     [SerializeField] private TileBase canPlaceTile;
+    [SerializeField] private TileBase placeTile;
 
     public GameObject[] prefabs;
 
@@ -42,9 +46,15 @@ public class BuildingSystem : MonoBehaviour
             InitializeWithObject(prefabs[4]);
         
 
-        if(!objectToPlace)
+        if(!objectToPlace) 
             return;
-        
+
+        if(!objectToPlace.Placed)
+            if(CanBePlaced(objectToPlace))
+                FreeTakeArea(gridLayout.WorldToCell(objectToPlace.GetStartPosition()), objectToPlace.Size, canPlaceTile);
+            else
+                FreeTakeArea(gridLayout.WorldToCell(objectToPlace.GetStartPosition()), objectToPlace.Size, notCanPlaceTile);
+
         if(Input.GetKeyDown(KeyCode.Return))
         {
             objectToPlace.Rotate();
@@ -55,11 +65,10 @@ public class BuildingSystem : MonoBehaviour
             {
                 objectToPlace.Place();
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-                TakeArea(start, objectToPlace.Size);
-            }
-            else
-            {
-                Destroy(objectToPlace.gameObject);
+                BusyTakeArea(start, objectToPlace.Size);
+
+                objectToPlace = null;
+                ActiveTilemap(false);
             }
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
@@ -108,6 +117,13 @@ public class BuildingSystem : MonoBehaviour
 
     #region Building Placemment
 
+    private void ActiveTilemap(bool active)
+    {
+        gridTilemap.gameObject.SetActive(active);
+        freeTilemap.gameObject.SetActive(active);
+        busyTilemap.gameObject.SetActive(active);
+    }
+    
     public void InitializeWithObject(GameObject prefab)
     {
         Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
@@ -115,6 +131,8 @@ public class BuildingSystem : MonoBehaviour
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         objectToPlace = obj.GetComponent<PlaceableObject>();
         obj.AddComponent<ObjectDrag>();
+
+        ActiveTilemap(true);
     }
 
     private bool CanBePlaced(PlaceableObject placeableObject)
@@ -123,7 +141,7 @@ public class BuildingSystem : MonoBehaviour
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         area.size = placeableObject.Size;
 
-        TileBase[] baseArray = GetTilesBlock(area, mainTilemap);
+        TileBase[] baseArray = GetTilesBlock(area, busyTilemap);
 
         foreach (var b in baseArray)
         {
@@ -134,9 +152,17 @@ public class BuildingSystem : MonoBehaviour
         return true;
     }
 
-    public void TakeArea(Vector3Int start, Vector3Int size)
+    public void FreeTakeArea(Vector3Int start, Vector3Int size, TileBase tile)
     {
-        mainTilemap.BoxFill(start, notCanPlaceTile, start.x, start.y, 
+        freeTilemap.ClearAllTiles();
+
+        freeTilemap.BoxFill(start, tile, start.x, start.y, 
+                            start.x + size.x, start.y + size.y);
+    }
+
+    public void BusyTakeArea(Vector3Int start, Vector3Int size)
+    {
+        busyTilemap.BoxFill(start, notCanPlaceTile, start.x, start.y, 
                             start.x + size.x, start.y + size.y);
     }
         
