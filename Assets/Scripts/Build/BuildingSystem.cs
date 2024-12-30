@@ -151,7 +151,8 @@ public class BuildingSystem : MonoBehaviour
     {
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-        area.size = placeableObject.Size;
+        
+        area.size = placeableObject.Size + new Vector3Int(1, 1, 1);
 
         TileBase[] baseArray = GetTilesBlock(area, busyTilemap);
 
