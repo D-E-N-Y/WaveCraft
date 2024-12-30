@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7322790050828452194}
   - component: {fileID: 4766525101608346876}
   - component: {fileID: -5775053074911529174}
+  - component: {fileID: 3670283077807262802}
   m_Layer: 0
   m_Name: House 1 pref
   m_TagString: Untagged
@@ -67,6 +68,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1668172e4c70e254ab5b08fdabf1ff1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3670283077807262802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2403223556043391348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d2f9d6de679f1e44a9a5f9cfa85a5e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 8725372920384068018}
+  M_Building: {fileID: 2100000, guid: ca943e149b24308448d07c08239b90bd, type: 2}
+  M_Build: {fileID: 2100000, guid: 381f216fb7e1ef349a967d5d085eeea8, type: 2}
+  canPlace: {r: 0.27450982, g: 0.98039216, b: 0.3019608, a: 0.5019608}
+  notCanPlace: {r: 0.98039216, g: 0.27450982, b: 0.29411766, a: 0.5019608}
 --- !u!1001 &8738073040650798956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,6 +142,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd87e5026d1695148aabe96121c526ef, type: 3}
+--- !u!23 &8725372920384068018 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23959816328617694, guid: cd87e5026d1695148aabe96121c526ef, type: 3}
+  m_PrefabInstance: {fileID: 8738073040650798956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8740896045011603444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4003897846794392, guid: cd87e5026d1695148aabe96121c526ef, type: 3}

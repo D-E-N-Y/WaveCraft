@@ -18,6 +18,7 @@ public class BuildingSystem : MonoBehaviour
     public GameObject[] prefabs;
 
     private PlaceableObject objectToPlace;
+    private MaterialBuilding materialBuilding;
 
     #region Unity methods
 
@@ -67,9 +68,15 @@ public class BuildingSystem : MonoBehaviour
 
         if(!objectToPlace.Placed)
             if(CanBePlaced(objectToPlace))
+            {
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
                 FreeTakeArea(start, objectToPlace.Size, canPlaceTile);
+            }
             else
+            {
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
                 FreeTakeArea(start, objectToPlace.Size, notCanPlaceTile);
+            }
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
@@ -80,9 +87,13 @@ public class BuildingSystem : MonoBehaviour
             if(CanBePlaced(objectToPlace))
             {
                 objectToPlace.Place();
+                materialBuilding.EndBuild();
+                
                 BusyTakeArea(start, objectToPlace.Size);
 
                 objectToPlace = null;
+                materialBuilding = null;
+
                 ActiveTilemap(false);
             }
         }
@@ -143,6 +154,9 @@ public class BuildingSystem : MonoBehaviour
         objectToPlace = obj.GetComponent<PlaceableObject>();
         objectToPlace.Initialize();
         obj.AddComponent<ObjectDrag>();
+
+        materialBuilding = objectToPlace.GetComponent<MaterialBuilding>();
+        materialBuilding.StartBuild();
 
         ActiveTilemap(true);
     }
