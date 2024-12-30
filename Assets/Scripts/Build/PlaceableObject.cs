@@ -37,7 +37,7 @@ public class PlaceableObject : MonoBehaviour
         return transform.TransformPoint(Vertices[0]);
     }
 
-    private void Start()
+    public void Initialize()
     {
         GetColliderVertexPositionsLocal();
         CalculateSizeInCells();

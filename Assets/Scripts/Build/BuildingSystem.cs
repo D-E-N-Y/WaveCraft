@@ -14,7 +14,6 @@ public class BuildingSystem : MonoBehaviour
 
     [SerializeField] private TileBase notCanPlaceTile;
     [SerializeField] private TileBase canPlaceTile;
-    [SerializeField] private TileBase placeTile;
 
     public GameObject[] prefabs;
 
@@ -30,6 +29,19 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update() 
     {
+        ChooseBuilding();
+        BuildingMove();
+    }
+
+    #endregion
+
+    #region Utils
+
+    private void ChooseBuilding()
+    {
+        if(objectToPlace) 
+            return;
+
         if(Input.GetKeyDown(KeyCode.Alpha1))
             InitializeWithObject(prefabs[0]);
         
@@ -44,16 +56,20 @@ public class BuildingSystem : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.Alpha5))
             InitializeWithObject(prefabs[4]);
-        
+    }
 
+    private void BuildingMove()
+    {
         if(!objectToPlace) 
             return;
 
+        Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
+
         if(!objectToPlace.Placed)
             if(CanBePlaced(objectToPlace))
-                FreeTakeArea(gridLayout.WorldToCell(objectToPlace.GetStartPosition()), objectToPlace.Size, canPlaceTile);
+                FreeTakeArea(start, objectToPlace.Size, canPlaceTile);
             else
-                FreeTakeArea(gridLayout.WorldToCell(objectToPlace.GetStartPosition()), objectToPlace.Size, notCanPlaceTile);
+                FreeTakeArea(start, objectToPlace.Size, notCanPlaceTile);
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
@@ -64,7 +80,6 @@ public class BuildingSystem : MonoBehaviour
             if(CanBePlaced(objectToPlace))
             {
                 objectToPlace.Place();
-                Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 BusyTakeArea(start, objectToPlace.Size);
 
                 objectToPlace = null;
@@ -76,10 +91,6 @@ public class BuildingSystem : MonoBehaviour
             Destroy(objectToPlace.gameObject);
         }
     }
-
-    #endregion
-
-    #region Utils
 
     public static Vector3 GetMouseWorldPosition()
     {
@@ -130,6 +141,7 @@ public class BuildingSystem : MonoBehaviour
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         objectToPlace = obj.GetComponent<PlaceableObject>();
+        objectToPlace.Initialize();
         obj.AddComponent<ObjectDrag>();
 
         ActiveTilemap(true);
@@ -156,8 +168,18 @@ public class BuildingSystem : MonoBehaviour
     {
         freeTilemap.ClearAllTiles();
 
-        freeTilemap.BoxFill(start, tile, start.x, start.y, 
-                            start.x + size.x, start.y + size.y);
+        for (int x = start.x; x <= start.x + size.x; x++)
+        {
+            for (int y = start.y; y <= start.y + size.y; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                freeTilemap.SetTile(position, tile);
+            }
+        }
+
+        // freeTilemap.BoxFill(start, tile, start.x, start.y, 
+        //                     start.x + size.x, start.y + size.y);
+
     }
 
     public void BusyTakeArea(Vector3Int start, Vector3Int size)
