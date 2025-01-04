@@ -4,6 +4,7 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
+    private Camera _camera;
     
     [SerializeField] private float normalSpeed;
     [SerializeField] private float fastSpeed;
@@ -27,6 +28,8 @@ public class CameraControler : MonoBehaviour
         newPosition = transform.position;
         newRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
+
+        _camera = cameraTransform.gameObject.GetComponent<Camera>();
     }
 
     private void Update() 
@@ -34,7 +37,14 @@ public class CameraControler : MonoBehaviour
         HandleMouseInput();
         HandleMovementInput();
 
+        SetNearCamera();
         Control();
+    }
+
+    private float nearFactor = 0.06f;
+    private void SetNearCamera()
+    {
+        _camera.nearClipPlane = newZoom.y * nearFactor;
     }
 
     private void Control()
