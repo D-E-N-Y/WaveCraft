@@ -5,7 +5,10 @@ public class Building : Actor
 {
     [SerializeField] protected int maxHP;
     protected int currentHP;
-    
+
+    [SerializeField] protected float timeToBuild;
+
+    public bool isPlace { private set; get; }   
     public bool isBuild { private set; get; }   
 
     [SerializeField] protected S_Cost[] cost;
@@ -39,7 +42,7 @@ public class Building : Actor
         for(int i = 0; i < Vertices.Length; i++)
         {
             Vector3 worldPos = transform.TransformPoint(Vertices[i]);
-            vertices[i] = BuildingSystem.current.gridLayout.WorldToCell(worldPos);
+            vertices[i] = BuildSystem.current.gridLayout.WorldToCell(worldPos);
         }
 
         Size = new Vector3Int(Math.Abs((vertices[0] - vertices[1]).x), 
@@ -66,11 +69,16 @@ public class Building : Actor
         Vertices = vertices;
     }
 
+    public float GetTimeToBuild()
+    {
+        return timeToBuild;
+    }
+
     public virtual void Place()
     {
         ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
         Destroy(drag);
 
-        isBuild = true;
+        isPlace = true;
     }
 }

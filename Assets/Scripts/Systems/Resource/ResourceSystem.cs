@@ -1,0 +1,38 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ResourceSystem : MonoBehaviour
+{
+    public static ResourceSystem current;
+
+    public Dictionary<E_Resource, int> resources { private set; get; }
+
+    private void Awake() 
+    {
+        current = this;
+    }
+    
+    private void Start() 
+    {
+        resources = new Dictionary<E_Resource, int>();
+        resources[E_Resource.Wood] = 100;
+        resources[E_Resource.Stone] = 100;
+        resources[E_Resource.Food] = 100;
+    }
+
+    public void AddResources(E_Resource resourceType, int amount)
+    {
+        // check free space in storage system
+        // find storage to add resource
+
+        resources[resourceType] += amount;
+    }
+
+    public void RemoveResources(E_Resource resourceType, int amount)
+    {
+        // check count resources in storage by resource type
+        // find storage to remove resource
+
+        resources[resourceType] -= amount;
+    }
+}

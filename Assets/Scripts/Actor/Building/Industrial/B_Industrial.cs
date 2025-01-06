@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class B_Industrial : Building
 {
-    [SerializeField] private E_Resourse resourse;
+    [SerializeField] private E_Resource resourse;
     
     private void Start() 
     {

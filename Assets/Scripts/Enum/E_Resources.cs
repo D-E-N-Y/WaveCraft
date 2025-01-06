@@ -1,4 +1,4 @@
-public enum E_Resourse
+public enum E_Resource
 {
     Wood,
     Stone,

@@ -15,12 +15,12 @@ public class MaterialBuilding : MonoBehaviour
         notCanPlace
     }
     
-    public void StartBuild()
+    public void StartPlace()
     {
         meshRenderer.material = M_Build;
     }
 
-    public void EndBuild()
+    public void EndPlace()
     {
         meshRenderer.material = M_Building;
     }
