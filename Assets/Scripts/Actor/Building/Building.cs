@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Building : Actor
 {
-    [SerializeField] protected int HP;
+    [SerializeField] protected int maxHP;
+    protected int currentHP;
+    
     public bool isBuild { private set; get; }   
 
     [SerializeField] protected S_Cost[] cost;
