@@ -17,12 +17,12 @@ public class BuildingSystem : MonoBehaviour
 
     public GameObject[] prefabs;
 
-    private PlaceableObject objectToPlace;
+    private Building building;
     private MaterialBuilding materialBuilding;
 
     #region Unity methods
 
-    private void Awake()
+    private void Start()
     {
         current = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
@@ -40,7 +40,7 @@ public class BuildingSystem : MonoBehaviour
 
     private void ChooseBuilding()
     {
-        if(objectToPlace) 
+        if(building) 
             return;
 
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -61,37 +61,37 @@ public class BuildingSystem : MonoBehaviour
 
     private void BuildingMove()
     {
-        if(!objectToPlace) 
+        if(!building) 
             return;
 
-        Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
+        Vector3Int start = gridLayout.WorldToCell(building.GetStartPosition());
 
-        if(!objectToPlace.Placed)
-            if(CanBePlaced(objectToPlace))
+        if(!building.isBuild)
+            if(CanBePlaced(building))
             {
                 materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
-                FreeTakeArea(start, objectToPlace.Size, canPlaceTile);
+                FreeTakeArea(start, building.Size, canPlaceTile);
             }
             else
             {
                 materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                FreeTakeArea(start, objectToPlace.Size, notCanPlaceTile);
+                FreeTakeArea(start, building.Size, notCanPlaceTile);
             }
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            objectToPlace.Rotate();
+            building.Rotate();
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(CanBePlaced(objectToPlace))
+            if(CanBePlaced(building))
             {
-                objectToPlace.Place();
+                building.Place();
                 materialBuilding.EndBuild();
                 
-                BusyTakeArea(start, objectToPlace.Size);
+                BusyTakeArea(start, building.Size);
 
-                objectToPlace = null;
+                building = null;
                 materialBuilding = null;
 
                 ActiveTilemap(false);
@@ -99,7 +99,7 @@ public class BuildingSystem : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
         {
-            Destroy(objectToPlace.gameObject);
+            Destroy(building.gameObject);
         }
     }
 
@@ -151,22 +151,22 @@ public class BuildingSystem : MonoBehaviour
         Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        objectToPlace = obj.GetComponent<PlaceableObject>();
-        objectToPlace.Initialize();
+        building = obj.GetComponent<Building>();
+        building.Initialize();
         obj.AddComponent<ObjectDrag>();
 
-        materialBuilding = objectToPlace.GetComponent<MaterialBuilding>();
+        materialBuilding = building.GetComponent<MaterialBuilding>();
         materialBuilding.StartBuild();
 
         ActiveTilemap(true);
     }
 
-    private bool CanBePlaced(PlaceableObject placeableObject)
+    private bool CanBePlaced(Building building)
     {
         BoundsInt area = new BoundsInt();
-        area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
+        area.position = gridLayout.WorldToCell(building.GetStartPosition());
         
-        area.size = placeableObject.Size + new Vector3Int(1, 1, 1);
+        area.size = building.Size + new Vector3Int(1, 1, 1);
 
         TileBase[] baseArray = GetTilesBlock(area, busyTilemap);
 
@@ -191,10 +191,6 @@ public class BuildingSystem : MonoBehaviour
                 freeTilemap.SetTile(position, tile);
             }
         }
-
-        // freeTilemap.BoxFill(start, tile, start.x, start.y, 
-        //                     start.x + size.x, start.y + size.y);
-
     }
 
     public void BusyTakeArea(Vector3Int start, Vector3Int size)
