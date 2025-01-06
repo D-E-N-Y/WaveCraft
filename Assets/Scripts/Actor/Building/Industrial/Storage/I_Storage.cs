@@ -41,4 +41,9 @@ public class I_Storage : B_Industrial, IStorage
             return 0;
         }
     }
+
+    public int GetCurrentAmount()
+    {
+        return currentAmount;
+    }
 }

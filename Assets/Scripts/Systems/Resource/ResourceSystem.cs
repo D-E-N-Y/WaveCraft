@@ -22,17 +22,45 @@ public class ResourceSystem : MonoBehaviour
 
     public void AddResources(E_Resource resourceType, int amount)
     {
-        // check free space in storage system
-        // find storage to add resource
+        if(StorageSystem.current.CheckFreeSpace(resourceType))
+        {
+            int residue = StorageSystem.current.FindStorageToAddResource(resourceType).AddResources(amount);
 
-        resources[resourceType] += amount;
+            if(residue != null)
+            {
+                if(residue > 0)
+                {
+                    resources[resourceType] += residue;
+
+                    AddResources(resourceType, residue);
+                }
+                else
+                {
+                    resources[resourceType] += amount;
+                }
+            }
+        }
     }
 
     public void RemoveResources(E_Resource resourceType, int amount)
     {
-        // check count resources in storage by resource type
-        // find storage to remove resource
+        if(StorageSystem.current.CheckCountResurces(resourceType) >= amount)
+        {
+            int residue = StorageSystem.current.FindStorageToRemoveResource(resourceType).RemoveResources(amount);
+        
+            if(residue != null)
+            {
+                if(residue > 0)
+                {
+                    resources[resourceType] -= residue;
 
-        resources[resourceType] -= amount;
+                    AddResources(resourceType, residue);
+                }
+                else
+                {
+                    resources[resourceType] -= amount;
+                }
+            }
+        }
     }
 }
