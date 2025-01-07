@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Task : MonoBehaviour
 {
-    
+    private E_TaskType taskType;
     
     // public E_Task condition { private set; get; }
 

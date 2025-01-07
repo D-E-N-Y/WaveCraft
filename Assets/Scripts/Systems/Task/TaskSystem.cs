@@ -5,8 +5,8 @@ public class TaskSystem : MonoBehaviour
 {
     static public TaskSystem current;
 
-    private Dictionary<E_Task, List<Task>> tasks;
-    // private List<UP_Worker> workers;    
+    private Dictionary<E_TaskState, List<Task>> tasks;
+    private List<UP_Worker> workers;    
 
     private void Awake() 
     {
@@ -20,60 +20,58 @@ public class TaskSystem : MonoBehaviour
 
     public void Initialize()
     {
-        tasks = new Dictionary<E_Task, List<Task>>();
+        tasks = new Dictionary<E_TaskState, List<Task>>();
     }
 
     public void AddTask(Task task)
     {
-        if(!tasks.ContainsKey(E_Task.Pending))
+        if(!tasks.ContainsKey(E_TaskState.Pending))
         {
-            tasks[E_Task.Pending] = new List<Task>();
+            tasks[E_TaskState.Pending] = new List<Task>();
         }
 
-        tasks[E_Task.Pending].Add(task);
+        tasks[E_TaskState.Pending].Add(task);
         
         DoTask(task);
     }
 
     public void DoTask(Task task)
     {
-        if(!tasks.ContainsKey(E_Task.Execured))
+        if(!tasks.ContainsKey(E_TaskState.Execured))
         {
-            tasks[E_Task.Execured] = new List<Task>();
+            tasks[E_TaskState.Execured] = new List<Task>();
         }
 
-        // Worker worker = FindFreeWorker();
-        // if(worker)
-        // {
-        //     worker.AddTask();
-        //     tasks[E_Task.Execured].Add(task);
-        // }
-        // else
-        // {
-        //     Debug.Log("Not have free workers");
-        // }
+        UP_Worker worker = FindFreeWorker();
+        if(worker)
+        {
+            worker.AddTask(task);
+            tasks[E_TaskState.Execured].Add(task);
+        }
+        else
+        {
+            Debug.Log("Not have free workers");
+        }
     }
 
-    private bool FindFreeWorker()
+    private UP_Worker FindFreeWorker()
     {
-        // foreach(Worker worker in workers)
-        // {
-        //     if(worker.HasFreeTaskSpace())
-        //     {
-        //         return worker;
-        //     }
-        // }
+        foreach(UP_Worker worker in workers)
+        {
+            if(worker.HasFreeTaskSpace())
+            {
+                return worker;
+            }
+        }
 
-        // return null;
-
-        return false;
+        return null;
     }
 
     public void CompleteTask(Task task)
     {
         // remove task from UI
         
-        tasks[E_Task.Execured].Remove(task);
+        tasks[E_TaskState.Execured].Remove(task);
 
         Debug.Log("Complete task");
     }
@@ -82,18 +80,18 @@ public class TaskSystem : MonoBehaviour
     {
         // remove task from UI
         
-        tasks[E_Task.Pending].Remove(task);
+        tasks[E_TaskState.Pending].Remove(task);
 
         Debug.Log("Cancel task");
     }
 
-    public void AddWorker()
+    public void AddWorker(UP_Worker worker)
     {
-        // workers.Add(worker);
+        workers.Add(worker);
     }
 
-    public void RemoveWorker()
+    public void RemoveWorker(UP_Worker worker)
     {
-        // workers.Remove(worker);
+        workers.Remove(worker);
     }
 }

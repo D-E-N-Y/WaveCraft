@@ -1,4 +1,4 @@
-public enum E_Task
+public enum E_TaskState
 {
     Pending,
     Execured
