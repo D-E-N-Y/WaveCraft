@@ -14,6 +14,11 @@ public class ResourceSystem : MonoBehaviour
     
     private void Start() 
     {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         resources = new Dictionary<E_Resource, int>();
         resources[E_Resource.Wood] = 100;
         resources[E_Resource.Stone] = 100;
@@ -39,6 +44,10 @@ public class ResourceSystem : MonoBehaviour
                     resources[resourceType] += amount;
                 }
             }
+            else
+            {
+                Debug.Log($"{gameObject} - AddResources - Null");
+            }
         }
     }
 
@@ -60,6 +69,10 @@ public class ResourceSystem : MonoBehaviour
                 {
                     resources[resourceType] -= amount;
                 }
+            }
+            else
+            {
+                Debug.Log($"{gameObject} - RemoveResources - Null");
             }
         }
     }

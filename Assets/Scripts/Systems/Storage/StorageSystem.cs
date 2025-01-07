@@ -5,71 +5,41 @@ public class StorageSystem : MonoBehaviour
 {
     public static StorageSystem current;
 
-    private List<IStorage> woodStorage;
-    private List<IStorage> stoneStorage;
-    private List<IStorage> foodStorage;
+    private Dictionary<E_Resource, List<IStorage>> storages;
 
     private void Awake() 
     {
         current = this;
     }
 
+    private void Start() 
+    {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        storages = new Dictionary<E_Resource, List<IStorage>>();
+    }
+
     public void AddStorage(IStorage storage, E_Resource resourceType)
     {
-        switch(resourceType)
+        if(!storages.ContainsKey(resourceType))
         {
-            case E_Resource.Wood:
-                woodStorage.Add(storage);
-                break;
-
-            case E_Resource.Stone:
-                stoneStorage.Add(storage);
-                break;
-
-            case E_Resource.Food:
-                foodStorage.Add(storage);
-                break;
+            storages[resourceType] = new List<IStorage>();
         }
+        
+        storages[resourceType].Add(storage);
     }
 
     public void RemoveStorages(IStorage storage, E_Resource resourceType)
     {
-        switch(resourceType)
-        {
-            case E_Resource.Wood:
-                woodStorage.Remove(storage);
-                break;
-
-            case E_Resource.Stone:
-                stoneStorage.Remove(storage);
-                break;
-
-            case E_Resource.Food:
-                foodStorage.Remove(storage);
-                break;
-        }
+        storages[resourceType].Remove(storage);
     }
 
     public bool CheckFreeSpace(E_Resource resourceType)
     {
-        switch(resourceType)
-        {
-            case E_Resource.Wood:
-                return ResultCheckFreeSpace(woodStorage);
-
-            case E_Resource.Stone:
-                return ResultCheckFreeSpace(stoneStorage);
-
-            case E_Resource.Food:
-                return ResultCheckFreeSpace(foodStorage);
-        }
-
-        return false;
-    }
-
-    private bool ResultCheckFreeSpace(List<IStorage> storages)
-    {
-        foreach(IStorage storage in storages)
+        foreach(IStorage storage in storages[resourceType])
         {
             if(storage.isFreeSpace())
             {
@@ -82,26 +52,9 @@ public class StorageSystem : MonoBehaviour
 
     public int CheckCountResurces(E_Resource resourceType)
     {
-        switch(resourceType)
-        {
-            case E_Resource.Wood:
-                return CountResources(woodStorage);
-
-            case E_Resource.Stone:
-                return CountResources(stoneStorage);
-
-            case E_Resource.Food:
-                return CountResources(foodStorage);
-        }
-
-        return 0;
-    }
-
-    private int CountResources(List<IStorage> storages)
-    {
         int result = 0;
         
-        foreach(IStorage storage in storages)
+        foreach(IStorage storage in storages[resourceType])
         {
             result += storage.GetCurrentAmount();
         }
@@ -111,27 +64,12 @@ public class StorageSystem : MonoBehaviour
 
     public IStorage FindStorageToAddResource(E_Resource resourceType)
     {
-        switch(resourceType)
-        {
-            case E_Resource.Wood:
-                return GetStorageToAddResource(woodStorage);
-
-            case E_Resource.Stone:
-                return GetStorageToAddResource(stoneStorage);
-
-            case E_Resource.Food:
-                return GetStorageToAddResource(foodStorage);
-        }
-
-        return null;
-    }
-
-    private IStorage GetStorageToAddResource(List<IStorage> storages)
-    {
-        foreach(IStorage storage in storages)
+        foreach(IStorage storage in storages[resourceType])
         {
             if(storage.isFreeSpace())
+            {
                 return storage;
+            }
         }
 
         return null;
@@ -140,27 +78,12 @@ public class StorageSystem : MonoBehaviour
 
     public IStorage FindStorageToRemoveResource(E_Resource resourceType)
     {
-        switch(resourceType)
-        {
-            case E_Resource.Wood:
-                return GetStorageToRemoveResource(woodStorage);
-
-            case E_Resource.Stone:
-                return GetStorageToRemoveResource(stoneStorage);
-
-            case E_Resource.Food:
-                return GetStorageToRemoveResource(foodStorage);
-        }
-
-        return null;
-    }
-
-    private IStorage GetStorageToRemoveResource(List<IStorage> storages)
-    {
-        foreach(IStorage storage in storages)
+        foreach(IStorage storage in storages[resourceType])
         {
             if(storage.GetCurrentAmount() > 0)
+            {
                 return storage;
+            }
         }
 
         return null;
