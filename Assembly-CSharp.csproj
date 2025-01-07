@@ -64,12 +64,14 @@
     <Analyzer Include="/home/deny/Unity/Hub/Editor/2022.3.31f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/Task/MiningTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Unit.cs" />
     <Compile Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieCharacterControl.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Production/I_Production.cs" />
     <Compile Include="Assets/Scripts/Task/E_TaskType.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/MaterialBuilding.cs" />
     <Compile Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieCameraLogic.cs" />
+    <Compile Include="Assets/Scripts/Task/DestroyTask.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/E_BuildingType.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
@@ -81,12 +83,14 @@
     <Compile Include="Assets/Scripts/Systems/Build/BuildSystem.cs" />
     <Compile Include="Assets/Scripts/Structures/S_Cost.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/B_Industrial.cs" />
+    <Compile Include="Assets/Scripts/Task/BuildTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/ObjectDrag.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/I_Storage.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Building.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processors/I_Processors.cs" />
     <Compile Include="Assets/Scripts/Actor/Actor.cs" />
     <Compile Include="Assets/Scripts/Enum/E_TaskState.cs" />
+    <Compile Include="Assets/Scripts/Task/StoreTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/U_Player.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/IStorage.cs" />
     <Compile Include="Assets/Assets/Enemy/Kevin Iglesias/Characters/Humanoid Giant/Demo Scene/Scripts/HumanoidGiantDemo.cs" />

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Task : MonoBehaviour
 {
-    private E_TaskType taskType;
-    
+    public E_TaskType taskType { protected set; get; }
+
     // public E_Task condition { private set; get; }
 
     // public void SetPendingTask() =>
