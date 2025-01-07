@@ -46,7 +46,7 @@ public class ResourceSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log($"{gameObject} - AddResources - Null");
+                Debug.Log($"ResourceSystem - AddResources - Null");
             }
         }
     }
@@ -72,7 +72,7 @@ public class ResourceSystem : MonoBehaviour
             }
             else
             {
-                Debug.Log($"{gameObject} - RemoveResources - Null");
+                Debug.Log($"ResourceSystem - RemoveResources - Null");
             }
         }
     }
