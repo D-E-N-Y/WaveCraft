@@ -1,5 +1,3 @@
-using UnityEngine.UIElements;
-
 public class StoreTask : Task
 {
     public E_Resource resource { private set; get; }

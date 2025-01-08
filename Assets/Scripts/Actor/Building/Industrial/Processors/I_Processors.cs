@@ -7,7 +7,8 @@ public class I_Processors : B_Industrial
     [SerializeField] float timeProcess;
 
     private bool isProcessing;
-    private int amount;
+    private int rawAmount;
+    private int processedAmount;
 
     private void StartProcess()
     {
@@ -24,12 +25,14 @@ public class I_Processors : B_Industrial
 
     private void CompleteProcess()
     {
-        amount--;
+        rawAmount--;
         
-        if(amount > 0) 
+        if(rawAmount > 0) 
             StartProcess();
         else
             isProcessing = false;
+
+        processedAmount += (int)(1 * factor);
 
         // ResourceSystem.AddResource();
         
@@ -37,8 +40,16 @@ public class I_Processors : B_Industrial
 
     public void AddResource(int amount)
     {
-        this.amount += amount;
+        this.rawAmount += amount;
 
         if(!isProcessing) StartProcess();
+    }
+
+    public int Unload()
+    {
+        int amount = processedAmount;
+        processedAmount = 0;
+
+        return amount;
     }
 }
