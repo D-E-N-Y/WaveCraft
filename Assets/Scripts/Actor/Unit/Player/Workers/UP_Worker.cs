@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,9 @@ using UnityEngine.AI;
 
 public class UP_Worker : U_Player
 {
-    private Dictionary<int, Task> tasks;
-    private int taskPriority { get { return tasks.Count; } }
+    private E_WorkerState state;
+
+    private List<Task> tasks;
     [SerializeField, Range(1, 10)] private int limitTasks;
     
     [SerializeField] private NavMeshAgent agent;
@@ -14,31 +16,55 @@ public class UP_Worker : U_Player
     [SerializeField, Range(1, 20)] private int maxAmount;
     private int currentAmount;
 
-    private void Start() 
-    {
-        Initialize();
-    }
+    // private void Start() 
+    // {
+    //     Initialize();
+    // }
 
     public void Initialize()
     {
-        TaskSystem.current.AddWorker(this);
-
-        tasks = new Dictionary<int, Task>();
+        tasks = new List<Task>();
         currentAmount = 0;
+
+        state = E_WorkerState.Idle;
+
+        TaskSystem.current.AddWorker(this);
     }
     
     #region Control tasks
         
     public void AddTask(Task task)
     {
-        tasks[taskPriority] = task;
+        tasks.Add(task);
 
         DoTask();
     }
 
     public void DoTask()
     {
-        // tasks[1] - first priority
+        if(state != E_WorkerState.Idle || tasks.Count == 0)
+        {
+            return;
+        }
+
+        state = E_WorkerState.Busy;
+        
+        switch(tasks[0])
+        {
+            case BuildTask buildTask:
+                StartCoroutine(BuildTask(buildTask));
+                break;
+
+            case MiningTask miningTask:
+                break;
+
+            case DestroyTask destroyTask:
+                break;
+
+            case StoreTask storeTask:
+                break;
+        }
+
     }
 
     public void StopTask()
@@ -51,16 +77,21 @@ public class UP_Worker : U_Player
         
     }
 
-    private void CompleteTask()
+    private void CompleteTask(Task task)
     {
+        TaskSystem.current.CompleteTask(task);
+        
+        tasks.Remove(task);
+        state = E_WorkerState.Idle;
 
+        DoTask();
     }
 
     #endregion
 
     public bool HasFreeTaskSpace()
     {
-        return limitTasks < tasks.Count;
+        return limitTasks > tasks.Count;
     }
 
 
@@ -70,7 +101,15 @@ public class UP_Worker : U_Player
     {
         // move to building
         agent.SetDestination(task.buildingPosition);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
+        
+        // Wait until the path is calculated
+        while (agent.pathPending)
+        {
+            yield return null;
+        }
+
+        // Wait until agent reaches the destination
+        while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
         {
             yield return null;
         }
@@ -83,11 +122,13 @@ public class UP_Worker : U_Player
 
             // Update UI
 
+            // Debug.Log($"Building progress: {elapsedTime / task.timeToBuild * 100}%");
+
             yield return null;
         }
 
         // complete
-        Debug.Log("Build complete");
+        CompleteTask(task);
     }
 
     private IEnumerator MiningTask(MiningTask task)

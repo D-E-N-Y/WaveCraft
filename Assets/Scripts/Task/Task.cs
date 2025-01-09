@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class Task : MonoBehaviour
+public class Task
 {
     public E_TaskType taskType { protected set; get; }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskSystem : MonoBehaviour
@@ -7,6 +8,8 @@ public class TaskSystem : MonoBehaviour
 
     private Dictionary<E_TaskState, List<Task>> tasks;
     private List<UP_Worker> workers;    
+
+    [SerializeField] private GameObject workerPrefab;
 
     private void Awake() 
     {
@@ -18,9 +21,19 @@ public class TaskSystem : MonoBehaviour
         Initialize();
     }
 
+    private void Update() 
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            UP_Worker worker = Instantiate(workerPrefab).GetComponent<UP_Worker>();
+            worker.Initialize();
+        }
+    }
+
     public void Initialize()
     {
         tasks = new Dictionary<E_TaskState, List<Task>>();
+        workers = new List<UP_Worker>();
     }
 
     public void AddTask(Task task)
@@ -47,6 +60,8 @@ public class TaskSystem : MonoBehaviour
         {
             worker.AddTask(task);
             tasks[E_TaskState.Execured].Add(task);
+
+            Debug.Log($"{worker} do {task}");
         }
         else
         {
@@ -88,6 +103,11 @@ public class TaskSystem : MonoBehaviour
     public void AddWorker(UP_Worker worker)
     {
         workers.Add(worker);
+
+        if(tasks.ContainsKey(E_TaskState.Pending) && tasks[E_TaskState.Pending].Count > 0)
+        {
+            DoTask(tasks[E_TaskState.Pending][0]);
+        }
     }
 
     public void RemoveWorker(UP_Worker worker)

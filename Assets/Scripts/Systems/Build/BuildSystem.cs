@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -100,6 +98,9 @@ public class BuildSystem : MonoBehaviour
                 materialBuilding.EndPlace();
                 
                 BusyTakeArea(start, building.Size);
+                
+                BuildTask task = new BuildTask(building.transform.position, building.GetTimeToBuild());
+                TaskSystem.current.AddTask(task);
 
                 building = null;
                 materialBuilding = null;
