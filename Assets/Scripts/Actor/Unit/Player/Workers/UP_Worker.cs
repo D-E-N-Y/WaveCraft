@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class UP_Worker : U_Player
 {
-    private E_WorkerState state;
+    public E_WorkerState state { private set; get; }
 
     private List<Task> tasks;
     [SerializeField, Range(1, 10)] private int limitTasks;
@@ -100,7 +100,7 @@ public class UP_Worker : U_Player
     private IEnumerator BuildTask(BuildTask task)
     {
         // move to building
-        agent.SetDestination(task.buildingPosition);
+        agent.SetDestination(task.building.transform.position);
         
         // Wait until the path is calculated
         while (agent.pathPending)
@@ -118,7 +118,7 @@ public class UP_Worker : U_Player
 
         // build
         float elapsedTime = 0f;
-        while(elapsedTime < task.timeToBuild)
+        while(elapsedTime < task.building.GetTimeToBuild())
         {
             elapsedTime += Time.deltaTime;
 

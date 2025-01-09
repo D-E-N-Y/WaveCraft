@@ -60,6 +60,7 @@ public class TaskSystem : MonoBehaviour
         {
             worker.AddTask(task);
             tasks[E_TaskState.Execured].Add(task);
+            tasks[E_TaskState.Pending].Remove(task);
 
             Debug.Log($"{worker} do {task}");
         }
@@ -71,6 +72,14 @@ public class TaskSystem : MonoBehaviour
 
     private UP_Worker FindFreeWorker()
     {
+        foreach(UP_Worker worker in workers)
+        {
+            if(worker.state == E_WorkerState.Idle)
+            {
+                return worker;
+            }
+        }
+
         foreach(UP_Worker worker in workers)
         {
             if(worker.HasFreeTaskSpace())
@@ -87,8 +96,12 @@ public class TaskSystem : MonoBehaviour
         // remove task from UI
         
         tasks[E_TaskState.Execured].Remove(task);
-
         Debug.Log("Complete task");
+
+        if(tasks[E_TaskState.Pending].Count > 0)
+        {
+            DoTask(tasks[E_TaskState.Pending][0]);
+        }
     }
 
     public void CancelTask(Task task)

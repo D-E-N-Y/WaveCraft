@@ -99,9 +99,7 @@ public class BuildSystem : MonoBehaviour
                 
                 BusyTakeArea(start, building.Size);
                 
-                BuildTask task = new BuildTask(building, 
-                                               building.transform.position, 
-                                               building.GetTimeToBuild());
+                BuildTask task = new BuildTask(building);
                 TaskSystem.current.AddTask(task);
 
                 building = null;
