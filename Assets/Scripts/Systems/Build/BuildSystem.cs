@@ -210,8 +210,14 @@ public class BuildSystem : MonoBehaviour
 
     public void BusyTakeArea(Vector3Int start, Vector3Int size)
     {
-        busyTilemap.BoxFill(start, notCanPlaceTile, start.x, start.y, 
-                            start.x + size.x, start.y + size.y);
+        for (int x = start.x; x <= start.x + size.x; x++)
+        {
+            for (int y = start.y; y <= start.y + size.y; y++)
+            {
+                Vector3Int position = new Vector3Int(x, y, 0);
+                busyTilemap.SetTile(position, notCanPlaceTile);
+            }
+        }
     }
         
     #endregion
