@@ -114,6 +114,8 @@ public class UP_Worker : U_Player
             yield return null;
         }
 
+        Debug.Log("start build");
+
         // build
         float elapsedTime = 0f;
         while(elapsedTime < task.timeToBuild)
@@ -126,7 +128,8 @@ public class UP_Worker : U_Player
 
             yield return null;
         }
-
+        task.building.Built();
+        
         // complete
         CompleteTask(task);
     }

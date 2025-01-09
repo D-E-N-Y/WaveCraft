@@ -95,11 +95,13 @@ public class BuildSystem : MonoBehaviour
             if(CanBePlaced(building))
             {
                 building.Place();
-                materialBuilding.EndPlace();
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
                 
                 BusyTakeArea(start, building.Size);
                 
-                BuildTask task = new BuildTask(building.transform.position, building.GetTimeToBuild());
+                BuildTask task = new BuildTask(building, 
+                                               building.transform.position, 
+                                               building.GetTimeToBuild());
                 TaskSystem.current.AddTask(task);
 
                 building = null;

@@ -8,11 +8,13 @@ public class MaterialBuilding : MonoBehaviour
 
     [SerializeField] private Color canPlace;
     [SerializeField] private Color notCanPlace;
+    [SerializeField] private Color placed;
 
     public enum BuildColor
     {
         canPlace,
-        notCanPlace
+        notCanPlace,
+        placed
     }
     
     public void StartPlace()
@@ -20,7 +22,7 @@ public class MaterialBuilding : MonoBehaviour
         meshRenderer.material = M_Build;
     }
 
-    public void EndPlace()
+    public void Built()
     {
         meshRenderer.material = M_Building;
     }
@@ -35,6 +37,10 @@ public class MaterialBuilding : MonoBehaviour
             
             case BuildColor.notCanPlace:
                 meshRenderer.material.color = notCanPlace;
+                break;
+            
+            case BuildColor.placed:
+                meshRenderer.material.color = placed;
                 break;
         }
 

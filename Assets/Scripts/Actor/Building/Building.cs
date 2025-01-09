@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Building : Actor
 {
@@ -13,9 +14,11 @@ public class Building : Actor
 
     [SerializeField] protected S_Cost[] cost;
     protected E_BuildingType buildingType;
-
+    
     public Vector3Int Size { private set; get; }
     private Vector3[] Vertices;
+
+    protected NavMeshObstacle navMeshObstacle;
 
     public void Initialize()
     {
@@ -23,6 +26,8 @@ public class Building : Actor
         CalculateSizeInCells();
 
         isBuild = false;
+
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
     
     private void GetColliderVertexPositionsLocal()
@@ -74,11 +79,17 @@ public class Building : Actor
         return timeToBuild;
     }
 
-    public virtual void Place()
+    public void Place()
     {
         ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
         Destroy(drag);
 
         isPlace = true;
+    }
+
+    public void Built()
+    {
+        GetComponent<MaterialBuilding>().Built();
+        navMeshObstacle.enabled = true;
     }
 }
