@@ -64,6 +64,7 @@
     <Analyzer Include="/home/deny/Unity/Hub/Editor/2022.3.31f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Assets/UI/UI pack/Scripts/FillValueNumber.cs" />
     <Compile Include="Assets/Scripts/Task/MiningTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Unit.cs" />
     <Compile Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieCharacterControl.cs" />
@@ -101,6 +102,7 @@
   <ItemGroup>
     <None Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Shaders/Legacy/CelShader.shader" />
     <None Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Shaders/SupercyanShader.shader" />
+    <None Include="Assets/Assets/UI/UI pack/Documentation.txt" />
     <None Include="Assets/Assets/Civilian/Stylized NPC - Peasant Nolant/README.txt" />
     <None Include="Assets/Assets/Enemy/Supercyan Character Pack Zombie Sample/Shaders/SupercyanShaderLighting.cginc" />
   </ItemGroup>
@@ -1061,12 +1063,12 @@
       <HintPath>Library/ScriptAssemblies/Unity.VisualScripting.State.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>Library/ScriptAssemblies/Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
