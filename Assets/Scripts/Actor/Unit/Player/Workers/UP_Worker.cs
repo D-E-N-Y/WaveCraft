@@ -113,6 +113,7 @@ public class UP_Worker : U_Player
         {
             yield return null;
         }
+        agent.ResetPath();
 
         Debug.Log("start build");
 
