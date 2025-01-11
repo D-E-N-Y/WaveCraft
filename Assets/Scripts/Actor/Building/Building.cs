@@ -74,9 +74,19 @@ public class Building : Actor
         Vertices = vertices;
     }
 
+    public int GetMaxHP()
+    {
+        return maxHP;
+    }
+    
     public float GetTimeToBuild()
     {
         return timeToBuild;
+    }
+
+    public S_Cost[] GetCost()
+    {
+        return cost;
     }
 
     public void Place()

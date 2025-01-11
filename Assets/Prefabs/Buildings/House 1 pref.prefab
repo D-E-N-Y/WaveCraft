@@ -90,9 +90,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 10
   timeToBuild: 15
-  cost: []
+  cost:
+  - resourse: 0
+    count: 10
+  - resourse: 1
+    count: 15
   resourse: 0
-  maxAmount: 7
+  maxAmount: 100
 --- !u!208 &3622060583275731789
 NavMeshObstacle:
   m_ObjectHideFlags: 0

@@ -4,4 +4,5 @@ public interface IStorage
     int AddResources(int amount);
     int RemoveResources(int amount);
     int GetCurrentAmount();
+    int GetMaxAmount();
 }

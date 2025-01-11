@@ -46,4 +46,9 @@ public class I_Storage : B_Industrial, IStorage
     {
         return currentAmount;
     }
+
+    public int GetMaxAmount()
+    {
+        return maxAmount;
+    }
 }

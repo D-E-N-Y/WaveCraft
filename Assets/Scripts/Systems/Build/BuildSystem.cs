@@ -34,7 +34,6 @@ public class BuildSystem : MonoBehaviour
 
     private void Update() 
     {
-        ChooseBuilding();
         BuildingMove();
     }
 
@@ -163,6 +162,8 @@ public class BuildSystem : MonoBehaviour
     
     public void InitializeWithObject(GameObject prefab)
     {
+        if(building) return;
+        
         Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
