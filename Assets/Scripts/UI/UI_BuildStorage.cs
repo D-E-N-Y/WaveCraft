@@ -15,7 +15,7 @@ public class UI_BuildStorage : UI_Build
     {
         I_Storage storage = building.GetComponent<I_Storage>();
         
-        name.text = "Storage";
+        _name.text = "Storage";
         health.text = storage.GetMaxHP().ToString();
         resource.text = storage.GetTypeResource().ToString();
         amount.text = storage.GetMaxAmount().ToString();

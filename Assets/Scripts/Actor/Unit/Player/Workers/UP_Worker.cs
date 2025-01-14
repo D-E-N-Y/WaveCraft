@@ -158,7 +158,7 @@ public class UP_Worker : U_Player
         }
         
         // move to processor
-        I_Processors processor = GetNearbyProcessor(task.resource);
+        I_Processor processor = GetNearbyProcessor(task.resource);
         agent.SetDestination(processor.transform.position);
         while(!agent.pathPending && agent.remainingDistance > 0.1f)
         {
@@ -180,7 +180,7 @@ public class UP_Worker : U_Player
         return Vector3.zero;
     }
 
-    private I_Processors GetNearbyProcessor(E_Resource resource)
+    private I_Processor GetNearbyProcessor(E_Resource resource)
     {
         // get nearby processor from worker
         
@@ -214,7 +214,7 @@ public class UP_Worker : U_Player
     private IEnumerator StoreTask(StoreTask task)
     {
         // move to processor
-        I_Processors processor = GetNearbyProcessor(task.resource);
+        I_Processor processor = GetNearbyProcessor(task.resource);
         agent.SetDestination(processor.transform.position);
         while(!agent.pathPending && agent.remainingDistance > 0.1f)
         {
