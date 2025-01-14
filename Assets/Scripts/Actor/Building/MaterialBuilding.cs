@@ -3,8 +3,6 @@ using UnityEngine;
 public class MaterialBuilding : MonoBehaviour
 {
     [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private Material M_Building;
-    [SerializeField] private Material M_Build;
 
     [SerializeField] private Color canPlace;
     [SerializeField] private Color notCanPlace;
@@ -19,12 +17,12 @@ public class MaterialBuilding : MonoBehaviour
     
     public void StartPlace()
     {
-        meshRenderer.material = M_Build;
+        SetTransparentMode();
     }
 
     public void Built()
     {
-        meshRenderer.material = M_Building;
+        SetOpaqueMode();
     }
     
     public void SetColor(BuildColor color)
@@ -49,23 +47,23 @@ public class MaterialBuilding : MonoBehaviour
 
     private void SetOpaqueMode()
     {
-        M_Building.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-        M_Building.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-        M_Building.SetInt("_ZWrite", 1);
-        M_Building.DisableKeyword("_ALPHATEST_ON");
-        M_Building.DisableKeyword("_ALPHABLEND_ON");
-        M_Building.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        M_Building.renderQueue = -1;
+        meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        meshRenderer.material.SetInt("_ZWrite", 1);
+        meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+        meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        meshRenderer.material.renderQueue = -1;
     }
 
     private void SetTransparentMode()
     {
-        M_Building.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-        M_Building.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        M_Building.SetInt("_ZWrite", 0);
-        M_Building.DisableKeyword("_ALPHATEST_ON");
-        M_Building.DisableKeyword("_ALPHABLEND_ON");
-        M_Building.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-        M_Building.renderQueue = 3000;
+        meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        meshRenderer.material.SetInt("_ZWrite", 0);
+        meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
+        meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+        meshRenderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+        meshRenderer.material.renderQueue = 3000;
     }
 }

@@ -74,12 +74,12 @@ public class BuildSystem : MonoBehaviour
         {
             if(CanBePlaced(building))
             {
-                // materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
                 FreeTakeArea(start, building.Size, canPlaceTile);
             }
             else
             {
-                // materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
                 FreeTakeArea(start, building.Size, notCanPlaceTile);
             }
         }
@@ -94,7 +94,7 @@ public class BuildSystem : MonoBehaviour
             if(CanBePlaced(building))
             {
                 building.Place();
-                // materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
+                materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
                 
                 BusyTakeArea(start, building.Size);
                 
@@ -171,8 +171,8 @@ public class BuildSystem : MonoBehaviour
         building.Initialize();
         obj.AddComponent<ObjectDrag>();
 
-        // materialBuilding = building.GetComponent<MaterialBuilding>();
-        // materialBuilding.StartPlace();
+        materialBuilding = building.GetComponent<MaterialBuilding>();
+        materialBuilding.StartPlace();
 
         ActiveTilemap(true);
     }
