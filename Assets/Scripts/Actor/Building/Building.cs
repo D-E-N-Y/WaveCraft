@@ -18,7 +18,7 @@ public class Building : Actor
     public Vector3Int Size { private set; get; }
     private Vector3[] Vertices;
 
-    protected NavMeshObstacle navMeshObstacle;
+    protected NavMeshObstacle[] navMeshObstacles;
 
     public void Initialize()
     {
@@ -27,7 +27,7 @@ public class Building : Actor
 
         isBuild = false;
 
-        navMeshObstacle = GetComponent<NavMeshObstacle>();
+        navMeshObstacles = GetComponents<NavMeshObstacle>();
     }
     
     private void GetColliderVertexPositionsLocal()
@@ -100,6 +100,10 @@ public class Building : Actor
     public void Built()
     {
         GetComponent<MaterialBuilding>().Built();
-        navMeshObstacle.enabled = true;
+        
+        foreach(NavMeshObstacle obstacle in navMeshObstacles)
+        {
+            obstacle.enabled = true;
+        }
     }
 }
