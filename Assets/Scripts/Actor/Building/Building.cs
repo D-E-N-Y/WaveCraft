@@ -89,6 +89,19 @@ public class Building : Actor
         return cost;
     }
 
+    public int GetCostByResource(E_Resource resource)
+    {
+        foreach(S_Cost amount in cost)
+        {
+            if(amount.resourse == resource)
+            {
+                return amount.count;
+            }
+        }
+
+        return 0;
+    }
+
     public void Place()
     {
         ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
