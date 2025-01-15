@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Unit : Actor
 {
-    [SerializeField] protected float maxHP;
-    protected float currentHP;
     public bool Died { private set; get; }
 
     [SerializeField] protected float armor;
@@ -12,7 +10,7 @@ public class Unit : Actor
 
     [SerializeField] protected float moveSpeed;
 
-    public void TakeDamage(float damage)
+    public override void TakeDamage(float damage)
     {
         currentHP -= Mathf.Max(damage - (armor * coefArmor), 1f);
 

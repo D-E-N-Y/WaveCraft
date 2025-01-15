@@ -16,12 +16,7 @@ public class UP_Worker : U_Player
     [SerializeField, Range(1, 20)] private int maxAmount;
     private int currentAmount;
 
-    // private void Start() 
-    // {
-    //     Initialize();
-    // }
-
-    public void Initialize()
+    public override void Initialize()
     {
         tasks = new List<Task>();
         currentAmount = 0;

@@ -4,9 +4,6 @@ using UnityEngine.AI;
 
 public class Building : Actor
 {
-    [SerializeField] protected int maxHP;
-    protected int currentHP;
-
     [SerializeField] protected float timeToBuild;
 
     public bool isPlace { private set; get; }   
@@ -20,7 +17,7 @@ public class Building : Actor
 
     protected NavMeshObstacle[] navMeshObstacles;
 
-    public void Initialize()
+    public override void Initialize()
     {
         GetColliderVertexPositionsLocal();
         CalculateSizeInCells();
@@ -72,11 +69,6 @@ public class Building : Actor
         }
         
         Vertices = vertices;
-    }
-
-    public int GetMaxHP()
-    {
-        return maxHP;
     }
     
     public float GetTimeToBuild()
