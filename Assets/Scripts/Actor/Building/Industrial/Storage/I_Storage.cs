@@ -3,7 +3,14 @@ using UnityEngine;
 public class I_Storage : B_Industrial, IStorage
 {
     [SerializeField] private int maxAmount;
-    public int currentAmount { private set; get; }
+    private int currentAmount;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        StorageSystem.current.AddStorage(this, resourse);
+    }
 
     public bool isFreeSpace()
     {

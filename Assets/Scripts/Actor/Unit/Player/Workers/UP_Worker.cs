@@ -161,7 +161,7 @@ public class UP_Worker : U_Player
         }
 
         // store amount resources to processor
-        processor.AddResource(currentAmount);
+        processor.AddResources(currentAmount);
         currentAmount = 0;
 
         // complete

@@ -168,7 +168,7 @@ public class BuildSystem : MonoBehaviour
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         building = obj.GetComponent<Building>();
-        building.Initialize();
+        building.Initialize();        
         obj.AddComponent<ObjectDrag>();
 
         materialBuilding = building.GetComponent<MaterialBuilding>();

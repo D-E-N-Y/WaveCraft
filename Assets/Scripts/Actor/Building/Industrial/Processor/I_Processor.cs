@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class I_Processor : B_Industrial
+public class I_Processor : B_Industrial, IProcessing
 {
-    [SerializeField] float factor;
-    [SerializeField] float timeProcess;
+    [SerializeField] private float factor;
+    [SerializeField] private float timeProcess;
 
     private bool isProcessing;
     private int rawAmount;
@@ -38,9 +38,9 @@ public class I_Processor : B_Industrial
         
     }
 
-    public void AddResource(int amount)
+    public void AddResources(int amount)
     {
-        this.rawAmount += amount;
+        rawAmount += amount;
 
         if(!isProcessing) StartProcess();
     }
