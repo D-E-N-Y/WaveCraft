@@ -96,8 +96,11 @@ public class Building : Actor
 
     public void Place()
     {
-        ObjectDrag drag = gameObject.GetComponent<ObjectDrag>();
-        Destroy(drag);
+        ObjectDrag drag = gameObject?.GetComponent<ObjectDrag>();
+        if(drag)
+        {
+            Destroy(drag);
+        }
 
         isPlace = true;
     }

@@ -19,11 +19,16 @@ public class StorageSystem : MonoBehaviour
 
     public void Initialize()
     {
-        storages = new Dictionary<E_Resource, List<IStorage>>();
+        if(storages == null)
+        {
+            storages = new Dictionary<E_Resource, List<IStorage>>();
+        }
     }
 
     public void AddStorage(IStorage storage, E_Resource resourceType)
     {
+        Initialize(); // template decision
+
         if(!storages.ContainsKey(resourceType))
         {
             storages[resourceType] = new List<IStorage>();

@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class B_TownHall : Building, ISpawnUnit, IResidential
 {
+    private void Start() 
+    {
+        Initialize();
+    }
+    
     public override void Initialize()
     {
         base.Initialize();
 
+        // fill busy grid 
+        BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
+        Place();
+        Built();
+
+        // initialize storage
         storages = new List<TH_Storage>();
         foreach(STH_Storage storage in storages_param)
         {
@@ -17,6 +28,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             StorageSystem.current.AddStorage(newStorage, newStorage.resource);
         }
 
+        // ininitialize processor
         processors = new List<TH_Processor>();
         foreach(STH_Processor processor in processors_param)
         {
