@@ -57,6 +57,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71442e8cd72511e4fabb72f1a2cc82dd, type: 3}
+--- !u!23 &6787151611901044765 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 23060441940367624, guid: 71442e8cd72511e4fabb72f1a2cc82dd, type: 3}
+  m_PrefabInstance: {fileID: 6800755635365146901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6804534510638092751 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4419083434238170, guid: 71442e8cd72511e4fabb72f1a2cc82dd, type: 3}
@@ -98,6 +103,10 @@ PrefabInstance:
       propertyPath: m_Extents.z
       value: 4.75
       objectReference: {fileID: 0}
+    - target: {fileID: 5575133133844871722, guid: a042fbf8373e9b70283187ac7efc1698, type: 3}
+      propertyPath: meshRenderer
+      value: 
+      objectReference: {fileID: 6787151611901044765}
     - target: {fileID: 6529094831363983597, guid: a042fbf8373e9b70283187ac7efc1698, type: 3}
       propertyPath: m_Size.x
       value: 8
