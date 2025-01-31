@@ -1,22 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractionSystem : MonoBehaviour
+public class InteractionSystem : GameSystem
 {
     public static InteractionSystem current;
 
     private int layerInteractable; 
     private Actor selectActor;
 
-    private void Awake() 
+    public override void Initialize()
     {
-        Initialize();
-    }
+        base.Initialize();
 
-    public void Initialize()
-    {
         current = this;
-   
+
         layerInteractable = LayerMask.NameToLayer("Interactable"); 
     }
 

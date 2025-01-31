@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class TaskSystem : MonoBehaviour
+public class TaskSystem : GameSystem
 {
     static public TaskSystem current;
 
@@ -10,16 +9,6 @@ public class TaskSystem : MonoBehaviour
     private List<UP_Worker> workers;    
 
     [SerializeField] private GameObject workerPrefab;
-
-    private void Awake() 
-    {
-        current = this;
-    }
-
-    private void Start() 
-    {
-        Initialize();
-    }
 
     private void Update() 
     {
@@ -30,8 +19,12 @@ public class TaskSystem : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
+        base.Initialize();
+
+        current = this;
+
         tasks = new Dictionary<E_TaskState, List<Task>>();
         workers = new List<UP_Worker>();
     }

@@ -1,24 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StorageSystem : MonoBehaviour
+public class StorageSystem : GameSystem
 {
     public static StorageSystem current;
 
     private Dictionary<E_Resource, List<IStorage>> storages;
 
-    private void Awake() 
+    public override void Initialize()
     {
+        base.Initialize();
+        
         current = this;
-    }
 
-    private void Start() 
-    {
-        Initialize();
-    }
-
-    public void Initialize()
-    {
         if(storages == null)
         {
             storages = new Dictionary<E_Resource, List<IStorage>>();

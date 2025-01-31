@@ -1,7 +1,12 @@
 using UnityEngine;
 
-public class UISystem : MonoBehaviour
+public class UISystem : GameSystem
 {
+    public override void Initialize()
+    {
+        base.Initialize();
+    }
+
     public void OpenPanel(GameObject panel)
     {
         panel.SetActive(true);

@@ -1,24 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourceSystem : MonoBehaviour
+public class ResourceSystem : GameSystem
 {
     public static ResourceSystem current;
 
     public Dictionary<E_Resource, int> resources { private set; get; }
 
-    private void Awake() 
+    public override void Initialize()
     {
+        base.Initialize();
+        
         current = this;
-    }
-    
-    private void Start() 
-    {
-        Initialize();
-    }
 
-    public void Initialize()
-    {
         resources = new Dictionary<E_Resource, int>();
         resources[E_Resource.Wood] = 100;
         resources[E_Resource.Stone] = 100;

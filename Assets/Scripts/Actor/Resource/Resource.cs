@@ -3,7 +3,7 @@ using UnityEngine;
 public class Resource : Actor
 {
     [SerializeField] private E_Resource resource;
-
+    
     public override void Initialize()
     {
         base.Initialize();

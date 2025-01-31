@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-public class BuildSystem : MonoBehaviour
+public class BuildSystem : GameSystem
 {
     public static BuildSystem current;
 
@@ -15,8 +17,6 @@ public class BuildSystem : MonoBehaviour
     [SerializeField] private TileBase notCanPlaceTile;
     [SerializeField] private TileBase canPlaceTile;
 
-    public GameObject[] prefabs;
-
     private Building building;
     private MaterialBuilding materialBuilding;
 
@@ -24,9 +24,22 @@ public class BuildSystem : MonoBehaviour
 
     private void Awake() 
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"✅ Сцена {scene.name} загружена, можно инициализировать систему!");
+        Initialize();
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
         current = this;
     }
-    
+
     private void Start()
     {
         grid = gridLayout.gameObject.GetComponent<Grid>();
@@ -40,27 +53,6 @@ public class BuildSystem : MonoBehaviour
     #endregion
 
     #region Utils
-
-    private void ChooseBuilding()
-    {
-        if(building) 
-            return;
-
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-            InitializeWithObject(prefabs[0]);
-        
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-            InitializeWithObject(prefabs[1]);
-        
-        if(Input.GetKeyDown(KeyCode.Alpha3))
-            InitializeWithObject(prefabs[2]);
-        
-        if(Input.GetKeyDown(KeyCode.Alpha4))
-            InitializeWithObject(prefabs[3]);
-        
-        if(Input.GetKeyDown(KeyCode.Alpha5))
-            InitializeWithObject(prefabs[4]);
-    }
 
     private void BuildingMove()
     {
