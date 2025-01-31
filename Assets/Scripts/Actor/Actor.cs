@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
+    [SerializeField] protected GameObject interactionMenuUI;
+    
     [SerializeField] protected float maxHP;
     protected float currentHP;
     
@@ -17,7 +19,12 @@ public class Actor : MonoBehaviour
 
     public virtual void Interaction()
     {
-        
+        interactionMenuUI.SetActive(true);
+    }
+
+    public virtual void DisInteraction()
+    {
+        interactionMenuUI.SetActive(false);
     }
 
     public virtual void Initialize()

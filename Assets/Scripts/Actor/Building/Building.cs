@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,11 @@ public class Building : Actor
     private Vector3[] Vertices;
 
     protected NavMeshObstacle[] navMeshObstacles;
+
+    public override void Interaction()
+    {
+        base.Interaction();
+    }
 
     public override void Initialize()
     {
