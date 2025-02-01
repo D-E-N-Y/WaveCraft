@@ -4,12 +4,19 @@ public class Actor : MonoBehaviour
 {
     [SerializeField] protected GameObject interactionMenuUI;
     
+    public string nameActor { get; protected set; }
+
     [SerializeField] protected float maxHP;
     protected float currentHP;
     
     public float GetMaxHP()
     {
         return maxHP;
+    }
+
+    public float GetCurrentHP()
+    {
+        return currentHP;
     }
 
     public virtual void TakeDamage(float damage)
@@ -29,6 +36,6 @@ public class Actor : MonoBehaviour
 
     public virtual void Initialize()
     {
-
+        currentHP = maxHP;
     }
 }

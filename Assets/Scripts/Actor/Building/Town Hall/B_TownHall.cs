@@ -22,9 +22,10 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         storages = new List<TH_Storage>();
         foreach(STH_Storage storage in storages_param)
         {
-            TH_Storage newStorage = new TH_Storage(storage.resource, storage.maxAmount);
-            
+            TH_Storage newStorage = gameObject.AddComponent<TH_Storage>();
+            newStorage.Initialize(storage.resource, storage.maxAmount);
             storages.Add(newStorage);
+            
             StorageSystem.current.AddStorage(newStorage, newStorage.resource);
             ResourceSystem.current.AddResources(newStorage.resource, newStorage.GetMaxAmount());
         }
@@ -33,7 +34,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         processors = new List<TH_Processor>();
         foreach(STH_Processor processor in processors_param)
         {
-            processors.Add(new TH_Processor(processor.resource, processor.factor, processor.timeProcess));
+            TH_Processor newProcessor = gameObject.AddComponent<TH_Processor>();
+            newProcessor.Initialize(processor.resource, processor.factor, processor.timeProcess);
+            processors.Add(newProcessor);
+
+            ProcessorSystem.current.AddProcessor(processor.resource, newProcessor);
         }
     } 
 

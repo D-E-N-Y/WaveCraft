@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class TH_Storage : IStorage
+public class TH_Storage : MonoBehaviour, IStorage
 {
     public E_Resource resource { private set; get; }
     private int maxAmount;
     private int currentAmount;
 
-    public TH_Storage(E_Resource resource, int maxAmount)
+    public void Initialize(E_Resource resource, int maxAmount)
     {
         this.resource = resource;
         this.maxAmount = maxAmount;

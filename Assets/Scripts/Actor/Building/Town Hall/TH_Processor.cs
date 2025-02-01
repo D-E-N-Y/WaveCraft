@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class TH_Processor : MonoBehaviour, IProcessing
+public class TH_Processor : MonoBehaviour, IProcessor
 {
     private E_Resource resource;
     private float factor;
@@ -11,7 +11,7 @@ public class TH_Processor : MonoBehaviour, IProcessing
     private int rawAmount;
     private int processedAmount;
 
-    public TH_Processor(E_Resource resource, float factor, float timeProcess)
+    public void Initialize(E_Resource resource, float factor, float timeProcess)
     {
         this.resource = resource;
         this.factor = factor;
@@ -59,5 +59,10 @@ public class TH_Processor : MonoBehaviour, IProcessing
         processedAmount = 0;
 
         return amount;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
     }
 }

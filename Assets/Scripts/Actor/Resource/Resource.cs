@@ -17,6 +17,17 @@ public class Resource : Actor
     {
         base.Initialize();
 
+        switch(resource)
+        {
+            case E_Resource.Wood:
+                nameActor = "Tree";
+                break;
+            
+            case E_Resource.Stone:
+                nameActor = "Rock";
+                break;
+        }
+
         gridCollider = new GridCollider(gameObject);
         
         Vertices = gridCollider.GetColliderVertexPositionsLocal();
@@ -35,5 +46,10 @@ public class Resource : Actor
         {
             Destroy(gameObject);
         }
+    }
+
+    public E_Resource GetType()
+    {
+        return resource;
     }
 }

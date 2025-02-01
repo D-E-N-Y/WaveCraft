@@ -51,6 +51,7 @@ public class UP_Worker : U_Player
                 break;
 
             case MiningTask miningTask:
+                StartCoroutine(MiningTask(miningTask));
                 break;
 
             case DestroyTask destroyTask:
@@ -132,40 +133,67 @@ public class UP_Worker : U_Player
 
     private IEnumerator MiningTask(MiningTask task)
     {
-        // move to resource
-        Vector3 resourcePosition = task.resourcePosition;
-        if(resourcePosition == null)
-        {
-            resourcePosition = GetNearbyResource(task.resource);
-        }
-        
-        agent.SetDestination(resourcePosition);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        {
-            yield return null;
-        }
+        int currentMine = 0;
+        Debug.Log($"Need mine {task.resourceAmount}");
 
-        // mining
-        // animation mining event
-        while(currentAmount != maxAmount)
+        while(currentMine <= task.resourceAmount)
         {
-            currentAmount++;
-        }
-        
-        // move to processor
-        I_Processor processor = GetNearbyProcessor(task.resource);
-        agent.SetDestination(processor.transform.position);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        {
-            yield return null;
-        }
+            // move to resource
+            Debug.Log($"Move to {task.resource}");
+            Vector3 resourcePosition = task.resourcePosition;
+            if(resourcePosition == null)
+            {
+                resourcePosition = GetNearbyResource(task.resource);
+            }
+            
+            agent.SetDestination(resourcePosition);
+            // Wait until the path is calculated
+            while (agent.pathPending)
+            {
+                yield return null;
+            }
 
-        // store amount resources to processor
-        processor.AddResources(currentAmount);
-        currentAmount = 0;
+            // Wait until agent reaches the destination
+            while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
+            {
+                yield return null;
+            }
+
+            // mining
+            // animation mining event
+            while(currentAmount != maxAmount)
+            {
+                currentAmount++;
+            }
+
+            Debug.Log($"Mine {currentAmount} resources, move to processor");
+            currentMine += currentAmount;
+            
+            // move to processor
+            IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(transform.position, task.resource);
+            Debug.Log(processor);
+            agent.SetDestination(processor.GetPosition());
+            // Wait until the path is calculated
+            while (agent.pathPending)
+            {
+                yield return null;
+            }
+
+            // Wait until agent reaches the destination
+            while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
+            {
+                yield return null;
+            }
+
+            // store amount resources to processor
+            Debug.Log($"Store {currentAmount} to {processor} ");
+            processor.AddResources(currentAmount);
+            currentAmount = 0;
+        }
 
         // complete
         Debug.Log("Mining complete");
+        CompleteTask(task);
     }
 
     private Vector3 GetNearbyResource(E_Resource resource)

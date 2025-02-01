@@ -1,9 +1,12 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionSystem : GameSystem
 {
     public static InteractionSystem current;
+    public Action<Actor> Select;
+    public Action UnSelect;
 
     private int layerInteractable; 
     private Actor selectActor;
@@ -28,12 +31,16 @@ public class InteractionSystem : GameSystem
                 {
                     selectActor.DisInteraction();
                     selectActor = null;
+
+                    UnSelect?.Invoke();
                 }
 
                 if(raycastHit.transform.gameObject.layer == layerInteractable)
                 {
                     selectActor = raycastHit.transform.gameObject.GetComponent<Actor>();
                     selectActor.Interaction();
+
+                    Select?.Invoke(selectActor);
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResourceSystem : GameSystem
@@ -8,6 +9,7 @@ public class ResourceSystem : GameSystem
     public Action<E_Resource> UpdateCurrentCount;
 
     public Dictionary<E_Resource, int> resources { private set; get; }
+    private Dictionary<E_Resource, List<Resource>> naturalResources;
 
     public override void Initialize()
     {
@@ -16,6 +18,7 @@ public class ResourceSystem : GameSystem
         current = this;
 
         resources = new Dictionary<E_Resource, int>();
+        naturalResources = new Dictionary<E_Resource, List<Resource>>();
     }
 
     public void AddResources(E_Resource resourceType, int amount)
@@ -76,4 +79,27 @@ public class ResourceSystem : GameSystem
             }
         }
     }
+
+    public void AddNaturalResources(Resource resource)
+    {
+        if(!naturalResources.ContainsKey(resource.GetType()))
+        {
+            naturalResources[resource.GetType()] = new List<Resource>();
+        }
+
+        naturalResources[resource.GetType()].Add(resource);
+    }
+
+    public void RemoveNaturalResources(Resource resource)
+    {
+        naturalResources[resource.GetType()].Remove(resource);
+    }
+
+    // public Resource GetNearbyNaturalResource(E_Resource type, Transform target)
+    // {
+    //     foreach(Resource resource in naturalResources[type])
+    //     {
+
+    //     }
+    // }
 }

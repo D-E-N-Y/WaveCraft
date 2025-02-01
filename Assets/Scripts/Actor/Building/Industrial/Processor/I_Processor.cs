@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class I_Processor : B_Industrial, IProcessing
+public class I_Processor : B_Industrial, IProcessor
 {
     [SerializeField] private float factor;
     [SerializeField] private float timeProcess;
@@ -51,5 +51,10 @@ public class I_Processor : B_Industrial, IProcessing
         processedAmount = 0;
 
         return amount;
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
     }
 }
