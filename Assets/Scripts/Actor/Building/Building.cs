@@ -15,6 +15,7 @@ public class Building : Actor
     
     public Vector3Int Size { private set; get; }
     private Vector3[] Vertices;
+    private GridCollider gridCollider;
 
     protected NavMeshObstacle[] navMeshObstacles;
 
@@ -25,37 +26,14 @@ public class Building : Actor
 
     public override void Initialize()
     {
-        GetColliderVertexPositionsLocal();
-        CalculateSizeInCells();
+        gridCollider = new GridCollider(gameObject);
+        
+        Vertices = gridCollider.GetColliderVertexPositionsLocal();
+        Size = gridCollider.CalculateSizeInCells();
 
         isBuild = false;
 
         navMeshObstacles = GetComponents<NavMeshObstacle>();
-    }
-    
-    private void GetColliderVertexPositionsLocal()
-    {
-        BoxCollider bc = gameObject.GetComponent<BoxCollider>();
-        Vertices = new Vector3[4];
-        Vertices[0] = bc.center + new Vector3(-bc.size.x, -bc.size.y, -bc.size.z) * 0.5f;
-        Vertices[1] = bc.center + new Vector3(bc.size.x, -bc.size.y, -bc.size.z) * 0.5f;
-        Vertices[2] = bc.center + new Vector3(bc.size.x, -bc.size.y, bc.size.z) * 0.5f;
-        Vertices[3] = bc.center + new Vector3(-bc.size.x, -bc.size.y, bc.size.z) * 0.5f;
-    }
-
-    private void CalculateSizeInCells()
-    {
-        Vector3Int[] vertices = new Vector3Int[Vertices.Length];
-
-        for(int i = 0; i < Vertices.Length; i++)
-        {
-            Vector3 worldPos = transform.TransformPoint(Vertices[i]);
-            vertices[i] = BuildSystem.current.gridLayout.WorldToCell(worldPos);
-        }
-
-        Size = new Vector3Int(Math.Abs((vertices[0] - vertices[1]).x), 
-                              Math.Abs((vertices[0] - vertices[3]).y), 
-                              1);
     }
 
     public Vector3 GetStartPosition()
