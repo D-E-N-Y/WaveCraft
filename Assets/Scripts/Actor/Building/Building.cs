@@ -111,7 +111,7 @@ public class Building : Actor
         isPlace = true;
     }
 
-    public void Built()
+    public virtual void Built()
     {
         GetComponent<MaterialBuilding>().Built();
         

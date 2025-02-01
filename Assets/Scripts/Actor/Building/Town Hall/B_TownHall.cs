@@ -26,6 +26,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             
             storages.Add(newStorage);
             StorageSystem.current.AddStorage(newStorage, newStorage.resource);
+            ResourceSystem.current.AddResources(newStorage.resource, newStorage.GetMaxAmount());
         }
 
         // ininitialize processor

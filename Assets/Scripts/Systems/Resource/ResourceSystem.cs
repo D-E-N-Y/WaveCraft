@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceSystem : GameSystem
 {
     public static ResourceSystem current;
+    public Action<E_Resource> UpdateCurrentCount;
 
     public Dictionary<E_Resource, int> resources { private set; get; }
 
@@ -14,9 +16,6 @@ public class ResourceSystem : GameSystem
         current = this;
 
         resources = new Dictionary<E_Resource, int>();
-        resources[E_Resource.Wood] = 100;
-        resources[E_Resource.Stone] = 100;
-        resources[E_Resource.Food] = 100;
     }
 
     public void AddResources(E_Resource resourceType, int amount)
@@ -24,9 +23,15 @@ public class ResourceSystem : GameSystem
         if(StorageSystem.current.CheckFreeSpace(resourceType))
         {
             int residue = StorageSystem.current.FindStorageToAddResource(resourceType).AddResources(amount);
+            UpdateCurrentCount?.Invoke(resourceType);
 
             if(residue != null)
             {
+                if(!resources.ContainsKey(resourceType))
+                {
+                    resources[resourceType] = 0;
+                }
+                
                 if(residue > 0)
                 {
                     resources[resourceType] += residue;
@@ -50,7 +55,8 @@ public class ResourceSystem : GameSystem
         if(StorageSystem.current.CheckCountResurces(resourceType) >= amount)
         {
             int residue = StorageSystem.current.FindStorageToRemoveResource(resourceType).RemoveResources(amount);
-        
+            UpdateCurrentCount?.Invoke(resourceType);
+
             if(residue != null)
             {
                 if(residue > 0)

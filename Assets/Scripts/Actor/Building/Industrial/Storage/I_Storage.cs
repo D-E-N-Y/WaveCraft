@@ -5,9 +5,9 @@ public class I_Storage : B_Industrial, IStorage
     [SerializeField] private int maxAmount;
     private int currentAmount;
 
-    public override void Initialize()
+    public override void Built()
     {
-        base.Initialize();
+        base.Built();
 
         StorageSystem.current.AddStorage(this, resourse);
     }
