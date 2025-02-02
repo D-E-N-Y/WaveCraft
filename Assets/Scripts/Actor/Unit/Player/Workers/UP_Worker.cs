@@ -91,6 +91,34 @@ public class UP_Worker : U_Player
     }
 
 
+    #region Movement
+
+    private Vector3 lastTargetPosition;
+    Vector3 GetBestNavMeshPoint(Vector3 agentPosition, Vector3 targetPosition)
+    {
+        Vector3 midPoint = (agentPosition + targetPosition) / 2;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(midPoint, out hit, 5f, NavMesh.AllAreas))
+        {
+            return hit.position;
+        }
+        return targetPosition;
+    }
+
+    void MoveToObject(Vector3 target)
+    {
+        Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
+        
+        if (Vector3.Distance(agent.destination, bestPoint) > 1f)
+        {
+            agent.SetDestination(bestPoint);
+        }
+    }    
+    
+    #endregion
+
+
     #region Do tasks
 
     private IEnumerator BuildTask(BuildTask task)
@@ -146,18 +174,19 @@ public class UP_Worker : U_Player
                 resourcePosition = GetNearbyResource(task.resource);
             }
             
-            agent.SetDestination(resourcePosition);
-            // Wait until the path is calculated
-            while (agent.pathPending)
+            while (true)
             {
-                yield return null;
-            }
+                MoveToObject(resourcePosition);
+                lastTargetPosition = resourcePosition;
 
-            // Wait until agent reaches the destination
-            while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
-            {
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
+
+                if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
+                {
+                    break;
+                }
             }
+            agent.ResetPath();
 
             // mining
             // animation mining event
@@ -171,19 +200,19 @@ public class UP_Worker : U_Player
             
             // move to processor
             IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(transform.position, task.resource);
-            Debug.Log(processor);
-            agent.SetDestination(processor.GetPosition());
-            // Wait until the path is calculated
-            while (agent.pathPending)
+            while (true)
             {
-                yield return null;
-            }
+                MoveToObject(processor.GetPosition());
+                lastTargetPosition = resourcePosition;
 
-            // Wait until agent reaches the destination
-            while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
-            {
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
+
+                if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
+                {
+                    break;
+                }
             }
+            agent.ResetPath();
 
             // store amount resources to processor
             Debug.Log($"Store {currentAmount} to {processor} ");
