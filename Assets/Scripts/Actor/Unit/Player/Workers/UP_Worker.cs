@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class UP_Worker : U_Player
 {
@@ -10,14 +9,14 @@ public class UP_Worker : U_Player
 
     private List<Task> tasks;
     [SerializeField, Range(1, 10)] private int limitTasks;
-    
-    [SerializeField] private NavMeshAgent agent;
-    
+
     [SerializeField, Range(1, 20)] private int maxAmount;
     private int currentAmount;
 
     public override void Initialize()
     {
+        base.Initialize();
+
         tasks = new List<Task>();
         currentAmount = 0;
 
@@ -90,54 +89,16 @@ public class UP_Worker : U_Player
         return limitTasks > tasks.Count;
     }
 
-
-    #region Movement
-
-    private Vector3 lastTargetPosition;
-    Vector3 GetBestNavMeshPoint(Vector3 agentPosition, Vector3 targetPosition)
-    {
-        Vector3 midPoint = (agentPosition + targetPosition) / 2;
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(midPoint, out hit, 5f, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
-        return targetPosition;
-    }
-
-    void MoveToObject(Vector3 target)
-    {
-        Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
-        
-        if (Vector3.Distance(agent.destination, bestPoint) > 1f)
-        {
-            agent.SetDestination(bestPoint);
-        }
-    }    
-    
-    #endregion
-
-
     #region Do tasks
 
     private IEnumerator BuildTask(BuildTask task)
     {
         // move to building
-        agent.SetDestination(task.building.transform.position);
-        
-        // Wait until the path is calculated
-        while (agent.pathPending)
+        StartCoroutine(movement.MoveTo(task.building.transform.position, UnitMovement.E_MoveTo.Object));
+        while(movement.isMoving)
         {
             yield return null;
         }
-
-        // Wait until agent reaches the destination
-        while (agent.remainingDistance > 0.1f || agent.velocity.sqrMagnitude > 0f)
-        {
-            yield return null;
-        }
-        agent.ResetPath();
 
         Debug.Log("start build");
 
@@ -174,19 +135,11 @@ public class UP_Worker : U_Player
                 resourcePosition = GetNearbyResource(task.resource);
             }
             
-            while (true)
+            StartCoroutine(movement.MoveTo(resourcePosition, UnitMovement.E_MoveTo.PlacedObject));
+            while(movement.isMoving)
             {
-                MoveToObject(resourcePosition);
-                lastTargetPosition = resourcePosition;
-
-                yield return new WaitForSeconds(0.5f);
-
-                if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
-                {
-                    break;
-                }
+                yield return null;
             }
-            agent.ResetPath();
 
             // mining
             // animation mining event
@@ -200,19 +153,11 @@ public class UP_Worker : U_Player
             
             // move to processor
             IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(transform.position, task.resource);
-            while (true)
+            StartCoroutine(movement.MoveTo(processor.GetPosition(), UnitMovement.E_MoveTo.PlacedObject));
+            while(movement.isMoving)
             {
-                MoveToObject(processor.GetPosition());
-                lastTargetPosition = resourcePosition;
-
-                yield return new WaitForSeconds(0.5f);
-
-                if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
-                {
-                    break;
-                }
+                yield return null;
             }
-            agent.ResetPath();
 
             // store amount resources to processor
             Debug.Log($"Store {currentAmount} to {processor} ");
@@ -241,12 +186,12 @@ public class UP_Worker : U_Player
 
     private IEnumerator DestroyTask(DestroyTask task)
     {
-        // move to building
-        agent.SetDestination(task.buildingPosition);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        {
-            yield return null;
-        }
+        // // move to building
+        // agent.SetDestination(task.buildingPosition);
+        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
+        // {
+        //     yield return null;
+        // }
 
         // destroy
         float elapsedTime = 0f;
@@ -265,31 +210,33 @@ public class UP_Worker : U_Player
 
     private IEnumerator StoreTask(StoreTask task)
     {
-        // move to processor
-        I_Processor processor = GetNearbyProcessor(task.resource);
-        agent.SetDestination(processor.transform.position);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        {
-            yield return null;
-        }
+        // // move to processor
+        // I_Processor processor = GetNearbyProcessor(task.resource);
+        // agent.SetDestination(processor.transform.position);
+        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
+        // {
+        //     yield return null;
+        // }
 
-        // give processed resources
-        currentAmount = processor.Unload();
+        // // give processed resources
+        // currentAmount = processor.Unload();
 
-        // move to storage
-        I_Storage storage = GetNearbyStorage(task.resource);
-        agent.SetDestination(storage.transform.position);
-        while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        {
-            yield return null;
-        }
+        // // move to storage
+        // I_Storage storage = GetNearbyStorage(task.resource);
+        // agent.SetDestination(storage.transform.position);
+        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
+        // {
+        //     yield return null;
+        // }
 
-        // store resources
-        storage.AddResources(currentAmount);
-        currentAmount = 0;
+        // // store resources
+        // storage.AddResources(currentAmount);
+        // currentAmount = 0;
 
-        // complete
-        Debug.Log("Store resources complete");
+        // // complete
+        // Debug.Log("Store resources complete");
+
+        yield return null;
     }
 
     private I_Storage GetNearbyStorage(E_Resource resource)

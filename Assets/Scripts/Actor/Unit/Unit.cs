@@ -8,7 +8,15 @@ public class Unit : Actor
     private float coefArmor = 1.5f;
     [SerializeField] protected float damage;
 
-    [SerializeField] protected float moveSpeed;
+    protected UnitMovement movement;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        movement = gameObject.AddComponent<UnitMovement>();
+        movement.Initialize();
+    }
 
     public override void TakeDamage(float damage)
     {

@@ -10,8 +10,6 @@ public class UI_BuildingSlot : MonoBehaviour
 
     public void BuyBuilding()
     {
-        Debug.Log("building");
-        
         BuildSystem.current.InitializeWithObject(building);
     }
 }
