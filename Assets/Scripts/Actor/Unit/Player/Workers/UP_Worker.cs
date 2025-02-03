@@ -7,6 +7,7 @@ public class UP_Worker : U_Player
 {
     public E_WorkerState state { private set; get; }
 
+    private TaskManager taskManager;
     private List<Task> tasks;
     [SerializeField, Range(1, 10)] private int limitTasks;
 
@@ -17,7 +18,9 @@ public class UP_Worker : U_Player
     {
         base.Initialize();
 
+        taskManager = new TaskManager();
         tasks = new List<Task>();
+        
         currentAmount = 0;
 
         state = E_WorkerState.Idle;
@@ -36,35 +39,25 @@ public class UP_Worker : U_Player
 
     public void DoTask()
     {
-        if(state != E_WorkerState.Idle || tasks.Count == 0)
-        {
+        if (state != E_WorkerState.Idle || tasks.Count == 0)
             return;
-        }
 
         state = E_WorkerState.Busy;
-        
-        switch(tasks[0])
+        Task currentTask = tasks[0];
+        ITaskHandler handler = taskManager.GetHandler(currentTask);
+        if (handler != null)
         {
-            case BuildTask buildTask:
-                StartCoroutine(BuildTask(buildTask));
-                break;
-
-            case MiningTask miningTask:
-                StartCoroutine(MiningTask(miningTask));
-                break;
-
-            case DestroyTask destroyTask:
-                break;
-
-            case StoreTask storeTask:
-                break;
+            StartCoroutine(handler.ExecuteTask(this, currentTask, () => CompleteTask(currentTask)));
         }
-
+        else
+        {
+            Debug.LogWarning($"No handler found for task: {currentTask.GetType()}");
+        }
     }
 
     public void StopTask()
     {
-
+        
     }
 
     public void ContinueTask()
@@ -89,86 +82,27 @@ public class UP_Worker : U_Player
         return limitTasks > tasks.Count;
     }
 
+    public int GetMaxAmount()
+    {
+        return maxAmount;
+    }
+
+    public int GetCurrentAmount()
+    {
+        return currentAmount;
+    }
+
+    public void AddCurrentAmount(int value)
+    {
+        currentAmount = Math.Min(currentAmount + value, maxAmount);
+    }
+
+    public void ClearCurrentAmount()
+    {
+        currentAmount = 0;
+    }
+
     #region Do tasks
-
-    private IEnumerator BuildTask(BuildTask task)
-    {
-        // move to building
-        StartCoroutine(movement.MoveTo(task.building.transform.position, UnitMovement.E_MoveTo.Object));
-        while(movement.isMoving)
-        {
-            yield return null;
-        }
-
-        Debug.Log("start build");
-
-        // build
-        float elapsedTime = 0f;
-        while(elapsedTime < task.building.GetTimeToBuild())
-        {
-            elapsedTime += Time.deltaTime;
-
-            // Update UI
-
-            // Debug.Log($"Building progress: {elapsedTime / task.timeToBuild * 100}%");
-
-            yield return null;
-        }
-        task.building.Built();
-        
-        // complete
-        CompleteTask(task);
-    }
-
-    private IEnumerator MiningTask(MiningTask task)
-    {
-        int currentMine = 0;
-        Debug.Log($"Need mine {task.resourceAmount}");
-
-        while(currentMine <= task.resourceAmount)
-        {
-            // move to resource
-            Debug.Log($"Move to {task.resource}");
-            Vector3 resourcePosition = task.resourcePosition;
-            if(resourcePosition == null)
-            {
-                resourcePosition = GetNearbyResource(task.resource);
-            }
-            
-            StartCoroutine(movement.MoveTo(resourcePosition, UnitMovement.E_MoveTo.PlacedObject));
-            while(movement.isMoving)
-            {
-                yield return null;
-            }
-
-            // mining
-            // animation mining event
-            while(currentAmount != maxAmount)
-            {
-                currentAmount++;
-            }
-
-            Debug.Log($"Mine {currentAmount} resources, move to processor");
-            currentMine += currentAmount;
-            
-            // move to processor
-            IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(transform.position, task.resource);
-            StartCoroutine(movement.MoveTo(processor.GetPosition(), UnitMovement.E_MoveTo.PlacedObject));
-            while(movement.isMoving)
-            {
-                yield return null;
-            }
-
-            // store amount resources to processor
-            Debug.Log($"Store {currentAmount} to {processor} ");
-            processor.AddResources(currentAmount);
-            currentAmount = 0;
-        }
-
-        // complete
-        Debug.Log("Mining complete");
-        CompleteTask(task);
-    }
 
     private Vector3 GetNearbyResource(E_Resource resource)
     {

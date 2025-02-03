@@ -8,7 +8,7 @@ public class Unit : Actor
     private float coefArmor = 1.5f;
     [SerializeField] protected float damage;
 
-    protected UnitMovement movement;
+    public UnitMovement movement { get; protected set; }
 
     public override void Initialize()
     {
@@ -26,5 +26,10 @@ public class Unit : Actor
         {
             Died = true;
         }
+    }
+
+    public float GetDamage()
+    {
+        return damage;
     }
 }
