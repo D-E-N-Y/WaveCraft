@@ -3,6 +3,7 @@ using UnityEngine;
 public class UIInteractablePanel : MonoBehaviour
 {
     [SerializeField] private GameObject resourcePanel;
+    [SerializeField] private GameObject townHallPanel;
     [SerializeField] private GameObject otherPanel;
     private GameObject openPanel;
 
@@ -21,6 +22,13 @@ public class UIInteractablePanel : MonoBehaviour
                 openPanel.SetActive(true);
 
                 openPanel.GetComponent<UIInteractableResourcePanel>().Initialize((Resource)actor);
+                break;
+
+            case B_TownHall:
+                openPanel = townHallPanel;
+                openPanel.SetActive(true);
+
+                openPanel.GetComponent<UIInteractableTownHallPanel>().Initialize((B_TownHall)actor);
                 break;
 
             default:

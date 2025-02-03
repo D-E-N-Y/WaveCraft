@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,6 +24,8 @@ public class Building : Actor
 
     public override void Initialize()
     {
+        base.Initialize();
+        
         gridCollider = new GridCollider(gameObject);
         
         Vertices = gridCollider.GetColliderVertexPositionsLocal();

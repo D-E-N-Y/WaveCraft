@@ -8,13 +8,10 @@ public class D_ArcherTower : B_Defence, ISpawnUnit
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private S_Cost spawnCost;
     
-    public void SpawnUnit()
+    public IEnumerator SpawnUnit()
     {
-        StartCoroutine(nameof(Spawn));
-    }
-
-    private IEnumerator Spawn()
-    {
+        ResourceSystem.current.RemoveResources(E_Resource.Food, spawnCost.count);
+        
         yield return new WaitForSeconds(timeToSpawnUnit);
 
         Unit unit = Instantiate(spawnUnitPref, spawnPosition).GetComponent<Unit>();

@@ -53,7 +53,7 @@ public class UnitMovement : MonoBehaviour
 
     public void StopMove()
     {
-        StopAllCoroutines();
+        // StopAllCoroutines();
         agent.ResetPath();
         isMoving = false;
     }

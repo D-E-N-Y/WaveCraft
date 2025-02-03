@@ -8,10 +8,12 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     {
         Initialize();
     }
-    
+
     public override void Initialize()
     {
         base.Initialize();
+
+        nameActor = "Town Hall";
 
         // fill busy grid 
         BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
@@ -48,18 +50,17 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private S_Cost spawnCost;
-    
-    public void SpawnUnit()
-    {
-        StartCoroutine(nameof(Spawn));
-    }
 
-    private IEnumerator Spawn()
+    public IEnumerator SpawnUnit()
     {
+        ResourceSystem.current.RemoveResources(E_Resource.Food, spawnCost.count);
+        
+        Debug.Log($"start spawn worker \nwait {timeToSpawnUnit} seconds");
+
         yield return new WaitForSeconds(timeToSpawnUnit);
 
-        Unit unit = Instantiate(spawnUnitPref, spawnPosition).GetComponent<Unit>();
-        unit.Initialize();
+        UP_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UP_Worker>();
+        worker.Initialize();
 
         Debug.Log("spawn worker");
     }

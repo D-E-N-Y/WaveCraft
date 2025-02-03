@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
 public interface ISpawnUnit
 {
-    void SpawnUnit();
+    IEnumerator SpawnUnit();
 }

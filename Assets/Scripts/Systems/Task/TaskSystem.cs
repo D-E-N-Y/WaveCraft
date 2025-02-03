@@ -8,17 +8,6 @@ public class TaskSystem : GameSystem
     private Dictionary<E_TaskState, List<Task>> tasks;
     private List<UP_Worker> workers;    
 
-    [SerializeField] private GameObject workerPrefab;
-
-    private void Update() 
-    {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            UP_Worker worker = Instantiate(workerPrefab).GetComponent<UP_Worker>();
-            worker.Initialize();
-        }
-    }
-
     public override void Initialize()
     {
         base.Initialize();

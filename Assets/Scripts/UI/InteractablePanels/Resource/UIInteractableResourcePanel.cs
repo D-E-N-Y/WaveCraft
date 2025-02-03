@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -13,15 +12,12 @@ public class UIInteractableResourcePanel : MonoBehaviour
         this.resource = resource;
         
         nameText.text = resource.nameActor;
-        hpText.text = resource.GetMaxHP().ToString();
+        hpText.text = resource.GetCurrentHP().ToString();
     }
 
     public void Mine()
     {
         MiningTask task = new MiningTask(resource);
-        
-        Debug.Log(resource);
-
         TaskSystem.current.AddTask(task);
     }
 }
