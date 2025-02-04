@@ -9,12 +9,12 @@ public class MiningTaskHandler : ITaskHandler
         MiningTask miningTask = (MiningTask)task;
         
         int currentMine = 0;
-        Debug.Log($"Need mine {miningTask.resourceAmount}");
+        // Debug.Log($"Need mine {miningTask.resourceAmount}");
 
         while (currentMine < miningTask.resourceAmount)
         {
             // Move to resource
-            Debug.Log($"Move to {miningTask.resource}");
+            // Debug.Log($"Move to {miningTask.resource}");
             Vector3 resourcePosition = miningTask.resourcePosition;
 
             yield return worker.movement.MoveTo(resourcePosition, UnitMovement.E_MoveTo.PlacedObject);
@@ -26,7 +26,7 @@ public class MiningTaskHandler : ITaskHandler
                 yield return new WaitForSeconds(0.5f); // Эмуляция добычи
             }
 
-            Debug.Log($"Mined {worker.GetCurrentAmount()} resources, moving to processor");
+            // Debug.Log($"Mined {worker.GetCurrentAmount()} resources, moving to processor");
             currentMine += worker.GetCurrentAmount();
 
             // Move to processor
@@ -34,13 +34,12 @@ public class MiningTaskHandler : ITaskHandler
             yield return worker.movement.MoveTo(processor.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
 
             // Store resources
-            Debug.Log($"Storing {worker.GetCurrentAmount()} resources in {processor}");
+            // Debug.Log($"Storing {worker.GetCurrentAmount()} resources in {processor}");
             processor.AddResources(worker.GetCurrentAmount());
             worker.ClearCurrentAmount();
         }
 
         // complete
-        Debug.Log("Mining complete");
         onComplete?.Invoke();
     }
 }

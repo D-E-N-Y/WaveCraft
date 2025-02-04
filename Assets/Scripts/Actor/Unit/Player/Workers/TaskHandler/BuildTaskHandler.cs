@@ -11,7 +11,7 @@ public class BuildTaskHandler : ITaskHandler
         // move to building
         yield return worker.movement.MoveTo(buildTask.building.transform.position, UnitMovement.E_MoveTo.Object);
 
-        Debug.Log("start build");
+        // Debug.Log("start build");
 
         // build
         float elapsedTime = 0f;
