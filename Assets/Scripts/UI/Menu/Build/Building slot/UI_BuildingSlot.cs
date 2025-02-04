@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 public class UI_BuildingSlot : MonoBehaviour
 {
+    [SerializeField] private GameObject menu_ui;
+
     [SerializeField] protected GameObject building;
     [SerializeField] protected TextMeshProUGUI _name;
     [SerializeField] protected TextMeshProUGUI health;
@@ -27,5 +29,6 @@ public class UI_BuildingSlot : MonoBehaviour
         }
         
         BuildSystem.current.InitializeWithObject(this.building);
+        menu_ui.SetActive(false);
     }
 }
