@@ -9,6 +9,7 @@ public class Unit : Actor
     [SerializeField] protected float damage;
 
     public UnitMovement movement { get; protected set; }
+    public Animator animator { get; protected set; }
 
     public override void Initialize()
     {
@@ -16,6 +17,8 @@ public class Unit : Actor
 
         movement = gameObject.AddComponent<UnitMovement>();
         movement.Initialize();
+
+        animator = gameObject.GetComponent<Animator>();
     }
 
     public override void TakeDamage(float damage)
