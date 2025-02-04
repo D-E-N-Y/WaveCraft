@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResourceSystem : GameSystem
@@ -53,10 +52,13 @@ public class ResourceSystem : GameSystem
         }
     }
 
-    // public int AddResources(IStorage storage, int amount)
-    // {
-    //     return 
-    // }
+    public int AddResources(IStorage storage, E_Resource resource, int amount)
+    {
+        int residue = storage.AddResources(amount);
+        UpdateCurrentCount?.Invoke(resource);
+        
+        return residue;
+    }
 
     public void RemoveResources(E_Resource resourceType, int amount)
     {
