@@ -34,6 +34,7 @@ public class UIResourcePanel : MonoBehaviour
             if(current.resource == resource)
             {
                 current.textMesh.text = CorrectFormat(StorageSystem.current.CheckCountResurces(resource));
+                break;
             }
         }
     }
@@ -45,6 +46,7 @@ public class UIResourcePanel : MonoBehaviour
             if(current.resource == resource)
             {
                 current.textMesh.text = CorrectFormat(StorageSystem.current.CheckMaxCountResources(resource));
+                break;
             }
         }
     }

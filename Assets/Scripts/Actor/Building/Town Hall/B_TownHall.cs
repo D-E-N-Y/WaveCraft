@@ -29,7 +29,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             storages.Add(newStorage);
             
             StorageSystem.current.AddStorage(newStorage, newStorage.resource);
-            ResourceSystem.current.AddResources(newStorage.resource, newStorage.GetMaxAmount());
+            // ResourceSystem.current.AddResources(newStorage.resource, newStorage.GetMaxAmount());
         }
 
         // ininitialize processor
@@ -84,6 +84,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     [SerializeField] private List<STH_Storage> storages_param;
     private List<TH_Storage> storages;
+
+    public TH_Storage GetStorage(E_Resource resource)
+    {
+        return null;
+    }
         
     #endregion
 
@@ -106,6 +111,19 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     [SerializeField] private List<STH_Processor> processors_param;
     private List<TH_Processor> processors;
+
+    public TH_Processor GetProcessor(E_Resource resource)
+    {
+        foreach(TH_Processor processor in processors)
+        {
+            if(processor.resource == resource)
+            {
+                return processor;
+            }
+        }
+
+        return null;
+    }
         
     #endregion
 
