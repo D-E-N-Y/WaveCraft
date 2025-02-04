@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StorageSystem : GameSystem
@@ -100,5 +101,13 @@ public class StorageSystem : GameSystem
         }
 
         return null;
+    }
+
+    public IStorage FindNearbyStorage(E_Resource resource, Vector3 target)
+    {
+        return storages[resource]
+                .Where(storage => storage.isFreeSpace())
+                .OrderBy(storage => Vector3.Distance(storage.GetPosition(), target))
+                .FirstOrDefault();
     }
 }

@@ -58,4 +58,9 @@ public class TH_Storage : MonoBehaviour, IStorage
     {
         return maxAmount;
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
 }

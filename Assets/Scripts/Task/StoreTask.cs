@@ -1,9 +1,9 @@
 public class StoreTask : Task
 {
     public E_Resource resource { private set; get; }
-    public I_Processor processor { private set; get; }
+    public IProcessor processor { private set; get; }
 
-    public StoreTask(E_Resource resource, I_Processor processor)
+    public StoreTask(E_Resource resource, IProcessor processor)
     {
         taskType = E_TaskType.Store;
 

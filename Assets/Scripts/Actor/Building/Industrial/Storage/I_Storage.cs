@@ -58,4 +58,9 @@ public class I_Storage : B_Industrial, IStorage
     {
         return maxAmount;
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
 }

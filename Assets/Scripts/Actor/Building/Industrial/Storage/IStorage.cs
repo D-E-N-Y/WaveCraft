@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IStorage
 {
     bool isFreeSpace();
@@ -5,4 +7,6 @@ public interface IStorage
     int RemoveResources(int amount);
     int GetCurrentAmount();
     int GetMaxAmount();
+
+    Vector3 GetPosition();
 }

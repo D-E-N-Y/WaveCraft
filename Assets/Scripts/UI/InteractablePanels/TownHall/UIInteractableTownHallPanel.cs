@@ -58,6 +58,15 @@ public class UIInteractableTownHallPanel : MonoBehaviour
 
     public void Store()
     {
-        // StoreTask task = new StoreTask();
+        foreach(ProcessedResourceText current in processedResourceTexts)
+        {
+            TH_Processor processor = townHall.GetProcessor(current.resource);
+            
+            if(processor.processedAmount > 0)
+            {
+                StoreTask task = new StoreTask(current.resource, processor);
+                TaskSystem.current.AddTask(task);
+            }
+        }
     }
 }

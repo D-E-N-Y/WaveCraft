@@ -53,6 +53,11 @@ public class ResourceSystem : GameSystem
         }
     }
 
+    // public int AddResources(IStorage storage, int amount)
+    // {
+    //     return 
+    // }
+
     public void RemoveResources(E_Resource resourceType, int amount)
     {
         if(StorageSystem.current.CheckCountResurces(resourceType) >= amount)
