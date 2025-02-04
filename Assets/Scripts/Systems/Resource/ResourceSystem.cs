@@ -73,7 +73,7 @@ public class ResourceSystem : GameSystem
                 {
                     resources[resourceType] -= residue;
 
-                    AddResources(resourceType, residue);
+                    RemoveResources(resourceType, residue);
                 }
                 else
                 {

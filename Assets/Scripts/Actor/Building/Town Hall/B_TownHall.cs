@@ -54,7 +54,13 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     public IEnumerator SpawnUnit()
     {
-        ResourceSystem.current.RemoveResources(E_Resource.Food, spawnCost.count);
+        if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
+        {
+            Debug.Log($"not enought {spawnCost.resourse}");
+            yield break;
+        }
+
+        ResourceSystem.current.RemoveResources(spawnCost.resourse, spawnCost.count);
         
         Debug.Log($"start spawn worker \nwait {timeToSpawnUnit} seconds");
 

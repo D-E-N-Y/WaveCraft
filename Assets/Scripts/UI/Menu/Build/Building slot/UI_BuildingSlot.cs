@@ -10,6 +10,22 @@ public class UI_BuildingSlot : MonoBehaviour
 
     public void BuyBuilding()
     {
-        BuildSystem.current.InitializeWithObject(building);
+        Building building = this.building.GetComponent<Building>();
+        
+        foreach(S_CostUI current in cost)
+        {
+            if(StorageSystem.current.CheckCountResurces(current.resourse) <= building.GetCostByResource(current.resourse))
+            {
+                Debug.Log($"not enought {current.resourse}");
+                return;
+            }
+        }
+
+        foreach(S_CostUI current in cost)
+        {
+            ResourceSystem.current.RemoveResources(current.resourse, building.GetCostByResource(current.resourse));
+        }
+        
+        BuildSystem.current.InitializeWithObject(this.building);
     }
 }
