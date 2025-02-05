@@ -23,6 +23,7 @@ public class MiningTaskHandler : ITaskHandler
 
             // Mining phase
             worker.animator.SetTrigger("Mine");
+            worker.ActiceInsturcent(UP_Worker.E_Instrument.Pickaxe);
             while (worker.GetCurrentAmount() < worker.GetMaxAmount())
             {
                 worker.AddCurrentAmount(1); // Можно сделать параметр скорости добычи
@@ -30,6 +31,7 @@ public class MiningTaskHandler : ITaskHandler
             }
             yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
             worker.animator.Play("Idle");
+            worker.DisactiveInstument(UP_Worker.E_Instrument.Pickaxe);
 
             // Debug.Log($"Mined {worker.GetCurrentAmount()} resources, moving to processor");
             currentMine += worker.GetCurrentAmount();

@@ -17,6 +17,7 @@ public class BuildTaskHandler : ITaskHandler
 
         // build
         worker.animator.SetTrigger("Build");
+        worker.ActiceInsturcent(UP_Worker.E_Instrument.Hammer);
         float elapsedTime = 0f;
         while(elapsedTime < buildTask.building.GetTimeToBuild())
         {
@@ -29,6 +30,7 @@ public class BuildTaskHandler : ITaskHandler
             yield return null;
         }
         yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
+        worker.DisactiveInstument(UP_Worker.E_Instrument.Hammer);
         worker.animator.Play("Idle");
 
         buildTask.building.Built();

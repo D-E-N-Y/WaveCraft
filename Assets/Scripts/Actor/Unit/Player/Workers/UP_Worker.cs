@@ -14,6 +14,10 @@ public class UP_Worker : U_Player
     [SerializeField, Range(1, 20)] private int maxAmount;
     private int currentAmount;
 
+    [SerializeField] GameObject hammerPrefab;
+    [SerializeField] GameObject pickaxePrefab;
+    private Dictionary<E_Instrument, GameObject> instruments;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -26,6 +30,10 @@ public class UP_Worker : U_Player
         state = E_WorkerState.Idle;
 
         TaskSystem.current.AddWorker(this);
+
+        instruments = new Dictionary<E_Instrument, GameObject>();
+        instruments.Add(E_Instrument.Hammer, hammerPrefab);
+        instruments.Add(E_Instrument.Pickaxe, pickaxePrefab);
     }
     
     #region Control tasks
@@ -100,6 +108,22 @@ public class UP_Worker : U_Player
     public void ClearCurrentAmount()
     {
         currentAmount = 0;
+    }
+
+    public enum E_Instrument
+    {
+        Hammer,
+        Pickaxe
+    }
+
+    public void ActiceInsturcent(E_Instrument instrument)
+    {
+        instruments[instrument].SetActive(true);
+    }
+
+    public void DisactiveInstument(E_Instrument instrument)
+    {
+        instruments[instrument].SetActive(false);
     }
 
     #region Do tasks
