@@ -33,7 +33,6 @@ public class TH_Processor : MonoBehaviour, IProcessor
 
     private IEnumerator Processing()
     {
-        Debug.Log("Processing");
         yield return new WaitForSeconds(timeProcess);
 
         CompleteProcess();
@@ -54,7 +53,6 @@ public class TH_Processor : MonoBehaviour, IProcessor
         else
         {
             isProcessing = false;
-            Debug.Log("Complete processing");
         }
     }
 
@@ -70,6 +68,7 @@ public class TH_Processor : MonoBehaviour, IProcessor
     {
         int amount = processedAmount;
         processedAmount = 0;
+        UpdadeProcessedAmount?.Invoke(resource);
 
         return amount;
     }

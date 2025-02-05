@@ -5,6 +5,7 @@ public class UIInteractablePanel : MonoBehaviour
     [SerializeField] private GameObject resourcePanel;
     [SerializeField] private GameObject townHallPanel;
     [SerializeField] private GameObject storagePanel;
+    [SerializeField] private GameObject processorPanel;
     [SerializeField] private GameObject otherPanel;
     
     private GameObject openPanel;
@@ -38,6 +39,13 @@ public class UIInteractablePanel : MonoBehaviour
                 openPanel.SetActive(true);
 
                 openPanel.GetComponent<UIInteractableStoragePanel>().Initialize((I_Storage)actor);
+                break;
+
+            case I_Processor:
+                openPanel = processorPanel;
+                openPanel.SetActive(true);
+
+                openPanel.GetComponent<UIInteractableProcessorPanel>().Initialize((I_Processor)actor);
                 break;
 
             default:
