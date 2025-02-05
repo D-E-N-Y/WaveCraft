@@ -5,13 +5,14 @@ using UnityEngine;
 public class TH_Processor : MonoBehaviour, IProcessor
 {
     public Action<E_Resource> UpdadeProcessedAmount;
-    
+    public Action<E_Resource> UpdateRawAmount;
+
     public E_Resource resource { get; private set; }
     public float factor { get; private set; }
     public float timeProcess { get; private set; }
 
     private bool isProcessing;
-    private int rawAmount;
+    public int rawAmount { get; private set; }
     public int processedAmount { get; private set; }
 
     public void Initialize(E_Resource resource, float factor, float timeProcess)
@@ -41,6 +42,8 @@ public class TH_Processor : MonoBehaviour, IProcessor
     private void CompleteProcess()
     {
         rawAmount--;
+        UpdateRawAmount?.Invoke(resource);
+
         processedAmount += (int)(1 * factor);
         UpdadeProcessedAmount?.Invoke(resource);
 
@@ -58,6 +61,7 @@ public class TH_Processor : MonoBehaviour, IProcessor
     public void AddResources(int amount)
     {
         rawAmount += amount;
+        UpdateRawAmount?.Invoke(resource);
 
         if(!isProcessing) StartProcess();
     }

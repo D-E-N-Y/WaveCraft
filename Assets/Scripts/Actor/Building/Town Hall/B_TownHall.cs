@@ -94,6 +94,14 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     public TH_Storage GetStorage(E_Resource resource)
     {
+        foreach(TH_Storage storage in storages)
+        {
+            if(storage.resource == resource)
+            {
+                return storage;
+            }
+        }
+        
         return null;
     }
         

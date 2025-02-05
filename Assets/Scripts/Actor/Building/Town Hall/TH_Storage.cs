@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 
 public class TH_Storage : MonoBehaviour, IStorage
 {
+    public Action<E_Resource> UpdateCurrentAmount;
+    
     public E_Resource resource { private set; get; }
-    private int maxAmount;
-    private int currentAmount;
+    public int maxAmount { private set; get; }
+    public int currentAmount { private set; get; }
 
     public void Initialize(E_Resource resource, int maxAmount)
     {
@@ -25,10 +28,13 @@ public class TH_Storage : MonoBehaviour, IStorage
         {
             int residue = currentAmount - maxAmount;
             currentAmount = maxAmount;
+            UpdateCurrentAmount?.Invoke(resource);
+
             return residue;
         }
         else
         {
+            UpdateCurrentAmount?.Invoke(resource);
             return 0;
         }
     }
@@ -41,10 +47,14 @@ public class TH_Storage : MonoBehaviour, IStorage
         {
             int residue = Mathf.Abs(currentAmount);
             currentAmount = 0;
+            UpdateCurrentAmount?.Invoke(resource);
+            
             return residue;
         }
         else
         {
+            UpdateCurrentAmount?.Invoke(resource);
+            
             return 0;
         }
     }
