@@ -10,16 +10,9 @@ public class I_Processor : B_Industrial, IProcessor
     [SerializeField] private float factor;
     [SerializeField] private float timeProcess;
 
-    private bool isProcessing;
+    protected bool isProcessing;
     public int rawAmount { get; private set; }
     public int processedAmount { get; private set; }
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        nameActor = resourse + " processor";
-    }
 
     public override void Built()
     {
@@ -28,7 +21,7 @@ public class I_Processor : B_Industrial, IProcessor
         ProcessorSystem.current.AddProcessor(resourse, this);
     }
 
-    private void StartProcess()
+    protected virtual void StartProcess()
     {
         StartCoroutine(nameof(Processing));
         isProcessing = true;
@@ -41,7 +34,7 @@ public class I_Processor : B_Industrial, IProcessor
         CompleteProcess();
     }
 
-    private void CompleteProcess()
+    protected virtual  void CompleteProcess()
     {
         rawAmount--;
         UpdateRawAmount?.Invoke();
@@ -67,7 +60,7 @@ public class I_Processor : B_Industrial, IProcessor
         if(!isProcessing) StartProcess();
     }
 
-    public int Unload()
+    public virtual int Unload()
     {
         int amount = processedAmount;
         processedAmount = 0;

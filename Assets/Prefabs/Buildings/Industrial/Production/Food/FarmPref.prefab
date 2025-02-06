@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7026dd2fe95962a8e923e51db3cadbfb, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7026dd2fe95962a8e923e51db3cadbfb, type: 3}
       propertyPath: m_Name
       value: Farm
@@ -65,6 +69,11 @@ MeshRenderer:
 --- !u!4 &1505953774516478767 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7026dd2fe95962a8e923e51db3cadbfb, type: 3}
+  m_PrefabInstance: {fileID: 1399636004726097092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2282736043159910805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7026dd2fe95962a8e923e51db3cadbfb, type: 3}
   m_PrefabInstance: {fileID: 1399636004726097092}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6156927243135532517
@@ -115,6 +124,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2433347042694671654, guid: 9908b716554da2442b60a262ab45cfae, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 2282736043159910805}
     - target: {fileID: 2433347042694671654, guid: 9908b716554da2442b60a262ab45cfae, type: 3}
       propertyPath: meshRenderer
       value: 
