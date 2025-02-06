@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraControler : MonoBehaviour
 {
@@ -34,6 +35,11 @@ public class CameraControler : MonoBehaviour
 
     private void Update() 
     {
+        // if (EventSystem.current.IsPointerOverGameObject()) 
+        // {
+        //     return;
+        // }
+        
         HandleMouseInput();
         HandleMovementInput();
 

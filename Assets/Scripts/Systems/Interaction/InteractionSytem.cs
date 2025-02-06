@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InteractionSystem : GameSystem
 {
@@ -22,6 +23,11 @@ public class InteractionSystem : GameSystem
 
     private void Update() 
     {
+        if (EventSystem.current.IsPointerOverGameObject()) 
+        {
+            return;
+        }
+        
         if(Input.GetMouseButtonUp((int)MouseButton.Left))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
