@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -38,7 +37,8 @@ public class UnitMovement : MonoBehaviour
                     break;
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
+            // yield return null;
 
             if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
             {
@@ -78,7 +78,7 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
         
-        if (Vector3.Distance(agent.destination, bestPoint) > 1f)
+        if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
         {
             agent.SetDestination(bestPoint);
         }
