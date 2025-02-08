@@ -33,7 +33,7 @@ public class Building : Actor
 
         isBuild = false;
 
-        navMeshObstacles = GetComponents<NavMeshObstacle>();
+        navMeshObstacles = gameObject.GetComponentsInChildren<NavMeshObstacle>();
     }
 
     public Vector3 GetStartPosition()
