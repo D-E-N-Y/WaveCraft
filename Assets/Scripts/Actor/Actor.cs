@@ -4,6 +4,7 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     public Action UpdateCurrentHP;
+    public Action DestroyActor;
     
     [SerializeField] protected GameObject interactionMenuUI;
     
@@ -24,7 +25,7 @@ public class Actor : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        UpdateCurrentHP?.Invoke();
+        
     }
 
     public virtual void Interaction()
@@ -40,5 +41,10 @@ public class Actor : MonoBehaviour
     public virtual void Initialize()
     {
         currentHP = maxHP;
+    }
+
+    private void OnDestroy() 
+    {
+        DestroyActor?.Invoke();
     }
 }

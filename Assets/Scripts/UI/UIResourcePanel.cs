@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UIResourcePanel : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
     private struct AmountText
     {
         public E_Resource resource;

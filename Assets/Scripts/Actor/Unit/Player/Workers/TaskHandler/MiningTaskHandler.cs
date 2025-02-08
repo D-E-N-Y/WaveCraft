@@ -24,12 +24,22 @@ public class MiningTaskHandler : ITaskHandler
             // Mining phase
             worker.animator.SetTrigger("Mine");
             worker.ActiceInsturcent(UP_Worker.E_Instrument.Pickaxe);
+            
             while (worker.GetCurrentAmount() < worker.GetMaxAmount())
             {
-                worker.AddCurrentAmount(1); // Можно сделать параметр скорости добычи
-                yield return new WaitForSeconds(0.5f); // Эмуляция добычи
+                yield return null;
+
+                if(currentMine + worker.GetCurrentAmount() >= miningTask.resourceAmount)
+                {
+                    break;
+                }
             }
-            yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
+            
+            AnimatorStateInfo stateInfo = worker.animator.GetCurrentAnimatorStateInfo(0);
+            float remainigTime = ((worker.GetMaxAmount() / worker.GetDamage()) - stateInfo.normalizedTime) * stateInfo.length;
+
+            yield return new WaitForSeconds(remainigTime);
+            
             worker.animator.Play("Idle");
             worker.DisactiveInstument(UP_Worker.E_Instrument.Pickaxe);
 

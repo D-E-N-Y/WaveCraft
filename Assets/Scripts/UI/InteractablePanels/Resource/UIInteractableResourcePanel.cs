@@ -13,11 +13,24 @@ public class UIInteractableResourcePanel : MonoBehaviour
         
         nameText.text = resource.nameActor;
         hpText.text = resource.GetCurrentHP().ToString();
+
+        resource.UpdateCurrentHP += RefreshCurrentHP;
+        resource.DestroyActor += ClosePanel;
     }
 
     public void Mine()
     {
         MiningTask task = new MiningTask(resource);
         TaskSystem.current.AddTask(task);
+    }
+
+    private void RefreshCurrentHP()
+    {
+        hpText.text = resource.GetCurrentHP().ToString();
+    }
+
+    private void ClosePanel()
+    {
+        gameObject.SetActive(false);
     }
 }

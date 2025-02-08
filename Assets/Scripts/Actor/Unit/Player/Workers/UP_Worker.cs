@@ -34,6 +34,8 @@ public class UP_Worker : U_Player
         instruments = new Dictionary<E_Instrument, GameObject>();
         instruments.Add(E_Instrument.Hammer, hammerPrefab);
         instruments.Add(E_Instrument.Pickaxe, pickaxePrefab);
+
+        pickaxePrefab.GetComponent<Mining>().Initialize(this);
     }
     
     #region Control tasks
@@ -126,83 +128,19 @@ public class UP_Worker : U_Player
         instruments[instrument].SetActive(false);
     }
 
+    public void EnableCollisionPickaxe()
+    {
+        pickaxePrefab.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void DisableCollisionPickaxe()
+    {
+        pickaxePrefab.GetComponent<BoxCollider>().enabled = false;
+        pickaxePrefab.GetComponent<Mining>().NullTarget();
+    }
+
     #region Do tasks
 
-    private Vector3 GetNearbyResource(E_Resource resource)
-    {
-        // get nearby resource from worker
-        
-        return Vector3.zero;
-    }
-
-    private I_Processor GetNearbyProcessor(E_Resource resource)
-    {
-        // get nearby processor from worker
-        
-        return null;
-    }
-
-    private IEnumerator DestroyTask(DestroyTask task)
-    {
-        // // move to building
-        // agent.SetDestination(task.buildingPosition);
-        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        // {
-        //     yield return null;
-        // }
-
-        // destroy
-        float elapsedTime = 0f;
-        while(elapsedTime < task.timeToDestroy)
-        {
-            elapsedTime += Time.deltaTime;
-
-            // Update UI
-
-            yield return null;
-        }
-
-        // complete
-        Debug.Log("Build complete");
-    }
-
-    private IEnumerator StoreTask(StoreTask task)
-    {
-        // // move to processor
-        // I_Processor processor = GetNearbyProcessor(task.resource);
-        // agent.SetDestination(processor.transform.position);
-        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        // {
-        //     yield return null;
-        // }
-
-        // // give processed resources
-        // currentAmount = processor.Unload();
-
-        // // move to storage
-        // I_Storage storage = GetNearbyStorage(task.resource);
-        // agent.SetDestination(storage.transform.position);
-        // while(!agent.pathPending && agent.remainingDistance > 0.1f)
-        // {
-        //     yield return null;
-        // }
-
-        // // store resources
-        // storage.AddResources(currentAmount);
-        // currentAmount = 0;
-
-        // // complete
-        // Debug.Log("Store resources complete");
-
-        yield return null;
-    }
-
-    private I_Storage GetNearbyStorage(E_Resource resource)
-    {
-        // get nearby storage from worker
-        
-        return null;
-    }
         
     #endregion
 }

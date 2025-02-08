@@ -41,6 +41,7 @@ public class Resource : Actor
         base.TakeDamage(damage);
 
         currentHP = Mathf.Max(currentHP - damage, 0);
+        UpdateCurrentHP?.Invoke();
 
         if(currentHP <= 0)
         {
