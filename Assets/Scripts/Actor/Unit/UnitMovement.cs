@@ -37,8 +37,7 @@ public class UnitMovement : MonoBehaviour
                     break;
             }
 
-            yield return new WaitForSeconds(0.1f);
-            // yield return null;
+            yield return new WaitForSeconds(0.05f);
 
             if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
             {
@@ -58,9 +57,14 @@ public class UnitMovement : MonoBehaviour
         isMoving = false;
     }
     
+    private Vector3 MiddlePoint(Vector3 vector_1, Vector3 vector_2)
+    {
+        return (vector_1 + vector_2) / 2;
+    }
+
     private Vector3 GetBestNavMeshPoint(Vector3 agentPosition, Vector3 targetPosition)
     {
-        Vector3 midPoint = (agentPosition + targetPosition) / 2;
+        Vector3 midPoint = MiddlePoint(agentPosition, targetPosition);
         NavMeshHit hit;
 
         if(NavMesh.SamplePosition(midPoint, out hit, 5f, NavMesh.AllAreas))
@@ -78,7 +82,7 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
         
-        if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
+        if (Vector3.Distance(agent.destination, bestPoint) > 1f)
         {
             agent.SetDestination(bestPoint);
         }
