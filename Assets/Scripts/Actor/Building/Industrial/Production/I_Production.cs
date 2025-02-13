@@ -4,11 +4,28 @@ using UnityEngine;
 
 public class I_Production : B_Industrial
 {
+    public Action UpdateCountResources;
+    
     [SerializeField] private int amountProduce;
     [SerializeField] private float timeProduce;
     
     [SerializeField] private int maxStorage;
     private int currentAmount;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        nameActor = resourse + " prodaction";
+        currentAmount = 0;
+    }
+
+    public override void Built()
+    {
+        base.Built();
+
+        StartProduce();
+    }
 
     private void StartProduce()
     {
@@ -25,22 +42,23 @@ public class I_Production : B_Industrial
     private void CompleteProduce()
     {
         currentAmount = Math.Min(currentAmount + amountProduce, maxStorage);
+        UpdateCountResources?.Invoke();
 
         if(currentAmount < maxStorage)
             StartProduce();
     }
 
-    public int RemoveResources(int amount)
+    public int Unload()
     {
-        currentAmount -= amount;
+        int amount = currentAmount;
+        currentAmount = 0;
+        UpdateCountResources?.Invoke();
 
-        if(currentAmount < 0)
-        {
-            return amount - currentAmount;
-        }
-        else
-        {
-            return amount;
-        }
+        StartCoroutine(nameof(Produce));
+
+        return amount;
     }
+
+    public int GetMaxAmount() => maxStorage;
+    public int GetProduceAmount() => currentAmount;
 }

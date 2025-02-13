@@ -13,6 +13,7 @@ public class I_Storage : B_Industrial, IStorage
         base.Initialize();
 
         nameActor = resourse + " storage";
+        currentAmount = 0;
     }
 
     public override void Built()
