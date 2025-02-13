@@ -5,7 +5,7 @@ public class Actor : MonoBehaviour
 {
     public Action UpdateCurrentHP;
     public Action DestroyActor;
-    
+
     [SerializeField] protected GameObject interactionMenuUI;
     
     public string nameActor { get; protected set; }
