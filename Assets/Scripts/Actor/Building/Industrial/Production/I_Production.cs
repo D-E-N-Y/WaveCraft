@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class I_Production : B_Industrial
+public class I_Production : B_Industrial, IProduction
 {
     public Action UpdateCountResources;
     
@@ -59,6 +59,7 @@ public class I_Production : B_Industrial
         return amount;
     }
 
+    public Vector3 GetPosition() => transform.position;
     public int GetMaxAmount() => maxStorage;
     public int GetProduceAmount() => currentAmount;
 }

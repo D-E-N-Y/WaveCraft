@@ -56,6 +56,10 @@ public class UIInteractableProductionPanel : MonoBehaviour
 
     public void Store()
     {
-        
+        if(production.GetProduceAmount() > 0)
+        {
+            StoreTask task = new StoreTask(production.GetTypeResource(), production);
+            TaskSystem.current.AddTask(task);
+        }
     }
 }

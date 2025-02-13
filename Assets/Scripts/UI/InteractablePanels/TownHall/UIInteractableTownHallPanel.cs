@@ -110,7 +110,7 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         E_Resource resource = (E_Resource)numberResource;
         TH_Processor processor = townHall.GetProcessor(resource);
         
-        if(processor.processedAmount > 0)
+        if(processor.processedAmount > 0 && StorageSystem.current.CheckFreeSpace(processor.resource))
         {
             StoreTask task = new StoreTask(resource, processor);
             TaskSystem.current.AddTask(task);

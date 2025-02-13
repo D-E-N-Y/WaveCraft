@@ -62,7 +62,7 @@ public class UIInteractableProcessorPanel : MonoBehaviour
 
     public void Store()
     {
-        if(processor.processedAmount > 0)
+        if(processor.processedAmount > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
             StoreTask task = new StoreTask(processor.GetTypeResource(), processor);
             TaskSystem.current.AddTask(task);
