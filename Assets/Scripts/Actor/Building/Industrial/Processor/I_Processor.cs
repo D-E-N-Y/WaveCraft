@@ -15,11 +15,27 @@ public class I_Processor : B_Industrial, IProcessor
     public int rawAmount { get; private set; }
     public int processedAmount { get; private set; }
 
+    public override void Initialize()
+    {
+        base.Initialize();
+    }
+
+    public void Initialize(E_Resource resource, float factor, float timeProcess, List<Transform> actorPositions)
+    {
+        this.resource = resource;
+        this.factor = factor;
+        this.timeProcess = timeProcess;
+        this.actorPositions = actorPositions;
+
+        rawAmount = 0;
+        processedAmount = 0;
+    }
+
     public override void Built()
     {
         base.Built();
 
-        ProcessorSystem.current.AddProcessor(resourse, this);
+        ProcessorSystem.current.AddProcessor(resource, this);
     }
 
     protected virtual void StartProcess()
@@ -69,6 +85,4 @@ public class I_Processor : B_Industrial, IProcessor
 
         return amount;
     }
-
-    public List<Transform> GetPosition() => actorPositions;
 }

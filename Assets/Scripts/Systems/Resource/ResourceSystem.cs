@@ -89,17 +89,17 @@ public class ResourceSystem : GameSystem
 
     public void AddNaturalResources(Resource resource)
     {
-        if(!naturalResources.ContainsKey(resource.GetType()))
+        if(!naturalResources.ContainsKey(resource.Type()))
         {
-            naturalResources[resource.GetType()] = new List<Resource>();
+            naturalResources[resource.Type()] = new List<Resource>();
         }
 
-        naturalResources[resource.GetType()].Add(resource);
+        naturalResources[resource.Type()].Add(resource);
     }
 
     public void RemoveNaturalResources(Resource resource)
     {
-        naturalResources[resource.GetType()].Remove(resource);
+        naturalResources[resource.Type()].Remove(resource);
     }
 
     // public Resource GetNearbyNaturalResource(E_Resource type, Transform target)

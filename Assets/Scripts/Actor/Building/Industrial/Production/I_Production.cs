@@ -17,7 +17,7 @@ public class I_Production : B_Industrial, IProduction
     {
         base.Initialize();
 
-        nameActor = resourse + " prodaction";
+        nameActor = resource + " prodaction";
         currentAmount = 0;
     }
 
@@ -60,7 +60,6 @@ public class I_Production : B_Industrial, IProduction
         return amount;
     }
 
-    public List<Transform> GetPosition() => actorPositions;
     public int GetMaxAmount() => maxStorage;
     public int GetProduceAmount() => currentAmount;
 }

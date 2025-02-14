@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public class Actor : MonoBehaviour, IPosition
 {
     public Action UpdateCurrentHP;
     public Action DestroyActor;
@@ -49,4 +49,6 @@ public class Actor : MonoBehaviour
     {
         DestroyActor?.Invoke();
     }
+
+    public List<Transform> GetPosition() => actorPositions;
 }

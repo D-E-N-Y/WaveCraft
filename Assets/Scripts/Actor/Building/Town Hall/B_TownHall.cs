@@ -15,34 +15,29 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         nameActor = "Town Hall";
 
-        foreach(Transform t in actorPositions)
-        {
-            Debug.Log(t.position);
-        }
-
         // fill busy grid 
         BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
         Place();
         Built();
 
         // initialize storage
-        storages = new List<TH_Storage>();
-        foreach(STH_Storage storage in storages_param)
+        storages = new List<I_Storage>();
+        foreach(S_Storage storage in storages_param)
         {
-            TH_Storage newStorage = gameObject.AddComponent<TH_Storage>();
+            I_Storage newStorage = gameObject.AddComponent<I_Storage>();
             newStorage.Initialize(storage.resource, storage.maxAmount, actorPositions);
             storages.Add(newStorage);
             
-            StorageSystem.current.AddStorage(newStorage, newStorage.resource);
-            ResourceSystem.current.AddResources(newStorage.resource, 0);
+            StorageSystem.current.AddStorage(newStorage, newStorage.GetTypeResource());
+            ResourceSystem.current.AddResources(newStorage.GetTypeResource(), 0);
         }
         ResourceSystem.current.AddResources(E_Resource.Food, 100);
 
         // ininitialize processor
-        processors = new List<TH_Processor>();
-        foreach(STH_Processor processor in processors_param)
+        processors = new List<I_Processor>();
+        foreach(S_Processor processor in processors_param)
         {
-            TH_Processor newProcessor = gameObject.AddComponent<TH_Processor>();
+            I_Processor newProcessor = gameObject.AddComponent<I_Processor>();
             newProcessor.Initialize(processor.resource, processor.factor, processor.timeProcess, actorPositions);
             processors.Add(newProcessor);
 
@@ -82,26 +77,26 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     #region Storage
 
     [System.Serializable]
-    private struct STH_Storage
+    private struct S_Storage
     {
         public E_Resource resource;
         public int maxAmount;
 
-        public STH_Storage(E_Resource resource, int maxAmount)
+        public S_Storage(E_Resource resource, int maxAmount)
         {
             this.resource = resource;
             this.maxAmount = maxAmount;
         }
     }
 
-    [SerializeField] private List<STH_Storage> storages_param;
-    private List<TH_Storage> storages;
+    [SerializeField] private List<S_Storage> storages_param;
+    private List<I_Storage> storages;
 
-    public TH_Storage GetStorage(E_Resource resource)
+    public I_Storage GetStorage(E_Resource resource)
     {
-        foreach(TH_Storage storage in storages)
+        foreach(I_Storage storage in storages)
         {
-            if(storage.resource == resource)
+            if(storage.GetTypeResource() == resource)
             {
                 return storage;
             }
@@ -112,16 +107,16 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         
     #endregion
 
-    #region Processing
+    #region Processor
 
     [System.Serializable]
-    private struct STH_Processor
+    private struct S_Processor
     {
         public E_Resource resource;
         public float factor;
         public float timeProcess;
 
-        public STH_Processor(E_Resource resource, float factor, float timeProcess)
+        public S_Processor(E_Resource resource, float factor, float timeProcess)
         {
             this.resource = resource;
             this.factor = factor;
@@ -129,14 +124,14 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         }
     }
 
-    [SerializeField] private List<STH_Processor> processors_param;
-    private List<TH_Processor> processors;
+    [SerializeField] private List<S_Processor> processors_param;
+    private List<I_Processor> processors;
 
-    public TH_Processor GetProcessor(E_Resource resource)
+    public I_Processor GetProcessor(E_Resource resource)
     {
-        foreach(TH_Processor processor in processors)
+        foreach(I_Processor processor in processors)
         {
-            if(processor.resource == resource)
+            if(processor.GetTypeResource() == resource)
             {
                 return processor;
             }

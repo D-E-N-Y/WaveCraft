@@ -49,8 +49,5 @@ public class Resource : Actor
         }
     }
 
-    public E_Resource GetType()
-    {
-        return resource;
-    }
+    public E_Resource Type() => resource;
 }

@@ -13,7 +13,16 @@ public class I_Storage : B_Industrial, IStorage
     {
         base.Initialize();
 
-        nameActor = resourse + " storage";
+        nameActor = resource + " storage";
+        currentAmount = 0;
+    }
+
+    public void Initialize(E_Resource resource, int maxAmount, List<Transform> actorPositions)
+    {
+        this.resource = resource;
+        this.maxAmount = maxAmount;
+        this.actorPositions = actorPositions;
+
         currentAmount = 0;
     }
 
@@ -21,7 +30,7 @@ public class I_Storage : B_Industrial, IStorage
     {
         base.Built();
 
-        StorageSystem.current.AddStorage(this, resourse);
+        StorageSystem.current.AddStorage(this, resource);
     }
 
     public int AddResources(int amount)
@@ -65,5 +74,4 @@ public class I_Storage : B_Industrial, IStorage
     public bool isFreeSpace() => maxAmount - currentAmount != 0;
     public int GetCurrentAmount() => currentAmount;
     public int GetMaxAmount() => maxAmount;
-    public List<Transform> GetPosition() => actorPositions;
 }

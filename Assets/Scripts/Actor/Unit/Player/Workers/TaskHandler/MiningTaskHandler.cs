@@ -48,7 +48,9 @@ public class MiningTaskHandler : ITaskHandler
             // Move to processor
             worker.animator.SetBool("isMove", true);
             IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, miningTask.resource);
-            yield return worker.movement.MoveTo(processor.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+            IPosition position = (IPosition)processor;
+            
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             // Store resources

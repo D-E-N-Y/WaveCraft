@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildTaskHandler : ITaskHandler
@@ -11,11 +10,7 @@ public class BuildTaskHandler : ITaskHandler
         
         // move to building
         worker.animator.SetBool("isMove", true);
-
-        List<Transform> buildngPosition = new List<Transform>();
-        buildngPosition.Add(buildTask.building.transform);
-
-        yield return worker.movement.MoveTo(buildngPosition, UnitMovement.E_MoveTo.Object);
+        yield return worker.movement.MoveTo(buildTask.building.GetPosition(), UnitMovement.E_MoveTo.Object);
         worker.animator.SetBool("isMove", false);
 
         // Debug.Log("start build");

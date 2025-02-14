@@ -11,9 +11,8 @@ public class MiningTask : Task
     {
         taskType = E_TaskType.Mining;
 
-        this.resource = resource.GetType();
-        resourcePosition = new List<Transform>();
-        resourcePosition.Add(resource.transform);
+        this.resource = resource.Type();
+        resourcePosition = resource.GetPosition();
         resourceAmount = (int)resource.GetCurrentHP();
     }
 
