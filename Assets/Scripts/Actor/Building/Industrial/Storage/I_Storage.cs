@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class I_Storage : B_Industrial, IStorage
@@ -21,11 +22,6 @@ public class I_Storage : B_Industrial, IStorage
         base.Built();
 
         StorageSystem.current.AddStorage(this, resourse);
-    }
-
-    public bool isFreeSpace()
-    {
-        return maxAmount - currentAmount != 0;
     }
 
     public int AddResources(int amount)
@@ -66,18 +62,8 @@ public class I_Storage : B_Industrial, IStorage
         }
     }
 
-    public int GetCurrentAmount()
-    {
-        return currentAmount;
-    }
-
-    public int GetMaxAmount()
-    {
-        return maxAmount;
-    }
-
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
+    public bool isFreeSpace() => maxAmount - currentAmount != 0;
+    public int GetCurrentAmount() => currentAmount;
+    public int GetMaxAmount() => maxAmount;
+    public List<Transform> GetPosition() => actorPositions;
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class I_Production : B_Industrial, IProduction
@@ -59,7 +60,7 @@ public class I_Production : B_Industrial, IProduction
         return amount;
     }
 
-    public Vector3 GetPosition() => transform.position;
+    public List<Transform> GetPosition() => actorPositions;
     public int GetMaxAmount() => maxStorage;
     public int GetProduceAmount() => currentAmount;
 }

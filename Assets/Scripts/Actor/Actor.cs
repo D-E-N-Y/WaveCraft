@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Actor : MonoBehaviour
@@ -7,7 +8,8 @@ public class Actor : MonoBehaviour
     public Action DestroyActor;
 
     [SerializeField] protected GameObject interactionMenuUI;
-    
+    [SerializeField] protected List<Transform> actorPositions;    
+
     public string nameActor { get; protected set; }
 
     [SerializeField] protected float maxHP;

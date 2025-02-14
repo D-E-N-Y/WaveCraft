@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TH_Processor : MonoBehaviour, IProcessor
@@ -10,16 +12,18 @@ public class TH_Processor : MonoBehaviour, IProcessor
     public E_Resource resource { get; private set; }
     public float factor { get; private set; }
     public float timeProcess { get; private set; }
+    private List<Transform> actorPositions;
 
     private bool isProcessing;
     public int rawAmount { get; private set; }
     public int processedAmount { get; private set; }
 
-    public void Initialize(E_Resource resource, float factor, float timeProcess)
+    public void Initialize(E_Resource resource, float factor, float timeProcess, List<Transform> actorPositions)
     {
         this.resource = resource;
         this.factor = factor;
         this.timeProcess = timeProcess;
+        this.actorPositions = actorPositions;
 
         rawAmount = 0;
         processedAmount = 0;
@@ -73,8 +77,5 @@ public class TH_Processor : MonoBehaviour, IProcessor
         return amount;
     }
 
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
+    public List<Transform> GetPosition() => actorPositions;
 }

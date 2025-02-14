@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TH_Storage : MonoBehaviour, IStorage
@@ -6,13 +7,15 @@ public class TH_Storage : MonoBehaviour, IStorage
     public Action<E_Resource> UpdateCurrentAmount;
     
     public E_Resource resource { private set; get; }
-    public int maxAmount { private set; get; }
-    public int currentAmount { private set; get; }
+    private int maxAmount;
+    private int currentAmount;
+    private List<Transform> actorPositions;
 
-    public void Initialize(E_Resource resource, int maxAmount)
+    public void Initialize(E_Resource resource, int maxAmount, List<Transform> actorPositions)
     {
         this.resource = resource;
         this.maxAmount = maxAmount;
+        this.actorPositions = actorPositions;
     }
 
     public bool isFreeSpace()
@@ -59,18 +62,7 @@ public class TH_Storage : MonoBehaviour, IStorage
         }
     }
 
-    public int GetCurrentAmount()
-    {
-        return currentAmount;
-    }
-
-    public int GetMaxAmount()
-    {
-        return maxAmount;
-    }
-
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
+    public int GetCurrentAmount() => currentAmount;
+    public int GetMaxAmount() => maxAmount;
+    public List<Transform> GetPosition() => actorPositions;
 }

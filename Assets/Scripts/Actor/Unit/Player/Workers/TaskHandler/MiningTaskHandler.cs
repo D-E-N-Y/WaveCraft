@@ -15,10 +15,9 @@ public class MiningTaskHandler : ITaskHandler
         {
             // Move to resource
             // Debug.Log($"Move to {miningTask.resource}");
-            Vector3 resourcePosition = miningTask.resourcePosition;
 
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(resourcePosition, UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(miningTask.resourcePosition, UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             // Mining phase
@@ -36,7 +35,7 @@ public class MiningTaskHandler : ITaskHandler
             }
             
             AnimatorStateInfo stateInfo = worker.animator.GetCurrentAnimatorStateInfo(0);
-            float remainigTime = ((worker.GetMaxAmount() / worker.GetDamage()) - stateInfo.normalizedTime) * stateInfo.length;
+            float remainigTime = ((worker.GetCurrentAmount() / worker.GetDamage()) - stateInfo.normalizedTime) * stateInfo.length;
 
             yield return new WaitForSeconds(remainigTime);
             

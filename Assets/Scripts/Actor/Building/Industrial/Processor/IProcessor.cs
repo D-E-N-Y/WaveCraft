@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IProcessor
@@ -5,5 +6,5 @@ public interface IProcessor
     void AddResources(int amount);
     int Unload();
 
-    Vector3 GetPosition();
+    List<Transform> GetPosition();
 }

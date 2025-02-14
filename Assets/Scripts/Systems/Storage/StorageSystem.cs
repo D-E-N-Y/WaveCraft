@@ -107,7 +107,7 @@ public class StorageSystem : GameSystem
     {
         return storages[resource]
                 .Where(storage => storage.isFreeSpace())
-                .OrderBy(storage => Vector3.Distance(storage.GetPosition(), target))
+                .OrderBy(storage => Vector3.Distance(storage.GetPosition()[0].position, target))
                 .FirstOrDefault();
     }
 }

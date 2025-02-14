@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IStorage
@@ -8,5 +9,5 @@ public interface IStorage
     int GetCurrentAmount();
     int GetMaxAmount();
 
-    Vector3 GetPosition();
+    List<Transform> GetPosition();
 }

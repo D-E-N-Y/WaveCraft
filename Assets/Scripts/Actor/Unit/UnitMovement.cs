@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,7 +22,12 @@ public class UnitMovement : MonoBehaviour
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
-    public IEnumerator MoveTo(Vector3 target, E_MoveTo _object)
+    private Vector3 GetNearbyPosition(List<Transform> target)
+    {
+        return target.OrderBy(x => Vector3.Distance(x.position, transform.position)).First().position;
+    }
+
+    public IEnumerator MoveTo(List<Transform> target, E_MoveTo _object)
     {
         isMoving = true;
         
@@ -29,15 +36,20 @@ public class UnitMovement : MonoBehaviour
             switch(_object)
             {
                 case E_MoveTo.PlacedObject:
-                    MoveToPlacedObject(target);
+                    MoveToPlacedObject(GetNearbyPosition(target));
                     break;
                 
                 case E_MoveTo.Object:
-                    MoveToObject(target);
+                    MoveToObject(GetNearbyPosition(target));
                     break;
             }
 
-            yield return new WaitForSeconds(0.05f);
+            // while(agent.pathPending || !agent.hasPath)
+            // {
+            //     yield return null;
+            // }
+
+            yield return new WaitForSeconds(0.1f);
 
             if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
             {
@@ -82,7 +94,9 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
         
-        if (Vector3.Distance(agent.destination, bestPoint) > 1f)
+        // agent.SetDestination(bestPoint);
+        
+        if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
         {
             agent.SetDestination(bestPoint);
         }

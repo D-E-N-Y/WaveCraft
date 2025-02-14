@@ -53,14 +53,14 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         foreach(ResourceText current in curresntStorageResourceTexts)
         {
             TH_Storage storage = townHall.GetStorage(current.resource);
-            current.amountText.text = storage.currentAmount.ToString();
+            current.amountText.text = storage.GetCurrentAmount().ToString();
             storage.UpdateCurrentAmount += RefreshResourceAmountStorage;
         }
 
         foreach(ResourceText current in maxStorageResourceTexts)
         {
             TH_Storage storage = townHall.GetStorage(current.resource);
-            current.amountText.text = storage.maxAmount.ToString();
+            current.amountText.text = storage.GetMaxAmount().ToString();
         }
     }
 
@@ -99,7 +99,7 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         {
             if(current.resource == resource)
             {
-                current.amountText.text = townHall.GetStorage(resource).currentAmount.ToString();
+                current.amountText.text = townHall.GetStorage(resource).GetCurrentAmount().ToString();
                 break;
             }
         }

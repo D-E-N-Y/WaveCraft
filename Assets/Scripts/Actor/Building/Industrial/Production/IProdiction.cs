@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IProduction
 {
     int Unload();
 
-    Vector3 GetPosition();
+    List<Transform> GetPosition();
 }

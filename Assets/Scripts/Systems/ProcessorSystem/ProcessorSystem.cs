@@ -34,7 +34,10 @@ public class ProcessorSystem : GameSystem
 
     public IProcessor GetNearbyProcessor(Vector3 target, E_Resource resource)
     {
-        Debug.Log(processors[resource]);
-        return processors[resource].OrderBy(processor => Vector3.Distance(processor.GetPosition(), target)).First();
+        Debug.Log(processors[resource][0].GetPosition()[0].position);
+        
+        return processors[resource]
+                .OrderBy(processor => Vector3.Distance(processor.GetPosition()[0].position, target))
+                .FirstOrDefault();
     }
 }

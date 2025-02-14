@@ -15,6 +15,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         nameActor = "Town Hall";
 
+        foreach(Transform t in actorPositions)
+        {
+            Debug.Log(t.position);
+        }
+
         // fill busy grid 
         BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
         Place();
@@ -25,7 +30,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         foreach(STH_Storage storage in storages_param)
         {
             TH_Storage newStorage = gameObject.AddComponent<TH_Storage>();
-            newStorage.Initialize(storage.resource, storage.maxAmount);
+            newStorage.Initialize(storage.resource, storage.maxAmount, actorPositions);
             storages.Add(newStorage);
             
             StorageSystem.current.AddStorage(newStorage, newStorage.resource);
@@ -38,7 +43,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         foreach(STH_Processor processor in processors_param)
         {
             TH_Processor newProcessor = gameObject.AddComponent<TH_Processor>();
-            newProcessor.Initialize(processor.resource, processor.factor, processor.timeProcess);
+            newProcessor.Initialize(processor.resource, processor.factor, processor.timeProcess, actorPositions);
             processors.Add(newProcessor);
 
             ProcessorSystem.current.AddProcessor(processor.resource, newProcessor);

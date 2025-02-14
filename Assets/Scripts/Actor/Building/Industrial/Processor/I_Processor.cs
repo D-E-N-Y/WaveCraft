@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class I_Processor : B_Industrial, IProcessor
@@ -69,8 +70,5 @@ public class I_Processor : B_Industrial, IProcessor
         return amount;
     }
 
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
+    public List<Transform> GetPosition() => actorPositions;
 }
