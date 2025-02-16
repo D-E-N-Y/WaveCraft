@@ -17,10 +17,21 @@ ScriptsOnlyBuild:
     - I_Storage
     - InteractionSystem
     - MaterialBuilding
+    - Mining
+    - P_Mill
+    - P_Sawmill
+    - ProcessorSystem
     - Resource
     - ResourceSystem
     - StorageSystem
     - TaskSystem
+    - UIInteractablePanel
+    - UIInteractableProcessorPanel
+    - UIInteractableProductionPanel
+    - UIInteractableResourcePanel
+    - UIInteractableStoragePanel
+    - UIInteractableTownHallPanel
+    - UIResourcePanel
     - UISystem
     - UI_BuildArchersTower
     - UI_BuildBarrack
@@ -55,6 +66,8 @@ ScriptsOnlyBuild:
     Unity.AI.Navigation.dll:
     - Unity.AI.Navigation.NavMeshModifier
     - Unity.AI.Navigation.NavMeshSurface
+    Unity.PlasticSCM.Editor.dll:
+    - Unity.PlasticSCM.Editor.PlasticWindow
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
@@ -98,10 +111,15 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.VerticalLayoutGroup
   serializedClasses:
     Assembly-CSharp:
-    - B_TownHall/STH_Processor
-    - B_TownHall/STH_Storage
+    - B_TownHall/S_Processor
+    - B_TownHall/S_Storage
     - S_Cost
     - S_CostUI
+    - UIInteractableProcessorPanel/ResourceImage
+    - UIInteractableProductionPanel/ResourceImage
+    - UIInteractableStoragePanel/ResourceImage
+    - UIInteractableTownHallPanel/ResourceText
+    - UIResourcePanel/AmountText
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -177,6 +195,9 @@ ScriptsOnlyBuild:
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
   - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableTownHallPanel
+    methodName: Store
+  - assembly: Assembly-CSharp
     fullTypeName: UISystem
     methodName: OpenPanel
   - assembly: Assembly-CSharp
@@ -207,6 +228,12 @@ ScriptsOnlyBuild:
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
   - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableResourcePanel
+    methodName: Mine
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableTownHallPanel
+    methodName: Store
+  - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
   - assembly: Assembly-CSharp
@@ -216,8 +243,17 @@ ScriptsOnlyBuild:
     fullTypeName: UI_Menu
     methodName: SelectMenu
   - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableProcessorPanel
+    methodName: Store
+  - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableProductionPanel
+    methodName: Store
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableTownHallPanel
+    methodName: Store
   - assembly: Assembly-CSharp
     fullTypeName: UI_Menu
     methodName: OpenSection
@@ -273,6 +309,9 @@ ScriptsOnlyBuild:
     fullTypeName: UI_Menu
     methodName: SelectMenu
   - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableTownHallPanel
+    methodName: SpawnWorker
+  - assembly: Assembly-CSharp
     fullTypeName: UI_Menu
     methodName: OpenMenu
   - assembly: Assembly-CSharp
@@ -316,8 +355,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
-    - Class: 54
-      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 89
@@ -325,31 +362,31 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16656}
+      Script: {instanceID: 17372}
     - Class: 114
-      Script: {instanceID: 17370}
+      Script: {instanceID: 18226}
     - Class: 114
-      Script: {instanceID: 18220}
+      Script: {instanceID: 18820}
     - Class: 114
-      Script: {instanceID: 19278}
+      Script: {instanceID: 19288}
     - Class: 114
-      Script: {instanceID: 19394}
+      Script: {instanceID: 19404}
     - Class: 114
-      Script: {instanceID: 19572}
+      Script: {instanceID: 19668}
     - Class: 114
-      Script: {instanceID: 19656}
+      Script: {instanceID: 20414}
     - Class: 114
-      Script: {instanceID: 20398}
+      Script: {instanceID: 20426}
     - Class: 114
-      Script: {instanceID: 20410}
+      Script: {instanceID: 20556}
     - Class: 114
-      Script: {instanceID: 22230}
+      Script: {instanceID: 21414}
     - Class: 114
-      Script: {instanceID: 23176}
+      Script: {instanceID: 22270}
     - Class: 114
-      Script: {instanceID: 35482}
+      Script: {instanceID: 23018}
     - Class: 114
-      Script: {instanceID: 118540}
+      Script: {instanceID: 23222}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -357,8 +394,6 @@ ScriptsOnlyBuild:
     - Class: 136
       Script: {instanceID: 0}
     - Class: 157
-      Script: {instanceID: 0}
-    - Class: 195
       Script: {instanceID: 0}
     - Class: 196
       Script: {instanceID: 0}
@@ -408,13 +443,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 648}
     - Class: 114
-      Script: {instanceID: 16682}
+      Script: {instanceID: 16680}
+    - Class: 114
+      Script: {instanceID: 16684}
     - Class: 114
       Script: {instanceID: 16686}
     - Class: 114
       Script: {instanceID: 16688}
-    - Class: 114
-      Script: {instanceID: 16690}
     - Class: 114
       Script: {instanceID: 16864}
     - Class: 114
@@ -424,73 +459,93 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 17152}
     - Class: 114
-      Script: {instanceID: 17430}
+      Script: {instanceID: 17254}
     - Class: 114
-      Script: {instanceID: 17808}
+      Script: {instanceID: 17432}
     - Class: 114
-      Script: {instanceID: 18028}
+      Script: {instanceID: 17582}
     - Class: 114
-      Script: {instanceID: 18854}
+      Script: {instanceID: 17814}
     - Class: 114
-      Script: {instanceID: 18908}
+      Script: {instanceID: 18034}
     - Class: 114
-      Script: {instanceID: 19046}
+      Script: {instanceID: 18864}
     - Class: 114
-      Script: {instanceID: 19142}
+      Script: {instanceID: 18918}
     - Class: 114
-      Script: {instanceID: 19312}
+      Script: {instanceID: 19054}
     - Class: 114
-      Script: {instanceID: 19572}
+      Script: {instanceID: 19150}
     - Class: 114
-      Script: {instanceID: 19916}
+      Script: {instanceID: 19206}
     - Class: 114
-      Script: {instanceID: 20066}
+      Script: {instanceID: 19322}
     - Class: 114
-      Script: {instanceID: 20122}
+      Script: {instanceID: 19584}
     - Class: 114
-      Script: {instanceID: 20340}
+      Script: {instanceID: 19928}
     - Class: 114
-      Script: {instanceID: 20376}
+      Script: {instanceID: 20078}
     - Class: 114
-      Script: {instanceID: 20410}
+      Script: {instanceID: 20134}
     - Class: 114
-      Script: {instanceID: 20600}
+      Script: {instanceID: 20224}
     - Class: 114
-      Script: {instanceID: 21006}
+      Script: {instanceID: 20304}
     - Class: 114
-      Script: {instanceID: 21172}
+      Script: {instanceID: 20356}
     - Class: 114
-      Script: {instanceID: 21220}
+      Script: {instanceID: 20392}
     - Class: 114
-      Script: {instanceID: 21516}
+      Script: {instanceID: 20426}
     - Class: 114
-      Script: {instanceID: 21524}
+      Script: {instanceID: 20556}
     - Class: 114
-      Script: {instanceID: 21560}
+      Script: {instanceID: 20620}
     - Class: 114
-      Script: {instanceID: 21686}
+      Script: {instanceID: 20630}
     - Class: 114
-      Script: {instanceID: 21946}
+      Script: {instanceID: 21028}
     - Class: 114
-      Script: {instanceID: 21998}
+      Script: {instanceID: 21196}
     - Class: 114
-      Script: {instanceID: 22072}
+      Script: {instanceID: 21244}
     - Class: 114
-      Script: {instanceID: 22230}
+      Script: {instanceID: 21342}
     - Class: 114
-      Script: {instanceID: 22344}
+      Script: {instanceID: 21544}
     - Class: 114
-      Script: {instanceID: 22356}
+      Script: {instanceID: 21552}
     - Class: 114
-      Script: {instanceID: 22692}
+      Script: {instanceID: 21590}
     - Class: 114
-      Script: {instanceID: 22992}
+      Script: {instanceID: 21628}
     - Class: 114
-      Script: {instanceID: 23152}
+      Script: {instanceID: 21718}
     - Class: 114
-      Script: {instanceID: 23154}
+      Script: {instanceID: 21984}
     - Class: 114
-      Script: {instanceID: 35482}
+      Script: {instanceID: 22036}
+    - Class: 114
+      Script: {instanceID: 22112}
+    - Class: 114
+      Script: {instanceID: 22270}
+    - Class: 114
+      Script: {instanceID: 22384}
+    - Class: 114
+      Script: {instanceID: 22396}
+    - Class: 114
+      Script: {instanceID: 22734}
+    - Class: 114
+      Script: {instanceID: 22778}
+    - Class: 114
+      Script: {instanceID: 23038}
+    - Class: 114
+      Script: {instanceID: 23198}
+    - Class: 114
+      Script: {instanceID: 23200}
+    - Class: 114
+      Script: {instanceID: 23242}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -528,12 +583,6 @@ ScriptsOnlyBuild:
     - Class: 1839735485
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: e3e530172653266866d7d7cb1a240259
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: ResourceSystem
   - hash:
       serializedVersion: 2
       Hash: dd9dda1dfd39e605c49e72003342ef5d
@@ -578,7 +627,7 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: d316de52d09a5dcbbb638e8e4e8cc741
+      Hash: 9bbc7c27eded4b30b3d6aefacb9fa411
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Actor
@@ -626,7 +675,7 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionStayMessageListener
   - hash:
       serializedVersion: 2
-      Hash: bcc8a6f2a30f8497ea42ed1863347cb5
+      Hash: 8e1c7746b7eac3b6a003f6b1a1ac1137
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Defence
@@ -644,13 +693,13 @@ ScriptsOnlyBuild:
     className: SimpleScript
   - hash:
       serializedVersion: 2
-      Hash: f3ee90845927e4d0ccc470c4f3b6ac93
+      Hash: ef68cdc2cdf2b3839f808830129c5ef0
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildMagesTower
   - hash:
       serializedVersion: 2
-      Hash: 5608d8f85ada98cac35b8b39edf4ab72
+      Hash: ebf03d5c6b3aa3c9b82749b1d821db1f
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_TownHall
@@ -662,10 +711,16 @@ ScriptsOnlyBuild:
     className: TH_Processor
   - hash:
       serializedVersion: 2
-      Hash: 440102b76b34e2d49a1640669738e2f9
+      Hash: e0d0c9b0285fcca2f23bc0448696c54e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_Barrack
+  - hash:
+      serializedVersion: 2
+      Hash: df156b4acdc939bce537b14f23d2d5cb
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIResourcePanel
   - hash:
       serializedVersion: 2
       Hash: b12640dfdb5966813e9dd838893e6c4a
@@ -716,13 +771,19 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
+      Hash: 9fdeb8b86540176a40a95fdb3128d815
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableStoragePanel
+  - hash:
+      serializedVersion: 2
       Hash: 1321993db8249e1e05e1e0492b2bbdc3
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnBecameVisibleMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 52665667819ad816420904e42eebabd0
+      Hash: 976410b5b498e70c185d7d4c716574c8
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: U_Player
@@ -788,7 +849,7 @@ ScriptsOnlyBuild:
     className: RuleOverrideTile
   - hash:
       serializedVersion: 2
-      Hash: 7c1ed4b578e02c3a864122b79b869bcd
+      Hash: 08047dbfd2bee0110239138e44db7231
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Industrial
@@ -920,7 +981,7 @@ ScriptsOnlyBuild:
     className: VariablesAsset
   - hash:
       serializedVersion: 2
-      Hash: bc32f663621157adf8b19c8e7eccb5c2
+      Hash: c09a10e9f70af9be6953d99f377795ef
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Unit
@@ -986,13 +1047,19 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionExit2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 7bc992b6145bd35b550695de74f3ed22
+      Hash: 6852d43eac92b8970282c60da97d22f2
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ProcessorSystem
+  - hash:
+      serializedVersion: 2
+      Hash: 39221587d606256251117c93914451e0
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildWall
   - hash:
       serializedVersion: 2
-      Hash: 1cbe9ad97c94feae25c73636c30e2371
+      Hash: f292174bc8d97daa316c67484b26fdbc
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: MaterialBuilding
@@ -1016,7 +1083,7 @@ ScriptsOnlyBuild:
     className: ZombieCameraLogic
   - hash:
       serializedVersion: 2
-      Hash: a51d975e323d8c2173b213c532afef87
+      Hash: ca93550f0111afc0933a879f592be3ff
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Building
@@ -1034,7 +1101,7 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: babbf68a407504c3f4fc5b7d942873d6
+      Hash: 8b34d3daa2da850cba56e4c2e91ad0a3
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Production
@@ -1070,6 +1137,12 @@ ScriptsOnlyBuild:
     className: ZombieCharacterControl
   - hash:
       serializedVersion: 2
+      Hash: 869ee90c3c5b4e446d61590456fda97a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableProductionPanel
+  - hash:
+      serializedVersion: 2
       Hash: 4718916586b3818eb69bf65df61f0f3a
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1088,7 +1161,7 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: 159e9be0f335145829d72c66b51b2568
+      Hash: ea60156287a8b455d23bf58a2b879466
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildResidential
@@ -1148,7 +1221,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: 398dc4fc3e1b2451f67817dad47db5c6
+      Hash: c4ae6558c379050850538ea9e5bc98af
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UP_Worker
@@ -1202,7 +1275,7 @@ ScriptsOnlyBuild:
     className: UnityOnPointerClickMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 628404effddb2a3e000981e3fa16eecd
+      Hash: 292481af1c0c9b42ccd0fd10f3ae0640
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_ArcherTower
@@ -1250,7 +1323,7 @@ ScriptsOnlyBuild:
     className: NavMeshLink
   - hash:
       serializedVersion: 2
-      Hash: 8a2c2a5721f76bc6503f69282f7b30e1
+      Hash: eef5c3d6785a19869f72964043253bcf
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildStorage
@@ -1286,6 +1359,18 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
+      Hash: 6adc72d280d8eb9e968fac2b567099b8
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Mining
+  - hash:
+      serializedVersion: 2
+      Hash: 3205e49f4b132f2392846698813dbd60
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: TH_Storage
+  - hash:
+      serializedVersion: 2
       Hash: ec6cf673540b2d4e42c612611eeafe4d
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1310,7 +1395,13 @@ ScriptsOnlyBuild:
     className: GridInformation
   - hash:
       serializedVersion: 2
-      Hash: 6701cb3acd8e44c03da93ed567537f36
+      Hash: f2b3ad1dc8e9e731dda689006a750f98
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Mill
+  - hash:
+      serializedVersion: 2
+      Hash: e9d2d048ed251b50640fc48c7b07e893
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildingSlot
@@ -1388,6 +1479,12 @@ ScriptsOnlyBuild:
     className: TMP_DigitValidator
   - hash:
       serializedVersion: 2
+      Hash: 99ae7c3989fa4be49dd5f0d941c173e1
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Resource
+  - hash:
+      serializedVersion: 2
       Hash: d82086405f46de14829f6b4bcbdd8fc9
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1404,6 +1501,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
     className: NavMeshSurface
+  - hash:
+      serializedVersion: 2
+      Hash: 80fe172e480da0e9c9bc84001c5f204f
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableProcessorPanel
   - hash:
       serializedVersion: 2
       Hash: 9dd54ce33440072d6692a67e0c384ad1
@@ -1460,22 +1563,40 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 4339be19ae428750c5f821ae3af4d31a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UnitMovement
+  - hash:
+      serializedVersion: 2
       Hash: 9637dcdf3068a91dfe653e61bb82f13d
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 8c03b77d267b2721678810798e001c53
+      Hash: 7f7e82b9755666641a8daef6e98ecd25
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildBarrack
+  - hash:
+      serializedVersion: 2
+      Hash: fe0b9c0738f1822ec0a23d14ee8cd482
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Sawmill
   - hash:
       serializedVersion: 2
       Hash: da5a949a0bbd2ff91bc51c5805c2c41f
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnMouseUpAsButtonMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: e3e530172653266866d7d7cb1a240259
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ResourceSystem
   - hash:
       serializedVersion: 2
       Hash: fc0a9a681d29388386a9abf3f08b024a
@@ -1514,6 +1635,12 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: 319af990510c731ac4c0130f7b48f97c
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: GameSystem
+  - hash:
+      serializedVersion: 2
       Hash: 68f2cb287af2eee1f639824485a3402b
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
@@ -1526,13 +1653,19 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: 5f2f894e82297b7ce3745ed8be5947e8
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableTownHallPanel
+  - hash:
+      serializedVersion: 2
       Hash: b87547877f7bea0dd59c10bfb798b858
     assemblyName: Unity.2D.Tilemap.Extras
     namespaceName: UnityEngine
     className: IsometricRuleTile
   - hash:
       serializedVersion: 2
-      Hash: 291e17d3ce247922c77954b5d806e569
+      Hash: c4442be3d2789469b9cf11f361613fba
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildProduction
@@ -1586,7 +1719,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 9eb276d61e0f207ba4cfd813b72284b8
+      Hash: efb1b1abb6f539af2505ab2d532e844f
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildArchersTower
@@ -1616,7 +1749,7 @@ ScriptsOnlyBuild:
     className: VertexJitter
   - hash:
       serializedVersion: 2
-      Hash: 0a537bd2fa8d168971064c52c2cb2ae7
+      Hash: 72d41bc0b308a75ba34b0cf96cb3091a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Processor
@@ -1700,7 +1833,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: c817c1162daab1a4f8f65d630e3cff72
+      Hash: ceb7b58859611aa12a6f0c0e609aa873
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Storage
@@ -1730,16 +1863,28 @@ ScriptsOnlyBuild:
     className: UnityOnMoveMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 4a1c833dcca99996d98297c0ec1428ec
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Attack
+  - hash:
+      serializedVersion: 2
       Hash: d0392b7f3f52d5af537ade186b4f51f1
     assemblyName: Unity.Timeline
     namespaceName: UnityEngine.Timeline
     className: ControlTrack
   - hash:
       serializedVersion: 2
-      Hash: 821948a5453ef2d7e06bffe84f010c3a
+      Hash: 7a1f2d718c20ecf3e7fe0f02014ba5b3
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildProcessor
+  - hash:
+      serializedVersion: 2
+      Hash: 01918312916d04a7a1d28360f1caca49
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractablePanel
   - hash:
       serializedVersion: 2
       Hash: 9a174471d4db2c0c6d3ac47d2f818db1
@@ -1778,13 +1923,19 @@ ScriptsOnlyBuild:
     className: TMP_PhoneNumberValidator
   - hash:
       serializedVersion: 2
+      Hash: 21b7b16b8070d283471aceb4d660dddf
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Bootstraper
+  - hash:
+      serializedVersion: 2
       Hash: c4ae0ec287bc3cde0bc98e1a65f9cef7
     assemblyName: Assembly-CSharp
     namespaceName: TMPro.Examples
     className: VertexColorCycler
   - hash:
       serializedVersion: 2
-      Hash: 0b29ea18562b6d77e2681f4989a08947
+      Hash: aaa5145fb74f698043efcb70e664a744
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Residential
@@ -1814,22 +1965,28 @@ ScriptsOnlyBuild:
     className: VertexZoom
   - hash:
       serializedVersion: 2
-      Hash: 827d7c765657dbeb4e7d8839faa455b3
+      Hash: adfea167ead2e1756816fd776e72c265
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_MageTower
   - hash:
       serializedVersion: 2
-      Hash: 714230383d5eed9c04b8d59c6930423e
+      Hash: be39d1cfbf554070928054e0723088e6
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_Wall
   - hash:
       serializedVersion: 2
-      Hash: e4aa836170a4bbe9d1e7a5b6a1e7461f
+      Hash: 9fac53eca18fdb33aaef45445b6bc4fc
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TaskSystem
+  - hash:
+      serializedVersion: 2
+      Hash: e4b58d65d1891e27e6b7f4f13e7521bb
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableResourcePanel
   - hash:
       serializedVersion: 2
       Hash: ff76cf6cf52b4db7b95af6ffadca9288
@@ -1872,24 +2029,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 6de4edef0e45d5c35a2dd3982578568e
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: Resource
-  - hash:
-      serializedVersion: 2
-      Hash: 21b7b16b8070d283471aceb4d660dddf
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: Bootstraper
-  - hash:
-      serializedVersion: 2
-      Hash: 319af990510c731ac4c0130f7b48f97c
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: GameSystem
   platform: 24
   scenePathNames:
   - Assets/Scenes/BootstrapScene.unity
