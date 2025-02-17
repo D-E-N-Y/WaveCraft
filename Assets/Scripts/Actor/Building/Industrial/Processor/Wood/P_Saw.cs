@@ -41,27 +41,33 @@ public class P_Saw : I_Processor
 
     private IEnumerator RotateSaw()
     {
-        bool condition = saw.transform.localEulerAngles.z <= 8;
+        float minLimit = -6f;
+        float maxLimit = 8f;
+        float currentRotation = 0f;
         
         while (true)
         {
-            while (condition)
+            while (currentRotation < maxLimit)
             {
-                saw.transform.Rotate(Vector3.forward * speedSaw * Time.deltaTime);
-                saw.transform.Rotate(Vector3.right * speedSaw * Time.deltaTime);
+                float step = speedSaw * Time.deltaTime;
+                saw.transform.Rotate(Vector3.forward * step);
+                saw.transform.Rotate(Vector3.right * step);
+                currentRotation += step;
                 yield return null;
             }
-            
+
             speedSaw *= -1;
-            
-            if(speedSaw > 0)
+
+            while (currentRotation > minLimit)
             {
-                condition = saw.transform.localEulerAngles.z <= 8;
+                float step = speedSaw * Time.deltaTime;
+                saw.transform.Rotate(Vector3.forward * step);
+                saw.transform.Rotate(Vector3.right * step);
+                currentRotation += step;
+                yield return null;
             }
-            else
-            {
-                condition = saw.transform.localEulerAngles.z >= 0;
-            }
+
+            speedSaw *= -1;
         }
     }
 }
