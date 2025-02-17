@@ -22,26 +22,22 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         // initialize storage
         storages = new List<I_Storage>();
-        foreach(S_Storage storage in storages_param)
+        foreach(I_Storage storage in GetComponents<I_Storage>())
         {
-            I_Storage newStorage = gameObject.AddComponent<I_Storage>();
-            newStorage.Initialize(storage.resource, storage.maxAmount, actorPositions);
-            storages.Add(newStorage);
-            
-            StorageSystem.current.AddStorage(newStorage, newStorage.GetTypeResource());
-            ResourceSystem.current.AddResources(newStorage.GetTypeResource(), 0);
+            storage.Initialize();
+            storages.Add(storage);
+            StorageSystem.current.AddStorage(storage, storage.GetTypeResource());
+            ResourceSystem.current.AddResources(storage.GetTypeResource(), 0);
         }
         ResourceSystem.current.AddResources(E_Resource.Food, 100);
 
         // ininitialize processor
         processors = new List<I_Processor>();
-        foreach(S_Processor processor in processors_param)
+        foreach(I_Processor processor in GetComponents<I_Processor>())
         {
-            I_Processor newProcessor = gameObject.AddComponent<I_Processor>();
-            newProcessor.Initialize(processor.resource, processor.factor, processor.timeProcess, actorPositions);
-            processors.Add(newProcessor);
-
-            ProcessorSystem.current.AddProcessor(processor.resource, newProcessor);
+            processor.Initialize();
+            processors.Add(processor);
+            ProcessorSystem.current.AddProcessor(processor.GetTypeResource(), processor);
         }
     } 
 
@@ -75,21 +71,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     #endregion
 
     #region Storage
-
-    [System.Serializable]
-    private struct S_Storage
-    {
-        public E_Resource resource;
-        public int maxAmount;
-
-        public S_Storage(E_Resource resource, int maxAmount)
-        {
-            this.resource = resource;
-            this.maxAmount = maxAmount;
-        }
-    }
-
-    [SerializeField] private List<S_Storage> storages_param;
+    
     private List<I_Storage> storages;
 
     public I_Storage GetStorage(E_Resource resource)
@@ -108,23 +90,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     #endregion
 
     #region Processor
-
-    [System.Serializable]
-    private struct S_Processor
-    {
-        public E_Resource resource;
-        public float factor;
-        public float timeProcess;
-
-        public S_Processor(E_Resource resource, float factor, float timeProcess)
-        {
-            this.resource = resource;
-            this.factor = factor;
-            this.timeProcess = timeProcess;
-        }
-    }
-
-    [SerializeField] private List<S_Processor> processors_param;
+    
     private List<I_Processor> processors;
 
     public I_Processor GetProcessor(E_Resource resource)

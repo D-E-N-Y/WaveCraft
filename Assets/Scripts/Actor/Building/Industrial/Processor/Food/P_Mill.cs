@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class P_Mill : I_Processor, IProcessor
+public class P_Mill : I_Processor
 {
     [SerializeField] private GameObject mill;
     private float speedMill;
