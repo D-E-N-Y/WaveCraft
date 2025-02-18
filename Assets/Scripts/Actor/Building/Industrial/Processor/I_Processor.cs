@@ -20,17 +20,6 @@ public class I_Processor : B_Industrial, IProcessor
         base.Initialize();
     }
 
-    public void Initialize(E_Resource resource, float factor, float timeProcess, List<Transform> actorPositions)
-    {
-        this.resource = resource;
-        this.factor = factor;
-        this.timeProcess = timeProcess;
-        this.actorPositions = actorPositions;
-
-        rawAmount = 0;
-        processedAmount = 0;
-    }
-
     public override void Built()
     {
         base.Built();

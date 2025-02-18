@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class P_Crusher : I_Processor
+public class P_Crusher : TH_Processor
 {
     [SerializeField] private GameObject crusher;
     private float speedCrusher;
@@ -11,9 +11,6 @@ public class P_Crusher : I_Processor
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "Crusher";
-
         speedCrusher = 7f;
     }
 

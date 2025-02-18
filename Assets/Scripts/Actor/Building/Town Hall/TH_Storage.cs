@@ -2,30 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TH_Storage : MonoBehaviour, IStorage
+public class TH_Storage : MonoBehaviour, IStorage, IPosition
 {
     public Action<E_Resource> UpdateCurrentAmount;
     
-    public E_Resource resource { private set; get; }
-    private int maxAmount;
+    [SerializeField] private E_Resource resource;
+    [SerializeField] private int maxAmount;
     private int currentAmount;
-    private List<Transform> actorPositions;
 
-    public void Initialize(E_Resource resource, int maxAmount, List<Transform> actorPositions)
-    {
-        this.resource = resource;
-        this.maxAmount = maxAmount;
-        this.actorPositions = actorPositions;
-    }
+    [SerializeField] private GameObject[] resourcePrefabs;
+    [SerializeField] private List<Transform> actorPositions;
 
-    public bool isFreeSpace()
+    public void Initialize()
     {
-        return maxAmount - currentAmount != 0;
+        currentAmount = 0;
     }
 
     public int AddResources(int amount)
     {
         currentAmount += amount;
+        UpdatePrefabs();
 
         if(currentAmount > maxAmount)
         {
@@ -45,6 +41,7 @@ public class TH_Storage : MonoBehaviour, IStorage
     public int RemoveResources(int amount)
     {
         currentAmount -= amount;
+        UpdatePrefabs();
 
         if(currentAmount < 0)
         {
@@ -62,6 +59,28 @@ public class TH_Storage : MonoBehaviour, IStorage
         }
     }
 
+    private void UpdatePrefabs()
+    {
+        if(resourcePrefabs == null) return; 
+        
+        foreach(GameObject current in resourcePrefabs)
+            current.SetActive(false);
+        
+        if(currentAmount > 0)
+            resourcePrefabs[0].SetActive(true);
+        
+        if(currentAmount >= maxAmount * 0.3)
+            resourcePrefabs[1].SetActive(true);
+
+        if(currentAmount >= maxAmount * 0.6)
+            resourcePrefabs[2].SetActive(true);
+
+        if(currentAmount >= maxAmount * 1)
+            resourcePrefabs[3].SetActive(true);
+    }
+
+    public E_Resource GetTypeResource() => resource;
+    public bool isFreeSpace() => maxAmount - currentAmount != 0;
     public int GetCurrentAmount() => currentAmount;
     public int GetMaxAmount() => maxAmount;
     public List<Transform> GetPosition() => actorPositions;

@@ -1,23 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class P_Saw : I_Processor
+public class P_Saw : TH_Processor
 {
     [SerializeField] private GameObject saw;
     private float speedSaw = 10f;
 
     private Coroutine rotateSaw;
 
-    void Start()
-    {
-        Debug.Log(saw.transform.localEulerAngles.z);
-    }
-
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "Saw";
 
         speedSaw = 10f;
     }

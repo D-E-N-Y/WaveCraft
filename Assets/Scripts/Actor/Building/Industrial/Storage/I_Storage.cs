@@ -18,15 +18,6 @@ public class I_Storage : B_Industrial, IStorage
         currentAmount = 0;
     }
 
-    public void Initialize(E_Resource resource, int maxAmount, List<Transform> actorPositions)
-    {
-        this.resource = resource;
-        this.maxAmount = maxAmount;
-        this.actorPositions = actorPositions;
-
-        currentAmount = 0;
-    }
-
     public override void Built()
     {
         base.Built();

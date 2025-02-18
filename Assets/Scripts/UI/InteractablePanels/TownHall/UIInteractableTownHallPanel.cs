@@ -37,29 +37,30 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         
         foreach(ResourceText current in processedResourceTexts)
         {
-            I_Processor processor = townHall.GetProcessor(current.resource);
-            current.amountText.text = processor.processedAmount.ToString();
-            processor.UpdateProcessedAmount += RefreshProcessedResourceAmount;
+            TH_Processor processor = townHall.GetProcessor(current.resource);
+            current.amountText.text = processor.GetProcessedAmount().ToString();
+            processor.UpdadeProcessedAmount += RefreshProcessedResourceAmount;
         }
 
         foreach(ResourceText current in rawResourceTexts)
         {
-            I_Processor processor = townHall.GetProcessor(current.resource);
-            current.amountText.text = processor.rawAmount.ToString();
+            
+            TH_Processor processor = townHall.GetProcessor(current.resource);
+            current.amountText.text = processor.GetRawAmount().ToString();
             processor.UpdateRawAmount += RefreshRawResourceAmount;
         }
 
 
         foreach(ResourceText current in curresntStorageResourceTexts)
         {
-            I_Storage storage = townHall.GetStorage(current.resource);
+            TH_Storage storage = townHall.GetStorage(current.resource);
             current.amountText.text = storage.GetCurrentAmount().ToString();
             storage.UpdateCurrentAmount += RefreshResourceAmountStorage;
         }
 
         foreach(ResourceText current in maxStorageResourceTexts)
         {
-            I_Storage storage = townHall.GetStorage(current.resource);
+            TH_Storage storage = townHall.GetStorage(current.resource);
             current.amountText.text = storage.GetMaxAmount().ToString();
         }
     }
@@ -69,23 +70,29 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         townHall.StartCoroutine(townHall.SpawnUnit());
     }
 
-    private void RefreshProcessedResourceAmount()
+    private void RefreshProcessedResourceAmount(E_Resource resource)
     {
         foreach(ResourceText current in processedResourceTexts)
         {
-            current.amountText.text = townHall.GetProcessor(current.resource).processedAmount.ToString();
+            if(current.resource == resource)
+            {
+                current.amountText.text = townHall.GetProcessor(current.resource).GetProcessedAmount().ToString();
+            }
         }
     }
 
-    private void RefreshRawResourceAmount()
+    private void RefreshRawResourceAmount(E_Resource resource)
     {
         foreach(ResourceText current in rawResourceTexts)
         {
-            current.amountText.text = townHall.GetProcessor(current.resource).rawAmount.ToString();
+            if(current.resource == resource)
+            {
+                current.amountText.text = townHall.GetProcessor(current.resource).GetRawAmount().ToString();
+            }
         }
     }
 
-    private void RefreshResourceAmountStorage()
+    private void RefreshResourceAmountStorage(E_Resource resource)
     {
         foreach(ResourceText current in curresntStorageResourceTexts)
         {
@@ -96,9 +103,9 @@ public class UIInteractableTownHallPanel : MonoBehaviour
     public void Store(int numberResource)
     {
         E_Resource resource = (E_Resource)numberResource;
-        I_Processor processor = townHall.GetProcessor(resource);
+        TH_Processor processor = townHall.GetProcessor(resource);
         
-        if(processor.processedAmount > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+        if(processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
             StoreTask task = new StoreTask(resource, processor);
             TaskSystem.current.AddTask(task);

@@ -21,8 +21,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         Built();
 
         // initialize storage
-        storages = new List<I_Storage>();
-        foreach(I_Storage storage in GetComponents<I_Storage>())
+        storages = new List<TH_Storage>();
+        foreach(TH_Storage storage in GetComponents<TH_Storage>())
         {
             storage.Initialize();
             storages.Add(storage);
@@ -32,8 +32,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         ResourceSystem.current.AddResources(E_Resource.Food, 100);
 
         // ininitialize processor
-        processors = new List<I_Processor>();
-        foreach(I_Processor processor in GetComponents<I_Processor>())
+        processors = new List<TH_Processor>();
+        foreach(TH_Processor processor in GetComponents<TH_Processor>())
         {
             processor.Initialize();
             processors.Add(processor);
@@ -72,11 +72,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     #region Storage
     
-    private List<I_Storage> storages;
+    private List<TH_Storage> storages;
 
-    public I_Storage GetStorage(E_Resource resource)
+    public TH_Storage GetStorage(E_Resource resource)
     {
-        foreach(I_Storage storage in storages)
+        foreach(TH_Storage storage in storages)
         {
             if(storage.GetTypeResource() == resource)
             {
@@ -91,11 +91,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     #region Processor
     
-    private List<I_Processor> processors;
+    private List<TH_Processor> processors;
 
-    public I_Processor GetProcessor(E_Resource resource)
+    public TH_Processor GetProcessor(E_Resource resource)
     {
-        foreach(I_Processor processor in processors)
+        foreach(TH_Processor processor in processors)
         {
             if(processor.GetTypeResource() == resource)
             {

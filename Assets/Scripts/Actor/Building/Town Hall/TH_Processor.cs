@@ -1,35 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TH_Processor : MonoBehaviour, IProcessor
+public class TH_Processor : MonoBehaviour, IProcessor, IPosition
 {
     public Action<E_Resource> UpdadeProcessedAmount;
     public Action<E_Resource> UpdateRawAmount;
 
-    public E_Resource resource { get; private set; }
-    public float factor { get; private set; }
-    public float timeProcess { get; private set; }
-    private List<Transform> actorPositions;
+    [SerializeField] private E_Resource resource;
+    [SerializeField] private float factor;
+    [SerializeField] private float timeProcess;
+    [SerializeField] private List<Transform> actorPositions;
 
-    private bool isProcessing;
-    public int rawAmount { get; private set; }
-    public int processedAmount { get; private set; }
+    protected bool isProcessing;
+    private int rawAmount;
+    private int processedAmount;
 
-    public void Initialize(E_Resource resource, float factor, float timeProcess, List<Transform> actorPositions)
+    public virtual void Initialize()
     {
-        this.resource = resource;
-        this.factor = factor;
-        this.timeProcess = timeProcess;
-        this.actorPositions = actorPositions;
-
         rawAmount = 0;
         processedAmount = 0;
     }
 
-    private void StartProcess()
+    protected virtual void StartProcess()
     {
         StartCoroutine(nameof(Processing));
         isProcessing = true;
@@ -42,7 +36,7 @@ public class TH_Processor : MonoBehaviour, IProcessor
         CompleteProcess();
     }
 
-    private void CompleteProcess()
+    protected virtual void CompleteProcess()
     {
         rawAmount--;
         UpdateRawAmount?.Invoke(resource);
@@ -77,5 +71,10 @@ public class TH_Processor : MonoBehaviour, IProcessor
         return amount;
     }
 
+    public E_Resource GetTypeResource() => resource;
+    public float GetFactor() => factor;
+    public float GetTimeProcess() => timeProcess;
+    public int GetRawAmount() => rawAmount;
+    public int GetProcessedAmount() => processedAmount;
     public List<Transform> GetPosition() => actorPositions;
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class P_Hummer : I_Processor
+public class P_Hummer : TH_Processor
 {
     [SerializeField] private GameObject hummer;
     [SerializeField] private GameObject stone;
@@ -12,9 +12,7 @@ public class P_Hummer : I_Processor
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "HUmmer";
-
+        
         speedHummer = 10f;
     }
 
