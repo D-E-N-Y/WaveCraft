@@ -5,6 +5,7 @@ public class P_Hummer : TH_Processor
 {
     [SerializeField] private GameObject hummer;
     [SerializeField] private GameObject stone;
+    [SerializeField] private ParticleSystem stoneDustEffect;
     private float speedHummer = 10f;
 
     private Coroutine rotateHummer; 
@@ -12,7 +13,7 @@ public class P_Hummer : TH_Processor
     public override void Initialize()
     {
         base.Initialize();
-        
+
         speedHummer = 10f;
     }
 
@@ -46,6 +47,7 @@ public class P_Hummer : TH_Processor
                 yield return null;
             }
 
+            stoneDustEffect.gameObject.SetActive(false);
             speedHummer = 250f;
 
             while (hummer.transform.localEulerAngles.x >= 5)
@@ -53,6 +55,9 @@ public class P_Hummer : TH_Processor
                 hummer.transform.Rotate(Vector3.right * -speedHummer * Time.deltaTime);
                 yield return null;
             }
+
+            stoneDustEffect.gameObject.SetActive(true);
+            stoneDustEffect.Play();
 
             speedHummer = 10f;
         }

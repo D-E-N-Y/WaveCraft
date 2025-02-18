@@ -83,10 +83,10 @@ public class UnitMovement : MonoBehaviour
         {
             return hit.position;
         }
-        if(NavMesh.SamplePosition(agentPosition, out hit, 5f, NavMesh.AllAreas))
-        {
-            return hit.position;
-        }
+        // if(NavMesh.SamplePosition(agentPosition, out hit, 5f, NavMesh.AllAreas))
+        // {
+        //     return hit.position;
+        // }
         return targetPosition;
     }
 

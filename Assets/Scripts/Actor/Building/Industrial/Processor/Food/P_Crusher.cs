@@ -4,6 +4,7 @@ using UnityEngine;
 public class P_Crusher : TH_Processor
 {
     [SerializeField] private GameObject crusher;
+    [SerializeField] private ParticleSystem flourEffect;
     private float speedCrusher;
 
     private Coroutine rotateCrusher;
@@ -18,18 +19,24 @@ public class P_Crusher : TH_Processor
     {
         base.StartProcess();
 
+        flourEffect.gameObject.SetActive(true);
         rotateCrusher = StartCoroutine(RotateCrusher());
     }
 
     protected override void CompleteProcess()
     {
         base.CompleteProcess();
-        StopCoroutine(rotateCrusher);
+
+        if(!isProcessing)
+        {
+            // StopCoroutine(rotateCrusher);
+            flourEffect.gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator RotateCrusher()
     {
-        while (true)
+        while (isProcessing)
         {
             crusher.transform.Rotate(Vector3.up * speedCrusher * Time.deltaTime);
             yield return null;

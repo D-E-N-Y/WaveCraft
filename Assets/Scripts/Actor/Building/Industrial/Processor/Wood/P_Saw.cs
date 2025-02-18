@@ -4,6 +4,7 @@ using UnityEngine;
 public class P_Saw : TH_Processor
 {
     [SerializeField] private GameObject saw;
+    [SerializeField] private ParticleSystem sliversEffect;
     private float speedSaw = 10f;
 
     private Coroutine rotateSaw;
@@ -19,6 +20,7 @@ public class P_Saw : TH_Processor
     {
         base.StartProcess();
 
+        sliversEffect.gameObject.SetActive(true);
         if(rotateSaw == null) rotateSaw = StartCoroutine(RotateSaw());
     }
 
@@ -28,6 +30,7 @@ public class P_Saw : TH_Processor
 
         if(!isProcessing)
         {
+            sliversEffect.gameObject.SetActive(false);
             if (rotateSaw != null) StopCoroutine(rotateSaw);
         }
     }
