@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class CameraControler : MonoBehaviour
 {
@@ -118,8 +117,8 @@ public class CameraControler : MonoBehaviour
         if(newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
 
-        if(newZoom.z > -5f)
-            newZoom = new Vector3(newZoom.x, 5f, -5f);
+        if(newZoom.z > -10f)
+            newZoom = new Vector3(newZoom.x, 10f, -10f);
     }
 
     private void HandleMovementInput()
@@ -164,7 +163,7 @@ public class CameraControler : MonoBehaviour
         if(newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
 
-        if(newZoom.z > -5f)
-            newZoom = new Vector3(newZoom.x, 5f, -5f);
+        if(newZoom.z > -10f)
+            newZoom = new Vector3(newZoom.x, 10f, -10f);
     }
 }

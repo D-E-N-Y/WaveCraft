@@ -10,6 +10,7 @@ public class InteractionSystem : GameSystem
     public Action UnSelect;
 
     private int layerInteractable; 
+    private int layerSelect;
     private Actor selectActor;
 
     public override void Initialize()
@@ -18,7 +19,8 @@ public class InteractionSystem : GameSystem
 
         current = this;
 
-        layerInteractable = LayerMask.NameToLayer("Interactable"); 
+        layerInteractable = LayerMask.NameToLayer("Interactable");
+        layerSelect = LayerMask.NameToLayer("SelectedActor");
     }
 
     private void Update() 
@@ -41,7 +43,7 @@ public class InteractionSystem : GameSystem
                     UnSelect?.Invoke();
                 }
 
-                if(raycastHit.transform.gameObject.layer == layerInteractable)
+                if(raycastHit.transform.gameObject.layer == layerInteractable || raycastHit.transform.gameObject.layer == layerSelect)
                 {
                     selectActor = raycastHit.transform.gameObject.GetComponent<Actor>();
                     selectActor.Interaction();
