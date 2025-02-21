@@ -4,6 +4,7 @@ public class MaterialBuilding : MonoBehaviour
 {
     [SerializeField] private GameObject mesh;
     private MeshRenderer[] meshRenderers;
+    private SkinnedMeshRenderer[] skinnedMeshRenderers;
 
     [SerializeField] private Color canPlace;
     [SerializeField] private Color notCanPlace;
@@ -16,29 +17,27 @@ public class MaterialBuilding : MonoBehaviour
         placed
     }
 
-    private void Awake() 
+    private void GetRenderer()
     {
         if (mesh.TryGetComponent(out MeshRenderer renderer))
-        {
             meshRenderers = new MeshRenderer[] { renderer };
-        }
         else
-        {
             meshRenderers = mesh.GetComponentsInChildren<MeshRenderer>();
-        }
+
+        if (mesh.TryGetComponent(out SkinnedMeshRenderer skinnedRenderer))
+            skinnedMeshRenderers = new SkinnedMeshRenderer[] { skinnedRenderer };
+        else
+            skinnedMeshRenderers = mesh.GetComponentsInChildren<SkinnedMeshRenderer>();
+    }
+
+    private void Awake() 
+    {
+        GetRenderer();
     }
     
     public void StartPlace()
     {
-        if (mesh.TryGetComponent(out MeshRenderer renderer))
-        {
-            meshRenderers = new MeshRenderer[] { renderer };
-        }
-        else
-        {
-            meshRenderers = mesh.GetComponentsInChildren<MeshRenderer>();
-        }
-        
+        GetRenderer();
         SetTransparentMode();
     }
 
@@ -68,11 +67,21 @@ public class MaterialBuilding : MonoBehaviour
         {
             meshRenderer.UpdateGIMaterials();
         }
+
+        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
+        {
+            meshRenderer.UpdateGIMaterials();
+        }
     }
 
     private void SetColorMaterial(Color color)
     {
         foreach(MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.material.color = color;
+        }
+
+        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
         {
             meshRenderer.material.color = color;
         }
@@ -90,11 +99,33 @@ public class MaterialBuilding : MonoBehaviour
             meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
             meshRenderer.material.renderQueue = -1;
         }
+
+        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
+        {
+            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+            meshRenderer.material.SetInt("_ZWrite", 1);
+            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
+            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+            meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            meshRenderer.material.renderQueue = -1;
+        }
     }
 
     private void SetTransparentMode()
     {
         foreach(MeshRenderer meshRenderer in meshRenderers)
+        {
+            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            meshRenderer.material.SetInt("_ZWrite", 0);
+            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
+            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+            meshRenderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            meshRenderer.material.renderQueue = 3000;
+        }
+
+        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
         {
             meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
             meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);

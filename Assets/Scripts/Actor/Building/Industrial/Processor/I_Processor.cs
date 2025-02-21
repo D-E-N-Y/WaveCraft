@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class I_Processor : B_Industrial, IProcessor
@@ -8,12 +7,12 @@ public class I_Processor : B_Industrial, IProcessor
     public Action UpdateProcessedAmount;
     public Action UpdateRawAmount;
     
-    [SerializeField] private float factor;
-    [SerializeField] private float timeProcess;
+    [SerializeField] protected float factor;
+    [SerializeField] protected float timeProcess;
 
     protected bool isProcessing;
-    public int rawAmount { get; private set; }
-    public int processedAmount { get; private set; }
+    public int rawAmount { get; protected set; }
+    public int processedAmount { get; protected set; }
 
     public override void Initialize()
     {
@@ -33,7 +32,7 @@ public class I_Processor : B_Industrial, IProcessor
         isProcessing = true;
     }
 
-    private IEnumerator Processing()
+    protected virtual IEnumerator Processing()
     {
         yield return new WaitForSeconds(timeProcess);
 
