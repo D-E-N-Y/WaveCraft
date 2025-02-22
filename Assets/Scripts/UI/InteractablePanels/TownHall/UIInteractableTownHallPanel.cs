@@ -6,6 +6,7 @@ public class UIInteractableTownHallPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI spawnOrderText;
     private B_TownHall townHall;
     
     
@@ -33,7 +34,9 @@ public class UIInteractableTownHallPanel : MonoBehaviour
 
         nameText.text = townHall.nameActor;
         hpText.text = townHall.GetCurrentHP().ToString();
+        spawnOrderText.text = townHall.spawnOrder.ToString();
 
+        townHall.UpdateSpawnOrder += RefreshSpawnOrder;
         
         foreach(ResourceText current in processedResourceTexts)
         {
@@ -67,7 +70,17 @@ public class UIInteractableTownHallPanel : MonoBehaviour
 
     public void SpawnWorker()
     {
-        townHall.StartCoroutine(townHall.SpawnUnit());
+        townHall.SpawnUnit();
+    }
+
+    public void CancelSpawn()
+    {
+        townHall.CancelSpawnUnit();
+    }
+
+    private void RefreshSpawnOrder()
+    {
+        spawnOrderText.text = townHall.spawnOrder.ToString();
     }
 
     private void RefreshProcessedResourceAmount(E_Resource resource)

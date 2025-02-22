@@ -8,10 +8,20 @@ public class D_Barrack : B_Defence, ISpawnUnit
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private S_Cost spawnCost;
     
-    public IEnumerator SpawnUnit()
+    public void SpawnUnit()
     {
         ResourceSystem.current.RemoveResources(E_Resource.Food, spawnCost.count);
         
+        StartCoroutine(Spawning());
+    }
+
+    public void CancelSpawnUnit()
+    {
+        
+    }
+
+    private IEnumerator Spawning()
+    {
         yield return new WaitForSeconds(timeToSpawnUnit);
 
         Unit unit = Instantiate(spawnUnitPref, spawnPosition).GetComponent<Unit>();

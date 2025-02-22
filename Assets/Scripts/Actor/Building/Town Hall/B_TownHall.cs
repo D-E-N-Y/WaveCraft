@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         base.Initialize();
 
         nameActor = "Town Hall";
+        spawnOrder = 0;
 
         // fill busy grid 
         BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
@@ -43,29 +45,63 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     #region SpawnUnit
 
+    public Action UpdateSpawnOrder;
+
     [SerializeField] private GameObject spawnUnitPref;
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private S_Cost spawnCost;
+    private Coroutine spawning;
+    public int spawnOrder { get; private set; }
 
-    public IEnumerator SpawnUnit()
+    public void SpawnUnit()
     {
-        if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
+        spawnOrder++;
+        UpdateSpawnOrder?.Invoke();
+
+        if(spawnOrder == 1)
         {
-            Debug.Log($"not enought {spawnCost.resourse}");
-            yield break;
+            spawning = StartCoroutine(Spawning());
+        }
+    }
+
+    public void CancelSpawnUnit()
+    {
+        spawnOrder = Mathf.Max(0, spawnOrder - 1);
+        UpdateSpawnOrder?.Invoke();
+
+        if(spawnOrder == 0 && spawning != null)
+        {
+            ResourceSystem.current.AddResources(spawnCost.resourse, spawnCost.count);
+            
+            StopCoroutine(spawning);
+            spawning = null;
+        }
+    }
+
+    private IEnumerator Spawning()
+    {
+        while(spawnOrder > 0)
+        {
+            if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
+            {
+                Debug.Log($"not enought {spawnCost.resourse}");
+                spawnOrder = 0;
+                break;
+            }
+            
+            ResourceSystem.current.RemoveResources(spawnCost.resourse, spawnCost.count);
+
+            yield return new WaitForSeconds(timeToSpawnUnit);
+
+            UP_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UP_Worker>();
+            worker.Initialize();
+
+            spawnOrder--;
+            UpdateSpawnOrder?.Invoke();
         }
 
-        ResourceSystem.current.RemoveResources(spawnCost.resourse, spawnCost.count);
-        
-        Debug.Log($"start spawn worker \nwait {timeToSpawnUnit} seconds");
-
-        yield return new WaitForSeconds(timeToSpawnUnit);
-
-        UP_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UP_Worker>();
-        worker.Initialize();
-
-        Debug.Log("spawn worker");
+        spawning = null;
     }
 
     #endregion
