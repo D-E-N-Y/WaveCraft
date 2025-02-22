@@ -12,18 +12,23 @@ ScriptsOnlyBuild:
     - D_Barrack
     - D_MageTower
     - D_Wall
-    - I_Processor
     - I_Production
     - I_Storage
     - InteractionSystem
     - MaterialBuilding
     - Mining
+    - O_CustomImageEffect
+    - P_Crusher
+    - P_Hummer
     - P_Mill
+    - P_Quarry
+    - P_Saw
     - P_Sawmill
     - ProcessorSystem
     - Resource
     - ResourceSystem
     - StorageSystem
+    - TH_Storage
     - TaskSystem
     - UIInteractablePanel
     - UIInteractableProcessorPanel
@@ -111,8 +116,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.VerticalLayoutGroup
   serializedClasses:
     Assembly-CSharp:
-    - B_TownHall/S_Processor
-    - B_TownHall/S_Storage
     - S_Cost
     - S_CostUI
     - UIInteractableProcessorPanel/ResourceImage
@@ -194,6 +197,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableTownHallPanel
+    methodName: CancelSpawn
   - assembly: Assembly-CSharp
     fullTypeName: UIInteractableTownHallPanel
     methodName: Store
@@ -362,31 +368,31 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 17372}
+      Script: {instanceID: 17384}
     - Class: 114
-      Script: {instanceID: 18226}
+      Script: {instanceID: 18238}
     - Class: 114
-      Script: {instanceID: 18820}
+      Script: {instanceID: 18836}
     - Class: 114
-      Script: {instanceID: 19288}
+      Script: {instanceID: 19304}
     - Class: 114
-      Script: {instanceID: 19404}
+      Script: {instanceID: 19420}
     - Class: 114
-      Script: {instanceID: 19668}
+      Script: {instanceID: 19684}
     - Class: 114
-      Script: {instanceID: 20414}
+      Script: {instanceID: 20432}
     - Class: 114
-      Script: {instanceID: 20426}
+      Script: {instanceID: 20444}
     - Class: 114
-      Script: {instanceID: 20556}
+      Script: {instanceID: 20574}
     - Class: 114
-      Script: {instanceID: 21414}
+      Script: {instanceID: 21432}
     - Class: 114
-      Script: {instanceID: 22270}
+      Script: {instanceID: 22290}
     - Class: 114
-      Script: {instanceID: 23018}
+      Script: {instanceID: 23038}
     - Class: 114
-      Script: {instanceID: 23222}
+      Script: {instanceID: 23242}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -420,6 +426,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 54
       Script: {instanceID: 0}
+    - Class: 59
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
@@ -441,111 +449,121 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 648}
-    - Class: 114
-      Script: {instanceID: 16680}
-    - Class: 114
-      Script: {instanceID: 16684}
-    - Class: 114
-      Script: {instanceID: 16686}
+      Script: {instanceID: 656}
     - Class: 114
       Script: {instanceID: 16688}
     - Class: 114
-      Script: {instanceID: 16864}
+      Script: {instanceID: 16692}
     - Class: 114
-      Script: {instanceID: 17048}
+      Script: {instanceID: 16694}
     - Class: 114
-      Script: {instanceID: 17072}
+      Script: {instanceID: 16696}
     - Class: 114
-      Script: {instanceID: 17152}
+      Script: {instanceID: 16734}
     - Class: 114
-      Script: {instanceID: 17254}
+      Script: {instanceID: 16874}
     - Class: 114
-      Script: {instanceID: 17432}
+      Script: {instanceID: 17058}
     - Class: 114
-      Script: {instanceID: 17582}
+      Script: {instanceID: 17082}
     - Class: 114
-      Script: {instanceID: 17814}
+      Script: {instanceID: 17126}
     - Class: 114
-      Script: {instanceID: 18034}
+      Script: {instanceID: 17164}
     - Class: 114
-      Script: {instanceID: 18864}
+      Script: {instanceID: 17266}
     - Class: 114
-      Script: {instanceID: 18918}
+      Script: {instanceID: 17444}
     - Class: 114
-      Script: {instanceID: 19054}
+      Script: {instanceID: 17594}
     - Class: 114
-      Script: {instanceID: 19150}
+      Script: {instanceID: 17826}
     - Class: 114
-      Script: {instanceID: 19206}
+      Script: {instanceID: 18046}
     - Class: 114
-      Script: {instanceID: 19322}
+      Script: {instanceID: 18620}
     - Class: 114
-      Script: {instanceID: 19584}
+      Script: {instanceID: 18688}
     - Class: 114
-      Script: {instanceID: 19928}
+      Script: {instanceID: 18880}
     - Class: 114
-      Script: {instanceID: 20078}
+      Script: {instanceID: 18934}
     - Class: 114
-      Script: {instanceID: 20134}
+      Script: {instanceID: 19070}
     - Class: 114
-      Script: {instanceID: 20224}
+      Script: {instanceID: 19166}
     - Class: 114
-      Script: {instanceID: 20304}
+      Script: {instanceID: 19222}
     - Class: 114
-      Script: {instanceID: 20356}
+      Script: {instanceID: 19338}
     - Class: 114
-      Script: {instanceID: 20392}
+      Script: {instanceID: 19600}
     - Class: 114
-      Script: {instanceID: 20426}
+      Script: {instanceID: 19944}
     - Class: 114
-      Script: {instanceID: 20556}
+      Script: {instanceID: 20094}
     - Class: 114
-      Script: {instanceID: 20620}
+      Script: {instanceID: 20106}
     - Class: 114
-      Script: {instanceID: 20630}
+      Script: {instanceID: 20152}
     - Class: 114
-      Script: {instanceID: 21028}
+      Script: {instanceID: 20242}
     - Class: 114
-      Script: {instanceID: 21196}
+      Script: {instanceID: 20244}
     - Class: 114
-      Script: {instanceID: 21244}
+      Script: {instanceID: 20322}
     - Class: 114
-      Script: {instanceID: 21342}
+      Script: {instanceID: 20374}
     - Class: 114
-      Script: {instanceID: 21544}
+      Script: {instanceID: 20410}
     - Class: 114
-      Script: {instanceID: 21552}
+      Script: {instanceID: 20444}
     - Class: 114
-      Script: {instanceID: 21590}
+      Script: {instanceID: 20574}
     - Class: 114
-      Script: {instanceID: 21628}
+      Script: {instanceID: 20638}
     - Class: 114
-      Script: {instanceID: 21718}
+      Script: {instanceID: 20648}
     - Class: 114
-      Script: {instanceID: 21984}
+      Script: {instanceID: 21046}
     - Class: 114
-      Script: {instanceID: 22036}
+      Script: {instanceID: 21214}
     - Class: 114
-      Script: {instanceID: 22112}
+      Script: {instanceID: 21262}
     - Class: 114
-      Script: {instanceID: 22270}
+      Script: {instanceID: 21360}
     - Class: 114
-      Script: {instanceID: 22384}
+      Script: {instanceID: 21562}
     - Class: 114
-      Script: {instanceID: 22396}
+      Script: {instanceID: 21570}
     - Class: 114
-      Script: {instanceID: 22734}
+      Script: {instanceID: 21608}
     - Class: 114
-      Script: {instanceID: 22778}
+      Script: {instanceID: 21646}
     - Class: 114
-      Script: {instanceID: 23038}
+      Script: {instanceID: 21736}
     - Class: 114
-      Script: {instanceID: 23198}
+      Script: {instanceID: 22004}
     - Class: 114
-      Script: {instanceID: 23200}
+      Script: {instanceID: 22056}
     - Class: 114
-      Script: {instanceID: 23242}
+      Script: {instanceID: 22290}
+    - Class: 114
+      Script: {instanceID: 22404}
+    - Class: 114
+      Script: {instanceID: 22416}
+    - Class: 114
+      Script: {instanceID: 22754}
+    - Class: 114
+      Script: {instanceID: 22798}
+    - Class: 114
+      Script: {instanceID: 23058}
+    - Class: 114
+      Script: {instanceID: 23218}
+    - Class: 114
+      Script: {instanceID: 23220}
+    - Class: 114
+      Script: {instanceID: 23262}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -559,6 +577,10 @@ ScriptsOnlyBuild:
     - Class: 195
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 208
       Script: {instanceID: 0}
@@ -627,10 +649,16 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 9bbc7c27eded4b30b3d6aefacb9fa411
+      Hash: 44e17580b1d45eb10888142552a76e6b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Actor
+  - hash:
+      serializedVersion: 2
+      Hash: 6de1bc254f8e04a9ff13ce5efa01a413
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: O_CustomImageEffect
   - hash:
       serializedVersion: 2
       Hash: f45600bcc886206dd55a3208474aad61
@@ -675,7 +703,7 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionStayMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 8e1c7746b7eac3b6a003f6b1a1ac1137
+      Hash: 36c26a0b086485d8cfdfa31d03e976db
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Defence
@@ -699,19 +727,25 @@ ScriptsOnlyBuild:
     className: UI_BuildMagesTower
   - hash:
       serializedVersion: 2
-      Hash: ebf03d5c6b3aa3c9b82749b1d821db1f
+      Hash: 6995d386881a22d852bad894c0e20e4a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_TownHall
   - hash:
       serializedVersion: 2
-      Hash: 5cfe30f9f3903ba8b3f34964e4703f5b
+      Hash: 337fccb9e9b0603c48d61b52a695b307
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Hummer
+  - hash:
+      serializedVersion: 2
+      Hash: b700c172cd9c02fae1c4fad851e71228
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TH_Processor
   - hash:
       serializedVersion: 2
-      Hash: e0d0c9b0285fcca2f23bc0448696c54e
+      Hash: f449e1398debf85a291626d31a1f2ee5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_Barrack
@@ -783,7 +817,7 @@ ScriptsOnlyBuild:
     className: UnityOnBecameVisibleMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 976410b5b498e70c185d7d4c716574c8
+      Hash: b6d46cf4eb32156e73d3b5e029b8abc7
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: U_Player
@@ -849,7 +883,7 @@ ScriptsOnlyBuild:
     className: RuleOverrideTile
   - hash:
       serializedVersion: 2
-      Hash: 08047dbfd2bee0110239138e44db7231
+      Hash: 080b590bbd80f4d50acd6c7de21d027b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Industrial
@@ -981,7 +1015,7 @@ ScriptsOnlyBuild:
     className: VariablesAsset
   - hash:
       serializedVersion: 2
-      Hash: c09a10e9f70af9be6953d99f377795ef
+      Hash: 89cd623c26f87fe97178db9ed3d0b56e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Unit
@@ -991,6 +1025,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Flow
     namespaceName: Unity.VisualScripting
     className: ScriptMachine
+  - hash:
+      serializedVersion: 2
+      Hash: ec4705f6f4cdf7384bb7cdca25a99221
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Quarry
   - hash:
       serializedVersion: 2
       Hash: 43ebd945b04bced376c791411cf5a289
@@ -1003,6 +1043,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.TestRunner
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: PlayerQuitHandler
+  - hash:
+      serializedVersion: 2
+      Hash: 3793cdf55d51eb7ab2d3ce890d81e6b1
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Saw
   - hash:
       serializedVersion: 2
       Hash: d3bece132a2b48e63d78047dece48ba7
@@ -1083,7 +1129,7 @@ ScriptsOnlyBuild:
     className: ZombieCameraLogic
   - hash:
       serializedVersion: 2
-      Hash: ca93550f0111afc0933a879f592be3ff
+      Hash: 3b12969e0faaa66f1c319f90f865062b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Building
@@ -1101,7 +1147,7 @@ ScriptsOnlyBuild:
     className: ActivationTrack
   - hash:
       serializedVersion: 2
-      Hash: 8b34d3daa2da850cba56e4c2e91ad0a3
+      Hash: f0cd3b10be545aa9ee0157df1fad2184
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Production
@@ -1221,7 +1267,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: c4ae6558c379050850538ea9e5bc98af
+      Hash: cef6ca5a78d2c653689e7b3c0f4b830a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UP_Worker
@@ -1275,7 +1321,7 @@ ScriptsOnlyBuild:
     className: UnityOnPointerClickMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 292481af1c0c9b42ccd0fd10f3ae0640
+      Hash: af85a5b4f08483bda0bd1d32fcd86f9a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_ArcherTower
@@ -1309,6 +1355,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: GridLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: 1f7e59278a388d8255474a6237d6214c
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: P_Crusher
   - hash:
       serializedVersion: 2
       Hash: ceeb6c51b89f022a3deb7b3408c66745
@@ -1365,7 +1417,7 @@ ScriptsOnlyBuild:
     className: Mining
   - hash:
       serializedVersion: 2
-      Hash: 3205e49f4b132f2392846698813dbd60
+      Hash: 76dea5bb0df5c1d30174a1337b48f4ea
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: TH_Storage
@@ -1395,7 +1447,7 @@ ScriptsOnlyBuild:
     className: GridInformation
   - hash:
       serializedVersion: 2
-      Hash: f2b3ad1dc8e9e731dda689006a750f98
+      Hash: 0138725d68ac3172abe4cccfaaebbd6c
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: P_Mill
@@ -1479,7 +1531,7 @@ ScriptsOnlyBuild:
     className: TMP_DigitValidator
   - hash:
       serializedVersion: 2
-      Hash: 99ae7c3989fa4be49dd5f0d941c173e1
+      Hash: 62641004f2b2b5f21dd905b96b19adae
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Resource
@@ -1581,7 +1633,7 @@ ScriptsOnlyBuild:
     className: UI_BuildBarrack
   - hash:
       serializedVersion: 2
-      Hash: fe0b9c0738f1822ec0a23d14ee8cd482
+      Hash: 8c85dfea7e58b4fdaece475fb55a3dfd
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: P_Sawmill
@@ -1653,7 +1705,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: 5f2f894e82297b7ce3745ed8be5947e8
+      Hash: feb5322b27a7a3c156080b27c791a800
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIInteractableTownHallPanel
@@ -1675,6 +1727,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro
     namespaceName: TMPro
     className: TextContainer
+  - hash:
+      serializedVersion: 2
+      Hash: 8e07ac2f0c50c124bea3d046f704e6f3
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: O_ReviewCam
   - hash:
       serializedVersion: 2
       Hash: 7fdd3ee28e9042c3ec83463d0bb3b230
@@ -1749,7 +1807,7 @@ ScriptsOnlyBuild:
     className: VertexJitter
   - hash:
       serializedVersion: 2
-      Hash: 72d41bc0b308a75ba34b0cf96cb3091a
+      Hash: 7905c9d798d46439f9bda87fb0d5a18c
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Processor
@@ -1833,7 +1891,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: ceb7b58859611aa12a6f0c0e609aa873
+      Hash: 509b55ac5c285240907db98806e27aa0
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: I_Storage
@@ -1935,7 +1993,7 @@ ScriptsOnlyBuild:
     className: VertexColorCycler
   - hash:
       serializedVersion: 2
-      Hash: aaa5145fb74f698043efcb70e664a744
+      Hash: d7e50b4827700ab4f69a1baa707fe1ac
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: B_Residential
@@ -1965,13 +2023,13 @@ ScriptsOnlyBuild:
     className: VertexZoom
   - hash:
       serializedVersion: 2
-      Hash: adfea167ead2e1756816fd776e72c265
+      Hash: 7be23e51e51fcca8ccb9bd9d4b7b62c5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_MageTower
   - hash:
       serializedVersion: 2
-      Hash: be39d1cfbf554070928054e0723088e6
+      Hash: 346ee3a77a3eb2c6d451c10e6372c2af
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_Wall
