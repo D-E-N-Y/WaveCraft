@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UP_Worker : U_Player
 {
     public E_WorkerState state { private set; get; }
-
     private TaskManager taskManager;
     private List<Task> tasks;
     [SerializeField, Range(1, 10)] private int limitTasks;
@@ -17,6 +14,8 @@ public class UP_Worker : U_Player
     [SerializeField] GameObject hammerPrefab;
     [SerializeField] GameObject pickaxePrefab;
     private Dictionary<E_Instrument, GameObject> instruments;
+
+    [SerializeField] private List<Material> materials;
 
     public override void Initialize()
     {
@@ -36,6 +35,13 @@ public class UP_Worker : U_Player
         instruments.Add(E_Instrument.Pickaxe, pickaxePrefab);
 
         pickaxePrefab.GetComponent<Mining>().Initialize(this);
+
+        Material currentMaterial = materials[Random.Range(0, materials.Count)];
+        foreach(SkinnedMeshRenderer renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            renderer.material = currentMaterial;
+            renderer.UpdateGIMaterials();
+        }
     }
     
     #region Control tasks
@@ -104,7 +110,7 @@ public class UP_Worker : U_Player
 
     public void AddCurrentAmount(int value)
     {
-        currentAmount = Math.Min(currentAmount + value, maxAmount);
+        currentAmount = Mathf.Min(currentAmount + value, maxAmount);
     }
 
     public void ClearCurrentAmount()
