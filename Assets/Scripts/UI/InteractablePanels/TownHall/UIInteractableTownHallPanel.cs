@@ -1,12 +1,15 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIInteractableTownHallPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI spawnOrderText;
+    [SerializeField] private TextMeshProUGUI spawnCostText;
+    [SerializeField] private Image spawnProgressImage;    
     private B_TownHall townHall;
     
     
@@ -35,9 +38,11 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         nameText.text = townHall.nameActor;
         hpText.text = townHall.GetCurrentHP().ToString();
         spawnOrderText.text = townHall.spawnOrder.ToString();
+        spawnCostText.text = townHall.GetSpawnCost().count.ToString();
 
         townHall.UpdateSpawnOrder += RefreshSpawnOrder;
-        
+        townHall.UpdateSpawnProgress += RefreshSpawnProgressIgame;
+
         foreach(ResourceText current in processedResourceTexts)
         {
             TH_Processor processor = townHall.GetProcessor(current.resource);
@@ -81,6 +86,11 @@ public class UIInteractableTownHallPanel : MonoBehaviour
     private void RefreshSpawnOrder()
     {
         spawnOrderText.text = townHall.spawnOrder.ToString();
+    }
+
+    private void RefreshSpawnProgressIgame(float value)
+    {
+        spawnProgressImage.fillAmount = value;
     }
 
     private void RefreshProcessedResourceAmount(E_Resource resource)

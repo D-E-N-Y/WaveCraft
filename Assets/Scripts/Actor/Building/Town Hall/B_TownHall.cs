@@ -46,6 +46,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     #region SpawnUnit
 
     public Action UpdateSpawnOrder;
+    public Action<float> UpdateSpawnProgress;
 
     [SerializeField] private GameObject spawnUnitPref;
     [SerializeField] private float timeToSpawnUnit;
@@ -73,7 +74,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         if(spawnOrder == 0 && spawning != null)
         {
             ResourceSystem.current.AddResources(spawnCost.resourse, spawnCost.count);
-            
+            UpdateSpawnProgress?.Invoke(1f);
+
             StopCoroutine(spawning);
             spawning = null;
         }
@@ -92,7 +94,14 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             
             ResourceSystem.current.RemoveResources(spawnCost.resourse, spawnCost.count);
 
-            yield return new WaitForSeconds(timeToSpawnUnit);
+            float timer = 0;
+
+            while(timer < timeToSpawnUnit)
+            {
+                timer += Time.deltaTime;
+                UpdateSpawnProgress?.Invoke(timer / timeToSpawnUnit);
+                yield return null;
+            }
 
             UP_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UP_Worker>();
             worker.Initialize();
@@ -103,6 +112,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         spawning = null;
     }
+
+    public S_Cost GetSpawnCost() => spawnCost;
 
     #endregion
 
