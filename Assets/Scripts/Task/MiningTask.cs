@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class MiningTask : Task
 {
-    public E_Resource resource { private set; get; }
-    public List<Transform> resourcePosition { private set; get; }
+    public Resource resource { private set; get; }
+    public E_Resource resourceType { private set; get; }
     public int resourceAmount { private set; get; }
 
     public MiningTask(Resource resource)
     {
         taskType = E_TaskType.Mining;
 
-        this.resource = resource.Type();
-        resourcePosition = resource.GetPosition();
+        this.resource = resource;
         resourceAmount = (int)resource.GetCurrentHP();
     }
 
@@ -20,7 +19,7 @@ public class MiningTask : Task
     {
         taskType = E_TaskType.Mining;
 
-        this.resource = resource;
+        this.resourceType = resource;
         this.resourceAmount = resourceAmount;
     }
 }

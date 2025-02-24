@@ -24,6 +24,11 @@ public class UnitMovement : MonoBehaviour
 
     private Vector3 GetNearbyPosition(List<Transform> target)
     {
+        if(target == null)
+        {
+            return transform.position;
+        }
+        
         return target.OrderBy(x => Vector3.Distance(x.position, transform.position)).First().position;
     }
 

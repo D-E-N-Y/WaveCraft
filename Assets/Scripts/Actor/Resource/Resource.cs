@@ -45,7 +45,7 @@ public class Resource : Actor
 
         if(currentHP <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

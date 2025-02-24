@@ -11,13 +11,25 @@ public class MiningTaskHandler : ITaskHandler
         int currentMine = 0;
         // Debug.Log($"Need mine {miningTask.resourceAmount}");
 
+        Resource resource = miningTask.resource;
+
+        if(!resource)
+        {
+            // get nearby resource by type
+        }
+
         while (currentMine < miningTask.resourceAmount)
         {
             // Move to resource
             // Debug.Log($"Move to {miningTask.resource}");
 
+            if(!resource.gameObject.activeSelf)
+            {
+                break;
+            }
+
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(miningTask.resourcePosition, UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(resource.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             // Mining phase
@@ -29,6 +41,11 @@ public class MiningTaskHandler : ITaskHandler
                 yield return null;
 
                 if(currentMine + worker.GetCurrentAmount() >= miningTask.resourceAmount)
+                {
+                    break;
+                }
+
+                if(!resource.gameObject.activeSelf)
                 {
                     break;
                 }
@@ -47,7 +64,7 @@ public class MiningTaskHandler : ITaskHandler
 
             // Move to processor
             worker.animator.SetBool("isMove", true);
-            IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, miningTask.resource);
+            IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, resource.Type());
             IPosition position = (IPosition)processor;
             
             yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
