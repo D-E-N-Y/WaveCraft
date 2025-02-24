@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIResourcePanel : MonoBehaviour
 {
@@ -21,10 +22,16 @@ public class UIResourcePanel : MonoBehaviour
     [SerializeField] private List<AmountText> currentAmountText;
     [SerializeField] private List<AmountText> maxAmountText;
 
+    [SerializeField] private TextMeshProUGUI currentAmountVillageText;
+    [SerializeField] private TextMeshProUGUI maxAmountVillageText;
+
     private void Awake() 
     {
         ResourceSystem.current.UpdateCurrentCount += RefreshCurrentAmount;
         StorageSystem.current.UpdateMaxCount += RefreshMaxAmount;
+
+        VillageSystem.current.UpdateCurrentAmount += RefreshCurrentVillageAmount;
+        VillageSystem.current.UpdateMaxAmount += RefreshMaxVillageAmount;
     }
 
     private void RefreshCurrentAmount(E_Resource resource)
@@ -39,7 +46,7 @@ public class UIResourcePanel : MonoBehaviour
         }
     }
 
-    private void RefreshMaxAmount(E_Resource resource)
+    private void RefreshMaxAmount(E_Resource resource) 
     {
         foreach(AmountText current in maxAmountText)
         {
@@ -49,6 +56,16 @@ public class UIResourcePanel : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void RefreshCurrentVillageAmount()
+    {
+        currentAmountVillageText.text = VillageSystem.current.GetCurrentAmount().ToString();
+    }
+
+    private void RefreshMaxVillageAmount()
+    {
+        maxAmountVillageText.text = VillageSystem.current.GetMaxAmount().ToString();
     }
 
     private string CorrectFormat(int value)

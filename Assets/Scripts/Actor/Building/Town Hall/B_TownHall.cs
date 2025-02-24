@@ -41,6 +41,9 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             processors.Add(processor);
             ProcessorSystem.current.AddProcessor(processor.GetTypeResource(), processor);
         }
+
+        // intialize residential
+        VillageSystem.current.AddResidential(this);
     } 
 
     #region SpawnUnit
@@ -83,7 +86,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     private IEnumerator Spawning()
     {
-        while(spawnOrder > 0)
+        while(spawnOrder > 0 || VillageSystem.current.CheckFreeSpace())
         {
             if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
             {
@@ -109,6 +112,9 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             spawnOrder--;
             UpdateSpawnOrder?.Invoke();
         }
+
+        spawnOrder = 0;
+        UpdateSpawnOrder?.Invoke();
 
         spawning = null;
     }
@@ -159,10 +165,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     [SerializeField] private int villageAmount;
 
-    public int GetVillageAmount()
-    {
-        return villageAmount;
-    }    
+    public int GetVillageAmount() => villageAmount;
     
     #endregion
 }

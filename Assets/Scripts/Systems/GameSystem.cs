@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
-    public virtual void Initialize(){}
+    public virtual void Initialize() {}
 }
