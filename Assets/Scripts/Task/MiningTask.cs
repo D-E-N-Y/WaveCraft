@@ -12,6 +12,7 @@ public class MiningTask : Task
         taskType = E_TaskType.Mining;
 
         this.resource = resource;
+        resourceType = resource.Type();
         resourceAmount = (int)resource.GetCurrentHP();
     }
 

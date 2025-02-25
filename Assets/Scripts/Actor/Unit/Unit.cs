@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit : Actor
 {
@@ -31,8 +32,7 @@ public class Unit : Actor
         }
     }
 
-    public float GetDamage()
-    {
-        return damage;
-    }
+    public float GetDamage() => damage;
+    public float GetArmor() => armor;
+    public float GetSpeed() => GetComponent<NavMeshAgent>().speed;
 }

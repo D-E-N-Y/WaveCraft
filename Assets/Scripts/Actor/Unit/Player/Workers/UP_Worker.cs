@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UP_Worker : U_Player
 {
+    public Action UpdateTasks;
+    
     public E_WorkerState state { private set; get; }
     private TaskManager taskManager;
-    private List<Task> tasks;
+    public List<Task> tasks { get; private set; }
     [SerializeField, Range(1, 10)] private int limitTasks;
 
     [SerializeField, Range(1, 20)] private int maxAmount;
@@ -20,6 +23,8 @@ public class UP_Worker : U_Player
     public override void Initialize()
     {
         base.Initialize();
+
+        proffesion = "Worker";
 
         taskManager = new TaskManager();
         tasks = new List<Task>();
@@ -36,7 +41,7 @@ public class UP_Worker : U_Player
 
         pickaxePrefab.GetComponent<Mining>().Initialize(this);
 
-        Material currentMaterial = materials[Random.Range(0, materials.Count)];
+        Material currentMaterial = materials[UnityEngine.Random.Range(0, materials.Count)];
         foreach(SkinnedMeshRenderer renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
             renderer.material = currentMaterial;
@@ -49,6 +54,7 @@ public class UP_Worker : U_Player
     public void AddTask(Task task)
     {
         tasks.Add(task);
+        UpdateTasks?.Invoke();
 
         DoTask();
     }

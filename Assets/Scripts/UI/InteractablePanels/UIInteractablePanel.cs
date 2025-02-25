@@ -3,10 +3,16 @@ using UnityEngine;
 public class UIInteractablePanel : MonoBehaviour
 {
     [SerializeField] private GameObject resourcePanel;
+    
+    // building panels
     [SerializeField] private GameObject townHallPanel;
     [SerializeField] private GameObject storagePanel;
     [SerializeField] private GameObject processorPanel;
     [SerializeField] private GameObject productionPanel;
+
+    // unit panels
+    [SerializeField] private GameObject workerPanel;
+
     [SerializeField] private GameObject otherPanel;
     
     private GameObject openPanel;
@@ -54,6 +60,13 @@ public class UIInteractablePanel : MonoBehaviour
                 openPanel.SetActive(true);
 
                 openPanel.GetComponent<UIInteractableProductionPanel>().Initialize((I_Production)actor);
+                break;
+
+            case UP_Worker:
+                openPanel = workerPanel;
+                openPanel.SetActive(true);
+
+                openPanel.GetComponent<UIInteractableWorkerPanel>().Initialize((UP_Worker)actor);
                 break;
 
             default:
