@@ -92,6 +92,8 @@ public class UP_Worker : U_Player
         TaskSystem.current.CompleteTask(task);
         
         tasks.Remove(task);
+        UpdateTasks?.Invoke();
+        
         state = E_WorkerState.Idle;
 
         DoTask();

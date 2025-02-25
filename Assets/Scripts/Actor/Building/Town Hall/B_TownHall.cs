@@ -86,12 +86,10 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     private IEnumerator Spawning()
     {
-        while(spawnOrder > 0 || VillageSystem.current.CheckFreeSpace())
+        while(spawnOrder > 0 && VillageSystem.current.CheckFreeSpace())
         {
             if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
             {
-                Debug.Log($"not enought {spawnCost.resourse}");
-                spawnOrder = 0;
                 break;
             }
             

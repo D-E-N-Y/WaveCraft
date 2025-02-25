@@ -4,11 +4,15 @@ using UnityEngine;
 public class U_Player : Unit
 {
     public string proffesion { get; protected set; }
-    private string[] names = {"Coll Ó Broin", "Searc Macdougalls", "Guirmean Duncansons", "Carmag Mcmahoni", "Sionn Fergusoni",
-                            "Gòrdan O'Bernei", "Finnean Jewele", "Eoghanan Ó Faoláini", "Conn Ó Nualláini", "Dùghlas Mcgeei",
-                            "Madadh Donohuei", "Cathalan Keegan", "Lulach Finnegani", "Brianan Ó Conchobhairi", "Conall O'Connor",
-                            "Dùghlas Guinness", "Garbhan Ó Riagáin", "Aodhan Mahoneyi", "Colla Ó Fionnáini", "Fionntan Maccances",
-                            "Fionghan Fannoni", "Gilleathain Ó Faoláini", "Fionn Whaleni", "Cosgrach Ó Briain", "Dubh Ó Broin"};
+    private string[] names = {
+        "Stigr Bosques", "Gaufrid Grosf", "Arnulf Färberg", "Herman Forstg", "Humbert Fishere",
+        "Stigr Bognárh", "Robert Beutelg", "Ealhstan Fryee", "Hartmut Eichelg", "Cyneric Bradleye",
+        "Hubert Beckete", "Gautbert Fiddlere", "Erwin Fieldse", "Hubert Berger", "Romilda Färberg",
+        "Grimwald Fiddlere", "Ealdwine Fieldse", "Eadwulf Braung", "Fulbert Blumg", "Farvald Clineg",
+        "Eadwulf Bognárh", "Aldric Fryee", "Anselm Froste", "Conrad Clineg", "Albert Bloms",
+        "Gernot Eks", "Aldric Garverg", "Stígandr Bösch", "Stigr Faerberg", "Andebert Foxe",
+        "Grimwald Forneyg", "Aldwin Frye"
+    }; 
 
     public override void Initialize()
     {
