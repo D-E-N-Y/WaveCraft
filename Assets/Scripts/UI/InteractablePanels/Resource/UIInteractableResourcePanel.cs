@@ -18,6 +18,12 @@ public class UIInteractableResourcePanel : MonoBehaviour
         resource.DestroyActor += ClosePanel;
     }
 
+    void OnDisable()
+    {
+        resource.UpdateCurrentHP -= RefreshCurrentHP;
+        resource.DestroyActor -= ClosePanel;
+    }
+
     public void Mine()
     {
         MiningTask task = new MiningTask(resource);

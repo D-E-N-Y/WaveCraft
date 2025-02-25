@@ -22,6 +22,9 @@ public class UnitMovement : MonoBehaviour
         agent = gameObject.GetComponent<NavMeshAgent>();
     }
 
+    public void StopMove() => agent.isStopped = true;
+    public void StartMove() => agent.isStopped = false;
+
     private Vector3 GetNearbyPosition(List<Transform> target)
     {
         if(target == null)
@@ -65,13 +68,6 @@ public class UnitMovement : MonoBehaviour
 
         isMoving = false;
         // OnMoveComplete?.Invoke();
-    }
-
-    public void StopMove()
-    {
-        // StopAllCoroutines();
-        agent.ResetPath();
-        isMoving = false;
     }
     
     private Vector3 MiddlePoint(Vector3 vector_1, Vector3 vector_2)

@@ -44,10 +44,16 @@ public class UIInteractableProcessorPanel : MonoBehaviour
         }
 
         rawAmountText.text = processor.rawAmount.ToString();
-        processedAmountText.text = processor.processedAmount.ToString();
+        processedAmountText.text = processor.processedAmount.ToString(); 
 
         processor.UpdateRawAmount += RefreshRawAmount;
         processor.UpdateProcessedAmount += RefreshProcessedAmount;
+    }
+
+    void OnDisable()
+    {
+        processor.UpdateRawAmount -= RefreshRawAmount;
+        processor.UpdateProcessedAmount -= RefreshProcessedAmount;
     }
 
     private void RefreshRawAmount()

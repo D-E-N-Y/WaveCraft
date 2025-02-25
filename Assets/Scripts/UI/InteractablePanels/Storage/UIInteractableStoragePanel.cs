@@ -48,7 +48,12 @@ public class UIInteractableStoragePanel : MonoBehaviour
 
         storage.UpdateCurrentAmount += RefreshCurrentAmount;
     }
-    
+
+    void OnDisable()
+    {
+        storage.UpdateCurrentAmount -= RefreshCurrentAmount;
+    }
+
     private void RefreshCurrentAmount()
     {
         currentAmountText.text = storage.GetCurrentAmount().ToString();

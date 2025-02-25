@@ -73,6 +73,22 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        townHall.UpdateSpawnOrder -= RefreshSpawnOrder;
+        townHall.UpdateSpawnProgress -= RefreshSpawnProgressIgame;
+
+        foreach(ResourceText current in processedResourceTexts)
+        {
+            TH_Processor processor = townHall.GetProcessor(current.resource);
+            processor.UpdadeProcessedAmount -= RefreshProcessedResourceAmount;
+            processor.UpdateRawAmount -= RefreshRawResourceAmount;
+
+            TH_Storage storage = townHall.GetStorage(current.resource);
+            storage.UpdateCurrentAmount -= RefreshResourceAmountStorage;
+        }
+    }
+
     public void SpawnWorker()
     {
         townHall.SpawnUnit();

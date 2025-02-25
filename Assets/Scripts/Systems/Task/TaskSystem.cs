@@ -86,11 +86,10 @@ public class TaskSystem : GameSystem
         }
     }
 
-    public void CancelTask(Task task)
+    public void CancelTask(Task task, E_TaskState state)
     {
         // remove task from UI
-        
-        tasks[E_TaskState.Pending].Remove(task);
+        tasks[state].Remove(task);
 
         Debug.Log("Cancel task");
     }

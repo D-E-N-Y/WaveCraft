@@ -49,6 +49,11 @@ public class UIInteractableProductionPanel : MonoBehaviour
         production.UpdateCountResources += RefreshProduceAmount;
     }
 
+    void OnDisable()
+    {
+        production.UpdateCountResources -= RefreshProduceAmount;
+    }
+
     private void RefreshProduceAmount()
     {
         produceAmountText.text = production.GetProduceAmount().ToString();

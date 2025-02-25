@@ -35,14 +35,23 @@ public class UIInteractableWorkerPanel : MonoBehaviour
         worker.UpdateTasks += RefreshTasks;
     }
 
+    void OnDisable()
+    {
+        worker.UpdateTasks -= RefreshTasks;
+    }
+
     private void RefreshTasks()
     {
         tasks.ForEach(t => t.gameObject.SetActive(false));
         
+        Debug.Log(worker.tasks.Count);
+
         for(int i = 0; i < worker.tasks.Count; i++)
         {
+            Debug.Log($"{taskContainer.transform.GetChild(i).gameObject} {taskContainer.transform.GetChild(i).gameObject.activeSelf}");
+            
             taskContainer.transform.GetChild(i).gameObject.SetActive(true);
-            taskContainer.transform.GetChild(i).gameObject.GetComponent<UI_TaskWorker>().Initialize(i + 1, worker.tasks[i]);
+            taskContainer.transform.GetChild(i).gameObject.GetComponent<UI_TaskWorker>().Initialize(worker, i + 1, worker.tasks[i]);
         }
     }
 }

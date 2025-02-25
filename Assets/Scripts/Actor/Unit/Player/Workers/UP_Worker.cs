@@ -10,6 +10,7 @@ public class UP_Worker : U_Player
     private TaskManager taskManager;
     public List<Task> tasks { get; private set; }
     [SerializeField, Range(1, 10)] private int limitTasks;
+    private Coroutine currentTask;
 
     [SerializeField, Range(1, 20)] private int maxAmount;
     private int currentAmount;
@@ -64,12 +65,14 @@ public class UP_Worker : U_Player
         if (state != E_WorkerState.Idle || tasks.Count == 0)
             return;
 
+        movement.StartMove();
         state = E_WorkerState.Busy;
-        Task currentTask = tasks[0];
-        ITaskHandler handler = taskManager.GetHandler(currentTask);
+
+        Task _task = tasks[0];
+        ITaskHandler handler = taskManager.GetHandler(_task);
         if (handler != null)
         {
-            StartCoroutine(handler.ExecuteTask(this, currentTask, () => CompleteTask(currentTask)));
+            currentTask = StartCoroutine(handler.ExecuteTask(this, _task, () => CompleteTask(_task)));
         }
         else
         {
@@ -85,6 +88,36 @@ public class UP_Worker : U_Player
     public void ContinueTask()
     {
         
+    }
+
+    public void CancelTask(Task task)
+    {
+        TaskSystem.current.CancelTask(task, E_TaskState.Execured);
+
+        if(tasks[0] == task)
+        {
+            tasks.Remove(task);
+            UpdateTasks?.Invoke();
+
+            StopCoroutine(currentTask);
+            
+            movement.StopMove();
+            
+            animator.SetBool("isMove", false);
+            animator.Play("Idle");
+
+            hammerPrefab.SetActive(false);
+            pickaxePrefab.SetActive(false);
+
+            state = E_WorkerState.Idle;
+
+            DoTask();
+        }
+        else
+        {
+            tasks.Remove(task);
+            UpdateTasks?.Invoke();
+        }
     }
 
     private void CompleteTask(Task task)

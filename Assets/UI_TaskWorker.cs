@@ -21,10 +21,14 @@ public class UI_TaskWorker : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI contexText;
 
-    // private UP_Worker _worker;
+    private UP_Worker worker;
+    private Task task;
 
-    public void Initialize(int order, Task task)
+    public void Initialize(UP_Worker worker, int order, Task task)
     {
+        this.worker = worker;
+        this.task = task;
+
         taskOrderText.text = order.ToString();        
         taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.taskType).sprite;
         titleText.text = $"{task.taskType} task";
@@ -56,6 +60,6 @@ public class UI_TaskWorker : MonoBehaviour
 
     public void CancelTask()
     {
-
+        worker.CancelTask(task);
     }
 }
