@@ -15,6 +15,8 @@ public class Mining : Attack
         if(targetActor) return;
         base.OnTriggerEnter(other);
 
-        worker.AddCurrentAmount((int)damage);
+        Resource resource = other.GetComponent<Resource>();
+
+        worker.AddCurrentAmount(resource.Type(), (int)damage);
     }
 }

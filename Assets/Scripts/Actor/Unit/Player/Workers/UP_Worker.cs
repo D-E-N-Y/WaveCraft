@@ -13,7 +13,7 @@ public class UP_Worker : U_Player
     private Coroutine currentTask;
 
     [SerializeField, Range(1, 20)] private int maxAmount;
-    private int currentAmount;
+    private Dictionary<E_Resource, int> currentAmount;
 
     [SerializeField] GameObject hammerPrefab;
     [SerializeField] GameObject pickaxePrefab;
@@ -30,7 +30,10 @@ public class UP_Worker : U_Player
         taskManager = new TaskManager();
         tasks = new List<Task>();
         
-        currentAmount = 0;
+        currentAmount = new Dictionary<E_Resource, int>();
+        currentAmount.Add(E_Resource.Wood, 0);
+        currentAmount.Add(E_Resource.Stone, 0);
+        currentAmount.Add(E_Resource.Food, 0);
 
         state = E_WorkerState.Idle;
 
@@ -134,30 +137,16 @@ public class UP_Worker : U_Player
 
     #endregion
 
-    public bool HasFreeTaskSpace()
-    {
-        return limitTasks > tasks.Count;
-    }
+    public bool HasFreeTaskSpace() => limitTasks > tasks.Count;
+    
+    public bool CheckFreeSpaceMiningAmount() => maxAmount > GetCurrentAmount();
+    public int GetMaxAmount() => maxAmount;
 
-    public int GetMaxAmount()
-    {
-        return maxAmount;
-    }
+    public int GetCurrentAmount() => currentAmount[E_Resource.Wood] + currentAmount[E_Resource.Stone] + currentAmount[E_Resource.Food];
+    public int GetCurrentAmountByResource(E_Resource resource) => currentAmount[resource];
 
-    public int GetCurrentAmount()
-    {
-        return currentAmount;
-    }
-
-    public void AddCurrentAmount(int value)
-    {
-        currentAmount = Mathf.Min(currentAmount + value, maxAmount);
-    }
-
-    public void ClearCurrentAmount()
-    {
-        currentAmount = 0;
-    }
+    public void AddCurrentAmount(E_Resource resource, int value) => currentAmount[resource] += value;
+    public void ClearCurrentAmount(E_Resource resource) => currentAmount[resource] = 0;
 
     public enum E_Instrument
     {
@@ -185,9 +174,4 @@ public class UP_Worker : U_Player
         pickaxePrefab.GetComponent<BoxCollider>().enabled = false;
         pickaxePrefab.GetComponent<Mining>().NullTarget();
     }
-
-    #region Do tasks
-
-        
-    #endregion
 }

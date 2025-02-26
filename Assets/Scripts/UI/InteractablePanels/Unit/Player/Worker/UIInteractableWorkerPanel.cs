@@ -43,13 +43,9 @@ public class UIInteractableWorkerPanel : MonoBehaviour
     private void RefreshTasks()
     {
         tasks.ForEach(t => t.gameObject.SetActive(false));
-        
-        Debug.Log(worker.tasks.Count);
 
         for(int i = 0; i < worker.tasks.Count; i++)
         {
-            Debug.Log($"{taskContainer.transform.GetChild(i).gameObject} {taskContainer.transform.GetChild(i).gameObject.activeSelf}");
-            
             taskContainer.transform.GetChild(i).gameObject.SetActive(true);
             taskContainer.transform.GetChild(i).gameObject.GetComponent<UI_TaskWorker>().Initialize(worker, i + 1, worker.tasks[i]);
         }
