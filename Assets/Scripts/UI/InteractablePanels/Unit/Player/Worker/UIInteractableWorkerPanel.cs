@@ -29,7 +29,7 @@ public class UIInteractableWorkerPanel : MonoBehaviour
         armorText.text = worker.GetArmor().ToString();
         damageText.text = worker.GetDamage().ToString();
         speedText.text = worker.GetSpeed().ToString();
-        storageText.text = worker.GetMaxAmount().ToString();
+        storageText.text = worker.GetMaxMineAmount().ToString();
         
         RefreshTasks();
         worker.UpdateTasks += RefreshTasks;

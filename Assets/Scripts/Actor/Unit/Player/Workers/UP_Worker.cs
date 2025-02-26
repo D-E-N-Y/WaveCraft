@@ -6,14 +6,16 @@ public class UP_Worker : U_Player
 {
     public Action UpdateTasks;
     
-    public E_WorkerState state { private set; get; }
-    private TaskManager taskManager;
-    public List<Task> tasks { get; private set; }
     [SerializeField, Range(1, 10)] private int limitTasks;
+    public List<Task> tasks { get; private set; }
+    private TaskManager taskManager;
     private Coroutine currentTask;
 
-    [SerializeField, Range(1, 20)] private int maxAmount;
-    private Dictionary<E_Resource, int> currentAmount;
+    public E_WorkerState state { private set; get; }
+
+    [SerializeField, Range(1, 20)] private int maxMineAmount;
+    private Dictionary<E_Resource, int> currentMineAmount;
+    private Dictionary<E_Resource, int> currentStoreAmount;
 
     [SerializeField] GameObject hammerPrefab;
     [SerializeField] GameObject pickaxePrefab;
@@ -30,27 +32,34 @@ public class UP_Worker : U_Player
         taskManager = new TaskManager();
         tasks = new List<Task>();
         
-        currentAmount = new Dictionary<E_Resource, int>();
-        currentAmount.Add(E_Resource.Wood, 0);
-        currentAmount.Add(E_Resource.Stone, 0);
-        currentAmount.Add(E_Resource.Food, 0);
+        // initialize mine amount
+        currentMineAmount = new Dictionary<E_Resource, int>();
+        currentMineAmount.Add(E_Resource.Wood, 0);
+        currentMineAmount.Add(E_Resource.Stone, 0);
+        currentMineAmount.Add(E_Resource.Food, 0);
 
-        state = E_WorkerState.Idle;
+        // initialize store amount 
+        currentStoreAmount = new Dictionary<E_Resource, int>();
+        currentStoreAmount.Add(E_Resource.Wood, 0);
+        currentStoreAmount.Add(E_Resource.Stone, 0);
+        currentStoreAmount.Add(E_Resource.Food, 0);
 
-        TaskSystem.current.AddWorker(this);
-
+        // initialize instruments
+        pickaxePrefab.GetComponent<Mining>().Initialize(this);
         instruments = new Dictionary<E_Instrument, GameObject>();
         instruments.Add(E_Instrument.Hammer, hammerPrefab);
         instruments.Add(E_Instrument.Pickaxe, pickaxePrefab);
 
-        pickaxePrefab.GetComponent<Mining>().Initialize(this);
-
+        // random material
         Material currentMaterial = materials[UnityEngine.Random.Range(0, materials.Count)];
         foreach(SkinnedMeshRenderer renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
             renderer.material = currentMaterial;
             renderer.UpdateGIMaterials();
         }
+
+        state = E_WorkerState.Idle;
+        TaskSystem.current.AddWorker(this);
     }
     
     #region Control tasks
@@ -139,14 +148,41 @@ public class UP_Worker : U_Player
 
     public bool HasFreeTaskSpace() => limitTasks > tasks.Count;
     
-    public bool CheckFreeSpaceMiningAmount() => maxAmount > GetCurrentAmount();
-    public int GetMaxAmount() => maxAmount;
+    public bool CheckFreeSpaceMineAmount() => maxMineAmount > GetCurrentMineAmount();
+    public int GetMaxMineAmount() => maxMineAmount;
 
-    public int GetCurrentAmount() => currentAmount[E_Resource.Wood] + currentAmount[E_Resource.Stone] + currentAmount[E_Resource.Food];
-    public int GetCurrentAmountByResource(E_Resource resource) => currentAmount[resource];
+    public int GetCurrentMineAmount()
+    {
+        int result = 0;
+        
+        foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+        {
+            result += currentMineAmount[resource];
+        }
 
-    public void AddCurrentAmount(E_Resource resource, int value) => currentAmount[resource] += value;
-    public void ClearCurrentAmount(E_Resource resource) => currentAmount[resource] = 0;
+        return result;
+    }
+
+    public int GetCurrentStoreAmount()
+    {
+        int result = 0;
+        
+        foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+        {
+            result += currentStoreAmount[resource];
+        }
+
+        return result;
+    }
+
+    public int GetCurrentMineAmountByResource(E_Resource resource) => currentMineAmount[resource];
+    public int GetCurrentStoreAmountByResource(E_Resource resource) => currentStoreAmount[resource];
+
+    public void AddCurrentMineAmount(E_Resource resource, int value) => currentMineAmount[resource] += value;
+    public void ClearCurrentMineAmount(E_Resource resource) => currentMineAmount[resource] = 0;
+
+    public void AddCurrentStoreAmount(E_Resource resource, int value) => currentStoreAmount[resource] += value;
+    public void ClearCurrentStoreAmount(E_Resource resource) => currentStoreAmount[resource] = 0;
 
     public enum E_Instrument
     {

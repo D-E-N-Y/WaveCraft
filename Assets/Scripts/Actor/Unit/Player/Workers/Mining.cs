@@ -17,6 +17,6 @@ public class Mining : Attack
 
         Resource resource = other.GetComponent<Resource>();
 
-        worker.AddCurrentAmount(resource.Type(), (int)damage);
+        worker.AddCurrentMineAmount(resource.Type(), (int)damage);
     }
 }

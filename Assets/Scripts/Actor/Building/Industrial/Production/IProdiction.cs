@@ -1,4 +1,4 @@
 public interface IProduction
 {
-    int Unload();
+    int Unload(int value);
 }

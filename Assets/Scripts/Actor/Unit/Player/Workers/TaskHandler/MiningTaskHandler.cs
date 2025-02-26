@@ -7,7 +7,7 @@ public class MiningTaskHandler : ITaskHandler
     public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
     {
         // check have resource
-        if(!worker.CheckFreeSpaceMiningAmount())
+        if(!worker.CheckFreeSpaceMineAmount())
         {
             yield return StoreResources(worker);
         }
@@ -32,13 +32,13 @@ public class MiningTaskHandler : ITaskHandler
 
             // Mining phase
             worker.ActiceInsturcent(UP_Worker.E_Instrument.Pickaxe);
-            while (worker.GetCurrentAmount() < worker.GetMaxAmount())
+            while (worker.GetCurrentMineAmount() < worker.GetMaxMineAmount())
             {
                 worker.animator.SetTrigger("Mine");
                 yield return null;
                 yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
 
-                if(currentMine + worker.GetCurrentAmount() >= miningTask.resourceAmount)
+                if(currentMine + worker.GetCurrentMineAmount() >= miningTask.resourceAmount)
                 {
                     break;
                 }
@@ -52,8 +52,7 @@ public class MiningTaskHandler : ITaskHandler
             worker.animator.Play("Idle");
             worker.DisactiveInstument(UP_Worker.E_Instrument.Pickaxe);
 
-            // Debug.Log($"Mined {worker.GetCurrentAmount()} resources, moving to processor");
-            currentMine += worker.GetCurrentAmount();
+            currentMine += worker.GetCurrentMineAmount();
 
             // Move to processor
             yield return StoreResources(worker);
@@ -65,11 +64,11 @@ public class MiningTaskHandler : ITaskHandler
 
     private IEnumerator StoreResources(UP_Worker worker)
     {
-        while(worker.GetCurrentAmount() > 0)
+        while(worker.GetCurrentMineAmount() > 0)
         {
             foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
             {
-                if(worker.GetCurrentAmountByResource(resource) > 0)
+                if(worker.GetCurrentMineAmountByResource(resource) > 0)
                 {
                     // Move to processor
                     worker.animator.SetBool("isMove", true);
@@ -80,8 +79,8 @@ public class MiningTaskHandler : ITaskHandler
                     worker.animator.SetBool("isMove", false);
 
                     // Store resources
-                    processor.AddResources(worker.GetCurrentAmountByResource(resource));
-                    worker.ClearCurrentAmount(resource);
+                    processor.AddResources(worker.GetCurrentMineAmountByResource(resource));
+                    worker.ClearCurrentMineAmount(resource);
                 }
             }
         }

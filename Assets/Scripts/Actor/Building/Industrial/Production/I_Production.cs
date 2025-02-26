@@ -49,15 +49,15 @@ public class I_Production : B_Industrial, IProduction
             StartProduce();
     }
 
-    public int Unload()
+    public int Unload(int value)
     {
         int amount = currentAmount;
-        currentAmount = 0;
+        currentAmount = Mathf.Max(0, currentAmount - value);
         UpdateCountResources?.Invoke();
 
         StartCoroutine(nameof(Produce));
 
-        return amount;
+        return amount - currentAmount;
     }
 
     public int GetMaxAmount() => maxStorage;
