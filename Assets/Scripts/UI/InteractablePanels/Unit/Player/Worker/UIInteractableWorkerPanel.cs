@@ -18,6 +18,8 @@ public class UIInteractableWorkerPanel : MonoBehaviour
     [SerializeField] private GameObject taskContainer;
     [SerializeField] private List<UI_TaskWorker> tasks;
 
+    [SerializeField] private TextMeshProUGUI stateTaskText;
+
     public void Initialize(UP_Worker worker)
     {
         this.worker = worker;
@@ -33,6 +35,15 @@ public class UIInteractableWorkerPanel : MonoBehaviour
         
         RefreshTasks();
         worker.UpdateTasks += RefreshTasks;
+        
+        if(worker.isStopTask)
+        {
+            stateTaskText.text = "Continue";
+        }
+        else
+        {
+            stateTaskText.text = "Stop";
+        }
     }
 
     void OnDisable()
@@ -48,6 +59,20 @@ public class UIInteractableWorkerPanel : MonoBehaviour
         {
             taskContainer.transform.GetChild(i).gameObject.SetActive(true);
             taskContainer.transform.GetChild(i).gameObject.GetComponent<UI_TaskWorker>().Initialize(worker, i + 1, worker.tasks[i]);
+        }
+    }
+
+    public void SetStateTask()
+    {
+        if(!worker.isStopTask)
+        {
+            stateTaskText.text = "Continue";
+            worker.StopTask();
+        }
+        else
+        {
+            stateTaskText.text = "Stop";
+            worker.ContinueTask();
         }
     }
 }

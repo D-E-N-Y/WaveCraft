@@ -29,7 +29,6 @@ public class BuildSystem : GameSystem
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"✅ Сцена {scene.name} загружена, можно инициализировать систему!");
         Initialize();
     }
 

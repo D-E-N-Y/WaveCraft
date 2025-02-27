@@ -8,6 +8,7 @@ public class UP_Worker : U_Player
     
     [SerializeField, Range(1, 10)] private int limitTasks;
     public List<Task> tasks { get; private set; }
+    public bool isStopTask { get; private set; }
     private TaskManager taskManager;
     private Coroutine currentTask;
 
@@ -32,6 +33,8 @@ public class UP_Worker : U_Player
         taskManager = new TaskManager();
         tasks = new List<Task>();
         
+        isStopTask = false;
+
         // initialize mine amount
         currentMineAmount = new Dictionary<E_Resource, int>();
         currentMineAmount.Add(E_Resource.Wood, 0);
@@ -74,7 +77,7 @@ public class UP_Worker : U_Player
 
     public void DoTask()
     {
-        if (state != E_WorkerState.Idle || tasks.Count == 0)
+        if (state != E_WorkerState.Idle || tasks.Count == 0 || isStopTask)
             return;
 
         movement.StartMove();
@@ -94,12 +97,26 @@ public class UP_Worker : U_Player
 
     public void StopTask()
     {
+        isStopTask = true;
         
+        StopCoroutine(currentTask);
+            
+        movement.StopMove();
+        
+        animator.SetBool("isMove", false);
+        animator.Play("Idle");
+
+        hammerPrefab.SetActive(false);
+        pickaxePrefab.SetActive(false);
+
+        state = E_WorkerState.Idle;
     }
 
     public void ContinueTask()
     {
+        isStopTask = false;
         
+        DoTask();
     }
 
     public void CancelTask(Task task)
