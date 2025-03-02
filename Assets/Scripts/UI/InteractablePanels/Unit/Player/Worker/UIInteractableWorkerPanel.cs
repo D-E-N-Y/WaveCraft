@@ -20,6 +20,8 @@ public class UIInteractableWorkerPanel : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI stateTaskText;
 
+    [SerializeField] private UI_TasksListPanel tasksListPanel;
+
     public void Initialize(UP_Worker worker)
     {
         this.worker = worker;
@@ -49,6 +51,7 @@ public class UIInteractableWorkerPanel : MonoBehaviour
     void OnDisable()
     {
         worker.UpdateTasks -= RefreshTasks;
+        tasksListPanel.Hide();
     }
 
     private void RefreshTasks()
@@ -74,5 +77,11 @@ public class UIInteractableWorkerPanel : MonoBehaviour
             stateTaskText.text = "Stop";
             worker.ContinueTask();
         }
+    }
+
+    public void ShowTasksListPanel()
+    {
+        tasksListPanel.gameObject.SetActive(true);
+        tasksListPanel.Initialize(worker);
     }
 }

@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TaskSystem : GameSystem
 {
     static public TaskSystem current;
+
+    public Action UpdateTasks;
 
     private Dictionary<E_TaskState, List<Task>> tasks;
     private List<UP_Worker> workers;    
@@ -26,12 +29,15 @@ public class TaskSystem : GameSystem
         }
 
         tasks[E_TaskState.Pending].Add(task);
+        UpdateTasks?.Invoke();
         
         DoTask(task);
     }
 
     public void DoTask(Task task)
     {
+        return;
+        
         if(!tasks.ContainsKey(E_TaskState.Execured))
         {
             tasks[E_TaskState.Execured] = new List<Task>();
@@ -44,12 +50,28 @@ public class TaskSystem : GameSystem
             tasks[E_TaskState.Execured].Add(task);
             tasks[E_TaskState.Pending].Remove(task);
 
+            UpdateTasks?.Invoke();
+
             Debug.Log($"{worker} do {task}");
         }
         else
         {
             Debug.Log("Not have free workers");
         }
+    }
+
+    public void DoTask(Task task, UP_Worker worker)
+    {
+        if(!tasks.ContainsKey(E_TaskState.Execured))
+        {
+            tasks[E_TaskState.Execured] = new List<Task>();
+        }
+
+        worker.AddTask(task);
+        tasks[E_TaskState.Execured].Add(task);
+        tasks[E_TaskState.Pending].Remove(task);
+
+        UpdateTasks?.Invoke();
     }
 
     private UP_Worker FindFreeWorker()
@@ -75,10 +97,8 @@ public class TaskSystem : GameSystem
 
     public void CompleteTask(Task task)
     {
-        // remove task from UI
-        
         tasks[E_TaskState.Execured].Remove(task);
-        Debug.Log("Complete task");
+        UpdateTasks?.Invoke();
 
         if(tasks[E_TaskState.Pending].Count > 0)
         {
@@ -88,10 +108,8 @@ public class TaskSystem : GameSystem
 
     public void CancelTask(Task task, E_TaskState state)
     {
-        // remove task from UI
         tasks[state].Remove(task);
-
-        Debug.Log("Cancel task");
+        UpdateTasks?.Invoke();
     }
 
     public void AddWorker(UP_Worker worker)
@@ -108,4 +126,6 @@ public class TaskSystem : GameSystem
     {
         workers.Remove(worker);
     }
+
+    public List<Task> GetTasks(E_TaskState state) => tasks[state];
 }
