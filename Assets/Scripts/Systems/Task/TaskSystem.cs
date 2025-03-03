@@ -36,8 +36,6 @@ public class TaskSystem : GameSystem
 
     public void DoTask(Task task)
     {
-        return;
-        
         if(!tasks.ContainsKey(E_TaskState.Execured))
         {
             tasks[E_TaskState.Execured] = new List<Task>();
@@ -78,7 +76,7 @@ public class TaskSystem : GameSystem
     {
         foreach(UP_Worker worker in workers)
         {
-            if(worker.state == E_WorkerState.Idle)
+            if(worker.state == E_WorkerState.Idle && worker.isAutoGetTask)
             {
                 return worker;
             }
@@ -86,7 +84,7 @@ public class TaskSystem : GameSystem
 
         foreach(UP_Worker worker in workers)
         {
-            if(worker.HasFreeTaskSpace())
+            if(worker.HasFreeTaskSpace() && worker.isAutoGetTask)
             {
                 return worker;
             }

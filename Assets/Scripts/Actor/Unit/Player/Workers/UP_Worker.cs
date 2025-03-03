@@ -9,6 +9,7 @@ public class UP_Worker : U_Player
     [SerializeField, Range(1, 10)] private int limitTasks;
     public List<Task> tasks { get; private set; }
     public bool isStopTask { get; private set; }
+    public bool isAutoGetTask { get; private set; }
     private TaskManager taskManager;
     private Coroutine currentTask;
 
@@ -34,6 +35,7 @@ public class UP_Worker : U_Player
         tasks = new List<Task>();
         
         isStopTask = false;
+        isAutoGetTask = true;
 
         // initialize mine amount
         currentMineAmount = new Dictionary<E_Resource, int>();
@@ -200,6 +202,8 @@ public class UP_Worker : U_Player
 
     public void AddCurrentStoreAmount(E_Resource resource, int value) => currentStoreAmount[resource] += value;
     public void ClearCurrentStoreAmount(E_Resource resource) => currentStoreAmount[resource] = 0;
+
+    public void ChangeAutoGetTasks() => isAutoGetTask = !isAutoGetTask;
 
     public enum E_Instrument
     {

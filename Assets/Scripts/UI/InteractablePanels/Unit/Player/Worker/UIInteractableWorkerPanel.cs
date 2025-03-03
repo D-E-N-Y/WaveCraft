@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIInteractableWorkerPanel : MonoBehaviour 
 {
@@ -22,6 +23,9 @@ public class UIInteractableWorkerPanel : MonoBehaviour
 
     [SerializeField] private UI_TasksListPanel tasksListPanel;
 
+    [SerializeField] private Image ui_trueImage;
+    [SerializeField] private Image ui_falseImage;
+
     public void Initialize(UP_Worker worker)
     {
         this.worker = worker;
@@ -35,6 +39,9 @@ public class UIInteractableWorkerPanel : MonoBehaviour
         speedText.text = worker.GetSpeed().ToString();
         storageText.text = worker.GetMaxMineAmount().ToString();
         
+        ui_trueImage.gameObject.SetActive(worker.isAutoGetTask);
+        ui_falseImage.gameObject.SetActive(!worker.isAutoGetTask);
+
         RefreshTasks();
         worker.UpdateTasks += RefreshTasks;
         
@@ -77,6 +84,14 @@ public class UIInteractableWorkerPanel : MonoBehaviour
             stateTaskText.text = "Stop";
             worker.ContinueTask();
         }
+    }
+
+    public void CheckAutoGetTasks()
+    {
+        worker.ChangeAutoGetTasks();
+
+        ui_trueImage.gameObject.SetActive(worker.isAutoGetTask);
+        ui_falseImage.gameObject.SetActive(!worker.isAutoGetTask);
     }
 
     public void ShowTasksListPanel()
