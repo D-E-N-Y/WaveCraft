@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5e04c1374b6d8a9a9e5796d7c704c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionMenuUI: {fileID: 3584862353592351945}
+  mesh: {fileID: 8275680737217556949}
   actorPositions:
   - {fileID: 6613706800539429596}
   maxHP: 200
@@ -233,11 +233,8 @@ MonoBehaviour:
     count: 5
   - resourse: 1
     count: 7
---- !u!1 &3584862353592351945 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3964979755120198886, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
-  m_PrefabInstance: {fileID: 484573763602806831}
-  m_PrefabAsset: {fileID: 0}
+  startTransform: {fileID: 7829482117339269513}
+  endTransform: {fileID: 7829482117339269513}
 --- !u!4 &6613706800539429596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6733187167444013811, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}

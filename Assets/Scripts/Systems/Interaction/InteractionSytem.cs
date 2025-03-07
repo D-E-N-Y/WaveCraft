@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,9 @@ public class InteractionSystem : GameSystem
     private int layerSelect;
     private Actor selectActor;
 
+    [SerializeField] private GameObject wall_1, wall_2;
+    private List<D_Wall> walls;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -21,6 +25,7 @@ public class InteractionSystem : GameSystem
 
         layerInteractable = LayerMask.NameToLayer("Interactable");
         layerSelect = LayerMask.NameToLayer("SelectedActor");
+        walls = new List<D_Wall>();
     }
 
     private void Update() 
@@ -49,6 +54,26 @@ public class InteractionSystem : GameSystem
                     selectActor.Interaction();
 
                     Select?.Invoke(selectActor);
+                }
+
+                walls.Add(Instantiate(wall_1, raycastHit.point, Quaternion.identity).GetComponent<D_Wall>());
+
+                if(walls.Count == 2)
+                {
+                    int countWalls = (int)(Vector3.Distance(walls[0].transform.position, walls[1].transform.position) / wall_2.GetComponent<D_Wall>().GetWallLength()) * 2;
+                    Vector3 V = walls[0].transform.position - walls[1].transform.position;
+
+                    Debug.Log($"{countWalls} {wall_2.GetComponent<D_Wall>().GetWallLength()}");
+
+                    for (int i = 1; i < countWalls; i += 2)
+                    {
+                        Vector3 spawnPosition = walls[0].transform.position - V * (float)i / countWalls;
+                    
+                        GameObject wall = Instantiate(wall_2, spawnPosition, Quaternion.identity);
+                        wall.transform.LookAt(walls[1].transform.position);
+                    }
+
+                    walls.Clear();
                 }
             }
         }

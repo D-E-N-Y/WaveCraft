@@ -10,6 +10,8 @@ public class BuildSystem : GameSystem
     public GridLayout gridLayout;
     private Grid grid;
 
+    [SerializeField] private GameObject wall;
+
     [SerializeField] private Tilemap gridTilemap;
     [SerializeField] private Tilemap freeTilemap;
     [SerializeField] private Tilemap busyTilemap;
@@ -89,6 +91,11 @@ public class BuildSystem : GameSystem
                 
                 BusyTakeArea(start, building.Size);
                 
+                // if(building is D_Wall)
+                // {
+                //     InitializeWithObject(wall);
+                // }
+
                 BuildTask task = new BuildTask(building);
                 TaskSystem.current.AddTask(task);
 
@@ -96,9 +103,6 @@ public class BuildSystem : GameSystem
                 materialBuilding = null;
                 
                 ActiveTilemap(false);
-
-                // !!! add task to build for workers
-                // !!! wait worker
             }
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
