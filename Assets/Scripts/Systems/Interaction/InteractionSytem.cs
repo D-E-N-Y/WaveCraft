@@ -60,14 +60,19 @@ public class InteractionSystem : GameSystem
 
                 if(walls.Count == 2)
                 {
-                    int countWalls = (int)(Vector3.Distance(walls[0].transform.position, walls[1].transform.position) / wall_2.GetComponent<D_Wall>().GetWallLength()) * 2;
-                    Vector3 V = walls[0].transform.position - walls[1].transform.position;
+                    float totalDistance = Vector3.Distance(walls[0].transform.position, walls[1].transform.position);
+                    float wallLength = wall_2.GetComponent<D_Wall>().GetWallLength();
 
-                    Debug.Log($"{countWalls} {wall_2.GetComponent<D_Wall>().GetWallLength()}");
+                    float countWalls = (totalDistance - wallLength) / wallLength;
+                    countWalls = MathF.Round(countWalls);
+                    
+                    Vector3 direction = (walls[0].transform.position - walls[1].transform.position).normalized;
+                    Vector3 middlePosition = (walls[1].transform.position + walls[0].transform.position) / 2;
+                    Vector3 startPosition = middlePosition + direction * (countWalls * wallLength / 2);
 
-                    for (int i = 1; i < countWalls; i += 2)
+                    for (int i = 0; i < countWalls + 1; i++)
                     {
-                        Vector3 spawnPosition = walls[0].transform.position - V * (float)i / countWalls;
+                        Vector3 spawnPosition = startPosition - direction * (i * wallLength);
                     
                         GameObject wall = Instantiate(wall_2, spawnPosition, Quaternion.identity);
                         wall.transform.LookAt(walls[1].transform.position);
