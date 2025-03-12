@@ -1,55 +1,183 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class WallBuild : BaseBuild 
 {
+    [SerializeField] private GameObject columnPrefab;
     [SerializeField] private GameObject wallPrefab;
+    private List<D_Wall> columns;
     private List<D_Wall> walls;
+
+    private List<D_Wall> placedWalls;
 
     public override void Initialize(BuildSystem buildSystem)
     {
         base.Initialize(buildSystem);
 
+        columns = new List<D_Wall>();
         walls = new List<D_Wall>();
+        placedWalls = new List<D_Wall>();
+
+        CreateWalls();
+    }
+
+    private void CreateWalls()
+    {
+        for (int i = 0; i < 15; i++)
+        {
+            D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
+            _wall.Initialize();
+            _wall.gameObject.SetActive(false);
+            
+            walls.Add(_wall);
+        }
+    }
+
+    private void ClearWalls()
+    {
+        foreach(D_Wall _wall in placedWalls)
+        {
+            walls.Remove(_wall);
+        }
+
+        foreach(D_Wall _wall in walls)
+        {
+            Destroy(_wall);
+        }
+
+        walls.Clear();
     }
 
     protected override void Update()
     {
         base.Update();
 
-        if(walls.Count >= 1)
+        if(columns.Count >= 2)
         {
+            foreach(D_Wall _wall in walls)
+            {
+                _wall.gameObject.SetActive(false);
+            }
             
-        }
-    }
-
-    protected override void Place(Vector3Int start)
-    {
-        walls.Add(building.GetComponent<D_Wall>());
-
-        if(walls.Count == 2)
-        {
-            float totalDistance = Vector3.Distance(walls[0].transform.position, walls[1].transform.position);
+            float totalDistance = Vector3.Distance(columns[0].transform.position, columns[1].transform.position);
             float wallLength = wallPrefab.GetComponent<D_Wall>().GetWallLength();
 
             float countWalls = (totalDistance - wallLength) / wallLength;
             countWalls = MathF.Round(countWalls);
             
-            Vector3 direction = (walls[0].transform.position - walls[1].transform.position).normalized;
-            Vector3 middlePosition = (walls[1].transform.position + walls[0].transform.position) / 2;
+            Vector3 direction = (columns[0].transform.position - columns[1].transform.position).normalized;
+            Vector3 middlePosition = (columns[1].transform.position + columns[0].transform.position) / 2;
             Vector3 startPosition = middlePosition + direction * (countWalls * wallLength / 2);
-
+            
             for (int i = 0; i < countWalls + 1; i++)
             {
                 Vector3 spawnPosition = startPosition - direction * (i * wallLength);
             
-                GameObject wall = Instantiate(wallPrefab, spawnPosition, Quaternion.identity);
-                wall.transform.LookAt(walls[1].transform.position);
+                walls[i].gameObject.SetActive(true);
+                walls[i].transform.position = spawnPosition;
+                walls[i].transform.LookAt(columns[1].transform.position);
+
+                walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
+
+                Vector3Int start = buildSystem.gridLayout.WorldToCell(walls[i].GetStartPosition());
+                if(!walls[i].isPlace)
+                {
+                    if(buildSystem.CanBePlaced(walls[i]))
+                    {
+                        walls[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
+                        buildSystem.FreeTakeArea(walls[i], buildSystem.CanPlaceTile());
+                    }
+                    else
+                    {
+                        walls[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
+                        buildSystem.FreeTakeArea(walls[i], buildSystem.NotCanPlaceTile());
+                    }
+                }
             }
 
-            walls.Clear();
+            if(buildSystem.CanBePlaced(columns[0]))
+            {
+                columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
+                buildSystem.FreeTakeArea(columns[0], buildSystem.CanPlaceTile());
+            }
+            else
+            {
+                columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
+                buildSystem.FreeTakeArea(columns[0], buildSystem.NotCanPlaceTile());
+            }
         }
+    }
+
+    public override void InitializeBuilding(GameObject prefab)
+    {
+        base.InitializeBuilding(prefab);
+
+        if(columns.Count == 0)
+        {
+            CreateWalls();
+        }
+
+        columns.Add(building.GetComponent<D_Wall>());
+    }
+
+    protected override void Place(Vector3Int start)
+    {
+        building.Place();
+        placedWalls.Add((D_Wall)building);
+
+        if(columns.Count < 2)
+        {
+            building = null;
+            InitializeBuilding(columnPrefab);
+
+            return;
+        }
+        
+        columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
+        buildSystem.BusyTakeArea(columns[0]);
+        
+        BuildTask task = new BuildTask(columns[0]);
+        TaskSystem.current.AddTask(task);
+
+        foreach(D_Wall _wall in walls)
+        {
+            if(_wall.gameObject.activeSelf)
+            {
+                _wall.Place();
+
+                buildSystem.BusyTakeArea(_wall);
+
+                task = new BuildTask(_wall);
+                TaskSystem.current.AddTask(task);
+
+                _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
+                
+                placedWalls.Add(_wall);
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        columns[1].Place();
+        columns[1].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
+        buildSystem.BusyTakeArea(columns[1]);
+        
+        task = new BuildTask(columns[1]);
+        TaskSystem.current.AddTask(task);
+
+        columns.Clear();
+        ClearWalls();
+
+        building = null;
+        materialBuilding = null;
+        
+        buildSystem.ActiveTilemap(false);
+
+        enabled = false;
     }
 }

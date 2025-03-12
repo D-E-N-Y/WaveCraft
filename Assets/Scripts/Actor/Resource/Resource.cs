@@ -33,7 +33,7 @@ public class Resource : Actor
         Vertices = gridCollider.GetColliderVertexPositionsLocal();
         Size = gridCollider.CalculateSizeInCells();
 
-        BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(transform.TransformPoint(Vertices[0])), Size);
+        BuildSystem.current.BusyTakeArea(this);
     }
 
     public override void TakeDamage(float damage)

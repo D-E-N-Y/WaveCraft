@@ -18,7 +18,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         spawnOrder = 0;
 
         // fill busy grid 
-        BuildSystem.current.BusyTakeArea(BuildSystem.current.gridLayout.WorldToCell(GetStartPosition()), Size);
+        BuildSystem.current.BusyTakeArea(this);
         Place();
         Built();
 

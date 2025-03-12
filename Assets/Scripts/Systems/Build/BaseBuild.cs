@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BaseBuild : MonoBehaviour
 {
-    private BuildSystem buildSystem;
+    protected BuildSystem buildSystem;
 
     protected Building building;
     protected MaterialBuilding materialBuilding;
@@ -58,15 +58,19 @@ public class BaseBuild : MonoBehaviour
         // Grid
         if(!building.isPlace)
         {
+            buildSystem.ClearFreeTilemap();
+            
             if(buildSystem.CanBePlaced(building))
             {
                 materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
-                buildSystem.FreeTakeArea(start, building.Size, buildSystem.CanPlaceTile());
+                // buildSystem.FreeTakeArea(start, building.Size, buildSystem.CanPlaceTile());
+                buildSystem.FreeTakeArea(building, buildSystem.CanPlaceTile());
             }
             else
             {
                 materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                buildSystem.FreeTakeArea(start, building.Size, buildSystem.NotCanPlaceTile());
+                // buildSystem.FreeTakeArea(start, building.Size, buildSystem.NotCanPlaceTile());
+                buildSystem.FreeTakeArea(building, buildSystem.NotCanPlaceTile());
             }
         }
     }
@@ -83,7 +87,7 @@ public class BaseBuild : MonoBehaviour
             building.Place();
             materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
             
-            buildSystem.BusyTakeArea(start, building.Size);
+            buildSystem.BusyTakeArea(building);
 
             BuildTask task = new BuildTask(building);
             TaskSystem.current.AddTask(task);
@@ -92,6 +96,8 @@ public class BaseBuild : MonoBehaviour
             materialBuilding = null;
             
             buildSystem.ActiveTilemap(false);
+
+            enabled = false;
         }
     }
     

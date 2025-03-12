@@ -94,28 +94,61 @@ public class BuildSystem : GameSystem
         return true;
     }
 
-    public void FreeTakeArea(Vector3Int start, Vector3Int size, TileBase tile)
+    public void FreeTakeArea(Actor building, TileBase tile)
     {
-        freeTilemap.ClearAllTiles();
+        Collider collider = building.GetComponent<Collider>();
+        if (!collider) return;
 
-        for (int x = start.x; x <= start.x + size.x; x++)
+        Bounds bounds = collider.bounds;
+        
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
+
+        for (int x = minCell.x; x <= maxCell.x; x++)
         {
-            for (int y = start.y; y <= start.y + size.y; y++)
+            for (int y = minCell.y; y <= maxCell.y; y++)
             {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                freeTilemap.SetTile(position, tile);
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 worldPos = gridLayout.CellToWorld(cellPos);
+
+                Vector3 closestPoint = collider.ClosestPoint(worldPos);
+                
+                if (Vector3.Distance(closestPoint, worldPos) < 0.75f)
+                {
+                    freeTilemap.SetTile(cellPos, tile);
+                }
             }
         }
     }
 
-    public void BusyTakeArea(Vector3Int start, Vector3Int size)
+    public void ClearFreeTilemap()
     {
-        for (int x = start.x; x <= start.x + size.x; x++)
+        freeTilemap.ClearAllTiles();
+    }
+
+    public void BusyTakeArea(Actor building)
+    {
+        Collider collider = building.GetComponent<Collider>();
+        if (!collider) return;
+
+        Bounds bounds = collider.bounds;
+        
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
+
+        for (int x = minCell.x; x <= maxCell.x; x++)
         {
-            for (int y = start.y; y <= start.y + size.y; y++)
+            for (int y = minCell.y; y <= maxCell.y; y++)
             {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                busyTilemap.SetTile(position, notCanPlaceTile);
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 worldPos = gridLayout.CellToWorld(cellPos);
+
+                Vector3 closestPoint = collider.ClosestPoint(worldPos);
+                
+                if (Vector3.Distance(closestPoint, worldPos) < 0.75f)
+                {
+                    busyTilemap.SetTile(cellPos, notCanPlaceTile);
+                }
             }
         }
     }
