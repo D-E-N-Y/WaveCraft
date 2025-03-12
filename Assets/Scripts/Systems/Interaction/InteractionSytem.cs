@@ -14,9 +14,6 @@ public class InteractionSystem : GameSystem
     private int layerSelect;
     private Actor selectActor;
 
-    [SerializeField] private GameObject wall_1, wall_2;
-    private List<D_Wall> walls;
-
     public override void Initialize()
     {
         base.Initialize();
@@ -25,7 +22,16 @@ public class InteractionSystem : GameSystem
 
         layerInteractable = LayerMask.NameToLayer("Interactable");
         layerSelect = LayerMask.NameToLayer("SelectedActor");
-        walls = new List<D_Wall>();
+    }
+
+    public static Vector3 GetMouseWorldPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if(Physics.Raycast(ray, out RaycastHit raycastHit))
+            return raycastHit.point;
+        else
+            return Vector3.zero;
     }
 
     private void Update() 
@@ -54,31 +60,6 @@ public class InteractionSystem : GameSystem
                     selectActor.Interaction();
 
                     Select?.Invoke(selectActor);
-                }
-
-                walls.Add(Instantiate(wall_1, raycastHit.point, Quaternion.identity).GetComponent<D_Wall>());
-
-                if(walls.Count == 2)
-                {
-                    float totalDistance = Vector3.Distance(walls[0].transform.position, walls[1].transform.position);
-                    float wallLength = wall_2.GetComponent<D_Wall>().GetWallLength();
-
-                    float countWalls = (totalDistance - wallLength) / wallLength;
-                    countWalls = MathF.Round(countWalls);
-                    
-                    Vector3 direction = (walls[0].transform.position - walls[1].transform.position).normalized;
-                    Vector3 middlePosition = (walls[1].transform.position + walls[0].transform.position) / 2;
-                    Vector3 startPosition = middlePosition + direction * (countWalls * wallLength / 2);
-
-                    for (int i = 0; i < countWalls + 1; i++)
-                    {
-                        Vector3 spawnPosition = startPosition - direction * (i * wallLength);
-                    
-                        GameObject wall = Instantiate(wall_2, spawnPosition, Quaternion.identity);
-                        wall.transform.LookAt(walls[1].transform.position);
-                    }
-
-                    walls.Clear();
                 }
             }
         }

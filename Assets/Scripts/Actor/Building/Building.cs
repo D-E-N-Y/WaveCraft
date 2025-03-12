@@ -92,7 +92,7 @@ public class Building : Actor
     public virtual void Built()
     {
         GetComponent<MaterialBuilding>().Built();
-        GetComponent<BoxCollider>().enabled = false;
+        // GetComponent<BoxCollider>().enabled = false;
         
         foreach(NavMeshObstacle obstacle in navMeshObstacles)
         {

@@ -28,7 +28,7 @@ public class UI_BuildingSlot : MonoBehaviour
             ResourceSystem.current.RemoveResources(current.resourse, building.GetCostByResource(current.resourse));
         }
         
-        BuildSystem.current.InitializeWithObject(this.building);
+        BuildSystem.current.InitializeWithObject(building);
         menu_ui.SetActive(false);
     }
 }

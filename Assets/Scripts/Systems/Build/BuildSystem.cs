@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
@@ -7,10 +6,8 @@ public class BuildSystem : GameSystem
 {
     public static BuildSystem current;
 
-    public GridLayout gridLayout;
-    private Grid grid;
-
-    [SerializeField] private GameObject wall;
+    [SerializeField] private BaseBuild defaultBuild;
+    [SerializeField] private WallBuild wallBuild;
 
     [SerializeField] private Tilemap gridTilemap;
     [SerializeField] private Tilemap freeTilemap;
@@ -19,10 +16,8 @@ public class BuildSystem : GameSystem
     [SerializeField] private TileBase notCanPlaceTile;
     [SerializeField] private TileBase canPlaceTile;
 
-    private Building building;
-    private MaterialBuilding materialBuilding;
-
-    #region Unity methods
+    public GridLayout gridLayout;
+    private Grid grid;
 
     private void Awake() 
     {
@@ -39,87 +34,14 @@ public class BuildSystem : GameSystem
         base.Initialize();
 
         current = this;
+
+        defaultBuild.Initialize(this);
+        wallBuild.Initialize(this);
     }
 
     private void Start()
     {
         grid = gridLayout.gameObject.GetComponent<Grid>();
-    }
-
-    private void Update() 
-    {
-        BuildingMove();
-    }
-
-    #endregion
-
-    #region Utils
-
-    private void BuildingMove()
-    {
-        if(!building) 
-            return;
-
-        Vector3Int start = gridLayout.WorldToCell(building.GetStartPosition());
-
-        // Grid
-        if(!building.isPlace)
-        {
-            if(CanBePlaced(building))
-            {
-                materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
-                FreeTakeArea(start, building.Size, canPlaceTile);
-            }
-            else
-            {
-                materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                FreeTakeArea(start, building.Size, notCanPlaceTile);
-            }
-        }
-
-        // 
-        if(Input.GetKeyDown(KeyCode.Return))
-        {
-            building.Rotate();
-        }
-        else if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if(CanBePlaced(building))
-            {
-                building.Place();
-                materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
-                
-                BusyTakeArea(start, building.Size);
-                
-                // if(building is D_Wall)
-                // {
-                //     InitializeWithObject(wall);
-                // }
-
-                BuildTask task = new BuildTask(building);
-                TaskSystem.current.AddTask(task);
-
-                building = null;
-                materialBuilding = null;
-                
-                ActiveTilemap(false);
-            }
-        }
-        else if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Destroy(building.gameObject);
-            ActiveTilemap(false);
-        }
-    }
-
-    public static Vector3 GetMouseWorldPosition()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if(Physics.Raycast(ray, out RaycastHit raycastHit))
-            return raycastHit.point;
-        else
-            return Vector3.zero;
     }
 
     public Vector3 SnapCoordinateToGrid(Vector3 position)
@@ -129,50 +51,32 @@ public class BuildSystem : GameSystem
         return position;
     }
 
-    private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
+    public void InitializeWithObject(Building building)
     {
-        TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
-        int counter = 0;
-
-        foreach(var v in area.allPositionsWithin)
+        switch(building)
         {
-            Vector3Int pos = new Vector3Int(v.x, v.y, 0);
-            array[counter] = tilemap.GetTile(pos);
-            counter++;
-        }
+            case D_Wall:
+                wallBuild.enabled = true;
+                wallBuild.InitializeBuilding(building.gameObject);
+                break;
 
-        return array;
+            default:
+                defaultBuild.enabled = true;
+                defaultBuild.InitializeBuilding(building.gameObject);
+                break;
+        }
     }
 
-    #endregion
-
-    #region Building Placemment
-
-    private void ActiveTilemap(bool active)
+    #region Placement
+        
+    public void ActiveTilemap(bool active)
     {
         gridTilemap.gameObject.SetActive(active);
         freeTilemap.gameObject.SetActive(active);
         busyTilemap.gameObject.SetActive(active);
     }
     
-    public void InitializeWithObject(GameObject prefab)
-    {
-        if(building) return;
-        
-        Vector3 position = SnapCoordinateToGrid(GetMouseWorldPosition());
-
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        building = obj.GetComponent<Building>();
-        building.Initialize();        
-        obj.AddComponent<ObjectDrag>();
-
-        materialBuilding = building.GetComponent<MaterialBuilding>();
-        materialBuilding.StartPlace();
-
-        ActiveTilemap(true);
-    }
-
-    private bool CanBePlaced(Building building)
+    public bool CanBePlaced(Building building)
     {
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(building.GetStartPosition());
@@ -215,16 +119,24 @@ public class BuildSystem : GameSystem
             }
         }
     }
-        
-    #endregion
 
-    #region Destroy Building
-        
-    // Choose Building
-    // Add task to destroy building
-    // Wait worker
-    // Destroy
-    // Add 70% from coast resources
+    public static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
+    {
+        TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
+        int counter = 0;
+
+        foreach(var v in area.allPositionsWithin)
+        {
+            Vector3Int pos = new Vector3Int(v.x, v.y, 0);
+            array[counter] = tilemap.GetTile(pos);
+            counter++;
+        }
+
+        return array;
+    }
+
+    public TileBase NotCanPlaceTile() => notCanPlaceTile;
+    public TileBase CanPlaceTile() => canPlaceTile;
 
     #endregion
 }

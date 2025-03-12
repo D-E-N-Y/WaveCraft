@@ -154,10 +154,10 @@ public class CameraControler : MonoBehaviour
 
         
         // zoom
-        if(Input.GetKey(KeyCode.R))
+        if(Input.GetKey(KeyCode.Z))
             newZoom += zoomAmount;
         
-        if(Input.GetKey(KeyCode.F))
+        if(Input.GetKey(KeyCode.X))
             newZoom -= zoomAmount;
 
         if(newZoom.z < -500f)
