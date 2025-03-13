@@ -20,13 +20,11 @@ public class WallBuild : BaseBuild
         columns = new List<D_Wall>();
         walls = new List<D_Wall>();
         placedWalls = new List<D_Wall>();
-
-        CreateWalls();
     }
 
     private void CreateWalls()
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 25; i++)
         {
             D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
             _wall.Initialize();
@@ -79,35 +77,12 @@ public class WallBuild : BaseBuild
                 walls[i].gameObject.SetActive(true);
                 walls[i].transform.position = spawnPosition;
                 walls[i].transform.LookAt(columns[1].transform.position);
-
                 walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
-
-                Vector3Int start = buildSystem.gridLayout.WorldToCell(walls[i].GetStartPosition());
-                if(!walls[i].isPlace)
-                {
-                    if(buildSystem.CanBePlaced(walls[i]))
-                    {
-                        walls[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
-                        buildSystem.FreeTakeArea(walls[i], buildSystem.CanPlaceTile());
-                    }
-                    else
-                    {
-                        walls[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                        buildSystem.FreeTakeArea(walls[i], buildSystem.NotCanPlaceTile());
-                    }
-                }
+                
+                ViewAreaPlace(walls[i]);
             }
 
-            if(buildSystem.CanBePlaced(columns[0]))
-            {
-                columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
-                buildSystem.FreeTakeArea(columns[0], buildSystem.CanPlaceTile());
-            }
-            else
-            {
-                columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                buildSystem.FreeTakeArea(columns[0], buildSystem.NotCanPlaceTile());
-            }
+            ViewAreaPlace(columns[0]);
         }
     }
 
@@ -125,6 +100,11 @@ public class WallBuild : BaseBuild
 
     protected override void Place(Vector3Int start)
     {
+        if (columns.Any(x => !buildSystem.CanBePlaced(x)) || walls.Any(x => !buildSystem.CanBePlaced(x)))
+        {
+            return;
+        }
+        
         building.Place();
         placedWalls.Add((D_Wall)building);
 

@@ -78,17 +78,25 @@ public class BuildSystem : GameSystem
     
     public bool CanBePlaced(Building building)
     {
-        BoundsInt area = new BoundsInt();
-        area.position = gridLayout.WorldToCell(building.GetStartPosition());
+        BoxCollider collider = building.GetComponent<BoxCollider>();
+
+        Bounds bounds = collider.bounds;
         
-        area.size = building.Size + new Vector3Int(1, 1, 1);
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 
-        TileBase[] baseArray = GetTilesBlock(area, busyTilemap);
-
-        foreach (var b in baseArray)
+        for (int x = minCell.x; x <= maxCell.x; x++)
         {
-            if(b == notCanPlaceTile)
-                return false;
+            for (int y = minCell.y; y <= maxCell.y; y++)
+            {
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
+
+                if(busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile)
+                {
+                    return false;
+                }
+            }
         }
 
         return true;

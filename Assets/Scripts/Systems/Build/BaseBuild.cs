@@ -35,7 +35,9 @@ public class BaseBuild : MonoBehaviour
         if(!building) return;
 
         Vector3Int start = buildSystem.gridLayout.WorldToCell(building.GetStartPosition());
-        Move(start);
+        
+        buildSystem.ClearFreeTilemap();
+        ViewAreaPlace(building);
 
         if(Input.GetKeyDown(KeyCode.R))
         {
@@ -53,25 +55,17 @@ public class BaseBuild : MonoBehaviour
 
     #region Control
         
-    private void Move(Vector3Int start)
+    protected void ViewAreaPlace(Building _object)
     {
-        // Grid
-        if(!building.isPlace)
+        if(buildSystem.CanBePlaced(_object))
         {
-            buildSystem.ClearFreeTilemap();
-            
-            if(buildSystem.CanBePlaced(building))
-            {
-                materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
-                // buildSystem.FreeTakeArea(start, building.Size, buildSystem.CanPlaceTile());
-                buildSystem.FreeTakeArea(building, buildSystem.CanPlaceTile());
-            }
-            else
-            {
-                materialBuilding.SetColor(MaterialBuilding.BuildColor.notCanPlace);
-                // buildSystem.FreeTakeArea(start, building.Size, buildSystem.NotCanPlaceTile());
-                buildSystem.FreeTakeArea(building, buildSystem.NotCanPlaceTile());
-            }
+            _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
+            buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
+        }
+        else
+        {
+            _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
+            buildSystem.FreeTakeArea(_object, buildSystem.NotCanPlaceTile());
         }
     }
 
