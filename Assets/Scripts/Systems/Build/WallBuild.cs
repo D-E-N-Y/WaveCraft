@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WallBuild : BaseBuild 
@@ -10,8 +12,12 @@ public class WallBuild : BaseBuild
     [SerializeField] private GameObject wallPrefab;
     private List<D_Wall> columns;
     private List<D_Wall> walls;
-
     private List<D_Wall> placedWalls;
+    
+    private int currentPair;
+    private bool isContinue;
+    private List<int> countsWall;
+    private int currentCountWalls;
 
     public override void Initialize(BuildSystem buildSystem)
     {
@@ -20,82 +26,101 @@ public class WallBuild : BaseBuild
         columns = new List<D_Wall>();
         walls = new List<D_Wall>();
         placedWalls = new List<D_Wall>();
+
+        currentPair = -1;
+        countsWall = new List<int>();
     }
 
-    private void CreateWalls()
+    private void CreateWall()
     {
-        for (int i = 0; i < 25; i++)
-        {
-            D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
-            _wall.Initialize();
-            _wall.gameObject.SetActive(false);
-            
-            walls.Add(_wall);
-        }
+        D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
+        _wall.Initialize();
+        _wall.gameObject.SetActive(false);
+        
+        walls.Add(_wall);
     }
 
     private void ClearWalls()
     {
-        foreach(D_Wall _wall in placedWalls)
-        {
-            walls.Remove(_wall);
-        }
-
-        foreach(D_Wall _wall in walls)
-        {
-            Destroy(_wall);
-        }
-
+        placedWalls.ForEach(x => walls.Remove(x));
         walls.Clear();
+        columns.Clear();
     }
 
     protected override void Update()
     {
         base.Update();
 
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            isContinue = !isContinue;
+        }
+
         if(columns.Count >= 2)
         {
-            foreach(D_Wall _wall in walls)
+            int start = countsWall.Count > 0 ? countsWall.Sum(): 0;
+            for(int i = start; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
             {
-                _wall.gameObject.SetActive(false);
+                if(walls.Count < i + 1)
+                {
+                    CreateWall();
+                }
+                
+                walls[i].gameObject.SetActive(false);
             }
             
-            float totalDistance = Vector3.Distance(columns[0].transform.position, columns[1].transform.position);
+            float totalDistance = Vector3.Distance(columns[currentPair].transform.position, columns[currentPair - 1].transform.position);
             float wallLength = wallPrefab.GetComponent<D_Wall>().GetWallLength();
 
-            float countWalls = (totalDistance - wallLength) / wallLength;
-            countWalls = MathF.Round(countWalls);
+            currentCountWalls = (int)MathF.Round((totalDistance - wallLength) / wallLength);
             
-            Vector3 direction = (columns[0].transform.position - columns[1].transform.position).normalized;
-            Vector3 middlePosition = (columns[1].transform.position + columns[0].transform.position) / 2;
-            Vector3 startPosition = middlePosition + direction * (countWalls * wallLength / 2);
-            
-            for (int i = 0; i < countWalls + 1; i++)
+            Vector3 direction = (columns[currentPair - 1].transform.position - columns[currentPair].transform.position).normalized;
+            Vector3 middlePosition = (columns[currentPair - 1].transform.position + columns[currentPair].transform.position) / 2;
+            Vector3 startPosition = middlePosition + direction * (currentCountWalls * wallLength / 2);
+
+            currentCountWalls++;
+
+            for (int i = start ; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
             {
-                Vector3 spawnPosition = startPosition - direction * (i * wallLength);
+                if(walls.Count < i + 1)
+                {
+                    CreateWall();
+                }
+
+                Vector3 spawnPosition = startPosition - direction * ((countsWall.Count > 0 ? i - countsWall.Sum(): i) * wallLength);
             
                 walls[i].gameObject.SetActive(true);
                 walls[i].transform.position = spawnPosition;
-                walls[i].transform.LookAt(columns[1].transform.position);
+                walls[i].transform.LookAt(columns[currentPair].transform.position);
                 walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
-                
+            }
+
+            for(int i = 0; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
+            {
                 ViewAreaPlace(walls[i]);
             }
 
-            ViewAreaPlace(columns[0]);
+            for(int i = 0; i < currentPair; i++)
+            {
+                ViewAreaPlace(columns[i]);
+            }
         }
     }
 
     public override void InitializeBuilding(GameObject prefab)
     {
-        base.InitializeBuilding(prefab);
-
-        if(columns.Count == 0)
+        if(!columns.Contains(prefab.GetComponent<D_Wall>()))
         {
-            CreateWalls();
+            base.InitializeBuilding(prefab);
+            columns.Add(building.GetComponent<D_Wall>());
+        }
+        else
+        {
+            prefab.AddComponent<ObjectDrag>();
         }
 
-        columns.Add(building.GetComponent<D_Wall>());
+        isContinue = true;
+        currentPair++;
     }
 
     protected override void Place(Vector3Int start)
@@ -108,19 +133,24 @@ public class WallBuild : BaseBuild
         building.Place();
         placedWalls.Add((D_Wall)building);
 
-        if(columns.Count < 2)
+        if(isContinue)
         {
             building = null;
             InitializeBuilding(columnPrefab);
 
+            if(currentCountWalls > 0) countsWall.Add(currentCountWalls);
+
             return;
         }
-        
-        columns[0].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
-        buildSystem.BusyTakeArea(columns[0]);
-        
-        BuildTask task = new BuildTask(columns[0]);
-        TaskSystem.current.AddTask(task);
+
+        for(int i = 0; i < currentPair + 1; i++)
+        {
+            columns[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
+            buildSystem.BusyTakeArea(columns[i]);
+            
+            BuildTask task = new BuildTask(columns[i]);
+            TaskSystem.current.AddTask(task);
+        }
 
         foreach(D_Wall _wall in walls)
         {
@@ -130,27 +160,15 @@ public class WallBuild : BaseBuild
 
                 buildSystem.BusyTakeArea(_wall);
 
-                task = new BuildTask(_wall);
+                BuildTask task = new BuildTask(_wall);
                 TaskSystem.current.AddTask(task);
 
                 _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
                 
                 placedWalls.Add(_wall);
             }
-            else
-            {
-                break;
-            }
         }
 
-        columns[1].Place();
-        columns[1].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
-        buildSystem.BusyTakeArea(columns[1]);
-        
-        task = new BuildTask(columns[1]);
-        TaskSystem.current.AddTask(task);
-
-        columns.Clear();
         ClearWalls();
 
         building = null;
@@ -159,5 +177,29 @@ public class WallBuild : BaseBuild
         buildSystem.ActiveTilemap(false);
 
         enabled = false;
+    }
+
+    protected override void Cancel()
+    {
+        columns[currentPair].gameObject.SetActive(false);
+        Destroy(columns[currentPair].gameObject.GetComponent<ObjectDrag>());
+        
+        if(countsWall.Count > 0)
+        {
+            countsWall.Remove(countsWall[countsWall.Count - 1]);
+        }
+
+        currentPair--;
+
+        Debug.Log(currentPair);
+
+        if(currentPair == -1)
+        {
+            base.Cancel();
+            columns.Clear();
+            return;
+        }
+
+        InitializeBuilding(columns[currentPair].gameObject);
     }
 }
