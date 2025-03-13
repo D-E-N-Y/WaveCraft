@@ -96,7 +96,7 @@ public class BuildSystem : GameSystem
 
     public void FreeTakeArea(Actor building, TileBase tile)
     {
-        Collider collider = building.GetComponent<Collider>();
+        BoxCollider collider = building.GetComponent<BoxCollider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -109,14 +109,9 @@ public class BuildSystem : GameSystem
             for (int y = minCell.y; y <= maxCell.y; y++)
             {
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
-                Vector3 worldPos = gridLayout.CellToWorld(cellPos);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
-                Vector3 closestPoint = collider.ClosestPoint(worldPos);
-                
-                if (Vector3.Distance(closestPoint, worldPos) < 0.75f)
-                {
-                    freeTilemap.SetTile(cellPos, tile);
-                }
+                freeTilemap.SetTile(gridLayout.WorldToCell(closestPoint), tile);
             }
         }
     }
@@ -128,7 +123,7 @@ public class BuildSystem : GameSystem
 
     public void BusyTakeArea(Actor building)
     {
-        Collider collider = building.GetComponent<Collider>();
+        BoxCollider collider = building.GetComponent<BoxCollider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -141,14 +136,9 @@ public class BuildSystem : GameSystem
             for (int y = minCell.y; y <= maxCell.y; y++)
             {
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
-                Vector3 worldPos = gridLayout.CellToWorld(cellPos);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
-                Vector3 closestPoint = collider.ClosestPoint(worldPos);
-                
-                if (Vector3.Distance(closestPoint, worldPos) < 0.75f)
-                {
-                    busyTilemap.SetTile(cellPos, notCanPlaceTile);
-                }
+                busyTilemap.SetTile(gridLayout.WorldToCell(closestPoint), notCanPlaceTile);
             }
         }
     }
