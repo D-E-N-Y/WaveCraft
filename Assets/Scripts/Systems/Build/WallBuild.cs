@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class WallBuild : BaseBuild 
@@ -43,8 +40,11 @@ public class WallBuild : BaseBuild
     private void ClearWalls()
     {
         placedWalls.ForEach(x => walls.Remove(x));
-        walls.Clear();
         columns.Clear();
+        countsWall.Clear();
+
+        currentPair = -1;
+        currentCountWalls = -1;
     }
 
     protected override void Update()
@@ -58,15 +58,24 @@ public class WallBuild : BaseBuild
 
         if(columns.Count >= 2)
         {
+            Debug.Log(countsWall.Count);
+            
             int start = countsWall.Count > 0 ? countsWall.Sum(): 0;
-            for(int i = start; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
+            if(countsWall.Count > 0)
             {
-                if(walls.Count < i + 1)
+                for(int i = start; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
                 {
-                    CreateWall();
+                    if(walls.Count < i + 1)
+                    {
+                        CreateWall();
+                    }
+                    
+                    walls[i].gameObject.SetActive(false);
                 }
-                
-                walls[i].gameObject.SetActive(false);
+            }
+            else
+            {
+                walls.ForEach(x => x.gameObject.SetActive(false));
             }
             
             float totalDistance = Vector3.Distance(columns[currentPair].transform.position, columns[currentPair - 1].transform.position);
@@ -113,14 +122,17 @@ public class WallBuild : BaseBuild
         {
             base.InitializeBuilding(prefab);
             columns.Add(building.GetComponent<D_Wall>());
+
+            currentPair++;
         }
         else
         {
+            building = prefab.GetComponent<Building>();
+            materialBuilding = building.GetComponent<MaterialBuilding>();
             prefab.AddComponent<ObjectDrag>();
         }
 
         isContinue = true;
-        currentPair++;
     }
 
     protected override void Place(Vector3Int start)
@@ -182,21 +194,35 @@ public class WallBuild : BaseBuild
     protected override void Cancel()
     {
         columns[currentPair].gameObject.SetActive(false);
-        Destroy(columns[currentPair].gameObject.GetComponent<ObjectDrag>());
-        
+        Destroy(columns[currentPair]);
+        columns.Remove(columns[currentPair]);
+
         if(countsWall.Count > 0)
         {
+            int start = countsWall.Count > 0 ? countsWall.Sum(): 0;
+            for(int i = start; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
+            {
+                if(walls.Count < i + 1)
+                {
+                    CreateWall();
+                }
+                
+                walls[i].gameObject.SetActive(false);
+            }
+            
             countsWall.Remove(countsWall[countsWall.Count - 1]);
+        }
+        else
+        {
+            walls.ForEach(x => x.gameObject.SetActive(false));
         }
 
         currentPair--;
 
-        Debug.Log(currentPair);
-
         if(currentPair == -1)
         {
             base.Cancel();
-            columns.Clear();
+            ClearWalls();
             return;
         }
 
