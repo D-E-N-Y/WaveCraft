@@ -26,6 +26,7 @@ public class WallBuild : BaseBuild
 
         currentPair = -1;
         countsWall = new List<int>();
+        countsWall.Add(0);
     }
 
     private void CreateWall(int index)
@@ -33,7 +34,6 @@ public class WallBuild : BaseBuild
         D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
         _wall.Initialize();
         _wall.gameObject.SetActive(false);
-        _wall.SetTextUI(index);
 
         walls.Add(_wall);
     }
@@ -42,12 +42,10 @@ public class WallBuild : BaseBuild
     {
         placedWalls.ForEach(x => walls.Remove(x));
 
-        // columns.ForEach(x => Destroy(x.gameObject));
-        // walls.ForEach(x => Destroy(x.gameObject));
-
         columns.Clear();
         countsWall.Clear();
 
+        countsWall.Add(0);
         currentPair = -1;
         currentCountWalls = -1;
     }
@@ -63,10 +61,10 @@ public class WallBuild : BaseBuild
 
         if(columns.Count >= 2)
         {
-            int start = countsWall.Count > 0 ? countsWall.Sum(): 0;
+            int start = countsWall[countsWall.Count - 1];
             if(countsWall.Count > 0)
             {
-                for(int i = start; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
+                for(int i = start; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
                 {
                     if(walls.Count < i + 1)
                     {
@@ -92,14 +90,14 @@ public class WallBuild : BaseBuild
 
             currentCountWalls++;
 
-            for (int i = start ; countsWall.Count > 0 ? i < countsWall.Sum() + currentCountWalls : i < currentCountWalls; i++)
+            for (int i = start ; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
             {
                 if(walls.Count < i + 1)
                 {
                     CreateWall(i);
                 }
 
-                Vector3 spawnPosition = startPosition - direction * ((countsWall.Count > 0 ? i - countsWall.Sum(): i) * wallLength);
+                Vector3 spawnPosition = startPosition - direction * ((i - countsWall[countsWall.Count - 1]) * wallLength);
             
                 walls[i].gameObject.SetActive(true);
                 walls[i].transform.position = spawnPosition;
@@ -141,8 +139,10 @@ public class WallBuild : BaseBuild
         isContinue = true;
     }
 
-    protected override void Place(Vector3Int start)
+    protected override void Place()
     {
+        Debug.Log("Place");
+        
         if (columns.Any(x => !buildSystem.CanBePlaced(x)) || walls.Any(x => !buildSystem.CanBePlaced(x)))
         {
             return;
@@ -150,14 +150,16 @@ public class WallBuild : BaseBuild
         
         building.Place();
         placedWalls.Add((D_Wall)building);
-        placedWalls[placedWalls.Count - 1].SetTextUI(currentCountWalls);
 
         if(isContinue)
         {
             building = null;
             InitializeBuilding(columnPrefab);
 
-            if(currentCountWalls > 0) countsWall.Add(currentCountWalls);
+            if(currentCountWalls > 0)
+            {
+                countsWall.Add(countsWall[countsWall.Count - 1] + currentCountWalls); 
+            }
 
             return;
         }
@@ -204,15 +206,16 @@ public class WallBuild : BaseBuild
         Destroy(columns[currentPair].gameObject);
         columns.Remove(columns[currentPair]);
 
-        if(countsWall.Count > 0)
+        if(countsWall.Count > 1)
         {
-            int start = countsWall.Sum();
+            int start = countsWall[countsWall.Count - 1];
             for(int i = start; i < walls.Count; i++)
             {
                 walls[i].gameObject.SetActive(false);
             }
             
             countsWall.Remove(countsWall[countsWall.Count - 1]);
+            
         }
         else
         {

@@ -34,8 +34,6 @@ public class BaseBuild : MonoBehaviour
     {
         if(!building) return;
 
-        Vector3Int start = buildSystem.gridLayout.WorldToCell(building.GetStartPosition());
-        
         buildSystem.ClearFreeTilemap();
         ViewAreaPlace(building);
 
@@ -45,7 +43,7 @@ public class BaseBuild : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Space))
         {
-            Place(start);
+            Place();
         }
         else if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -74,7 +72,7 @@ public class BaseBuild : MonoBehaviour
         building.Rotate();
     }
 
-    protected virtual void Place(Vector3Int start)
+    protected virtual void Place()
     {
         if(buildSystem.CanBePlaced(building))
         {

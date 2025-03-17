@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - B_Residential
     - B_TownHall
+    - BaseBuild
     - Bootstraper
     - BuildSystem
     - CameraControler
@@ -36,6 +37,7 @@ ScriptsOnlyBuild:
     - UIInteractableResourcePanel
     - UIInteractableStoragePanel
     - UIInteractableTownHallPanel
+    - UIInteractableWorkerPanel
     - UIResourcePanel
     - UISystem
     - UI_BuildArchersTower
@@ -47,7 +49,12 @@ ScriptsOnlyBuild:
     - UI_BuildStorage
     - UI_BuildWall
     - UI_Menu
+    - UI_Task
+    - UI_TaskWorker
+    - UI_TasksListPanel
     - UP_Worker
+    - VillageSystem
+    - WallBuild
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridBrush
     - UnityEditor.Tilemaps.GridBrushEditor
@@ -71,8 +78,6 @@ ScriptsOnlyBuild:
     Unity.AI.Navigation.dll:
     - Unity.AI.Navigation.NavMeshModifier
     - Unity.AI.Navigation.NavMeshSurface
-    Unity.PlasticSCM.Editor.dll:
-    - Unity.PlasticSCM.Editor.PlasticWindow
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro:
@@ -90,10 +95,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -123,6 +126,8 @@ ScriptsOnlyBuild:
     - UIInteractableStoragePanel/ResourceImage
     - UIInteractableTownHallPanel/ResourceText
     - UIResourcePanel/AmountText
+    - UI_Task/STask
+    - UI_TaskWorker/STask
     Unity.TextMeshPro:
     - TMPro.FaceInfo_Legacy
     - TMPro.FontAssetCreationSettings
@@ -159,6 +164,171 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.SpriteState
   methodsToPreserve:
   - assembly: Assembly-CSharp
+    fullTypeName: UI_TaskWorker
+    methodName: CancelTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: TakeTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TasksListPanel
+    methodName: Hide
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TaskWorker
+    methodName: CancelTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TaskWorker
+    methodName: CancelTask
+  - assembly: Assembly-CSharp
+    fullTypeName: UI_TaskWorker
+    methodName: CancelTask
+  - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
   - assembly: Assembly-CSharp
@@ -183,6 +353,9 @@ ScriptsOnlyBuild:
     fullTypeName: UI_Menu
     methodName: SelectSection
   - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableWorkerPanel
+    methodName: SetStateTask
+  - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
   - assembly: Assembly-CSharp
@@ -197,6 +370,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableWorkerPanel
+    methodName: ShowTasksListPanel
   - assembly: Assembly-CSharp
     fullTypeName: UIInteractableTownHallPanel
     methodName: CancelSpawn
@@ -275,6 +451,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: UI_Menu
     methodName: SelectSection
+  - assembly: Assembly-CSharp
+    fullTypeName: UIInteractableWorkerPanel
+    methodName: CheckAutoGetTasks
   - assembly: Assembly-CSharp
     fullTypeName: UI_BuildingSlot
     methodName: BuyBuilding
@@ -368,31 +547,33 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 16664}
+      Script: {instanceID: 17430}
     - Class: 114
-      Script: {instanceID: 17386}
+      Script: {instanceID: 18286}
     - Class: 114
-      Script: {instanceID: 18240}
+      Script: {instanceID: 18882}
     - Class: 114
-      Script: {instanceID: 18838}
+      Script: {instanceID: 19350}
     - Class: 114
-      Script: {instanceID: 19306}
+      Script: {instanceID: 19466}
     - Class: 114
-      Script: {instanceID: 19422}
+      Script: {instanceID: 19732}
     - Class: 114
-      Script: {instanceID: 19686}
+      Script: {instanceID: 20484}
     - Class: 114
-      Script: {instanceID: 20434}
+      Script: {instanceID: 20496}
     - Class: 114
-      Script: {instanceID: 20446}
+      Script: {instanceID: 20628}
     - Class: 114
-      Script: {instanceID: 20576}
+      Script: {instanceID: 21488}
     - Class: 114
-      Script: {instanceID: 22290}
+      Script: {instanceID: 22352}
     - Class: 114
-      Script: {instanceID: 23038}
+      Script: {instanceID: 23100}
     - Class: 114
-      Script: {instanceID: 23242}
+      Script: {instanceID: 23218}
+    - Class: 114
+      Script: {instanceID: 23306}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -449,121 +630,133 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 656}
+      Script: {instanceID: 686}
     - Class: 114
-      Script: {instanceID: 16690}
-    - Class: 114
-      Script: {instanceID: 16694}
-    - Class: 114
-      Script: {instanceID: 16696}
-    - Class: 114
-      Script: {instanceID: 16698}
+      Script: {instanceID: 16732}
     - Class: 114
       Script: {instanceID: 16736}
     - Class: 114
-      Script: {instanceID: 16876}
+      Script: {instanceID: 16738}
     - Class: 114
-      Script: {instanceID: 17060}
+      Script: {instanceID: 16740}
     - Class: 114
-      Script: {instanceID: 17084}
+      Script: {instanceID: 16742}
+    - Class: 114
+      Script: {instanceID: 16780}
+    - Class: 114
+      Script: {instanceID: 16920}
+    - Class: 114
+      Script: {instanceID: 17104}
     - Class: 114
       Script: {instanceID: 17128}
     - Class: 114
-      Script: {instanceID: 17166}
+      Script: {instanceID: 17172}
     - Class: 114
-      Script: {instanceID: 17268}
+      Script: {instanceID: 17210}
     - Class: 114
-      Script: {instanceID: 17446}
+      Script: {instanceID: 17312}
     - Class: 114
-      Script: {instanceID: 17596}
+      Script: {instanceID: 17490}
     - Class: 114
-      Script: {instanceID: 17828}
+      Script: {instanceID: 17640}
     - Class: 114
-      Script: {instanceID: 18048}
+      Script: {instanceID: 17872}
     - Class: 114
-      Script: {instanceID: 18622}
+      Script: {instanceID: 18092}
     - Class: 114
-      Script: {instanceID: 18690}
+      Script: {instanceID: 18666}
     - Class: 114
-      Script: {instanceID: 18882}
+      Script: {instanceID: 18734}
     - Class: 114
-      Script: {instanceID: 18936}
+      Script: {instanceID: 18926}
     - Class: 114
-      Script: {instanceID: 19072}
+      Script: {instanceID: 18980}
     - Class: 114
-      Script: {instanceID: 19168}
+      Script: {instanceID: 19116}
     - Class: 114
-      Script: {instanceID: 19224}
+      Script: {instanceID: 19212}
     - Class: 114
-      Script: {instanceID: 19340}
+      Script: {instanceID: 19268}
     - Class: 114
-      Script: {instanceID: 19602}
+      Script: {instanceID: 19384}
     - Class: 114
-      Script: {instanceID: 19946}
+      Script: {instanceID: 19648}
     - Class: 114
-      Script: {instanceID: 20096}
+      Script: {instanceID: 19992}
     - Class: 114
-      Script: {instanceID: 20108}
+      Script: {instanceID: 20000}
     - Class: 114
-      Script: {instanceID: 20154}
+      Script: {instanceID: 20144}
     - Class: 114
-      Script: {instanceID: 20244}
+      Script: {instanceID: 20156}
     - Class: 114
-      Script: {instanceID: 20246}
+      Script: {instanceID: 20202}
     - Class: 114
-      Script: {instanceID: 20324}
+      Script: {instanceID: 20292}
     - Class: 114
-      Script: {instanceID: 20376}
+      Script: {instanceID: 20294}
     - Class: 114
-      Script: {instanceID: 20412}
+      Script: {instanceID: 20372}
     - Class: 114
-      Script: {instanceID: 20446}
+      Script: {instanceID: 20424}
     - Class: 114
-      Script: {instanceID: 20576}
+      Script: {instanceID: 20430}
     - Class: 114
-      Script: {instanceID: 20640}
+      Script: {instanceID: 20462}
     - Class: 114
-      Script: {instanceID: 20650}
+      Script: {instanceID: 20496}
     - Class: 114
-      Script: {instanceID: 21048}
+      Script: {instanceID: 20628}
     - Class: 114
-      Script: {instanceID: 21216}
+      Script: {instanceID: 20644}
     - Class: 114
-      Script: {instanceID: 21264}
+      Script: {instanceID: 20694}
     - Class: 114
-      Script: {instanceID: 21362}
+      Script: {instanceID: 20704}
     - Class: 114
-      Script: {instanceID: 21562}
+      Script: {instanceID: 21268}
     - Class: 114
-      Script: {instanceID: 21570}
+      Script: {instanceID: 21316}
     - Class: 114
-      Script: {instanceID: 21608}
+      Script: {instanceID: 21330}
     - Class: 114
-      Script: {instanceID: 21646}
+      Script: {instanceID: 21416}
     - Class: 114
-      Script: {instanceID: 21736}
+      Script: {instanceID: 21496}
     - Class: 114
-      Script: {instanceID: 22004}
+      Script: {instanceID: 21620}
     - Class: 114
-      Script: {instanceID: 22056}
+      Script: {instanceID: 21628}
     - Class: 114
-      Script: {instanceID: 22290}
+      Script: {instanceID: 21666}
     - Class: 114
-      Script: {instanceID: 22404}
+      Script: {instanceID: 21704}
     - Class: 114
-      Script: {instanceID: 22416}
+      Script: {instanceID: 21794}
     - Class: 114
-      Script: {instanceID: 22754}
+      Script: {instanceID: 22064}
     - Class: 114
-      Script: {instanceID: 22798}
+      Script: {instanceID: 22116}
     - Class: 114
-      Script: {instanceID: 23058}
+      Script: {instanceID: 22122}
     - Class: 114
-      Script: {instanceID: 23218}
+      Script: {instanceID: 22352}
     - Class: 114
-      Script: {instanceID: 23220}
+      Script: {instanceID: 22466}
     - Class: 114
-      Script: {instanceID: 23262}
+      Script: {instanceID: 22478}
+    - Class: 114
+      Script: {instanceID: 22816}
+    - Class: 114
+      Script: {instanceID: 22860}
+    - Class: 114
+      Script: {instanceID: 23120}
+    - Class: 114
+      Script: {instanceID: 23282}
+    - Class: 114
+      Script: {instanceID: 23284}
+    - Class: 114
+      Script: {instanceID: 23326}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -607,12 +800,6 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
-      Hash: e3e530172653266866d7d7cb1a240259
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: ResourceSystem
-  - hash:
-      serializedVersion: 2
       Hash: dd9dda1dfd39e605c49e72003342ef5d
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
@@ -641,6 +828,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 540882762544409cc4530e60db00e951
+    assemblyName: UnityEngine.UI
+    namespaceName: UnityEngine.UI
+    className: CanvasScaler
   - hash:
       serializedVersion: 2
       Hash: b5007673bbbdb9d12597a1d8201370f5
@@ -757,7 +950,7 @@ ScriptsOnlyBuild:
     className: D_Barrack
   - hash:
       serializedVersion: 2
-      Hash: df156b4acdc939bce537b14f23d2d5cb
+      Hash: d2a8382d57e067cc679b97029e7afe4b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIResourcePanel
@@ -799,7 +992,7 @@ ScriptsOnlyBuild:
     className: UnityOnJointBreakMessageListener
   - hash:
       serializedVersion: 2
-      Hash: a5d2a8f9b73424f45ee2d0e425246fcb
+      Hash: bb19720d1c755bbba3e86c5114cac4b5
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: BuildSystem
@@ -917,6 +1110,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: GraphicRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: dc5d783d9f2ec6a6765cc354837564ff
+    assemblyName: Assembly-CSharp
+    namespaceName: Polytope
+    className: PT_Create_Prefab
   - hash:
       serializedVersion: 2
       Hash: 3b5263a98bcc71d9a9d1d78a31b34ced
@@ -1273,7 +1472,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: cef6ca5a78d2c653689e7b3c0f4b830a
+      Hash: 130dd2f2746be204f2c05129c5dc703f
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UP_Worker
@@ -1331,6 +1530,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_ArcherTower
+  - hash:
+      serializedVersion: 2
+      Hash: 680c102c1efdd9324c85a0a481dd0cd0
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: BaseBuild
   - hash:
       serializedVersion: 2
       Hash: aa349b22cd61b9e8488d736f82590d6b
@@ -1483,6 +1688,12 @@ ScriptsOnlyBuild:
     className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: 147822cc58d6aa20f58d8f687314c933
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UI_TaskWorker
+  - hash:
+      serializedVersion: 2
       Hash: 191cd500c627cd6682ef6f70b8e47f2c
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1525,6 +1736,12 @@ ScriptsOnlyBuild:
     className: NavMeshModifierVolume
   - hash:
       serializedVersion: 2
+      Hash: 723f5a752fe9af1b0dbb76c4cef6423e
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UI_WorldRotation
+  - hash:
+      serializedVersion: 2
       Hash: 6fb82c58106cb7d7b1ea0adaef9436c6
     assemblyName: Assembly-CSharp
     namespaceName: KevinIglesias
@@ -1541,6 +1758,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Resource
+  - hash:
+      serializedVersion: 2
+      Hash: 0450b4a51942d30e3982f0eea242cb56
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UI_Task
   - hash:
       serializedVersion: 2
       Hash: d82086405f46de14829f6b4bcbdd8fc9
@@ -1591,12 +1814,6 @@ ScriptsOnlyBuild:
     className: Benchmark02
   - hash:
       serializedVersion: 2
-      Hash: 540882762544409cc4530e60db00e951
-    assemblyName: UnityEngine.UI
-    namespaceName: UnityEngine.UI
-    className: CanvasScaler
-  - hash:
-      serializedVersion: 2
       Hash: 4166580c620718548959a77fa7b43fc1
     assemblyName: Assembly-CSharp
     namespaceName: TMPro.Examples
@@ -1639,6 +1856,12 @@ ScriptsOnlyBuild:
     className: UI_BuildBarrack
   - hash:
       serializedVersion: 2
+      Hash: 0009e5545e27d37524b3a73867880370
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UIInteractableWorkerPanel
+  - hash:
+      serializedVersion: 2
       Hash: 8c85dfea7e58b4fdaece475fb55a3dfd
     assemblyName: Assembly-CSharp
     namespaceName: 
@@ -1649,6 +1872,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnMouseUpAsButtonMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: e3e530172653266866d7d7cb1a240259
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ResourceSystem
+  - hash:
+      serializedVersion: 2
+      Hash: a305f7d7012c8b9195f7fbcf5c197dc1
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: UI_TasksListPanel
   - hash:
       serializedVersion: 2
       Hash: fc0a9a681d29388386a9abf3f08b024a
@@ -1759,6 +1994,12 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
+      Hash: 6237e444519f74a8c5695a991457e521
+    assemblyName: Assembly-CSharp
+    namespaceName: DefaceGames
+    className: ZoomAndPan
+  - hash:
+      serializedVersion: 2
       Hash: 17142b03663387290480c82303274c02
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
@@ -1781,6 +2022,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UI_BuildArchersTower
+  - hash:
+      serializedVersion: 2
+      Hash: 752df45339a699e071b47cc4e22e9de2
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: WallBuild
   - hash:
       serializedVersion: 2
       Hash: c4b85a67513b4f0cf7b5fb2d5ded04b0
@@ -1939,7 +2186,7 @@ ScriptsOnlyBuild:
     className: UI_BuildProcessor
   - hash:
       serializedVersion: 2
-      Hash: 01918312916d04a7a1d28360f1caca49
+      Hash: 9df351d697643a9b250e55f373afbec1
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIInteractablePanel
@@ -2017,6 +2264,12 @@ ScriptsOnlyBuild:
     className: TeleType
   - hash:
       serializedVersion: 2
+      Hash: 0a349babcff0f98f400e2800a75d362f
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: VillageSystem
+  - hash:
+      serializedVersion: 2
       Hash: 9fb1c3ab48b256d508ecddd967f98652
     assemblyName: Assembly-CSharp
     namespaceName: TMPro.Examples
@@ -2029,7 +2282,7 @@ ScriptsOnlyBuild:
     className: D_MageTower
   - hash:
       serializedVersion: 2
-      Hash: 346ee3a77a3eb2c6d451c10e6372c2af
+      Hash: c325c698fd9fa3509cb892e8614133a8
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: D_Wall
