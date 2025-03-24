@@ -11,6 +11,7 @@ public class BuildSystem : GameSystem
 
     [SerializeField] private Tilemap gridTilemap;
     [SerializeField] private Tilemap freeTilemap;
+    [SerializeField] private Tilemap placedTilemap;
     [SerializeField] private Tilemap busyTilemap;
 
     [SerializeField] private TileBase notCanPlaceTile;
@@ -73,6 +74,7 @@ public class BuildSystem : GameSystem
     {
         gridTilemap.gameObject.SetActive(active);
         freeTilemap.gameObject.SetActive(active);
+        placedTilemap.gameObject.SetActive(active);
         busyTilemap.gameObject.SetActive(active);
     }
     
@@ -92,7 +94,8 @@ public class BuildSystem : GameSystem
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
                 Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
-                if(busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile)
+                if(busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile ||
+                   placedTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == canPlaceTile)
                 {
                     return false;
                 }
@@ -147,6 +150,50 @@ public class BuildSystem : GameSystem
                 Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
                 busyTilemap.SetTile(gridLayout.WorldToCell(closestPoint), notCanPlaceTile);
+            }
+        }
+    }
+
+    public void PlaceTakeArea(Actor building)
+    {
+        BoxCollider collider = building.GetComponent<BoxCollider>();
+        if (!collider) return;
+
+        Bounds bounds = collider.bounds;
+        
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
+
+        for (int x = minCell.x; x <= maxCell.x; x++)
+        {
+            for (int y = minCell.y; y <= maxCell.y; y++)
+            {
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
+
+                placedTilemap.SetTile(gridLayout.WorldToCell(closestPoint), canPlaceTile);
+            }
+        }
+    }
+
+    public void ClearPlaceArea(Actor building)
+    {
+        BoxCollider collider = building.GetComponent<BoxCollider>();
+        if (!collider) return;
+
+        Bounds bounds = collider.bounds;
+        
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
+
+        for (int x = minCell.x; x <= maxCell.x; x++)
+        {
+            for (int y = minCell.y; y <= maxCell.y; y++)
+            {
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
+                
+                placedTilemap.RefreshTile(gridLayout.WorldToCell(closestPoint));
             }
         }
     }

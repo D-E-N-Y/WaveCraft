@@ -105,18 +105,42 @@ public class WallBuild : BaseBuild
                 walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
             }
 
-            foreach(D_Wall _wall in walls)
+            // foreach(D_Wall _wall in walls)
+            // {
+            //     if(_wall.gameObject.activeSelf)
+            //     {
+            //         ViewAreaPlace(_wall);
+            //     }
+            // }
+
+            for(int i = start; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
             {
-                if(_wall.gameObject.activeSelf)
+                if(walls[i].gameObject.activeSelf)
                 {
-                    ViewAreaPlace(_wall);
+                    ViewAreaPlace(walls[i], i == start);
                 }
             }
 
-            for(int i = 0; i < currentPair; i++)
-            {
-                ViewAreaPlace(columns[i]);
-            }
+            // for(int i = 0; i < currentPair; i++)
+            // {
+            //     ViewAreaPlace(columns[i]);
+            // }
+
+            ViewAreaPlace(columns[columns.Count - 1]);
+        }
+    }
+
+    private void ViewAreaPlace(Building _object, bool isConect)
+    {
+        if(buildSystem.CanBePlaced(_object) || isConect)
+        {
+            _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
+            buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
+        }
+        else
+        {
+            _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.notCanPlace);
+            buildSystem.FreeTakeArea(_object, buildSystem.NotCanPlaceTile());
         }
     }
 
@@ -141,14 +165,22 @@ public class WallBuild : BaseBuild
 
     protected override void Place()
     {
-        Debug.Log("Place");
-        
-        if (columns.Any(x => !buildSystem.CanBePlaced(x)) || walls.Any(x => !buildSystem.CanBePlaced(x)))
+        if (!buildSystem.CanBePlaced(columns[columns.Count - 1]))
         {
             return;
         }
         
+        for(int i = countsWall[countsWall.Count - 1]; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+        {
+            Debug.Log($"{buildSystem.CanBePlaced(walls[i])} {countsWall[countsWall.Count - 1]}");
+            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall[countsWall.Count - 1])
+            {
+                return;
+            }
+        }
+
         building.Place();
+        buildSystem.PlaceTakeArea(building);
         placedWalls.Add((D_Wall)building);
 
         if(isContinue)
@@ -158,8 +190,18 @@ public class WallBuild : BaseBuild
 
             if(currentCountWalls > 0)
             {
-                countsWall.Add(countsWall[countsWall.Count - 1] + currentCountWalls); 
+                for(int i = countsWall[countsWall.Count - 1]; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+                {
+                    if(walls[i].gameObject.activeSelf)
+                    {
+                        buildSystem.PlaceTakeArea(walls[i]);
+                    }
+                }
+                
+                countsWall.Add(countsWall[countsWall.Count - 1] + currentCountWalls);  
             }
+
+            
 
             return;
         }
