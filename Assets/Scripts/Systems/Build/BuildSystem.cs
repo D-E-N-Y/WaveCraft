@@ -154,6 +154,28 @@ public class BuildSystem : GameSystem
         }
     }
 
+    public void ClearBusyTilemap(Actor building)
+    {
+        BoxCollider collider = building.GetComponent<BoxCollider>();
+        if (!collider) return;
+
+        Bounds bounds = collider.bounds;
+        
+        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
+        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
+
+        for (int x = minCell.x; x <= maxCell.x; x++)
+        {
+            for (int y = minCell.y; y <= maxCell.y; y++)
+            {
+                Vector3Int cellPos = new Vector3Int(x, y, 0);
+                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
+
+                busyTilemap.SetTile(gridLayout.WorldToCell(closestPoint), null);
+            }
+        }
+    }
+
     public void PlaceTakeArea(Actor building)
     {
         BoxCollider collider = building.GetComponent<BoxCollider>();

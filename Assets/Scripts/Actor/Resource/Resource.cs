@@ -45,6 +45,7 @@ public class Resource : Actor
 
         if(currentHP <= 0)
         {
+            BuildSystem.current.ClearBusyTilemap(this);
             gameObject.SetActive(false);
         }
     }

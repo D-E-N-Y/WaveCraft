@@ -188,10 +188,10 @@ public class WallBuild : BaseBuild
                 countsWall.Add(countsWall[countsWall.Count - 1] + currentCountWalls);  
             }
 
-            
-
             return;
         }
+
+        buildSystem.ClearPlacedTilemap();
 
         for(int i = 0; i < currentPair + 1; i++)
         {
