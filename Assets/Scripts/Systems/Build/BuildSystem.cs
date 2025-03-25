@@ -176,26 +176,9 @@ public class BuildSystem : GameSystem
         }
     }
 
-    public void ClearPlaceArea(Actor building)
+    public void ClearPlacedTilemap()
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
-        if (!collider) return;
-
-        Bounds bounds = collider.bounds;
-        
-        Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
-        Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
-
-        for (int x = minCell.x; x <= maxCell.x; x++)
-        {
-            for (int y = minCell.y; y <= maxCell.y; y++)
-            {
-                Vector3Int cellPos = new Vector3Int(x, y, 0);
-                Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
-                
-                placedTilemap.RefreshTile(gridLayout.WorldToCell(closestPoint));
-            }
-        }
+        placedTilemap.ClearAllTiles();
     }
 
     public static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)

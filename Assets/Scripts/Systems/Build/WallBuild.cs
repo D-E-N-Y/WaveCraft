@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class WallBuild : BaseBuild 
 {
@@ -105,14 +106,6 @@ public class WallBuild : BaseBuild
                 walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
             }
 
-            // foreach(D_Wall _wall in walls)
-            // {
-            //     if(_wall.gameObject.activeSelf)
-            //     {
-            //         ViewAreaPlace(_wall);
-            //     }
-            // }
-
             for(int i = start; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
             {
                 if(walls[i].gameObject.activeSelf)
@@ -121,12 +114,7 @@ public class WallBuild : BaseBuild
                 }
             }
 
-            // for(int i = 0; i < currentPair; i++)
-            // {
-            //     ViewAreaPlace(columns[i]);
-            // }
-
-            ViewAreaPlace(columns[columns.Count - 1]);
+            ViewAreaPlace(columns[currentPair]);
         }
     }
 
@@ -172,7 +160,6 @@ public class WallBuild : BaseBuild
         
         for(int i = countsWall[countsWall.Count - 1]; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
         {
-            Debug.Log($"{buildSystem.CanBePlaced(walls[i])} {countsWall[countsWall.Count - 1]}");
             if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall[countsWall.Count - 1])
             {
                 return;
@@ -258,12 +245,25 @@ public class WallBuild : BaseBuild
             
             countsWall.Remove(countsWall[countsWall.Count - 1]);
             
+            start = countsWall[countsWall.Count - 1];
+            for(int i = start; i < walls.Count; i++)
+            {
+                if(placedWalls.Contains(walls[i]))
+                {
+                    placedWalls.Remove(walls[i]);
+                }
+            }
         }
         else
         {
             currentCountWalls = -1;
             walls.ForEach(x => x.gameObject.SetActive(false));
         }
+
+        if(currentPair - 1 != -1) placedWalls.Remove(columns[currentPair - 1]);
+
+        buildSystem.ClearPlacedTilemap();
+        placedWalls.ForEach(x => buildSystem.PlaceTakeArea(x));
 
         currentPair--;
 
