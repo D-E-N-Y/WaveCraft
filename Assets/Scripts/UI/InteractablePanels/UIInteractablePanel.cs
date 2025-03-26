@@ -9,6 +9,7 @@ public class UIInteractablePanel : MonoBehaviour
     [SerializeField] private GameObject storagePanel;
     [SerializeField] private GameObject processorPanel;
     [SerializeField] private GameObject productionPanel;
+    [SerializeField] private GameObject wallPanel;
 
     // unit panels
     [SerializeField] private GameObject workerPanel;
@@ -67,6 +68,13 @@ public class UIInteractablePanel : MonoBehaviour
                 openPanel.SetActive(true);
 
                 openPanel.GetComponent<UIInteractableWorkerPanel>().Initialize((UP_Worker)actor);
+                break;
+
+            case D_Wall:
+                openPanel = wallPanel;
+                openPanel.SetActive(true);
+
+                openPanel.GetComponent<UIInteractableWallPanel>().Initialize((D_Wall)actor);
                 break;
 
             default:

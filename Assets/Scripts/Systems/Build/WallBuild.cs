@@ -42,6 +42,7 @@ public class WallBuild : BaseBuild
     private void ClearWalls()
     {
         placedWalls.ForEach(x => walls.Remove(x));
+        placedWalls.Clear();
 
         columns.Clear();
         countsWall.Clear();

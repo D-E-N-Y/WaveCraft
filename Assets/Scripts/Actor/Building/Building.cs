@@ -98,5 +98,7 @@ public class Building : Actor
         {
             obstacle.enabled = true;
         }
+
+        isBuild = true;
     }
 }
