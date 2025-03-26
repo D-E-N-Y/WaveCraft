@@ -20,7 +20,7 @@ public class StoreTaskHandler : ITaskHandler
             IPosition position = (IPosition)storeTask.processor;
             
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
             worker.animator.SetBool("isMove", false);
 
             // store to storage
@@ -40,7 +40,7 @@ public class StoreTaskHandler : ITaskHandler
             IPosition position = (IPosition)storeTask.production;
 
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
             worker.animator.SetBool("isMove", false);
 
             // store to processor
@@ -61,7 +61,7 @@ public class StoreTaskHandler : ITaskHandler
             IPosition position = (IPosition)processor;
 
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
             worker.animator.SetBool("isMove", false);
 
             processor.AddResources(worker.GetCurrentMineAmountByResource(resource));
@@ -87,7 +87,7 @@ public class StoreTaskHandler : ITaskHandler
                 IPosition position = (IPosition)storage;
 
                 worker.animator.SetBool("isMove", true);
-                yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+                yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
                 worker.animator.SetBool("isMove", false);
 
                 residue = ResourceSystem.current.AddResources(storage, resource, worker.GetCurrentStoreAmountByResource(resource));

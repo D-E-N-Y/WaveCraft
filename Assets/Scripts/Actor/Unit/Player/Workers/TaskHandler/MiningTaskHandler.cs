@@ -75,7 +75,7 @@ public class MiningTaskHandler : ITaskHandler
                     IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, resource);
                     IPosition position = (IPosition)processor;
                     
-                    yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+                    yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
                     worker.animator.SetBool("isMove", false);
 
                     // Store resources

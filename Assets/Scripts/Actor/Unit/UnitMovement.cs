@@ -57,7 +57,7 @@ public class UnitMovement : MonoBehaviour
             //     yield return null;
             // }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.25f);
 
             if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
             {

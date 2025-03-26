@@ -39,6 +39,7 @@ public class UIInteractableTownHallPanel : MonoBehaviour
         hpText.text = townHall.GetCurrentHP().ToString();
         spawnOrderText.text = townHall.spawnOrder.ToString();
         spawnCostText.text = townHall.GetSpawnCost().count.ToString();
+        spawnProgressImage.fillAmount = 1f;
 
         townHall.UpdateSpawnOrder += RefreshSpawnOrder;
         townHall.UpdateSpawnProgress += RefreshSpawnProgressIgame;
@@ -77,6 +78,8 @@ public class UIInteractableTownHallPanel : MonoBehaviour
     {
         townHall.UpdateSpawnOrder -= RefreshSpawnOrder;
         townHall.UpdateSpawnProgress -= RefreshSpawnProgressIgame;
+
+
 
         foreach(ResourceText current in processedResourceTexts)
         {
