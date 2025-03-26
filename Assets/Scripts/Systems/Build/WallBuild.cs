@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -63,10 +64,10 @@ public class WallBuild : BaseBuild
 
         if(columns.Count >= 2)
         {
-            int start = countsWall[countsWall.Count - 1];
+            int start = countsWall.Last();
             if(countsWall.Count > 0)
             {
-                for(int i = start; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+                for(int i = start; i < countsWall.Last() + currentCountWalls; i++)
                 {
                     if(walls.Count < i + 1)
                     {
@@ -92,14 +93,14 @@ public class WallBuild : BaseBuild
 
             currentCountWalls++;
 
-            for (int i = start ; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+            for (int i = start ; i < countsWall.Last() + currentCountWalls; i++)
             {
                 if(walls.Count < i + 1)
                 {
                     CreateWall(i);
                 }
 
-                Vector3 spawnPosition = startPosition - direction * ((i - countsWall[countsWall.Count - 1]) * wallLength);
+                Vector3 spawnPosition = startPosition - direction * ((i - countsWall.Last()) * wallLength);
             
                 walls[i].gameObject.SetActive(true);
                 walls[i].transform.position = spawnPosition;
@@ -107,7 +108,7 @@ public class WallBuild : BaseBuild
                 walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
             }
 
-            for(int i = start; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+            for(int i = start; i < countsWall.Last() + currentCountWalls; i++)
             {
                 if(walls[i].gameObject.activeSelf)
                 {
@@ -152,16 +153,24 @@ public class WallBuild : BaseBuild
         isContinue = true;
     }
 
+    public void ContinueWall(D_Wall startColumn)
+    {
+        columns.Add(startColumn);
+        currentPair++;
+
+        InitializeBuilding(columnPrefab);
+    }
+
     protected override void Place()
     {
-        if (!buildSystem.CanBePlaced(columns[columns.Count - 1]))
+        if (!buildSystem.CanBePlaced(columns.Last()))
         {
             return;
         }
         
-        for(int i = countsWall[countsWall.Count - 1]; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
+        for(int i = countsWall.Last(); i < countsWall.Last() + currentCountWalls; i++)
         {
-            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall[countsWall.Count - 1])
+            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall.Last())
             {
                 return;
             }
@@ -171,53 +180,42 @@ public class WallBuild : BaseBuild
         buildSystem.PlaceTakeArea(building);
         placedWalls.Add((D_Wall)building);
 
+        if(currentCountWalls > 0)
+        {
+            for(int i = countsWall.Last(); i < countsWall.Last() + currentCountWalls; i++)
+            {
+                if(walls[i].gameObject.activeSelf)
+                {
+                    buildSystem.PlaceTakeArea(walls[i]);
+                    placedWalls.Add(walls[i]);
+                }
+            }
+            
+            countsWall.Add(countsWall.Last() + currentCountWalls);  
+        }
+
         if(isContinue)
         {
             building = null;
             InitializeBuilding(columnPrefab);
-
-            if(currentCountWalls > 0)
-            {
-                for(int i = countsWall[countsWall.Count - 1]; i < countsWall[countsWall.Count - 1] + currentCountWalls; i++)
-                {
-                    if(walls[i].gameObject.activeSelf)
-                    {
-                        buildSystem.PlaceTakeArea(walls[i]);
-                    }
-                }
-                
-                countsWall.Add(countsWall[countsWall.Count - 1] + currentCountWalls);  
-            }
 
             return;
         }
 
         buildSystem.ClearPlacedTilemap();
 
-        for(int i = 0; i < currentPair + 1; i++)
+        foreach(D_Wall _wall in placedWalls)
         {
-            columns[i].GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
-            buildSystem.BusyTakeArea(columns[i]);
+            if(_wall.isBuild) continue;
             
-            BuildTask task = new BuildTask(columns[i]);
+            _wall.Place();
+
+            buildSystem.BusyTakeArea(_wall);
+
+            BuildTask task = new BuildTask(_wall);
             TaskSystem.current.AddTask(task);
-        }
 
-        foreach(D_Wall _wall in walls)
-        {
-            if(_wall.gameObject.activeSelf)
-            {
-                _wall.Place();
-
-                buildSystem.BusyTakeArea(_wall);
-
-                BuildTask task = new BuildTask(_wall);
-                TaskSystem.current.AddTask(task);
-
-                _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
-                
-                placedWalls.Add(_wall);
-            }
+            _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
         }
 
         ClearWalls();
@@ -238,13 +236,13 @@ public class WallBuild : BaseBuild
 
         if(countsWall.Count > 1)
         {
-            int start = countsWall[countsWall.Count - 1];
+            int start = countsWall.Last();
             for(int i = start; i < walls.Count; i++)
             {
                 walls[i].gameObject.SetActive(false);
             }
             
-            countsWall.Remove(countsWall[countsWall.Count - 1]);
+            countsWall.Remove(countsWall.Last());
             
             start = countsWall[countsWall.Count - 1];
             for(int i = start; i < walls.Count; i++)
@@ -268,13 +266,13 @@ public class WallBuild : BaseBuild
 
         currentPair--;
 
-        if(currentPair == -1)
+        if(currentPair == -1 || columns[Math.Max(0, currentPair)].isBuild)
         {
             base.Cancel();
             ClearWalls();
             return;
         }
-
+        
         InitializeBuilding(columns[currentPair].gameObject);
     }
 }

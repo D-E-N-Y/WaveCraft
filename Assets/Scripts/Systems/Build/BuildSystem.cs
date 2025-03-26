@@ -68,6 +68,12 @@ public class BuildSystem : GameSystem
         }
     }
 
+    public void ContinueWall(D_Wall startColumn)
+    {
+        wallBuild.enabled = true;
+        wallBuild.ContinueWall(startColumn);
+    }
+
     #region Placement
         
     public void ActiveTilemap(bool active)

@@ -33,7 +33,7 @@ public class UIInteractableWallPanel : MonoBehaviour
     {
         if(wall.isBuild)
         {
-            BuildSystem.current.InitializeWithObject(wall);
+            BuildSystem.current.ContinueWall(wall);
         }
     }
 
