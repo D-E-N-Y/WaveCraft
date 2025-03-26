@@ -56,7 +56,19 @@ public class InteractionSystem : GameSystem
 
                 if(raycastHit.transform.gameObject.layer == layerInteractable || raycastHit.transform.gameObject.layer == layerSelect)
                 {
-                    selectActor = raycastHit.transform.gameObject.GetComponent<Actor>();
+                    Transform actor = raycastHit.transform;
+                    
+                    while (true)
+                    {
+                        if(actor.transform.parent == null || actor.gameObject.GetComponent<Actor>() != null)
+                        {
+                            break;
+                        }
+                        
+                        actor = actor.transform.parent;
+                    }
+
+                    selectActor = actor.gameObject.GetComponent<Actor>();
                     selectActor.Interaction();
 
                     Select?.Invoke(selectActor);
