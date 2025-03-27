@@ -30,8 +30,8 @@ public class Resource : Actor
 
         gridCollider = new GridCollider(gameObject);
         
-        Vertices = gridCollider.GetColliderVertexPositionsLocal();
-        Size = gridCollider.CalculateSizeInCells();
+        // Vertices = gridCollider.GetColliderVertexPositionsLocal();
+        // Size = gridCollider.CalculateSizeInCells();
 
         BuildSystem.current.BusyTakeArea(this);
     }

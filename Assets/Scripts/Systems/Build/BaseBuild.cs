@@ -69,7 +69,7 @@ public class BaseBuild : MonoBehaviour
 
     protected virtual void Rotate()
     {
-        building.Rotate();
+        // building.Rotate();
     }
 
     protected virtual void Place()

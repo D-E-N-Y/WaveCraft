@@ -28,8 +28,8 @@ public class Building : Actor
         
         gridCollider = new GridCollider(gameObject);
         
-        Vertices = gridCollider.GetColliderVertexPositionsLocal();
-        Size = gridCollider.CalculateSizeInCells();
+        // Vertices = gridCollider.GetColliderVertexPositionsLocal();
+        // Size = gridCollider.CalculateSizeInCells();
 
         isBuild = false;
 
@@ -41,19 +41,19 @@ public class Building : Actor
         return transform.TransformPoint(Vertices[0]);
     }
 
-    public void Rotate()
-    {
-        transform.Rotate(new Vector3(0, 90, 0));
-        Size = new Vector3Int(Size.y, Size.x, 1);
+    // public void Rotate()
+    // {
+    //     transform.Rotate(new Vector3(0, 90, 0));
+    //     Size = new Vector3Int(Size.y, Size.x, 1);
 
-        Vector3[] vertices = new Vector3[Vertices.Length];
-        for(int i = 0; i < vertices.Length; i++)
-        {
-            vertices[i] = Vertices[(i + 1) % Vertices.Length];
-        }
+    //     Vector3[] vertices = new Vector3[Vertices.Length];
+    //     for(int i = 0; i < vertices.Length; i++)
+    //     {
+    //         vertices[i] = Vertices[(i + 1) % Vertices.Length];
+    //     }
         
-        Vertices = vertices;
-    }
+    //     Vertices = vertices;
+    // }
     
     public float GetTimeToBuild()
     {

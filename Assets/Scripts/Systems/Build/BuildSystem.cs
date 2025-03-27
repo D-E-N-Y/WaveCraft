@@ -86,7 +86,7 @@ public class BuildSystem : GameSystem
     
     public bool CanBePlaced(Building building)
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
+        Collider collider = building.GetComponent<Collider>();
 
         Bounds bounds = collider.bounds;
         
@@ -113,7 +113,7 @@ public class BuildSystem : GameSystem
 
     public void FreeTakeArea(Actor building, TileBase tile)
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
+        Collider collider = building.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -140,7 +140,7 @@ public class BuildSystem : GameSystem
 
     public void BusyTakeArea(Actor building)
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
+        Collider collider = building.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -162,7 +162,7 @@ public class BuildSystem : GameSystem
 
     public void ClearBusyTilemap(Actor building)
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
+        Collider collider = building.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -184,7 +184,7 @@ public class BuildSystem : GameSystem
 
     public void PlaceTakeArea(Actor building)
     {
-        BoxCollider collider = building.GetComponent<BoxCollider>();
+        Collider collider = building.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
