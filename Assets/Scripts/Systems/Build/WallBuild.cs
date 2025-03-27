@@ -112,17 +112,17 @@ public class WallBuild : BaseBuild
             {
                 if(walls[i].gameObject.activeSelf)
                 {
-                    ViewAreaPlace(walls[i], i == start);
+                    ViewAreaPlace(walls[i], i == start || i == countsWall.Last() + currentCountWalls - 1);
                 }
             }
 
-            ViewAreaPlace(columns[currentPair]);
+            ViewAreaPlace(columns[currentPair], isConnect());
         }
     }
 
-    private void ViewAreaPlace(Building _object, bool isConect)
+    private void ViewAreaPlace(Building _object, bool isConnect)
     {
-        if(buildSystem.CanBePlaced(_object) || isConect)
+        if(buildSystem.CanBePlaced(_object) || isConnect)
         {
             _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
             buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
@@ -139,6 +139,7 @@ public class WallBuild : BaseBuild
         if(!columns.Contains(prefab.GetComponent<D_Wall>()))
         {
             base.InitializeBuilding(prefab);
+            building.gameObject.GetComponent<ObjectDrag>().stopDrag += ConnectColumn;
             columns.Add(building.GetComponent<D_Wall>());
 
             currentPair++;
@@ -147,35 +148,68 @@ public class WallBuild : BaseBuild
         {
             building = prefab.GetComponent<Building>();
             materialBuilding = building.GetComponent<MaterialBuilding>();
-            prefab.AddComponent<ObjectDrag>();
+            prefab.AddComponent<ObjectDrag>().stopDrag += ConnectColumn;
         }
 
         isContinue = true;
     }
 
+    bool isConBuild = false;
     public void ContinueWall(D_Wall startColumn)
     {
         columns.Add(startColumn);
         currentPair++;
 
+        isConBuild = true;
+
         InitializeBuilding(columnPrefab);
+    }
+
+    private bool isConnect()
+    {
+        if(columns.Last().connectColumn)
+        {
+            if(columns.Count == 1 && !isConBuild || columns.Count == 2 && isConBuild)
+            {
+                return true;
+            }
+            else
+            {
+                return columns.Last().connectColumn != columns[currentPair - 1] && columns.Last().connectColumn != columns[currentPair - 2];
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private void ConnectColumn()
+    {
+        if(isConnect())
+        {
+            columns.Last().transform.position = columns.Last().connectColumn.transform.position;
+        }
     }
 
     protected override void Place()
     {
-        if (!buildSystem.CanBePlaced(columns.Last()))
+        if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect())
         {
             return;
         }
         
         for(int i = countsWall.Last(); i < countsWall.Last() + currentCountWalls; i++)
         {
-            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall.Last())
+            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall.Last() && i < countsWall.Last() + currentCountWalls - 1)
             {
                 return;
             }
         }
 
+        columns.Last().gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;  
+        columns.Last()?.connectColumn?.ResetConnect();
+        
         building.Place();
         buildSystem.PlaceTakeArea(building);
         placedWalls.Add((D_Wall)building);
@@ -207,7 +241,13 @@ public class WallBuild : BaseBuild
         foreach(D_Wall _wall in placedWalls)
         {
             if(_wall.isBuild) continue;
-            
+            if(_wall.connectColumn)
+            {
+                Destroy(_wall.gameObject);
+                continue;
+            }
+
+
             _wall.Place();
 
             buildSystem.BusyTakeArea(_wall);
@@ -230,6 +270,7 @@ public class WallBuild : BaseBuild
 
     protected override void Cancel()
     {
+        building.gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;
         columns[currentPair].gameObject.SetActive(false);
         Destroy(columns[currentPair].gameObject);
         columns.Remove(columns[currentPair]);
