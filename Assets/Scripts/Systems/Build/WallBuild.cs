@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class WallBuild : BaseBuild 
 {
+    [SerializeField] private UI_CostWallsPanel ui_costWallsPanel;
+
     [SerializeField] private GameObject columnPrefab;
     [SerializeField] private GameObject wallPrefab;
+    
     private List<D_Wall> columns;
     private List<D_Wall> walls;
     private List<D_Wall> placedWalls;
@@ -17,6 +18,16 @@ public class WallBuild : BaseBuild
     private bool isContinue;
     private List<int> countsWall;
     private int currentCountWalls;
+
+    void OnEnable()
+    {
+        ui_costWallsPanel.gameObject.SetActive(true);
+    }
+
+    void OnDisable()
+    {
+        ui_costWallsPanel.gameObject.SetActive(false);
+    }
 
     public override void Initialize(BuildSystem buildSystem)
     {
