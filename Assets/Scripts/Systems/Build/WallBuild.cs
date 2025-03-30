@@ -19,6 +19,11 @@ public class WallBuild : BaseBuild
     private List<int> countsWall;
     private int currentCountWalls;
 
+    private int woodCost;
+    private int stoneCost;    
+    private int currentWoodCost;
+    private int currentStoneCost;
+
     void OnEnable()
     {
         ui_costWallsPanel.gameObject.SetActive(true);
@@ -40,6 +45,11 @@ public class WallBuild : BaseBuild
         currentPair = -1;
         countsWall = new List<int>();
         countsWall.Add(0);
+
+        woodCost = columnPrefab.GetComponent<D_Wall>().GetCostByResource(E_Resource.Wood);
+        stoneCost = columnPrefab.GetComponent<D_Wall>().GetCostByResource(E_Resource.Stone);
+
+        currentWoodCost = currentStoneCost = 0;
     }
 
     private void CreateWall(int index)
@@ -62,6 +72,8 @@ public class WallBuild : BaseBuild
         countsWall.Add(0);
         currentPair = -1;
         currentCountWalls = -1;
+
+        currentWoodCost = currentStoneCost = 0;
     }
 
     protected override void Update()
@@ -123,17 +135,25 @@ public class WallBuild : BaseBuild
             {
                 if(walls[i].gameObject.activeSelf)
                 {
-                    ViewAreaPlace(walls[i], i == start || i == countsWall.Last() + currentCountWalls - 1);
+                    ViewAreaPlace(walls[i], (i == start || i == countsWall.Last() + currentCountWalls - 1));
                 }
             }
 
             ViewAreaPlace(columns[currentPair], isConnect());
+            ui_costWallsPanel.UpdateCost(woodCost, stoneCost);
         }
+
+        currentWoodCost = woodCost * (columns.Count + countsWall.Last() + currentCountWalls);
+        currentStoneCost = stoneCost * (columns.Count + countsWall.Last() + currentCountWalls);
+
+        ui_costWallsPanel.UpdateCost(currentWoodCost, currentStoneCost);
     }
+
+    private bool IsCanBuy() => currentWoodCost <= ResourceSystem.current.resources[E_Resource.Wood] && currentStoneCost <= ResourceSystem.current.resources[E_Resource.Stone];
 
     private void ViewAreaPlace(Building _object, bool isConnect)
     {
-        if(buildSystem.CanBePlaced(_object) || isConnect)
+        if((buildSystem.CanBePlaced(_object) || isConnect) && IsCanBuy())
         {
             _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
             buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
@@ -205,14 +225,14 @@ public class WallBuild : BaseBuild
 
     protected override void Place()
     {
-        if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect())
+        if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect() || !IsCanBuy())
         {
             return;
         }
         
         for(int i = countsWall.Last(); i < countsWall.Last() + currentCountWalls; i++)
         {
-            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall.Last() && i < countsWall.Last() + currentCountWalls - 1)
+            if(!buildSystem.CanBePlaced(walls[i]) && i > countsWall.Last() && i < countsWall.Last() + currentCountWalls - 1 || !IsCanBuy())
             {
                 return;
             }
@@ -268,6 +288,9 @@ public class WallBuild : BaseBuild
 
             _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
         }
+        
+        ResourceSystem.current.RemoveResources(E_Resource.Wood, currentWoodCost);
+        ResourceSystem.current.RemoveResources(E_Resource.Stone, currentStoneCost);
 
         ClearWalls();
 
