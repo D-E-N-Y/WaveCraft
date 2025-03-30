@@ -91,7 +91,7 @@ public class WallBuild : BaseBuild
 
     #region Wall Creation & Management
 
-    private void CreateWall(int index)
+    private void CreateWall()
     {
         D_Wall _wall = Instantiate(wallPrefab).GetComponent<D_Wall>();
         _wall.Initialize();
@@ -126,7 +126,7 @@ public class WallBuild : BaseBuild
             {
                 if(walls.Count < i + 1)
                 {
-                    CreateWall(i);
+                    CreateWall();
                 }
                 
                 walls[i].gameObject.SetActive(false);
@@ -152,7 +152,7 @@ public class WallBuild : BaseBuild
         {
             if(walls.Count < i + 1)
             {
-                CreateWall(i);
+                CreateWall();
             }
 
             Vector3 spawnPosition = startPosition - direction * ((i - countsWall.Last()) * wallLength);
@@ -250,6 +250,8 @@ public class WallBuild : BaseBuild
     
     protected override void Place()
     {
+        Debug.Log($"{ResourceSystem.current.resources[E_Resource.Wood]} {ResourceSystem.current.resources[E_Resource.Stone]}");
+        
         // check corrent land for place current column
         if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect() || !IsCanBuy())
         {

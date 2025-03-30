@@ -55,6 +55,7 @@ public class ResourceSystem : GameSystem
     public int AddResources(IStorage storage, E_Resource resource, int amount)
     {
         int residue = storage.AddResources(amount);
+        resources[resource] += amount - residue;
         UpdateCurrentCount?.Invoke(resource);
         
         return residue;
