@@ -7,14 +7,14 @@ public class UI_BuildWall : UI_BuildingSlot
 
     public void Initialize()
     {
-        D_Wall wall = building.GetComponent<D_Wall>();
-        
-        _name.text = "Wall";
-        health.text = wall.GetMaxHP().ToString();
+        Building building = this.building.GetComponent<Building>();
+
+        _name.text = building.nameActor;
+        health.text = building.GetMaxHP().ToString();
 
         foreach(S_CostUI cost in cost)
         {
-            cost.amount.text = wall.GetCostByResource(cost.resourse).ToString();
+            cost.amount.text = building.GetCostByResource(cost.resourse).ToString();
         }
     }
 }

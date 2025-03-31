@@ -16,7 +16,7 @@ public class BaseBuild : MonoBehaviour
     public virtual void InitializeBuilding(GameObject prefab)
     {
         if(building) return;
-        
+
         Vector3 position = buildSystem.SnapCoordinateToGrid(InteractionSystem.GetMouseWorldPosition());
 
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);

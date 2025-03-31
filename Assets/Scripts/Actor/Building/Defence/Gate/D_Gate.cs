@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class D_Gate : B_Defence
@@ -16,17 +17,28 @@ public class D_Gate : B_Defence
 
         nameActor = "Gate";
         walls = new List<D_Wall>();
+        columns = new List<D_Wall>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall))
+        Transform _actor = other.transform;
+        while(true)
         {
-            if(_wall.Type() == E_WallType.Wall)
+            if(_actor.GetComponent<D_Wall>() != null) break;
+            if(_actor.parent == null) return;
+
+            _actor = _actor.parent;
+        }
+        
+        if(_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall))
+        {
+            if(_wall.Type() == E_WallType.Wall && !walls.Contains(_wall))
             {
+                transform.rotation = _wall.transform.rotation;
                 walls.Add(_wall);
             }
-            else
+            else if(_wall.Type() == E_WallType.Column && !columns.Contains(_wall)) 
             {
                 columns.Add(_wall);
                 isColumn?.Invoke(true);
@@ -36,14 +48,23 @@ public class D_Gate : B_Defence
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall) && 
+        Transform _actor = other.transform;
+        while(true)
+        {
+            if(_actor.GetComponent<D_Wall>() != null) break;
+            if(_actor.parent == null) return;
+
+            _actor = _actor.parent;
+        }        
+        
+        if(_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall) && 
            (walls.Contains(_wall) || columns.Contains(_wall)))
         {
             if(_wall.Type() == E_WallType.Wall)
             {
                 walls.Remove(_wall);
             }
-            else
+            else if(_wall.Type() == E_WallType.Column)
             {
                 columns.Remove(_wall);
                 if(!columns.Any()) isColumn?.Invoke(false);
@@ -55,12 +76,38 @@ public class D_Gate : B_Defence
     {
         if(!walls.Any()) return null;
 
-        for (int i = 0; i < walls.Count; i++)
+        for (int i = 0; i < walls.Count - 1; i++)
         {
-            for(int j = i + 1; j < walls.Count - 1; j++)
+            for(int j = i + 1; j < walls.Count; j++)
             {
-                if(walls[i].transform.rotation.y == walls[j].transform.rotation.y &&
-                   Vector3.Distance(walls[i].transform.position, walls[j].transform.position) == walls[i].GetWallLength() * 3)
+                if(Quaternion.Angle(walls[i].transform.rotation, walls[j].transform.rotation) < 0.001f &&
+                   (MathF.Round(Vector3.Distance(walls[i].transform.position, walls[j].transform.position)) == walls[i].GetWallLength() || 
+                   MathF.Round(Vector3.Distance(walls[i].transform.position, walls[j].transform.position)) == walls[i].GetWallLength() * 3))
+                {
+                    List<D_Wall> optimal = new List<D_Wall>();
+                    optimal.Add(walls[i]);
+                    optimal.Add(walls[j]);
+
+                    return optimal;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public List<D_Wall> GetWallsToRemove()
+    {
+        if(!walls.Any()) return null;
+
+        for (int i = 0; i < walls.Count - 1; i++)
+        {
+            for(int j = i + 1; j < walls.Count; j++)
+            {
+                if(Quaternion.Angle(walls[i].transform.rotation, walls[j].transform.rotation) < 0.001f &&
+                   MathF.Round(Vector3.Distance(walls[i].transform.position, walls[j].transform.position)) == walls[i].GetWallLength() &&
+                   MathF.Round(Vector3.Distance(transform.position, walls[i].transform.position)) <= walls[i].GetWallLength() &&
+                   MathF.Round(Vector3.Distance(transform.position, walls[j].transform.position)) <= walls[i].GetWallLength())
                 {
                     List<D_Wall> optimal = new List<D_Wall>();
                     optimal.Add(walls[i]);

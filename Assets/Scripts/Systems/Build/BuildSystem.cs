@@ -8,6 +8,7 @@ public class BuildSystem : GameSystem
 
     [SerializeField] private BaseBuild defaultBuild;
     [SerializeField] private WallBuild wallBuild;
+    [SerializeField] private GateBuild gateBuild;
 
     [SerializeField] private Tilemap gridTilemap;
     [SerializeField] private Tilemap freeTilemap;
@@ -38,6 +39,7 @@ public class BuildSystem : GameSystem
 
         defaultBuild.Initialize(this);
         wallBuild.Initialize(this);
+        gateBuild.Initialize(this);
     }
 
     private void Start()
@@ -59,6 +61,11 @@ public class BuildSystem : GameSystem
             case D_Wall:
                 wallBuild.enabled = true;
                 wallBuild.InitializeBuilding(building.gameObject);
+                break;
+
+            case D_Gate:
+                gateBuild.enabled = true;
+                gateBuild.InitializeBuilding(building.gameObject);
                 break;
 
             default:

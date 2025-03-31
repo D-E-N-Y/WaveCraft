@@ -249,9 +249,7 @@ public class WallBuild : BaseBuild
     #region Control Walls
     
     protected override void Place()
-    {
-        Debug.Log($"{ResourceSystem.current.resources[E_Resource.Wood]} {ResourceSystem.current.resources[E_Resource.Stone]}");
-        
+    { 
         // check corrent land for place current column
         if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect() || !IsCanBuy())
         {

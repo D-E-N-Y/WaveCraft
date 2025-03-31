@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -18,7 +19,7 @@ public class D_Wall : B_Defence
         nameActor = wallType.ToString();
     }
     
-    public float GetWallLength() => Vector3.Distance(startTransform.position, endTransform.position);
+    public float GetWallLength() => MathF.Round(Vector3.Distance(startTransform.position, endTransform.position));
 
     public E_WallType Type() => wallType;
 
