@@ -12,8 +12,6 @@ public class BuildTaskHandler : ITaskHandler
         worker.animator.SetBool("isMove", true);
         yield return worker.movement.MoveTo(buildTask.building.GetPosition(), UnitMovement.E_MoveTo.Object);
         
-        
-        
         worker.animator.SetBool("isMove", false);
 
         // Debug.Log("start build");

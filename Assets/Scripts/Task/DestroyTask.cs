@@ -1,17 +1,19 @@
+using System.Linq;
 using UnityEngine;
 
 public class DestroyTask : Task
 {
-    public Vector3 buildingPosition { private set; get; }
+    public Building building{ private set; get; }
     public float timeToDestroy { private set; get; }
     public S_Cost[] buildingCost { private set; get; }
 
-    public DestroyTask(Vector3 buildingPosition, float timeToBuild, S_Cost[] buildingCost)
+    public DestroyTask(Building building)
     {
         taskType = E_TaskType.Destroy;
 
-        this.buildingPosition = buildingPosition;
-        this.timeToDestroy = timeToBuild / 2;
-        this.buildingCost = buildingCost;
+        this.building = building;
+        timeToDestroy = building.GetTimeToBuild() / 2;
+
+        buildingCost = building.GetCost().Select(x => new S_Cost { resourse = x.resourse, count = (int)(x.count * 0.8f) }).ToArray();;
     }
 }

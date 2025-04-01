@@ -7,15 +7,22 @@ using UnityEngine;
 public class D_Gate : B_Defence
 {
     public Action<bool> isColumn;
+    
+    public EGateState state { get; private set; }
 
     private List<D_Wall> walls;
     private List<D_Wall> columns;
+
+    [SerializeField] private GameObject leftGate, rightGate;
+    [SerializeField] private GameObject prop;
 
     public override void Initialize()
     {
         base.Initialize();
 
         nameActor = "Gate";
+        state = EGateState.open;
+
         walls = new List<D_Wall>();
         columns = new List<D_Wall>();
     }
@@ -82,6 +89,24 @@ public class D_Gate : B_Defence
                 if(!columns.Any()) isColumn?.Invoke(false);
             }
         }
+    }
+
+    public void Close()
+    {
+        state = EGateState.close;
+        
+        prop.SetActive(true);
+        leftGate.transform.localRotation = Quaternion.identity;
+        rightGate.transform.localRotation = Quaternion.identity;
+    }
+
+    public void Open()
+    {
+        state = EGateState.open;
+
+        prop.SetActive(false);
+        leftGate.transform.localRotation = Quaternion.Euler(0f, -80f, 0f);
+        rightGate.transform.localRotation = Quaternion.Euler(0f, 80f, 0f);
     }
 
     public List<D_Wall> GetOptimalWalls()

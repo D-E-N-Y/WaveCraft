@@ -64,9 +64,21 @@ public class GateBuild : BaseBuild
         
         buildSystem.BusyTakeArea(building);
 
-        if(gate.GetWallsToRemove() != null)
+        List<D_Wall> wallsToRemove = gate.GetWallsToRemove();
+        if(wallsToRemove != null)
         {
-            gate.GetWallsToRemove().ForEach(x => Destroy(x.gameObject));
+            foreach(D_Wall _wall in wallsToRemove)
+            {
+                if(_wall.isBuild)
+                {
+                    DestroyTask _task = new DestroyTask(_wall);
+                    TaskSystem.current.AddTask(_task);
+                }
+                else
+                {
+                    _wall.gameObject.SetActive(false);
+                }
+            }
         }
 
         BuildTask task = new BuildTask(building);

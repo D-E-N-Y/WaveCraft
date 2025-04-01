@@ -12,6 +12,7 @@ public class TaskManager
         taskHandlers.Add(typeof(BuildTask), new BuildTaskHandler());
         taskHandlers.Add(typeof(MiningTask), new MiningTaskHandler());
         taskHandlers.Add(typeof(StoreTask), new StoreTaskHandler());
+        taskHandlers.Add(typeof(DestroyTask), new DestroyTaskHandler());
     }
 
     public ITaskHandler GetHandler(Task task)
