@@ -23,6 +23,11 @@ public class GateBuild : BaseBuild
         gate.isColumn += SetIsColumn;
     }
 
+    protected override void Rotate()
+    {
+        gate.transform.Rotate(Vector3.up, 180f);
+    }
+
     private void SetIsColumn(bool value) => isColumn = value;
 
     private void PlaceBetweenWalls()
@@ -52,7 +57,7 @@ public class GateBuild : BaseBuild
 
     protected override void Place()
     {
-        if(isColumn && gate.GetOptimalWalls() == null) return;
+        if(isColumn || gate.GetOptimalWalls() == null) return;
         
         building.Place();
         materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
@@ -69,6 +74,7 @@ public class GateBuild : BaseBuild
 
         building = null;
         materialBuilding = null;
+        gate = null;
         
         buildSystem.ActiveTilemap(false);
 

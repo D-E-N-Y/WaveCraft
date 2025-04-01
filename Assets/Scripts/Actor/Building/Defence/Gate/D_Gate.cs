@@ -35,8 +35,20 @@ public class D_Gate : B_Defence
         {
             if(_wall.Type() == E_WallType.Wall && !walls.Contains(_wall))
             {
-                transform.rotation = _wall.transform.rotation;
                 walls.Add(_wall);
+                
+                List<D_Wall> _w = walls.Where(x => 
+                    Quaternion.Angle(x.transform.rotation, _wall.transform.rotation) < 0.001f)
+                    .ToList();
+
+                Quaternion rotationAt180 = Quaternion.Euler(0, transform.eulerAngles.y + 180, 0);
+                
+                if(_w.Count > Math.Abs(walls.Count - _w.Count) &&
+                   !(Quaternion.Angle(transform.rotation, _wall.transform.rotation) < 0.001f || 
+                     Quaternion.Angle(rotationAt180, _wall.transform.rotation) < 0.001f))
+                {
+                    transform.rotation = _wall.transform.rotation;
+                }
             }
             else if(_wall.Type() == E_WallType.Column && !columns.Contains(_wall)) 
             {
