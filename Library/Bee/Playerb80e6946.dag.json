@@ -149,7 +149,8 @@
         141,
         142,
         143,
-        144
+        144,
+        145
       ],
       "OverwriteOutputs": false,
       "DebugActionIndex": 0
@@ -339,7 +340,7 @@
       "DisplayName": "Writing boot.config_16d3.info",
       "ActionType": "WriteFile",
       "PayloadOffset": 83,
-      "PayloadLength": 14930,
+      "PayloadLength": 15035,
       "PayloadDebugContentSnippet": "{\"System.Object\":null,\"Bee.Tun",
       "Inputs": [],
       "Outputs": [
@@ -437,6 +438,7 @@
         "/home/deny/Unity/Hub/Editor/2022.3.31f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/Variations/mono/Managed/UnityEngine.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Assembly-CSharp.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.AI.Navigation.dll",
+        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.Postprocessing.Runtime.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.VisualScripting.Core.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.2D.Tilemap.Extras.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.dll",
@@ -1353,6 +1355,18 @@
       "DebugActionIndex": 86
     },
     {
+      "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Postprocessing.Runtime.dll",
+      "DisplayName": "Copying Unity.Postprocessing.Runtime.dll",
+      "ActionType": "CopyFiles",
+      "Inputs": [
+        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.Postprocessing.Runtime.dll"
+      ],
+      "Outputs": [
+        "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Postprocessing.Runtime.dll"
+      ],
+      "DebugActionIndex": 87
+    },
+    {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Core.dll",
       "DisplayName": "Copying Unity.VisualScripting.Core.dll",
       "ActionType": "CopyFiles",
@@ -1362,7 +1376,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Core.dll"
       ],
-      "DebugActionIndex": 87
+      "DebugActionIndex": 88
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.2D.Tilemap.Extras.dll",
@@ -1374,7 +1388,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.2D.Tilemap.Extras.dll"
       ],
-      "DebugActionIndex": 88
+      "DebugActionIndex": 89
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/UnityEngine.UI.dll",
@@ -1386,7 +1400,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/UnityEngine.UI.dll"
       ],
-      "DebugActionIndex": 89
+      "DebugActionIndex": 90
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Flow.dll",
@@ -1398,7 +1412,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Flow.dll"
       ],
-      "DebugActionIndex": 90
+      "DebugActionIndex": 91
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Timeline.dll",
@@ -1410,7 +1424,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Timeline.dll"
       ],
-      "DebugActionIndex": 91
+      "DebugActionIndex": 92
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.TextMeshPro.dll",
@@ -1422,7 +1436,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.TextMeshPro.dll"
       ],
-      "DebugActionIndex": 92
+      "DebugActionIndex": 93
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.State.dll",
@@ -1434,7 +1448,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.State.dll"
       ],
-      "DebugActionIndex": 93
+      "DebugActionIndex": 94
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll",
@@ -1446,7 +1460,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll"
       ],
-      "DebugActionIndex": 94
+      "DebugActionIndex": 95
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/netstandard.dll",
@@ -1458,7 +1472,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/netstandard.dll"
       ],
-      "DebugActionIndex": 95
+      "DebugActionIndex": 96
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Mono.Security.dll",
@@ -1470,7 +1484,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Mono.Security.dll"
       ],
-      "DebugActionIndex": 96
+      "DebugActionIndex": 97
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.ComponentModel.Composition.dll",
@@ -1482,7 +1496,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.ComponentModel.Composition.dll"
       ],
-      "DebugActionIndex": 97
+      "DebugActionIndex": 98
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Configuration.dll",
@@ -1494,7 +1508,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Configuration.dll"
       ],
-      "DebugActionIndex": 98
+      "DebugActionIndex": 99
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Core.dll",
@@ -1506,7 +1520,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Core.dll"
       ],
-      "DebugActionIndex": 99
+      "DebugActionIndex": 100
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Data.DataSetExtensions.dll",
@@ -1518,7 +1532,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Data.DataSetExtensions.dll"
       ],
-      "DebugActionIndex": 100
+      "DebugActionIndex": 101
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Data.dll",
@@ -1530,7 +1544,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Data.dll"
       ],
-      "DebugActionIndex": 101
+      "DebugActionIndex": 102
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Drawing.dll",
@@ -1542,7 +1556,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Drawing.dll"
       ],
-      "DebugActionIndex": 102
+      "DebugActionIndex": 103
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.EnterpriseServices.dll",
@@ -1554,7 +1568,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.EnterpriseServices.dll"
       ],
-      "DebugActionIndex": 103
+      "DebugActionIndex": 104
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.IO.Compression.FileSystem.dll",
@@ -1566,7 +1580,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.IO.Compression.FileSystem.dll"
       ],
-      "DebugActionIndex": 104
+      "DebugActionIndex": 105
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.IO.Compression.dll",
@@ -1578,7 +1592,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.IO.Compression.dll"
       ],
-      "DebugActionIndex": 105
+      "DebugActionIndex": 106
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Net.Http.dll",
@@ -1590,7 +1604,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Net.Http.dll"
       ],
-      "DebugActionIndex": 106
+      "DebugActionIndex": 107
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Numerics.dll",
@@ -1602,7 +1616,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Numerics.dll"
       ],
-      "DebugActionIndex": 107
+      "DebugActionIndex": 108
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Runtime.Serialization.dll",
@@ -1614,7 +1628,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Runtime.Serialization.dll"
       ],
-      "DebugActionIndex": 108
+      "DebugActionIndex": 109
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Security.dll",
@@ -1626,7 +1640,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Security.dll"
       ],
-      "DebugActionIndex": 109
+      "DebugActionIndex": 110
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.ServiceModel.Internals.dll",
@@ -1638,7 +1652,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.ServiceModel.Internals.dll"
       ],
-      "DebugActionIndex": 110
+      "DebugActionIndex": 111
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Transactions.dll",
@@ -1650,7 +1664,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Transactions.dll"
       ],
-      "DebugActionIndex": 111
+      "DebugActionIndex": 112
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Xml.Linq.dll",
@@ -1662,7 +1676,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Xml.Linq.dll"
       ],
-      "DebugActionIndex": 112
+      "DebugActionIndex": 113
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Xml.dll",
@@ -1674,7 +1688,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.Xml.dll"
       ],
-      "DebugActionIndex": 113
+      "DebugActionIndex": 114
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.dll",
@@ -1686,7 +1700,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/System.dll"
       ],
-      "DebugActionIndex": 114
+      "DebugActionIndex": 115
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/mscorlib.dll",
@@ -1698,20 +1712,20 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/mscorlib.dll"
       ],
-      "DebugActionIndex": 115
+      "DebugActionIndex": 116
     },
     {
       "Annotation": "WriteText Library/Bee/artifacts/LinuxPlayerBuildProgram/Data/app.info",
       "DisplayName": "Writing app.info",
       "ActionType": "WriteFile",
-      "PayloadOffset": 15104,
+      "PayloadOffset": 15209,
       "PayloadLength": 24,
       "PayloadDebugContentSnippet": "DefaultCompany\nWaveCraft",
       "Inputs": [],
       "Outputs": [
         "Library/Bee/artifacts/LinuxPlayerBuildProgram/Data/app.info"
       ],
-      "DebugActionIndex": 116
+      "DebugActionIndex": 117
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/UnityPlayer.so",
@@ -1723,7 +1737,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/UnityPlayer.so"
       ],
-      "DebugActionIndex": 117
+      "DebugActionIndex": 118
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft.x86_64",
@@ -1735,7 +1749,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft.x86_64"
       ],
-      "DebugActionIndex": 118
+      "DebugActionIndex": 119
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Resources/unity default resources",
@@ -1747,7 +1761,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Resources/unity default resources"
       ],
-      "DebugActionIndex": 119
+      "DebugActionIndex": 120
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/config",
@@ -1759,7 +1773,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/config"
       ],
-      "DebugActionIndex": 120
+      "DebugActionIndex": 121
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
@@ -1771,7 +1785,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser"
       ],
-      "DebugActionIndex": 121
+      "DebugActionIndex": 122
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
@@ -1783,7 +1797,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx"
       ],
-      "DebugActionIndex": 122
+      "DebugActionIndex": 123
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/machine.config",
@@ -1795,7 +1809,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/machine.config"
       ],
-      "DebugActionIndex": 123
+      "DebugActionIndex": 124
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/settings.map",
@@ -1807,7 +1821,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/settings.map"
       ],
-      "DebugActionIndex": 124
+      "DebugActionIndex": 125
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/web.config",
@@ -1819,7 +1833,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/2.0/web.config"
       ],
-      "DebugActionIndex": 125
+      "DebugActionIndex": 126
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
@@ -1831,7 +1845,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser"
       ],
-      "DebugActionIndex": 126
+      "DebugActionIndex": 127
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
@@ -1843,7 +1857,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx"
       ],
-      "DebugActionIndex": 127
+      "DebugActionIndex": 128
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/machine.config",
@@ -1855,7 +1869,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/machine.config"
       ],
-      "DebugActionIndex": 128
+      "DebugActionIndex": 129
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/settings.map",
@@ -1867,7 +1881,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/settings.map"
       ],
-      "DebugActionIndex": 129
+      "DebugActionIndex": 130
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/web.config",
@@ -1879,7 +1893,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.0/web.config"
       ],
-      "DebugActionIndex": 130
+      "DebugActionIndex": 131
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
@@ -1891,7 +1905,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser"
       ],
-      "DebugActionIndex": 131
+      "DebugActionIndex": 132
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
@@ -1903,7 +1917,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx"
       ],
-      "DebugActionIndex": 132
+      "DebugActionIndex": 133
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/machine.config",
@@ -1915,7 +1929,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/machine.config"
       ],
-      "DebugActionIndex": 133
+      "DebugActionIndex": 134
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/settings.map",
@@ -1927,7 +1941,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/settings.map"
       ],
-      "DebugActionIndex": 134
+      "DebugActionIndex": 135
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/web.config",
@@ -1939,7 +1953,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/4.5/web.config"
       ],
-      "DebugActionIndex": 135
+      "DebugActionIndex": 136
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/browscap.ini",
@@ -1951,7 +1965,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/browscap.ini"
       ],
-      "DebugActionIndex": 136
+      "DebugActionIndex": 137
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/config",
@@ -1963,7 +1977,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/config"
       ],
-      "DebugActionIndex": 137
+      "DebugActionIndex": 138
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/mconfig/config.xml",
@@ -1975,7 +1989,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/etc/mono/mconfig/config.xml"
       ],
-      "DebugActionIndex": 138
+      "DebugActionIndex": 139
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libMonoPosixHelper.so",
@@ -1987,7 +2001,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libMonoPosixHelper.so"
       ],
-      "DebugActionIndex": 139
+      "DebugActionIndex": 140
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libmono-native.so",
@@ -1999,7 +2013,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libmono-native.so"
       ],
-      "DebugActionIndex": 140
+      "DebugActionIndex": 141
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so",
@@ -2011,7 +2025,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so"
       ],
-      "DebugActionIndex": 141
+      "DebugActionIndex": 142
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/app.info",
@@ -2024,9 +2038,9 @@
         "/home/deny/UnityProjects/Bin/wavecraft_Data/app.info"
       ],
       "ToBuildDependencies": [
-        116
+        117
       ],
-      "DebugActionIndex": 142
+      "DebugActionIndex": 143
     },
     {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Resources/UnityPlayer.png",
@@ -2038,7 +2052,7 @@
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Resources/UnityPlayer.png"
       ],
-      "DebugActionIndex": 143
+      "DebugActionIndex": 144
     },
     {
       "Annotation": "Player",
@@ -2159,7 +2173,7 @@
         113,
         114,
         115,
-        117,
+        116,
         118,
         119,
         120,
@@ -2185,10 +2199,11 @@
         140,
         141,
         142,
-        143
+        143,
+        144
       ],
       "OverwriteOutputs": false,
-      "DebugActionIndex": 144
+      "DebugActionIndex": 145
     }
   ],
   "FileSignatures": [
@@ -2380,7 +2395,7 @@
   "EmitDataForBeeWhy": 0,
         "NamedNodes": {
           "all_tundra_nodes": 0,
-          "Player": 144
+          "Player": 145
         }
 ,  "DefaultNodes": [
     0
