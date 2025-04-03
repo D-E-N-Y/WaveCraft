@@ -1,22 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Resource : Actor
 {
     [SerializeField] private E_Resource resource;
-    
-    private GridCollider gridCollider;
-    private Vector3Int Size;
-    private Vector3[] Vertices;
-
-    private void Start() 
-    {
-        Initialize();
-    }
 
     public override void Initialize()
     {
         base.Initialize();
-
+        
         switch(resource)
         {
             case E_Resource.Wood:
@@ -28,10 +20,8 @@ public class Resource : Actor
                 break;
         }
 
-        gridCollider = new GridCollider(gameObject);
-        
-        // Vertices = gridCollider.GetColliderVertexPositionsLocal();
-        // Size = gridCollider.CalculateSizeInCells();
+        maxHP = MathF.Round(maxHP * transform.localScale.x);
+        currentHP = maxHP;
 
         BuildSystem.current.BusyTakeArea(this);
     }

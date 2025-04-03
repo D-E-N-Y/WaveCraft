@@ -43,6 +43,7 @@ public class CameraControler : MonoBehaviour
         HandleMovementInput();
 
         SetNearCamera();
+        SetShadowDistance();
         Control();
     }
 
@@ -50,6 +51,12 @@ public class CameraControler : MonoBehaviour
     private void SetNearCamera()
     {
         _camera.nearClipPlane = newZoom.y * nearFactor;
+    }
+    
+    private float shadowFactor = 4.0f;
+    private void SetShadowDistance()
+    {
+        QualitySettings.shadowDistance = newZoom.y * shadowFactor;
     }
 
     private void Control()
