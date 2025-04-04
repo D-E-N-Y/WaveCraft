@@ -437,8 +437,8 @@
         "/home/deny/Unity/Hub/Editor/2022.3.31f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/Variations/mono/Managed/UnityEngine.XRModule.dll",
         "/home/deny/Unity/Hub/Editor/2022.3.31f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/Variations/mono/Managed/UnityEngine.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Assembly-CSharp.dll",
-        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.AI.Navigation.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.Postprocessing.Runtime.dll",
+        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.AI.Navigation.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.VisualScripting.Core.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.2D.Tilemap.Extras.dll",
         "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/UnityEngine.UI.dll",
@@ -1343,18 +1343,6 @@
       "DebugActionIndex": 85
     },
     {
-      "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.AI.Navigation.dll",
-      "DisplayName": "Copying Unity.AI.Navigation.dll",
-      "ActionType": "CopyFiles",
-      "Inputs": [
-        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.AI.Navigation.dll"
-      ],
-      "Outputs": [
-        "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.AI.Navigation.dll"
-      ],
-      "DebugActionIndex": 86
-    },
-    {
       "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Postprocessing.Runtime.dll",
       "DisplayName": "Copying Unity.Postprocessing.Runtime.dll",
       "ActionType": "CopyFiles",
@@ -1363,6 +1351,18 @@
       ],
       "Outputs": [
         "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.Postprocessing.Runtime.dll"
+      ],
+      "DebugActionIndex": 86
+    },
+    {
+      "Annotation": "CopyFiles /home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.AI.Navigation.dll",
+      "DisplayName": "Copying Unity.AI.Navigation.dll",
+      "ActionType": "CopyFiles",
+      "Inputs": [
+        "/home/deny/UnityProjects/WaveCraft/Library/Bee/PlayerScriptAssemblies/Unity.AI.Navigation.dll"
+      ],
+      "Outputs": [
+        "/home/deny/UnityProjects/Bin/wavecraft_Data/Managed/Unity.AI.Navigation.dll"
       ],
       "DebugActionIndex": 87
     },

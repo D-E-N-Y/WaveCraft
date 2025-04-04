@@ -28,7 +28,7 @@ public class I_Storage : B_Industrial, IStorage
     public int AddResources(int amount)
     {
         currentAmount += amount;
-        UpdatePrefabs();
+        // UpdatePrefabs();
 
         if(currentAmount > maxAmount)
         {
@@ -48,7 +48,7 @@ public class I_Storage : B_Industrial, IStorage
     public int RemoveResources(int amount)
     {
         currentAmount -= amount;
-        UpdatePrefabs();
+        // UpdatePrefabs();
 
         if(currentAmount < 0)
         {
