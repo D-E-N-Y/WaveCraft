@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour, IPosition
 {
-    public Action UpdateCurrentHP;
+    public Action<float> UpdateCurrentHP;
     public Action DestroyActor;
 
     [SerializeField] protected GameObject mesh;
@@ -18,31 +18,14 @@ public class Actor : MonoBehaviour, IPosition
     [SerializeField] protected float maxHP;
     protected float currentHP;
     
-    public float GetMaxHP()
-    {
-        return maxHP;
-    }
 
-    public float GetCurrentHP()
-    {
-        return currentHP;
-    }
+    public float GetMaxHP() => maxHP;
+    public float GetCurrentHP() => currentHP;
+    public virtual void TakeDamage(float damage) {}
 
-    public virtual void TakeDamage(float damage)
-    {
-        
-    }
 
-    public virtual void Interaction()
-    {
-        SetLayerRecursively(mesh, selectLayer);
-    }
-
-    public virtual void DisInteraction()
-    {
-        SetLayerRecursively(mesh, defaultLayer);
-    }
-
+    public virtual void Interaction() => SetLayerRecursively(mesh, selectLayer);
+    public virtual void DisInteraction() => SetLayerRecursively(mesh, defaultLayer);
     void SetLayerRecursively(GameObject obj, string newLayer)
     {
         obj.layer = LayerMask.NameToLayer(newLayer);
@@ -53,6 +36,7 @@ public class Actor : MonoBehaviour, IPosition
         }
     }
 
+
     public virtual void Initialize()
     {
         currentHP = maxHP;
@@ -61,10 +45,10 @@ public class Actor : MonoBehaviour, IPosition
         defaultLayer = "Interactable";
     }
 
-    private void OnDestroy() 
-    {
-        DestroyActor?.Invoke();
-    }
+
+    private void OnDestroy() => DestroyActor?.Invoke();
+    void OnDisable() => DestroyActor?.Invoke();
+
 
     public List<Transform> GetPosition() => actorPositions;
 }
