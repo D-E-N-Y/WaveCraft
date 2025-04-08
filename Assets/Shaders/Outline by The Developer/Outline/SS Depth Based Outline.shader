@@ -90,8 +90,8 @@ Shader "The Developer/SS Depth Based Outline"
             half4 frag(v2f input) : SV_Target
             {    
                 uv = input.screenPos.xy / input.screenPos.w;
-                uv.x = (uv.x + 1) * .5;
-                uv.y = (uv.y + 1) * .5;
+                uv.x = (uv.x + 1.0) * .5;
+                uv.y = (1.0 - uv.y) * .5;
 
                 pixel = tex2D(_MainTex, uv);
 
