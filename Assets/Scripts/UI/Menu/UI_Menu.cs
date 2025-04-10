@@ -36,27 +36,37 @@ public class UI_Menu : UISystem
     
     public void SelectMenu(GameObject button)
     {
-        SetOpasity(selectMenu, 40f);
+        UnSelect(selectMenu);
 
         selectMenu = button;
-        SetOpasity(selectMenu, 100f);
+        Select(selectMenu);
     }
 
     public void SelectSection(GameObject button)
     {
-        SetOpasity(selectSection, 40f);
+        UnSelect(selectSection);
 
         selectSection = button;
-        SetOpasity(selectSection, 100f);
+        Select(selectSection);
     }
 
-    private void SetOpasity(GameObject button, float a)
+    private void Select(GameObject button)
     {
         if(button)
         {
             Color color = button.GetComponent<Image>().color;
-            color = new Color(color.r, color.g, color.b, a / 255f);
+            color = new Color(125f / 255f, 101f / 255f, 101f / 255f);
             button.GetComponent<Image>().color = color;
+        }
+    }
+
+    private void UnSelect(GameObject button)
+    {
+        if(button)
+        {
+            Color color = button.GetComponent<Image>().color;
+            color = new Color(1f, 1f, 1f);
+            button.GetComponent<Image>().color = color; 
         }
     }
 }

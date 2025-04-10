@@ -3,20 +3,28 @@ using TMPro;
 using UnityEngine;
 public class UI_BuildingSlot : MonoBehaviour
 {
-    [SerializeField] private GameObject menu_ui;
+    [SerializeField] private UISystem system;
 
-    [SerializeField] protected GameObject building;
-    [SerializeField] protected TextMeshProUGUI _name;
-    [SerializeField] protected TextMeshProUGUI health;
+    [SerializeField] protected GameObject prefab;
     [SerializeField] protected List<S_CostUI> cost;
+
+    private Building building;
+
+    void Start()
+    {
+        building = prefab.GetComponent<Building>();
+
+        foreach(S_CostUI current in cost) 
+        {
+            current.amount.text = building.GetCostByResource(current.resourse).ToString();
+        }
+    }
 
     public void BuyBuilding()
     {
-        Building building = this.building.GetComponent<Building>();
-        
-        foreach(S_CostUI current in cost)
+        foreach(S_CostUI current in cost) 
         {
-            if(StorageSystem.current.CheckCountResurces(current.resourse) <= building.GetCostByResource(current.resourse))
+            if(StorageSystem.current.CheckCountResurces(current.resourse) < building.GetCostByResource(current.resourse))
             {
                 Debug.Log($"not enought {current.resourse}");
                 return;
@@ -29,6 +37,6 @@ public class UI_BuildingSlot : MonoBehaviour
         }
         
         BuildSystem.current.InitializeWithObject(building);
-        menu_ui.SetActive(false);
+        system.CloseOpenPanel();
     }
 }
