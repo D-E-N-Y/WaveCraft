@@ -4,6 +4,7 @@ using UnityEngine;
 public class UIProvider : MonoBehaviour 
 {
     [SerializeField] private List<UIPanel> ui_prefabs;
+    [SerializeField] private UIPanel ui_lastMenu;
     public Dictionary<string, UIPanel> panels;
 
     void Start()
@@ -22,4 +23,6 @@ public class UIProvider : MonoBehaviour
     {
         return panels.ContainsKey(name) ? panels[name] : null;
     }
+
+    public UIPanel GetLastMenu() => ui_lastMenu;
 }

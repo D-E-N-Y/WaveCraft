@@ -9,6 +9,8 @@ public class UISystem : GameSystem
     private Dictionary<string, UIPanel> openPanels;
     private UIProvider provider;
 
+    public bool HasOpenPanels() => openPanels.Count() > 0;
+
     public override void Initialize()
     {
         current = this;
@@ -23,6 +25,12 @@ public class UISystem : GameSystem
     }
 
     private UIPanel CurrentPanel => openPanels.Count > 0 ? openPanels.Last().Value : null;
+
+    public void OpenLastMenu()
+    {
+        provider.GetLastMenu().Show();
+        openPanels[provider.GetLastMenu().gameObject.name] = provider.GetLastMenu();
+    }
 
     public void OpenPanelByName(string name)
     {
