@@ -11,9 +11,7 @@ public class ResourceSystem : GameSystem
     private Dictionary<E_Resource, List<Resource>> naturalResources;
 
     public override void Initialize()
-    {
-        base.Initialize();
-        
+    { 
         current = this;
 
         resources = new Dictionary<E_Resource, int>();

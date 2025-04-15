@@ -16,8 +16,6 @@ public class InteractionSystem : GameSystem
 
     public override void Initialize()
     {
-        base.Initialize();
-
         current = this;
 
         layerInteractable = LayerMask.NameToLayer("Interactable");

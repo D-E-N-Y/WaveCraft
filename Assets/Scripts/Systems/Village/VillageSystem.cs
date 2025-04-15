@@ -14,8 +14,6 @@ public class VillageSystem : GameSystem
 
     public override void Initialize()
     {
-        base.Initialize();
-
         current = this;
 
         villages = new List<U_Player>();

@@ -12,8 +12,6 @@ public class StorageSystem : GameSystem
 
     public override void Initialize()
     {
-        base.Initialize();
-        
         current = this;
 
         if(storages == null)

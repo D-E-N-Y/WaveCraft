@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine;
 public class UI_BuildingSlot : MonoBehaviour
 {
-    [SerializeField] private UISystem system;
-
     [SerializeField] protected GameObject prefab;
     [SerializeField] protected List<S_CostUI> cost;
 
@@ -37,6 +35,6 @@ public class UI_BuildingSlot : MonoBehaviour
         }
         
         BuildSystem.current.InitializeWithObject(building);
-        system.CloseOpenPanel();
+        UISystem.current.CloseCurrentPanel();
     }
 }

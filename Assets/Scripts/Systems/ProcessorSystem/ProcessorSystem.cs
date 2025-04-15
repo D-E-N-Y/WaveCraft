@@ -10,8 +10,6 @@ public class ProcessorSystem : GameSystem
 
     public override void Initialize()
     {
-        base.Initialize();
-
         current = this;
 
         processors = new Dictionary<E_Resource, List<IProcessor>>();

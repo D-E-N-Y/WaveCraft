@@ -23,18 +23,11 @@ public class BuildSystem : GameSystem
 
     private void Awake() 
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
         Initialize();
     }
 
     public override void Initialize()
     {
-        base.Initialize();
-
         current = this;
 
         defaultBuild.Initialize(this);

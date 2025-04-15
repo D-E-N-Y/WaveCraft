@@ -13,8 +13,6 @@ public class TaskSystem : GameSystem
 
     public override void Initialize()
     {
-        base.Initialize();
-
         current = this;
 
         tasks = new Dictionary<E_TaskState, List<Task>>();

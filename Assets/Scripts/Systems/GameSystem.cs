@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameSystem : MonoBehaviour
+public abstract class GameSystem : MonoBehaviour
 {
-    public virtual void Initialize() {}
+    public abstract void Initialize();
 }

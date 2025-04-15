@@ -1,60 +1,85 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class UISystem : GameSystem
 {
-    [SerializeField] private InputActionReference inputAction;
-    [SerializeField] private GameObject ui_gameMenu;
-    private bool isOpenGameMenu;
+    public static UISystem current;
 
-    private GameObject openPanel;
-    
+    private Dictionary<string, UIPanel> openPanels;
+    private UIProvider provider;
+
     public override void Initialize()
     {
-        base.Initialize();
+        current = this;
+        
+        openPanels = new Dictionary<string, UIPanel>();
     }
 
-    void OnEnable()
-    {
-        inputAction.action.started += Return;
+    public void Initialize(UIProvider provider)
+    { 
+        this.provider = provider;
+        openPanels.Clear();
     }
 
-    private void Return(InputAction.CallbackContext context)
-    {
-        Time.timeScale = isOpenGameMenu ? 1f : 0f;
+    private UIPanel CurrentPanel => openPanels.Count > 0 ? openPanels.Last().Value : null;
 
-        isOpenGameMenu = !isOpenGameMenu;
-        ui_gameMenu.SetActive(isOpenGameMenu);
-    }
-
-    public void OpenPanel(GameObject panel)
+    public void OpenPanelByName(string name)
     {
-        if(openPanel == panel)
+        var newPanel = provider.GetPanelByName(name);
+        if (newPanel == null)
         {
-            ClosePanel(openPanel);
+            Debug.LogWarning($"UIPanel '{name}' not found.");
             return;
         }
-        else if(openPanel != null)
-        {
-            ClosePanel(openPanel);
-        }
         
-        panel.SetActive(true);
-        openPanel = panel;
-    }
-
-    public void ClosePanel(GameObject panel)
-    {
-        panel.SetActive(false);
-        openPanel = null;
-    }
-
-    public void CloseOpenPanel()
-    {
-        if(openPanel != null)
+        if (CurrentPanel is UIMenu && newPanel is UIMenu)
         {
-            ClosePanel(openPanel);
+            CloseCurrentPanel();
         }
+
+        openPanels[name] = newPanel;
+        newPanel.Show();
+    }
+
+    public void ClosePanelByName(string name)
+    {
+        if(openPanels.Count <= 0) return;
+        
+        openPanels[name].Hide();
+        openPanels.Remove(name);
+    }
+
+    public void TogglePanelByName(string name)
+    {
+        if(openPanels.ContainsKey(name))
+        {
+            ClosePanelByName(name);
+        }
+        else
+        {
+            OpenPanelByName(name);
+        }
+    }
+
+    public void CloseCurrentPanel()
+    {
+        if(openPanels.Count <= 0) return;
+
+        string lastKey = openPanels.Keys.Last();
+        openPanels[lastKey].Hide();
+        openPanels.Remove(lastKey);
+    }
+
+    public void CloseAllPanels()
+    {
+        if(openPanels.Count <= 0) return;
+        
+        foreach(var panel in openPanels)
+        {
+            panel.Value.Hide();
+        }
+
+        openPanels.Clear();
     }
 }
