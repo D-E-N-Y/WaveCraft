@@ -1,10 +1,12 @@
+using System;
 using TMPro;
 using UnityEngine;
 
-public class UI_InteractablePanel : MonoBehaviour 
+public abstract class UI_InteractablePanel : UIPanel 
 {
     [SerializeField] protected TextMeshProUGUI ui_name;
     [SerializeField] protected TextMeshProUGUI ui_currentHP;
+    public abstract Type PanelType { get; }
     private Actor actor;
 
     public virtual void Initialize(Actor _actor)
@@ -24,10 +26,10 @@ public class UI_InteractablePanel : MonoBehaviour
         ui_currentHP.text = _currentHP.ToString();
     }
 
-    private void Hide()
+    public override void Hide()
     {
         UnsubscriptionActions();
-        gameObject.SetActive(false);
+        base.Hide();
     }
 
     private void OnDisable()

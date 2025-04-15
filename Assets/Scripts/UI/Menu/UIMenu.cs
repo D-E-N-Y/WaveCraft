@@ -3,8 +3,20 @@ using UnityEngine.UI;
 
 public class UIMenu : UIPanel
 {
+    [SerializeField] Image selectMenu;
+    
     private GameObject openSection;
     private GameObject selectTabSection;
+
+    void OnEnable()
+    {
+        selectMenu.color = new Color(selectMenu.color.r, selectMenu.color.g, selectMenu.color.b, 1f);
+    }
+
+    void OnDisable()
+    {
+        selectMenu.color = new Color(selectMenu.color.r, selectMenu.color.g, selectMenu.color.b, 0f);
+    }
 
     public void OpenSection(GameObject section)
     {

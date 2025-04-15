@@ -1,11 +1,13 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class UI_Wall : UI_InteractablePanel
 {
-    [SerializeField] private GameObject buttonPanel;
-    
+    public override Type PanelType => typeof(D_Wall);
     private D_Wall wall;
+    
+    [SerializeField] private GameObject buttonPanel;
 
     public override void Initialize(Actor _actor)
     {

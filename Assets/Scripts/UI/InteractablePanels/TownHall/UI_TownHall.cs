@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class UI_TownHall : UI_InteractablePanel
 {
+    public override Type PanelType => typeof(B_TownHall);
+    private B_TownHall townHall;
+
     [SerializeField] private TextMeshProUGUI ui_spawnOrder;
     [SerializeField] private TextMeshProUGUI ui_spawnCost;
     [SerializeField] private Image ui_spawnProgress;    
-    private B_TownHall townHall;
     
     
     [System.Serializable]

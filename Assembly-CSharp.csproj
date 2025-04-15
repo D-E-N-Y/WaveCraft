@@ -89,7 +89,6 @@
     <Compile Include="Assets/Scripts/UI/UISystem.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/E_WorkerState.cs" />
-    <Compile Include="Assets/Scripts/UI/Menu/UI_GameMenu.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/TownHall/UI_TownHall.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/UP_Worker.cs" />
@@ -128,7 +127,7 @@
     <Compile Include="Assets/Scripts/Actor/Building/Defence/ISpawnUnit.cs" />
     <Compile Include="Assets/Scripts/Task/StoreTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/DestroyTaskHandler.cs" />
-    <Compile Include="Assets/Scripts/UI/Menu/Build/UI_BuildMenu.cs" />
+    <Compile Include="Assets/Scripts/UI/Menu/UIGameMenu.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/U_Player.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/ManagerInteractablePanels.cs" />
@@ -142,13 +141,14 @@
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/ITaskHandler.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Arhecr&apos;s Tower/D_ArcherTower.cs" />
     <Compile Include="Assets/Scripts/Systems/Resource/ResourceSystem.cs" />
+    <Compile Include="Assets/Scripts/UI/Button/UITogglePanelButton.cs" />
     <Compile Include="Assets/ImportAssets/UI/UI pack/Scripts/FillValueNumber.cs" />
     <Compile Include="Assets/Scripts/Task/MiningTask.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets/ImportAssets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieFree.cs" />
-    <Compile Include="Assets/Scripts/UI/Menu/UI_Menu.cs" />
+    <Compile Include="Assets/Scripts/UI/Button/UIClosePanelButton.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Unit.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_TasksListPanel.cs" />
     <Compile Include="Assets/Scripts/Systems/Village/VillageSystem.cs" />
@@ -157,8 +157,6 @@
     <Compile Include="Assets/Scripts/Actor/Building/MaterialBuilding.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ShaderPropAnimator.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/StoreTaskHandler.cs" />
-    <Compile Include="Assets/Scripts/UI/UITogglePanelButton.cs" />
-    <Compile Include="Assets/Scripts/UI/UIMenu.cs" />
     <Compile Include="Assets/Scripts/UI/World/UI_WorldRotation.cs" />
     <Compile Include="Assets/Scripts/Task/DestroyTask.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" />
@@ -166,7 +164,6 @@
     <Compile Include="Assets/Shaders/Outline by The Developer/Outline/O_CustomImageEffect.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/WarpTextExample.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/E_BuildingType.cs" />
-    <Compile Include="Assets/Scripts/UI/UIGameMenu.cs" />
     <Compile Include="Assets/Scripts/Systems/Task/TaskSystem.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Gate/E_GateState.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/BuildTaskHandler.cs" />
@@ -183,6 +180,7 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Attack.cs" />
     <Compile Include="Assets/Scripts/Task/BuildTask.cs" />
+    <Compile Include="Assets/Scripts/UI/Menu/UIMenu.cs" />
     <Compile Include="Assets/Scripts/Systems/Interaction/InteractionSytem.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/I_Storage.cs" />
     <Compile Include="Assets/Scripts/Systems/Build/WallBuild.cs" />

@@ -16,16 +16,14 @@ public class TaskSystem : GameSystem
         current = this;
 
         tasks = new Dictionary<E_TaskState, List<Task>>();
+        tasks[E_TaskState.Pending] = new List<Task>();
+        tasks[E_TaskState.Execured] = new List<Task>();
+
         workers = new List<UP_Worker>();
     }
 
     public void AddTask(Task task)
     {
-        if(!tasks.ContainsKey(E_TaskState.Pending))
-        {
-            tasks[E_TaskState.Pending] = new List<Task>();
-        }
-
         tasks[E_TaskState.Pending].Add(task);
         UpdateTasks?.Invoke();
         
@@ -34,11 +32,6 @@ public class TaskSystem : GameSystem
 
     public void DoTask(Task task)
     {
-        if(!tasks.ContainsKey(E_TaskState.Execured))
-        {
-            tasks[E_TaskState.Execured] = new List<Task>();
-        }
-
         UP_Worker worker = FindFreeWorker();
         if(worker)
         {
@@ -58,11 +51,6 @@ public class TaskSystem : GameSystem
 
     public void DoTask(Task task, UP_Worker worker)
     {
-        if(!tasks.ContainsKey(E_TaskState.Execured))
-        {
-            tasks[E_TaskState.Execured] = new List<Task>();
-        }
-
         worker.AddTask(task);
         tasks[E_TaskState.Execured].Add(task);
         tasks[E_TaskState.Pending].Remove(task);

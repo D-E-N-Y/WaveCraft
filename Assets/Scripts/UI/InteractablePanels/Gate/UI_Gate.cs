@@ -1,8 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
 
 public class UI_Gate : UI_InteractablePanel
 {
+    public override Type PanelType => typeof(D_Gate);
     private D_Gate _gate;
     
     [SerializeField] private TextMeshProUGUI ui_sateGate;

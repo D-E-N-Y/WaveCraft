@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class UI_Worker : UI_InteractablePanel 
 {
+    public override Type PanelType => typeof(UP_Worker);
     private UP_Worker worker;
     
     [SerializeField] private TextMeshProUGUI ui_proffesion;

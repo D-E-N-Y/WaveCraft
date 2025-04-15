@@ -1,94 +1,40 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ManagerInteractablePanels : MonoBehaviour
 {
-    [SerializeField] private GameObject resourcePanel;
-    
-    // building panels
-    [SerializeField] private GameObject townHallPanel;
-    [SerializeField] private GameObject storagePanel;
-    [SerializeField] private GameObject processorPanel;
-    [SerializeField] private GameObject productionPanel;
-    [SerializeField] private GameObject wallPanel;
-    [SerializeField] private GameObject gatePanel;
-
-    // unit panels
-    [SerializeField] private GameObject workerPanel;
-
-    [SerializeField] private GameObject otherPanel;
-    
-    private GameObject openPanel;
+    [SerializeField] private List<UI_InteractablePanel> ui_panels;
+    private Dictionary<Type, UI_InteractablePanel> panelByType = new();
+    private UI_InteractablePanel openPanel;
 
     private void Awake() 
     {
         InteractionSystem.current.Select += OpenPanel;
         InteractionSystem.current.UnSelect += ClosePanel;
+
+        foreach(UI_InteractablePanel panel in ui_panels)
+        {
+            if (panel.PanelType != null && !panelByType.ContainsKey(panel.PanelType))
+            {
+                panelByType.Add(panel.PanelType, panel);
+            }
+        }
     }
 
     private void OpenPanel(Actor actor)
     {
-        switch(actor)
+        Type _type = actor.GetType();
+
+        if(panelByType.ContainsKey(_type))
         {
-            case Resource:
-                openPanel = resourcePanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Resource>().Initialize(actor);
-                break;
-
-            case B_TownHall:
-                openPanel = townHallPanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_TownHall>().Initialize(actor);
-                break;
-
-            case I_Storage:
-                openPanel = storagePanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Storage>().Initialize(actor);
-                break;
-
-            case I_Processor:
-                openPanel = processorPanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Processor>().Initialize(actor);
-                break;
-
-            case I_Production:
-                openPanel = productionPanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Production>().Initialize(actor);
-                break;
-
-            case UP_Worker:
-                openPanel = workerPanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Worker>().Initialize(actor);
-                break;
-
-            case D_Wall:
-                openPanel = wallPanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Wall>().Initialize(actor);
-                break;
-            
-            case D_Gate:
-                openPanel = gatePanel;
-                openPanel.SetActive(true);
-
-                openPanel.GetComponent<UI_Gate>().Initialize(actor);
-                break;
-
-            default:
-                openPanel = otherPanel;
-                openPanel.SetActive(true);
-                break;
+            panelByType[_type].Show();
+            panelByType[_type].Initialize(actor);
+            openPanel = panelByType[_type];
+        }
+        else
+        {
+            Debug.Log($"Not found panel for {_type}");
         }
     }
 
@@ -96,7 +42,7 @@ public class ManagerInteractablePanels : MonoBehaviour
     {
         if(openPanel)
         {
-            openPanel.SetActive(false);
+            openPanel.Hide();
             openPanel = null;
         }
     }

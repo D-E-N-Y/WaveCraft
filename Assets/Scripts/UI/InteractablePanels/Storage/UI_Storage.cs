@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class UI_Storage : UI_InteractablePanel
 {
+    public override Type PanelType => typeof(I_Storage);
     private I_Storage storage;
 
     [SerializeField] private Image ui_resourceImage;
