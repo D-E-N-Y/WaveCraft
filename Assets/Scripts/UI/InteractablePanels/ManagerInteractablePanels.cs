@@ -10,8 +10,15 @@ public class ManagerInteractablePanels : MonoBehaviour
 
     private void Awake() 
     {
-        InteractionSystem.current.Select += OpenPanel;
-        InteractionSystem.current.UnSelect += ClosePanel;
+        if(InteractionSystem.current)
+        {
+            InteractionSystem.current.Select += OpenPanel;
+            InteractionSystem.current.UnSelect += ClosePanel;
+        }
+        else
+        {
+            Debug.Log("interaction system is null");
+        }
 
         foreach(UI_InteractablePanel panel in ui_panels)
         {
@@ -19,6 +26,19 @@ public class ManagerInteractablePanels : MonoBehaviour
             {
                 panelByType.Add(panel.PanelType, panel);
             }
+        }
+    }
+
+    private void OnDisable() 
+    {
+        if(InteractionSystem.current)
+        {
+            InteractionSystem.current.Select -= OpenPanel;
+            InteractionSystem.current.UnSelect -= ClosePanel;
+        }
+        else
+        {
+            Debug.Log("interaction system is null");
         }
     }
 
