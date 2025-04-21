@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIGameMenu : UIPanel 
 {
@@ -29,7 +30,7 @@ public class UIGameMenu : UIPanel
 
     public void ExitToMainMenu()
     {
-
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void QuitGame()

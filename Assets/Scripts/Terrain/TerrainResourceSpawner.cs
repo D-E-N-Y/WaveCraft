@@ -42,7 +42,7 @@ public class TerrainResourceSpawner : MonoBehaviour
         return worldPos;
     }
 
-    void OnApplicationQuit()
+    void OnDisable()
     {
         TerrainData terrainData = terrain.terrainData;
         terrainData.treeInstances = savedTreeData;

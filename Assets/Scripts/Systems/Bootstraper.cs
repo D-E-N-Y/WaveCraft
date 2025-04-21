@@ -20,6 +20,6 @@ public class Bootstraper : MonoBehaviour
 
     private void Start() 
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("MainMenuScene");
     }
 }
