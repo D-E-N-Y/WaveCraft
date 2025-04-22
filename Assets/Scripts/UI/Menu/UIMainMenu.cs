@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIMainMenu : MonoBehaviour
+public class UIMainMenu : UIPanel
 {
+    [SerializeField] private UILoadingScreen ui_loadingScreen;
+    
     public void NewGameButton()
     {
-        SceneManager.LoadScene("GameScene");
+        ui_loadingScreen.Show();
+        ui_loadingScreen.Initialize();
+
+        Hide();
     }
 
     public void LoadGameButton()

@@ -1,8 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIGameMenu : UIPanel 
 {
+    [SerializeField] private UIBlackBaground ui_blackBackground;
+    
     void OnEnable()
     {
         Time.timeScale = 0f;
