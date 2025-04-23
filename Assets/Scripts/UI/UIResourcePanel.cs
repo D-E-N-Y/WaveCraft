@@ -25,13 +25,22 @@ public class UIResourcePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentAmountVillageText;
     [SerializeField] private TextMeshProUGUI maxAmountVillageText;
 
-    private void Awake() 
+    private void OnEnable()
     {
         ResourceSystem.current.UpdateCurrentCount += RefreshCurrentAmount;
         StorageSystem.current.UpdateMaxCount += RefreshMaxAmount;
 
         VillageSystem.current.UpdateCurrentAmount += RefreshCurrentVillageAmount;
         VillageSystem.current.UpdateMaxAmount += RefreshMaxVillageAmount;
+    }
+
+    private void OnDisable()
+    {
+        ResourceSystem.current.UpdateCurrentCount -= RefreshCurrentAmount;
+        StorageSystem.current.UpdateMaxCount -= RefreshMaxAmount;
+
+        VillageSystem.current.UpdateCurrentAmount -= RefreshCurrentVillageAmount;
+        VillageSystem.current.UpdateMaxAmount -= RefreshMaxVillageAmount;
     }
 
     private void RefreshCurrentAmount(E_Resource resource)

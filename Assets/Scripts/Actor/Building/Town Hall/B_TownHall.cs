@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class B_TownHall : Building, ISpawnUnit, IResidential
 {
-    private void Start() 
-    {
-        Initialize();
-    }
-
     public override void Initialize()
     {
         base.Initialize();

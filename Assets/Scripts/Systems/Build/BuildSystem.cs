@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class BuildSystem : GameSystem
@@ -20,11 +19,6 @@ public class BuildSystem : GameSystem
 
     public GridLayout gridLayout;
     private Grid grid;
-
-    private void Awake() 
-    {
-        Initialize();
-    }
 
     public override void Initialize()
     {
