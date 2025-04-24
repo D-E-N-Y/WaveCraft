@@ -1,19 +1,19 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class CameraControler : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
     private Camera _camera;
     
-    [SerializeField] private float normalSpeed;
-    [SerializeField] private float fastSpeed;
-    
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementTime;
     [SerializeField] private float rotationAmount;
-    [SerializeField] private Vector3 zoomAmount;
-
+    [SerializeField] private float zoomAmount;
+    
     private Vector3 newPosition;
     private Quaternion newRotation;
     private Vector3 newZoom;
@@ -23,6 +23,8 @@ public class CameraControler : MonoBehaviour
     private Vector3 rotateStartPosition;
     private Vector3 rotateCurrentPosition;
 
+    private UniversalRenderPipelineAsset urpAsset;
+
     private void Start() 
     {
         newPosition = transform.position;
@@ -30,18 +32,15 @@ public class CameraControler : MonoBehaviour
         newZoom = cameraTransform.localPosition;
 
         _camera = cameraTransform.gameObject.GetComponent<Camera>();
+
+        urpAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
     }
 
     private void Update() 
     {
-        // if (EventSystem.current.IsPointerOverGameObject()) 
-        // {
-        //     return;
-        // }
-        
         HandleMouseInput();
         HandleMovementInput();
-
+        
         SetNearCamera();
         SetShadowDistance();
         Control();
@@ -50,13 +49,33 @@ public class CameraControler : MonoBehaviour
     private float nearFactor = 0.06f;
     private void SetNearCamera()
     {
-        _camera.nearClipPlane = newZoom.y * nearFactor;
+        _camera.nearClipPlane = (int)cameraTransform.localPosition.y * nearFactor;
     }
     
-    private float shadowFactor = 4.0f;
+    private readonly List<(float zoomThreshold, float shadowDistance)> shadowTable = new()
+    {
+        (50f, 100f),            // if zoom < 50 then set shadow distance 100
+        (100f, 200f),
+        (200f, 350f),
+        (300f, 550f),
+        (400f, 700f),
+        (float.MaxValue, 800f)  // if zoom >= 400 then set shadow distance 800
+    };
+
     private void SetShadowDistance()
     {
-        QualitySettings.shadowDistance = newZoom.y * shadowFactor;
+        float currentZoom = cameraTransform.localPosition.y;
+
+        foreach (var (threshold, distance) in shadowTable)
+        {
+            if (currentZoom < threshold)
+            {
+                if (urpAsset.shadowDistance != distance)
+                    urpAsset.shadowDistance = distance;
+
+                break;
+            }
+        }
     }
 
     private void Control()
@@ -119,7 +138,7 @@ public class CameraControler : MonoBehaviour
 
         // zoom
         if(Input.mouseScrollDelta.y != 0)
-            newZoom += Input.mouseScrollDelta.y * zoomAmount;
+            newZoom += Input.mouseScrollDelta.y * (cameraTransform.localPosition * -zoomAmount);
 
         if(newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
@@ -130,24 +149,18 @@ public class CameraControler : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        // set speed move
-        if(Input.GetKey(KeyCode.LeftShift)) 
-            movementSpeed = fastSpeed;
-        else 
-            movementSpeed = normalSpeed;
-        
         // move
         if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-            newPosition += (transform.forward * movementSpeed);
+            newPosition += (transform.forward * (movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
         if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-            newPosition += (transform.forward * -movementSpeed);
+            newPosition += (transform.forward * -(movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.RightArrow))
-            newPosition += (transform.right * -movementSpeed);
+            newPosition += (transform.right * -(movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
         if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow))
-            newPosition += (transform.right * movementSpeed);
+            newPosition += (transform.right * (movementSpeed + 0.005f * cameraTransform.localPosition.y));
         
 
         // rotation
@@ -157,15 +170,13 @@ public class CameraControler : MonoBehaviour
         if(Input.GetKey(KeyCode.E))
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
-
         
         // zoom
         if(Input.GetKey(KeyCode.Z))
-            newZoom += zoomAmount;
+            newZoom += (cameraTransform.localPosition * -zoomAmount / 2);
         
         if(Input.GetKey(KeyCode.X))
-            newZoom -= zoomAmount;
+            newZoom -= (cameraTransform.localPosition * -zoomAmount / 2);
 
         if(newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
