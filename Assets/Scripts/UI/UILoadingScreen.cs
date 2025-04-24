@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UILoadingScreen : UIPanel
 {
-    [SerializeField] private UIBlackBaground ui_BlackBaground;
+    [SerializeField] private UIBlackBackground ui_blackBackground;
     
     [SerializeField] private Image _progressImage;
 
@@ -27,15 +27,7 @@ public class UILoadingScreen : UIPanel
             yield return null;
         }
 
-        ui_BlackBaground.Hide();
-
-        yield return new WaitForSeconds(1f);
-
-        while(!ui_BlackBaground.IsAnimationFinished())
-        {
-            yield return null;
-        }
-
-        SceneManager.LoadScene("GameScene");
+        ui_blackBackground.SetLoadScene("GameScene");
+        ui_blackBackground.Hide();
     }
 }

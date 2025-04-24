@@ -1,11 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class UIStartScene : MonoBehaviour
 {
-    [SerializeField] private UIBlackBaground ui_blackBaground;
+    [SerializeField] private UIBlackBackground ui_blackBaground;
 
     void Start()
     {
+        StartCoroutine(nameof(Show));
+    }
+
+    private IEnumerator Show()
+    {
+        yield return new WaitForSeconds(1f);
+        
         ui_blackBaground.Show();
     }
 }

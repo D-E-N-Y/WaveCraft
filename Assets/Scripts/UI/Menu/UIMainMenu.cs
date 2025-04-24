@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class UIMainMenu : UIPanel
 {
     [SerializeField] private UILoadingScreen ui_loadingScreen;
+    [SerializeField] private UIBlackBackground ui_blackBackground;
     
     public void NewGameButton()
     {
@@ -25,6 +26,6 @@ public class UIMainMenu : UIPanel
 
     public void QuitGameButton()
     {
-        Application.Quit();
+        ui_blackBackground.Hide();
     }
 }

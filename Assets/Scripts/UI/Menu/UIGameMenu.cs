@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UIGameMenu : UIPanel 
 {
-    [SerializeField] private UIBlackBaground ui_blackBackground;
+    [SerializeField] private UIBlackBackground ui_blackBackground;
     
     void OnEnable()
     {
@@ -33,11 +33,16 @@ public class UIGameMenu : UIPanel
 
     public void ExitToMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        isCanClose = false;
+        
+        ui_blackBackground.SetLoadScene("MainMenuScene");
+        ui_blackBackground.Hide();
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        isCanClose = false;
+        
+        ui_blackBackground.Hide();
     }
 }

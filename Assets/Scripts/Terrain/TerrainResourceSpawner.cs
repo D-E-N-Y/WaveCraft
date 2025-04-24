@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TerrainResourceSpawner : MonoBehaviour
@@ -5,7 +6,8 @@ public class TerrainResourceSpawner : MonoBehaviour
     [SerializeField] private Terrain terrain;
     [SerializeField] private GameObject[] resourcePrefabs;
     private TreeInstance[] savedTreeData; 
-    void Start()
+
+    public void Initialize()
     {
         ReplaceTerrainTrees();
     }
@@ -20,7 +22,7 @@ public class TerrainResourceSpawner : MonoBehaviour
             if(_resource.prototypeIndex >= resourcePrefabs.Length) continue;
             
             Vector3 _position = ConvertToWorldPosition(_resource.position);
-            Quaternion _rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            Quaternion _rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
             Resource resource = Instantiate(resourcePrefabs[_resource.prototypeIndex], _position, _rotation).GetComponent<Resource>();
             resource.transform.localScale = new Vector3(_resource.heightScale, _resource.heightScale, _resource.heightScale);

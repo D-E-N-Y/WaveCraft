@@ -36,6 +36,11 @@ public class CameraControler : MonoBehaviour
         urpAsset = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
     }
 
+    void OnDisable()
+    {
+        urpAsset.shadowDistance = 800f;
+    }
+
     private void Update() 
     {
         HandleMouseInput();

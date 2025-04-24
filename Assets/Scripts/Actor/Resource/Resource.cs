@@ -20,7 +20,7 @@ public class Resource : Actor
                 break;
         }
 
-        maxHP = MathF.Round(maxHP * transform.localScale.x);
+        maxHP = MathF.Round(maxHP * transform.localScale.x * 0.4f);
         currentHP = maxHP;
 
         BuildSystem.current.BusyTakeArea(this);

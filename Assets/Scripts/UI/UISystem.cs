@@ -75,8 +75,11 @@ public class UISystem : GameSystem
         if(openPanels.Count <= 0) return;
 
         string lastKey = openPanels.Keys.Last();
-        openPanels[lastKey].Hide();
-        openPanels.Remove(lastKey);
+        if(openPanels[lastKey].isCanClose)
+        {
+            openPanels[lastKey].Hide();
+            openPanels.Remove(lastKey);
+        }
     }
 
     public void CloseAllPanels()
