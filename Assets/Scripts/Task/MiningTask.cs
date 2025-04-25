@@ -9,7 +9,7 @@ public class MiningTask : Task
 
     public MiningTask(Resource resource)
     {
-        taskType = E_TaskType.Mining;
+        type = E_TaskType.Mining;
 
         this.resource = resource;
         resourceType = resource.Type();
@@ -18,7 +18,7 @@ public class MiningTask : Task
 
     public MiningTask(E_Resource resource, int resourceAmount)
     {
-        taskType = E_TaskType.Mining;
+        type = E_TaskType.Mining;
 
         this.resourceType = resource;
         this.resourceAmount = resourceAmount;

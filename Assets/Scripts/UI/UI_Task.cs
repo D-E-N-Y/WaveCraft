@@ -17,8 +17,9 @@ public class UI_Task : MonoBehaviour
     }
     [SerializeField] private List<STask> taskImages; 
 
-    [SerializeField] private TextMeshProUGUI titleText;
-    [SerializeField] private TextMeshProUGUI contexText;
+    [SerializeField] private TextMeshProUGUI ui_title;
+    [SerializeField] private TextMeshProUGUI ui_contex;
+    [SerializeField] private TextMeshProUGUI ui_status;
 
     public Task task { get; private set; }
 
@@ -26,30 +27,32 @@ public class UI_Task : MonoBehaviour
     {
         this.task = task;
       
-        taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.taskType).sprite;
-        titleText.text = $"{task.taskType} task";
+        taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.type).sprite;
+        ui_title.text = $"{task.type} task";
 
         switch (task)
         {
             case BuildTask buildTask:
-                contexText.text = $"{task.taskType} {buildTask.building.nameActor}";
+                ui_contex.text = $"{task.type} {buildTask.building.nameActor}"; 
                 break;
 
-            // case DestroyTask destroyTask:
-            //     contexText.text = $"{task.taskType} {destroyTask.building.nameActor}";
-            //     break;
+            case DestroyTask destroyTask:
+                ui_contex.text = $"{task.type} {destroyTask.building.nameActor}";
+                break;
 
             case MiningTask miningTask:
-                contexText.text = $"{task.taskType} {miningTask.resourceType} {miningTask.resourceAmount}";
+                ui_contex.text = $"{task.type} {miningTask.resourceType} {miningTask.resourceAmount}";
                 break;
 
             case StoreTask storeTask:
-                contexText.text = $"{task.taskType} {storeTask.resource}";
+                ui_contex.text = $"{task.type} {storeTask.resource}";
                 break;
 
             default:
-                contexText.text = $"{task.taskType} (Unknown Task)";
+                ui_contex.text = $"(Unknown Task)";
                 break;
         }
+
+        ui_status.text = task.status.ToString();
     }
 }

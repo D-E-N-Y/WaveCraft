@@ -9,7 +9,7 @@ public class DestroyTask : Task
 
     public DestroyTask(Building building)
     {
-        taskType = E_TaskType.Destroy;
+        type = E_TaskType.Destroy;
 
         this.building = building;
         timeToDestroy = building.GetTimeToBuild() / 2;

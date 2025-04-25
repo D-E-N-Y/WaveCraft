@@ -6,7 +6,7 @@ public class StoreTask : Task
 
     public StoreTask(E_Resource resource, IProcessor processor)
     {
-        taskType = E_TaskType.Store;
+        type = E_TaskType.Store;
 
         this.resource = resource;
         this.processor = processor;
@@ -14,7 +14,7 @@ public class StoreTask : Task
 
     public StoreTask(E_Resource resource, IProduction production)
     {
-        taskType = E_TaskType.Store;
+        type = E_TaskType.Store;
 
         this.resource = resource;
         this.production = production;

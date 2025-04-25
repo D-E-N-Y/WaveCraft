@@ -30,29 +30,29 @@ public class UI_TaskWorker : MonoBehaviour
         this.task = task;
 
         taskOrderText.text = order.ToString();        
-        taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.taskType).sprite;
-        titleText.text = $"{task.taskType} task";
+        taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.type).sprite;
+        titleText.text = $"{task.type} task";
 
         switch (task)
         {
             case BuildTask buildTask:
-                contexText.text = $"{task.taskType} {buildTask.building.nameActor}";
+                contexText.text = $"{task.type} {buildTask.building.nameActor}";
                 break;
 
-            // case DestroyTask destroyTask:
-            //     contexText.text = $"{task.taskType} {destroyTask.building.nameActor}";
-            //     break;
+            case DestroyTask destroyTask:
+                contexText.text = $"{task.type} {destroyTask.building.nameActor}";
+                break;
 
             case MiningTask miningTask:
-                contexText.text = $"{task.taskType} {miningTask.resourceType} {miningTask.resourceAmount}";
+                contexText.text = $"{task.type} {miningTask.resourceType} {miningTask.resourceAmount}";
                 break;
 
             case StoreTask storeTask:
-                contexText.text = $"{task.taskType} {storeTask.resource}";
+                contexText.text = $"{task.type} {storeTask.resource}";
                 break;
 
             default:
-                contexText.text = $"{task.taskType} (Unknown Task)";
+                contexText.text = $"{task.type} (Unknown Task)";
                 break;
         }
 

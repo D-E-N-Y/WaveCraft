@@ -6,7 +6,7 @@ public class BuildTask : Task
 
     public BuildTask(Building building)
     {
-        taskType = E_TaskType.Build;
+        type = E_TaskType.Build;
 
         this.building = building;
     }
