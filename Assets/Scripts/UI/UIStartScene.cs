@@ -7,6 +7,7 @@ public class UIStartScene : MonoBehaviour
 
     void Start()
     {
+        ui_blackBaground.gameObject.SetActive(true);
         StartCoroutine(nameof(Show));
     }
 

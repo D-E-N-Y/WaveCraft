@@ -6,6 +6,9 @@ public class MaterialBuilding : MonoBehaviour
     private MeshRenderer[] meshRenderers;
     private SkinnedMeshRenderer[] skinnedMeshRenderers;
 
+    [SerializeField] private Material transparentMaterial;
+    [SerializeField] private Material normalMaterial;
+
     [SerializeField] private Color canPlace;
     [SerializeField] private Color notCanPlace;
     [SerializeField] private Color placed;
@@ -78,62 +81,38 @@ public class MaterialBuilding : MonoBehaviour
     {
         foreach(MeshRenderer meshRenderer in meshRenderers)
         {
-            meshRenderer.material.color = color;
+            meshRenderer.material.SetColor("_BaseColor", color);
         }
 
         foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
         {
-            meshRenderer.material.color = color;
+            meshRenderer.material.SetColor("_BaseColor", color);
         }
     }
 
     private void SetOpaqueMode()
     {
-        foreach(MeshRenderer meshRenderer in meshRenderers)
+        foreach (var renderer in meshRenderers)
         {
-            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-            meshRenderer.material.SetInt("_ZWrite", 1);
-            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
-            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
-            meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            meshRenderer.material.renderQueue = -1;
+            renderer.material = new Material(normalMaterial);
         }
 
-        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
+        foreach (var renderer in skinnedMeshRenderers)
         {
-            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
-            meshRenderer.material.SetInt("_ZWrite", 1);
-            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
-            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
-            meshRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            meshRenderer.material.renderQueue = -1;
+            renderer.material = new Material(normalMaterial);
         }
     }
 
     private void SetTransparentMode()
     {
-        foreach(MeshRenderer meshRenderer in meshRenderers)
+        foreach (var renderer in meshRenderers)
         {
-            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            meshRenderer.material.SetInt("_ZWrite", 0);
-            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
-            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
-            meshRenderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-            meshRenderer.material.renderQueue = 3000;
+            renderer.material = new Material(transparentMaterial);
         }
 
-        foreach(SkinnedMeshRenderer meshRenderer in skinnedMeshRenderers)
+        foreach (var renderer in skinnedMeshRenderers)
         {
-            meshRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
-            meshRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            meshRenderer.material.SetInt("_ZWrite", 0);
-            meshRenderer.material.DisableKeyword("_ALPHATEST_ON");
-            meshRenderer.material.DisableKeyword("_ALPHABLEND_ON");
-            meshRenderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
-            meshRenderer.material.renderQueue = 3000;
+            renderer.material = new Material(transparentMaterial);
         }
     }
 }

@@ -28,6 +28,7 @@ public class P_Sawmill : I_Processor, IProcessor
         base.Built();
 
         rotateMill = StartCoroutine(RotateMill());
+        UpdatePrefabs();
     }
 
     protected override void StartProcess()
@@ -38,15 +39,24 @@ public class P_Sawmill : I_Processor, IProcessor
         if(rotateSaw == null) rotateSaw = StartCoroutine(RotateSaw());
     }
 
-    protected override void CompleteProcess()
+    private void UpdatePrefabs()
     {
-        base.CompleteProcess();
-
-        if(processedAmount >= 0) processedWood[0].SetActive(true);
+        if(processedWood == null) return; 
+        
+        processedWood.ForEach(x => x.SetActive(false));
+        
+        if(processedAmount > 0) processedWood[0].SetActive(true);
         if(processedAmount >= 25) processedWood[1].SetActive(true);
         if(processedAmount >= 50) processedWood[2].SetActive(true);
         if(processedAmount >= 75) processedWood[3].SetActive(true);
         if(processedAmount >= 100) processedWood[4].SetActive(true); 
+    }
+
+    protected override void CompleteProcess()
+    {
+        base.CompleteProcess();
+
+        UpdatePrefabs();
 
         if(!isProcessing)
         {

@@ -35,6 +35,21 @@ public class ManagerInteractablePanels : MonoBehaviour
     {
         Type _type = actor.GetType();
 
+        if(actor is I_Processor)
+        {
+            _type = typeof(I_Processor);
+        }
+
+        if(actor is I_Storage)
+        {
+            _type = typeof(I_Storage);
+        }
+
+        if(actor is I_Production)
+        {
+            _type = typeof(I_Production);
+        }
+
         if(panelByType.ContainsKey(_type))
         {
             panelByType[_type].Show();
