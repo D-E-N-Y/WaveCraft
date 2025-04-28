@@ -35,31 +35,22 @@ public class ManagerInteractablePanels : MonoBehaviour
     {
         Type _type = actor.GetType();
 
-        if(actor is I_Processor)
+        foreach(var kvp in panelByType)
         {
-            _type = typeof(I_Processor);
+            var panelType = kvp.Key;
+            if (panelType.IsAssignableFrom(_type))
+            {
+                _type = panelType;
+
+                panelByType[_type].Show();
+                panelByType[_type].Initialize(actor);
+                openPanel = panelByType[_type];
+
+                return;
+            }
         }
 
-        if(actor is I_Storage)
-        {
-            _type = typeof(I_Storage);
-        }
-
-        if(actor is I_Production)
-        {
-            _type = typeof(I_Production);
-        }
-
-        if(panelByType.ContainsKey(_type))
-        {
-            panelByType[_type].Show();
-            panelByType[_type].Initialize(actor);
-            openPanel = panelByType[_type];
-        }
-        else
-        {
-            Debug.Log($"Not found panel for {_type}");
-        }
+        Debug.Log($"Not found panel for {_type}");
     }
 
     private void ClosePanel()

@@ -16,8 +16,6 @@ public class UI_Task : MonoBehaviour
         public E_TaskType task;
     }
     [SerializeField] private List<STask> taskImages; 
-
-    [SerializeField] private TextMeshProUGUI ui_title;
     [SerializeField] private TextMeshProUGUI ui_contex;
     [SerializeField] private TextMeshProUGUI ui_status;
 
@@ -28,7 +26,6 @@ public class UI_Task : MonoBehaviour
         this.task = task;
       
         taskImage.sprite = taskImages.FirstOrDefault(t => t.task == task.type).sprite;
-        ui_title.text = $"{task.type} task";
 
         switch (task)
         {
