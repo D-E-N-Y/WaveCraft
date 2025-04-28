@@ -112,4 +112,16 @@ public class TaskSystem : GameSystem
     }
 
     public List<Task> GetTasks(E_TaskState state) => tasks[state];
+
+    public int GetCount() 
+    {
+        int count = 0;
+
+        foreach(var current in tasks)
+        {
+            count += current.Value.Count;
+        }
+
+        return count;
+    }
 }

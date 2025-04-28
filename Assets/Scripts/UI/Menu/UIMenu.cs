@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class UIMenu : UIPanel
     private GameObject openSection;
     private GameObject selectTabSection;
 
+    private Color normalColor;
+
     void OnEnable()
     {
         selectMenu.color = new Color(selectMenu.color.r, selectMenu.color.g, selectMenu.color.b, 1f);
@@ -16,6 +19,11 @@ public class UIMenu : UIPanel
     void OnDisable()
     {
         selectMenu.color = new Color(selectMenu.color.r, selectMenu.color.g, selectMenu.color.b, 0f);
+
+        UnSelect(selectTabSection);
+        CloseSection(openSection);
+
+        openSection = selectTabSection = null;
     }
 
     public void OpenSection(GameObject section)
@@ -52,6 +60,8 @@ public class UIMenu : UIPanel
     {
         if(tab)
         {
+            normalColor = tab.GetComponent<Image>().color;
+            
             Color color = tab.GetComponent<Image>().color;
             color = new Color(125f / 255f, 101f / 255f, 101f / 255f);
             tab.GetComponent<Image>().color = color;
@@ -62,9 +72,7 @@ public class UIMenu : UIPanel
     {
         if(tab)
         {
-            Color color = tab.GetComponent<Image>().color;
-            color = new Color(1f, 1f, 1f);
-            tab.GetComponent<Image>().color = color; 
+            tab.GetComponent<Image>().color = normalColor; 
         }
     }
 }
