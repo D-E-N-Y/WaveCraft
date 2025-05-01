@@ -41,9 +41,9 @@ public class UISystem : GameSystem
             return;
         }
         
-        if (CurrentPanel is UIMenu && newPanel is UIMenu)
+        if (newPanel is UIMenu)
         {
-            CloseCurrentPanel();
+            CloseAllPanels();
         }
 
         openPanels[name] = newPanel;

@@ -1,7 +1,7 @@
 public enum ETaskStatus
 {
     Pending,
-    Executing,
+    Execured,
     Canceled,
     Completed
 }

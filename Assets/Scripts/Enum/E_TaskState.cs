@@ -1,5 +1,7 @@
 public enum E_TaskState
 {
     Pending,
-    Execured
+    Execured,
+    Canceled,
+    Completed
 }

@@ -18,6 +18,8 @@ public class TaskSystem : GameSystem
         tasks = new Dictionary<E_TaskState, List<Task>>();
         tasks[E_TaskState.Pending] = new List<Task>();
         tasks[E_TaskState.Execured] = new List<Task>();
+        tasks[E_TaskState.Canceled] = new List<Task>();
+        tasks[E_TaskState.Completed] = new List<Task>();
 
         workers = new List<UP_Worker>();
     }

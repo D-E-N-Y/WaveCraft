@@ -35,6 +35,6 @@ public class UI_BuildingSlot : MonoBehaviour
         }
         
         BuildSystem.current.InitializeWithObject(building);
-        UISystem.current.CloseCurrentPanel();
+        UISystem.current.CloseAllPanels();
     }
 }

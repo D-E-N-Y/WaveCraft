@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIClosePanelButton : MonoBehaviour
+public class UICloseCurrentPanelButton : MonoBehaviour
 {
     void Start()
     {
