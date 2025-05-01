@@ -74,7 +74,7 @@ public class UI_TasksContainer : MonoBehaviour
             }
         }
 
-        foreach(UI_Task task in transform.GetComponentsInChildren<UI_Task>())
+        foreach(UI_Task task in transform.GetComponentsInChildren<UI_Task>(true))
         {
             tasks.Add(task);
             task.gameObject.SetActive(false);
@@ -82,17 +82,18 @@ public class UI_TasksContainer : MonoBehaviour
 
         if(TaskSystem.current.GetCount() == 0) return;
 
-        int start = 0;
-        foreach(E_TaskState type in Enum.GetValues(typeof(E_TaskState)))
+        int taskIndex = 0;
+        foreach (E_TaskState type in Enum.GetValues(typeof(E_TaskState)))
         {
-            if(ui_statusFilter.values[type])
+            if (ui_statusFilter.values[type])
             {
-                for(int i = start; i < TaskSystem.current.GetTasks(type).Count; i++)
+                var stateTasks = TaskSystem.current.GetTasks(type);
+                
+                for (int i = 0; i < stateTasks.Count; i++)
                 {
-                    InitializeTask(tasks[i], type, i - start);
+                    InitializeTask(tasks[taskIndex], type, i);
+                    taskIndex++;
                 }
-
-                start += TaskSystem.current.GetTasks(type).Count;
             }
         }
     }
@@ -102,8 +103,6 @@ public class UI_TasksContainer : MonoBehaviour
         ui_task.Initialize(TaskSystem.current.GetTasks(state)[i]);
         
         if(!ui_typeFilter.values[ui_task.task.type]) return;
-
-        Debug.Log($"{ui_task.task.type} {ui_typeFilter.values[ui_task.task.type]}");
 
         ui_task.gameObject.SetActive(true);
         

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -95,8 +96,15 @@ public class CameraControler : MonoBehaviour
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * movementTime);
     }
 
+    private bool isDrag = false;
     private void HandleMouseInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) 
+        {
+            isDrag = false;
+            return;
+        }
+        
         // move
         if(Input.GetMouseButtonDown((int)MouseButton.Right))
         {
@@ -107,9 +115,11 @@ public class CameraControler : MonoBehaviour
 
             if(plane.Raycast(ray, out entry))
                 dragStartPosition = ray.GetPoint(entry);
+
+            isDrag = true;
         }
 
-        if(Input.GetMouseButton((int)MouseButton.Right))
+        if(Input.GetMouseButton((int)MouseButton.Right) && isDrag)
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -122,6 +132,11 @@ public class CameraControler : MonoBehaviour
 
                 newPosition = transform.position + dragStartPosition - dragCurrentPosition;
             }
+        }
+
+        if(Input.GetMouseButtonUp((int)MouseButton.Right))
+        {
+            isDrag = false;
         }
 
 
@@ -178,10 +193,10 @@ public class CameraControler : MonoBehaviour
         
         // zoom
         if(Input.GetKey(KeyCode.Z))
-            newZoom += (cameraTransform.localPosition * -zoomAmount / 2);
+            newZoom += (cameraTransform.localPosition * -zoomAmount / 4);
         
         if(Input.GetKey(KeyCode.X))
-            newZoom -= (cameraTransform.localPosition * -zoomAmount / 2);
+            newZoom -= (cameraTransform.localPosition * -zoomAmount / 4);
 
         if(newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);

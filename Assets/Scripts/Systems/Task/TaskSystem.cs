@@ -39,6 +39,8 @@ public class TaskSystem : GameSystem
         {
             worker.AddTask(task);
             tasks[E_TaskState.Execured].Add(task);
+            task.SetState(E_TaskState.Execured);
+            
             tasks[E_TaskState.Pending].Remove(task);
 
             UpdateTasks?.Invoke();
@@ -54,8 +56,19 @@ public class TaskSystem : GameSystem
     public void DoTask(Task task, UP_Worker worker)
     {
         worker.AddTask(task);
+        task.SetWorker(worker);
+
         tasks[E_TaskState.Execured].Add(task);
-        tasks[E_TaskState.Pending].Remove(task);
+        task.SetState(E_TaskState.Execured);
+
+        if(tasks[E_TaskState.Pending].Contains(task))
+        {
+            tasks[E_TaskState.Pending].Remove(task);
+        } 
+        if(tasks[E_TaskState.Canceled].Contains(task))
+        {
+            tasks[E_TaskState.Canceled].Remove(task);
+        } 
 
         UpdateTasks?.Invoke();
     }
@@ -84,6 +97,10 @@ public class TaskSystem : GameSystem
     public void CompleteTask(Task task)
     {
         tasks[E_TaskState.Execured].Remove(task);
+        
+        tasks[E_TaskState.Completed].Add(task);
+        task.SetState(E_TaskState.Completed);
+        
         UpdateTasks?.Invoke();
 
         if(tasks[E_TaskState.Pending].Count > 0)
@@ -95,6 +112,12 @@ public class TaskSystem : GameSystem
     public void CancelTask(Task task, E_TaskState state)
     {
         tasks[state].Remove(task);
+        
+        tasks[E_TaskState.Canceled].Add(task);
+        task.SetState(E_TaskState.Canceled);
+
+        task.ResetWorker();
+
         UpdateTasks?.Invoke();
     }
 

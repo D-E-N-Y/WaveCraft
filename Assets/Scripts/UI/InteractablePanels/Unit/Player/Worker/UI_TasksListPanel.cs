@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UI_TasksListPanel : MonoBehaviour
@@ -30,11 +31,11 @@ public class UI_TasksListPanel : MonoBehaviour
     {
         taskPrefabs.ForEach(x => x.gameObject.SetActive(false));
 
-        List<Task> pendingTasks = TaskSystem.current.GetTasks(E_TaskState.Pending);
-        for(int i = 0; i < pendingTasks.Count; i++)
+        List<Task> avaliableTasks = TaskSystem.current.GetTasks(E_TaskState.Pending).Concat(TaskSystem.current.GetTasks(E_TaskState.Canceled)).ToList();
+        for(int i = 0; i < avaliableTasks.Count; i++)
         {
             taskPrefabs[i].gameObject.SetActive(true);
-            taskPrefabs[i].Initialize(pendingTasks[i]);
+            taskPrefabs[i].Initialize(avaliableTasks[i]);
         }
     }
 

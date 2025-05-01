@@ -50,6 +50,6 @@ public class UI_Task : MonoBehaviour
                 break;
         }
 
-        ui_status.text = task.status.ToString();
+        ui_status.text = task.state.ToString();
     }
 }
