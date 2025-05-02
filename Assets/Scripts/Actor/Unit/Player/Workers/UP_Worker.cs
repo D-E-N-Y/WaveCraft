@@ -123,8 +123,6 @@ public class UP_Worker : U_Player
 
     public void CancelTask(Task task)
     {
-        TaskSystem.current.CancelTask(task, E_TaskState.Execured);
-
         if(tasks[0] == task)
         {
             tasks.Remove(task);
@@ -149,24 +147,26 @@ public class UP_Worker : U_Player
             tasks.Remove(task);
             UpdateTasks?.Invoke();
         }
+
+        TaskSystem.current.CancelTask(task);
     }
 
     private void CompleteTask(Task task)
     {
-        TaskSystem.current.CompleteTask(task);
-        
         tasks.Remove(task);
         UpdateTasks?.Invoke();
         
         state = E_WorkerState.Idle;
 
+        TaskSystem.current.CompleteTask(task);
         DoTask();
     }
 
     #endregion
 
     public bool HasFreeTaskSpace() => limitTasks > tasks.Count;
-    
+    public int GetFreeSlots() => limitTasks - tasks.Count;
+
     public bool CheckFreeSpaceMineAmount() => maxMineAmount > GetCurrentMineAmount();
     public int GetMaxMineAmount() => maxMineAmount;
 

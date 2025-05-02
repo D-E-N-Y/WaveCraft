@@ -7,6 +7,7 @@ public class TaskSystem : GameSystem
     static public TaskSystem current;
 
     public Action UpdateTasks;
+    public Action UpdateWorkers;
 
     private Dictionary<E_TaskState, List<Task>> tasks;
     private List<UP_Worker> workers;    
@@ -109,9 +110,9 @@ public class TaskSystem : GameSystem
         }
     }
 
-    public void CancelTask(Task task, E_TaskState state)
+    public void CancelTask(Task task)
     {
-        tasks[state].Remove(task);
+        tasks[E_TaskState.Execured].Remove(task);
         
         tasks[E_TaskState.Canceled].Add(task);
         task.SetState(E_TaskState.Canceled);
@@ -124,6 +125,7 @@ public class TaskSystem : GameSystem
     public void AddWorker(UP_Worker worker)
     {
         workers.Add(worker);
+        UpdateWorkers?.Invoke();
 
         if(tasks.ContainsKey(E_TaskState.Pending) && tasks[E_TaskState.Pending].Count > 0)
         {
@@ -131,9 +133,12 @@ public class TaskSystem : GameSystem
         }
     }
 
+
+
     public void RemoveWorker(UP_Worker worker)
     {
         workers.Remove(worker);
+        UpdateWorkers?.Invoke();
     }
 
     public List<Task> GetTasks(E_TaskState state) => tasks[state];

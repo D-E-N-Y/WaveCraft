@@ -65,7 +65,7 @@ public class UI_TasksContainer : MonoBehaviour
     {
         tasks = new List<UI_Task>();
         
-        int dif = TaskSystem.current.GetCount() - transform.GetComponentsInChildren<UI_Task>().Length;
+        int dif = TaskSystem.current.GetCount() - transform.GetComponentsInChildren<UI_Task>(true).Length;
         if(dif > 0)
         {
             for(int i = 0; i < dif; i++)

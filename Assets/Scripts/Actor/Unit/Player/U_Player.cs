@@ -14,12 +14,15 @@ public class U_Player : Unit
         "Grimwald Forneyg", "Aldwin Frye"
     }; 
 
+    [SerializeField] protected EVillageType type;
+    [SerializeField] protected EVillageType Type() => type;
+
     public override void Initialize()
     {
         base.Initialize();
 
         nameActor = names[Random.Range(0, names.Length)];
 
-        VillageSystem.current.AddVillage(this);
+        VillageSystem.current.AddVillage(type, this);
     }
 }

@@ -9,14 +9,19 @@ public class VillageSystem : GameSystem
     public Action UpdateCurrentAmount;
 
     private int maxAmount;
-    private List<U_Player> villages;
+    private Dictionary<EVillageType, List<U_Player>> villages;
     private List<IResidential> residentials;
 
     public override void Initialize()
     {
         current = this;
 
-        villages = new List<U_Player>();
+        villages = new Dictionary<EVillageType, List<U_Player>>();
+        villages[EVillageType.Worker] = new List<U_Player>();
+        villages[EVillageType.Warrior] = new List<U_Player>();
+        villages[EVillageType.Archer] = new List<U_Player>();
+        villages[EVillageType.Mage] = new List<U_Player>();
+
         residentials = new List<IResidential>();
         maxAmount = 0;
     }
@@ -25,15 +30,15 @@ public class VillageSystem : GameSystem
     public int GetCurrentAmount() => villages.Count;
     public int GetMaxAmount() => maxAmount;
 
-    public void AddVillage(U_Player village) 
+    public void AddVillage(EVillageType type, U_Player village) 
     {
-        villages.Add(village);
+        villages[type].Add(village);
         UpdateCurrentAmount?.Invoke();
     }
 
-    public void RemoveVillage(U_Player village) 
+    public void RemoveVillage(EVillageType type, U_Player village) 
     {
-        villages.Remove(village);
+        villages[type].Remove(village);
         UpdateCurrentAmount?.Invoke();
     }
     
@@ -50,4 +55,7 @@ public class VillageSystem : GameSystem
         maxAmount -= residential.GetVillageAmount();
         UpdateMaxAmount?.Invoke();
     }
+
+    public int GetCount(EVillageType type) => villages[type].Count;
+    public List<U_Player> GetVillages(EVillageType type) => villages[type];
 }
