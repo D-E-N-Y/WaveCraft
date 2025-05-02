@@ -41,7 +41,16 @@ public class UIMenu : UIPanel
     {
         if(section)
         {
+            section.SetActive(false);
+        }
+    }
+
+    public void CloseCurrentSection()
+    {
+        if(openSection != null)
+        {
             openSection.SetActive(false);
+            openSection = null;
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UP_Worker : U_Player
 {
     public Action UpdateTasks;
+    public Action UpdateState;
     
     [SerializeField, Range(1, 10)] private int limitTasks;
     public List<Task> tasks { get; private set; }
@@ -72,6 +73,8 @@ public class UP_Worker : U_Player
     public void AddTask(Task task)
     {
         tasks.Add(task);
+        task.SetWorker(this);
+        
         UpdateTasks?.Invoke();
 
         DoTask();
@@ -112,6 +115,9 @@ public class UP_Worker : U_Player
         pickaxePrefab.SetActive(false);
 
         state = E_WorkerState.Idle;
+
+        tasks[0].Update?.Invoke();
+        UpdateState?.Invoke();
     }
 
     public void ContinueTask()
@@ -119,6 +125,9 @@ public class UP_Worker : U_Player
         isStopTask = false;
         
         DoTask();
+
+        tasks[0].Update?.Invoke();
+        UpdateState?.Invoke();
     }
 
     public void CancelTask(Task task)
@@ -148,6 +157,7 @@ public class UP_Worker : U_Player
             UpdateTasks?.Invoke();
         }
 
+        task.ResetWorker();
         TaskSystem.current.CancelTask(task);
     }
 
@@ -166,6 +176,7 @@ public class UP_Worker : U_Player
 
     public bool HasFreeTaskSpace() => limitTasks > tasks.Count;
     public int GetFreeSlots() => limitTasks - tasks.Count;
+    public Task GetCurrentTask() => tasks.Count > 0 ? tasks[0] : null;
 
     public bool CheckFreeSpaceMineAmount() => maxMineAmount > GetCurrentMineAmount();
     public int GetMaxMineAmount() => maxMineAmount;

@@ -39,6 +39,7 @@ public class TaskSystem : GameSystem
         if(worker)
         {
             worker.AddTask(task);
+            
             tasks[E_TaskState.Execured].Add(task);
             task.SetState(E_TaskState.Execured);
             
@@ -122,6 +123,24 @@ public class TaskSystem : GameSystem
         UpdateTasks?.Invoke();
     }
 
+    public void RemoveTask(Task task)
+    {
+        if(task.worker != null)
+        {
+            task.worker.CancelTask(task);
+        }
+        
+        foreach(E_TaskState state in Enum.GetValues(typeof(E_TaskState)))
+        {
+            if(tasks[state].Contains(task))
+            {
+                tasks[state].Remove(task);
+            }
+        }
+
+        UpdateTasks?.Invoke();
+    }
+
     public void AddWorker(UP_Worker worker)
     {
         workers.Add(worker);
@@ -132,8 +151,6 @@ public class TaskSystem : GameSystem
             DoTask(tasks[E_TaskState.Pending][0]);
         }
     }
-
-
 
     public void RemoveWorker(UP_Worker worker)
     {

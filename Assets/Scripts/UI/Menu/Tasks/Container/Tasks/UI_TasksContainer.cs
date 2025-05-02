@@ -15,11 +15,11 @@ public class UI_TasksContainer : MonoBehaviour
     private struct InfoType
     {
         public E_TaskType _type;
-        public GameObject info;
+        public UI_TaskDescription info;
     }
 
     [SerializeField] private List<InfoType> ui_info;
-    private Dictionary<E_TaskType, GameObject> infoType;
+    private Dictionary<E_TaskType, UI_TaskDescription> infoType;
 
     [SerializeField] private GameObject ui_freeWorkers;
 
@@ -42,14 +42,14 @@ public class UI_TasksContainer : MonoBehaviour
 
     private void OnDisable()
     {
-        TaskSystem.current.UpdateTasks -= Initialize;
+        TaskSystem.current.UpdateTasks -= TasksUpdate;
         ui_statusFilter.update -= TasksUpdate;
         ui_typeFilter.update -= TasksUpdate;
     }
 
     private void Initialize()
     {
-        infoType = new Dictionary<E_TaskType, GameObject>();
+        infoType = new Dictionary<E_TaskType, UI_TaskDescription>();
 
         foreach(InfoType current in ui_info)
         {
@@ -107,7 +107,9 @@ public class UI_TasksContainer : MonoBehaviour
         ui_task.gameObject.SetActive(true);
         
         Button _btn = ui_task.transform.GetComponentInChildren<Button>();
-        _btn.onClick.AddListener(() => taskMenu.OpenSection(infoType[ui_task.task.type]));
+
+        _btn.onClick.AddListener(() => infoType[ui_task.task.type].Initialize(ui_task.task));
+        _btn.onClick.AddListener(() => taskMenu.OpenSection(infoType[ui_task.task.type].gameObject));
         _btn.onClick.AddListener(() => taskMenu.SelectTabSection(ui_task.transform.GetChild(0).gameObject));
         // _btn.onClick.AddListener(() => taskMenu.OpenSection(ui_freeWorkers));
     }

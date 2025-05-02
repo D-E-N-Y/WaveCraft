@@ -1,0 +1,111 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class UI_TaskDescription : UIPanel 
+{
+    [SerializeField] private UIMenu ui_menu;
+    
+    [SerializeField] private TextMeshProUGUI ui_nameWorker;
+    [SerializeField] private Toggle ui_autoWorker; 
+    [SerializeField] private Button ui_focusToWorker;
+
+    [SerializeField] private Button ui_stop;
+    [SerializeField] private Button ui_continue;
+    [SerializeField] private Button ui_cancel;
+    [SerializeField] private Button ui_remove;
+
+    protected Task task;
+
+    private void OnEnable()
+    {
+        task.Update += UpdateInfo;
+    }
+
+    private void OnDisable()
+    {
+        task.Update -= UpdateInfo;
+    }
+
+    public virtual void Initialize(Task task) 
+    {
+        this.task = task;
+
+        UpdateInfo();
+
+        ui_remove.onClick.RemoveAllListeners();
+        ui_remove.onClick.AddListener(() => TaskSystem.current.RemoveTask(task));
+        ui_remove.onClick.AddListener(() => ui_menu.CloseCurrentSection());
+    }
+
+    protected virtual void UpdateInfo()
+    {
+        ui_autoWorker.isOn = task.isAutoWorker;
+        
+        UpdateFocusWorkerButton();
+        UpdateControls();
+    }
+
+    private void UpdateFocusWorkerButton()
+    {
+        if(task.worker != null)
+        {
+            ui_nameWorker.text = task.worker.nameActor;
+            
+            ui_focusToWorker.onClick.AddListener(() => FocusTo(task.worker));
+            ui_focusToWorker.interactable = true;
+        }
+        else
+        {
+            ui_nameWorker.text = "none";
+            
+            ui_focusToWorker.onClick.RemoveAllListeners();
+            ui_focusToWorker.interactable = false;
+        }
+    }
+
+    private void UpdateControls()
+    {
+        ui_continue.onClick.RemoveAllListeners();
+        ui_continue.interactable = false;
+
+        ui_stop.onClick.RemoveAllListeners();
+        ui_stop.interactable = false;
+
+        ui_cancel.onClick.RemoveAllListeners();
+        ui_cancel.interactable = false;
+        
+        if(task.worker != null)
+        {
+            if(task.worker.GetCurrentTask() != task) return;
+            
+            if(task.worker.isStopTask)
+            {
+                ui_continue.onClick.AddListener(() => task.worker.ContinueTask());
+                ui_continue.gameObject.SetActive(true);
+                ui_continue.interactable = true;
+
+                ui_stop.gameObject.SetActive(false);
+            }
+            else
+            {
+                ui_stop.onClick.AddListener(() => task.worker.StopTask());
+                ui_stop.gameObject.SetActive(true);
+                ui_stop.interactable = true;
+
+                ui_continue.gameObject.SetActive(false);
+            }
+            
+            ui_cancel.onClick.AddListener(() => task.worker.CancelTask(task));
+            ui_cancel.interactable = true;
+        }
+    } 
+
+    protected void FocusTo(Actor actor)
+    {
+        if(actor == null) return;
+
+        FocusSystem.current.FocusToObject(actor);
+        UISystem.current.CloseAllPanels();
+    }
+}

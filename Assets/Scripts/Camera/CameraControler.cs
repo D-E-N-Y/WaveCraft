@@ -204,4 +204,10 @@ public class CameraControler : MonoBehaviour
         if(newZoom.z > -10f)
             newZoom = new Vector3(newZoom.x, 10f, -10f);
     }
+
+    public void FocusToObject(Actor actor)
+    {
+        newPosition = actor.GetPosition()[0].position;
+        newZoom = new Vector3(newZoom.x, 100f, -100f);
+    }
 }

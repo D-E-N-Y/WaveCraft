@@ -44,20 +44,15 @@ public class UI_Worker : UI_InteractablePanel
 
         RefreshTasks();
         worker.UpdateTasks += RefreshTasks;
-        
-        if(worker.isStopTask)
-        {
-            ui_stateTask.text = "Continue";
-        }
-        else
-        {
-            ui_stateTask.text = "Stop";
-        }
+        worker.UpdateState += RefreshState;
+
+        RefreshState();
     }
 
     void OnDisable()
     {
         worker.UpdateTasks -= RefreshTasks;
+        worker.UpdateState -= RefreshState;
         ui_tasksListPanel.Hide();
     }
 
@@ -72,16 +67,26 @@ public class UI_Worker : UI_InteractablePanel
         }
     }
 
-    public void SetStateTask()
+    public void RefreshState()
     {
-        if(!worker.isStopTask)
+        if(worker.isStopTask)
         {
             ui_stateTask.text = "Continue";
-            worker.StopTask();
         }
         else
         {
             ui_stateTask.text = "Stop";
+        }
+    }
+
+    public void SetStateTask()
+    {
+        if(!worker.isStopTask)
+        {
+            worker.StopTask();
+        }
+        else
+        {
             worker.ContinueTask();
         }
     }
