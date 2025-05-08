@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MiningTaskHandler : ITaskHandler
 {
+    MiningTask miningTask;
+    
     public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
     {
         // check have resource
@@ -12,7 +14,7 @@ public class MiningTaskHandler : ITaskHandler
             yield return StoreResources(worker);
         }
         
-        MiningTask miningTask = (MiningTask)task;
+        miningTask = (MiningTask)task;
         Resource resource = miningTask.resource;
         int currentMine = 0;
 
@@ -75,8 +77,19 @@ public class MiningTaskHandler : ITaskHandler
                     IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, resource);
                     IPosition position = (IPosition)processor;
                     
+                    if(processor is IModule)
+                    {
+                        miningTask.SetProcessor(((IModule)processor).GetBuilding());
+                    }
+                    else
+                    {
+                        miningTask.SetProcessor((Building)processor);
+                    }
+
                     yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
                     worker.animator.SetBool("isMove", false);
+
+                    miningTask.SetProcessor(null);
 
                     // Store resources
                     processor.AddResources(worker.GetCurrentMineAmountByResource(resource));

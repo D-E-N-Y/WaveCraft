@@ -21,7 +21,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         storages = new List<TH_Storage>();
         foreach(TH_Storage storage in GetComponents<TH_Storage>())
         {
-            storage.Initialize();
+            storage.Initialize(this);
             storages.Add(storage);
             StorageSystem.current.AddStorage(storage, storage.GetTypeResource());
             ResourceSystem.current.AddResources(storage.GetTypeResource(), 0);
@@ -34,7 +34,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         processors = new List<TH_Processor>();
         foreach(TH_Processor processor in GetComponents<TH_Processor>())
         {
-            processor.Initialize();
+            processor.Initialize(this);
             processors.Add(processor);
             ProcessorSystem.current.AddProcessor(processor.GetTypeResource(), processor);
         }

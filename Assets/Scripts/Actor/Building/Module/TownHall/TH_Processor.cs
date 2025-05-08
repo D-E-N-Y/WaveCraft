@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TH_Processor : MonoBehaviour, IProcessor, IPosition
+public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
 {
     public Action<E_Resource> UpdadeProcessedAmount;
     public Action<E_Resource> UpdateRawAmount;
@@ -17,8 +17,10 @@ public class TH_Processor : MonoBehaviour, IProcessor, IPosition
     private int rawAmount;
     private int processedAmount;
 
-    public virtual void Initialize()
+    public override void Initialize(Building building)
     {
+        base.Initialize(building);
+
         rawAmount = 0;
         processedAmount = 0;
     }

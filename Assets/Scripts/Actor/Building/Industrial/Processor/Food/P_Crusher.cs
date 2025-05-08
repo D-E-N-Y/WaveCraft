@@ -9,9 +9,9 @@ public class P_Crusher : TH_Processor
 
     private Coroutine rotateCrusher;
 
-    public override void Initialize()
+    public override void Initialize(Building building)
     {
-        base.Initialize();
+        base.Initialize(building);
         speedCrusher = 7f;
     }
 

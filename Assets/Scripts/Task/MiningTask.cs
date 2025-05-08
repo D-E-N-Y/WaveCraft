@@ -6,6 +6,8 @@ public class MiningTask : Task
     public Resource resource { private set; get; }
     public E_Resource resourceType { private set; get; }
     public int resourceAmount { private set; get; }
+    
+    public Building processor;
 
     public MiningTask(Resource resource)
     {
@@ -22,5 +24,11 @@ public class MiningTask : Task
 
         this.resourceType = resource;
         this.resourceAmount = resourceAmount;
+    }
+
+    public void SetProcessor(Building processor)
+    {
+        this.processor = processor;
+        Update?.Invoke();
     }
 }

@@ -59,7 +59,7 @@
     <UnityVersion>2022.3.60f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="/home/deny/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.1.1/Analyzers/Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="/home/deny/.vscode/extensions/visualstudiotoolsforunity.vstuc-1.1.2/Analyzers/Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="/home/deny/Unity/Hub/Editor/2022.3.60f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll" />
     <Analyzer Include="/home/deny/Unity/Hub/Editor/2022.3.60f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
@@ -71,6 +71,7 @@
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Gate/D_Gate.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Wall/E_WallType.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" />
+    <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Processor.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Production/IProdiction.cs" />
     <Compile Include="Assets/Scripts/Systems/Bootstrap/GameplayBootstrap.cs" />
     <Compile Include="Assets/ImportAssets/Enemy/Kevin Iglesias/Characters/Humanoid Giant/Demo Scene/Scripts/HumanoidGiantDemo.cs" />
@@ -92,12 +93,14 @@
     <Compile Include="Assets/Scripts/Systems/ProcessorSystem/ProcessorSystem.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/E_WorkerState.cs" />
+    <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Storage.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/TownHall/UI_TownHall.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Workers/UI_WorkersContainer.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/UP_Worker.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Gate/UI_Gate.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Filter/UI_TypeFilter.cs" />
+    <Compile Include="Assets/Scripts/Actor/Building/Industrial/IIndustrial.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_TaskWorker.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Wall/UI_Wall.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Wall/D_Wall.cs" />
@@ -105,9 +108,9 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeB.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Filter/UI_StatusFilter.cs" />
     <Compile Include="Assets/Scripts/Systems/UI/UISystem.cs" />
-    <Compile Include="Assets/Scripts/Actor/Building/Town Hall/TH_Storage.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/Mining.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_Worker.cs" />
+    <Compile Include="Assets/Scripts/Actor/Building/Module/IModule.cs" />
     <Compile Include="Assets/Scripts/Systems/GameSystem.cs" />
     <Compile Include="Assets/Scripts/Task/Task.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeA.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/StoreTaskHandler.cs" />
     <Compile Include="Assets/Scripts/UI/World/UI_WorldRotation.cs" />
     <Compile Include="Assets/Scripts/Task/DestroyTask.cs" />
+    <Compile Include="Assets/Scripts/Actor/Building/Module/BuildingModule.cs" />
     <Compile Include="Assets/Scripts/UI/Blackout/UIStartScene.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" />
     <Compile Include="Assets/Scripts/UI/Input/UIInput.cs" />
@@ -218,7 +222,6 @@
     <Compile Include="Assets/Scripts/Systems/Focus/FocusSystem.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/IStorage.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processor/IProcessor.cs" />
-    <Compile Include="Assets/Scripts/Actor/Building/Town Hall/TH_Processor.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark03.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextEventHandler.cs" />
     <Compile Include="Assets/Scripts/UI/Provider/UIProvider.cs" />

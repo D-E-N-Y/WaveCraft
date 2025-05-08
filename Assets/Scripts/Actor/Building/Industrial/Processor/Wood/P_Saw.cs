@@ -9,9 +9,9 @@ public class P_Saw : TH_Processor
 
     private Coroutine rotateSaw;
 
-    public override void Initialize()
+    public override void Initialize(Building building)
     {
-        base.Initialize();
+        base.Initialize(building);
 
         speedSaw = 10f;
     }

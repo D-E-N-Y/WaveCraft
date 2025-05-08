@@ -150,7 +150,7 @@ public class UI_TownHall : UI_InteractablePanel
         
         if(processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
-            StoreTask task = new StoreTask(resource, processor);
+            StoreTask task = new StoreTask(resource, townHall);
             TaskSystem.current.AddTask(task);
         }
     }

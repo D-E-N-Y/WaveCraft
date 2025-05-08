@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class B_Industrial : Building
+public class B_Industrial : Building, IIndustrial
 {
     [SerializeField] protected E_Resource resource;
     
@@ -9,8 +9,5 @@ public class B_Industrial : Building
         buildingType = E_BuildingType.Industrial;
     }
 
-    public E_Resource GetTypeResource()
-    {
-        return resource;
-    }
+    public E_Resource GetTypeResource() => resource;
 }

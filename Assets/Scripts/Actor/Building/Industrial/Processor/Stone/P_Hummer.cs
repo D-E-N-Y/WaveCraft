@@ -9,10 +9,10 @@ public class P_Hummer : TH_Processor
     private float speedHummer = 10f;
 
     private Coroutine rotateHummer; 
-
-    public override void Initialize()
+    
+    public override void Initialize(Building building)
     {
-        base.Initialize();
+        base.Initialize(building);
 
         speedHummer = 10f;
     }

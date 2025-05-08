@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TH_Storage : MonoBehaviour, IStorage, IPosition
+public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
 {
     public Action<E_Resource> UpdateCurrentAmount;
     
@@ -13,8 +13,10 @@ public class TH_Storage : MonoBehaviour, IStorage, IPosition
     [SerializeField] private GameObject[] resourcePrefabs;
     [SerializeField] private List<Transform> actorPositions;
 
-    public void Initialize()
+    public override void Initialize(Building building)
     {
+        base.Initialize(building);
+
         currentAmount = 0;
     }
 
