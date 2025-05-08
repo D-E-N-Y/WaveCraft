@@ -8,13 +8,16 @@ public class DestroyTaskHandler : ITaskHandler
     {
         DestroyTask destroyTask = (DestroyTask)task;
         
+        destroyTask.SetExecutingState(EDestroyExecutingState.MoveToBuilding);
+        
         // move to building
         worker.animator.SetBool("isMove", true);
         yield return worker.movement.MoveTo(destroyTask.building.GetPosition(), UnitMovement.E_MoveTo.Object);
-
         worker.animator.SetBool("isMove", false);
 
-        // build
+        destroyTask.SetExecutingState(EDestroyExecutingState.Destruction);
+
+        // destruction
         worker.animator.SetTrigger("Build");
         worker.ActiceInsturcent(UP_Worker.E_Instrument.Hammer);
         float elapsedTime = 0f;
@@ -22,9 +25,8 @@ public class DestroyTaskHandler : ITaskHandler
         {
             elapsedTime += Time.deltaTime;
 
-            // Update UI
-
-            // Debug.Log($"Building progress: {elapsedTime / task.timeToBuild * 100}%");
+            float progress = Time.deltaTime / destroyTask.timeToDestroy * 100;
+            destroyTask.SetProgress(progress);
 
             yield return null;
         }
@@ -40,6 +42,8 @@ public class DestroyTaskHandler : ITaskHandler
         {
             ResourceSystem.current.AddResources(_cost.resourse, _cost.count);
         }
+
+        destroyTask.SetExecutingState(EDestroyExecutingState.none);
 
         // complete
         onComplete?.Invoke();

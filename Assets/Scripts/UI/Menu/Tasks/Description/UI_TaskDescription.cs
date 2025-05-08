@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class UI_TaskDescription : UIPanel 
 {
     [SerializeField] private UIMenu ui_menu;
-    
+
+    [SerializeField] protected TextMeshProUGUI ui_progress;
+    [SerializeField] protected TextMeshProUGUI ui_goal;
+
     [SerializeField] private TextMeshProUGUI ui_nameWorker;
     [SerializeField] private Toggle ui_autoWorker; 
     [SerializeField] private Button ui_focusToWorker;
@@ -42,6 +45,9 @@ public class UI_TaskDescription : UIPanel
     {
         ui_autoWorker.isOn = task.isAutoWorker;
         
+        ui_progress.text = task.progress.ToString("F0");
+        ui_goal.text = task.goal.ToString();
+
         UpdateFocusWorkerButton();
         UpdateControls();
     }
@@ -107,5 +113,19 @@ public class UI_TaskDescription : UIPanel
 
         FocusSystem.current.FocusToObject(actor);
         UISystem.current.CloseAllPanels();
+    }
+
+    protected void SetStatus(GameObject ui_status)
+    {
+        if(task.state != E_TaskState.Completed)
+        {
+            ui_status.GetComponent<TextMeshProUGUI>().text = E_TaskState.Pending.ToString();
+        }
+        else
+        {
+            ui_status.GetComponent<TextMeshProUGUI>().text = task.state.ToString();
+        }
+
+        ui_status.SetActive(true);
     }
 }

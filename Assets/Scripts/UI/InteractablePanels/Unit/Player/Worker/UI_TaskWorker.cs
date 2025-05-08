@@ -44,7 +44,7 @@ public class UI_TaskWorker : MonoBehaviour
                 break;
 
             case MiningTask miningTask:
-                contexText.text = $"{task.type} {miningTask.resourceType} {miningTask.resourceAmount}";
+                contexText.text = $"{task.type} {miningTask.resourceType} {miningTask.goal}";
                 break;
 
             case StoreTask storeTask:

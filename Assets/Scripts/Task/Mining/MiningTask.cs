@@ -1,13 +1,11 @@
-using System.Collections.Generic;
-using UnityEngine;
-
 public class MiningTask : Task
 {
     public Resource resource { private set; get; }
     public E_Resource resourceType { private set; get; }
-    public int resourceAmount { private set; get; }
     
     public Building processor;
+
+    public EMiningExecutingState executingState { private set; get; } = EMiningExecutingState.none;
 
     public MiningTask(Resource resource)
     {
@@ -15,7 +13,8 @@ public class MiningTask : Task
 
         this.resource = resource;
         resourceType = resource.Type();
-        resourceAmount = (int)resource.GetCurrentHP();
+        
+        goal = resource.GetCurrentHP();
     }
 
     public MiningTask(E_Resource resource, int resourceAmount)
@@ -23,12 +22,18 @@ public class MiningTask : Task
         type = E_TaskType.Mining;
 
         this.resourceType = resource;
-        this.resourceAmount = resourceAmount;
+        goal = resourceAmount;
     }
 
     public void SetProcessor(Building processor)
     {
         this.processor = processor;
+        Update?.Invoke();
+    }
+
+    public void SetExecutingState(EMiningExecutingState state)
+    {
+        executingState = state;
         Update?.Invoke();
     }
 }

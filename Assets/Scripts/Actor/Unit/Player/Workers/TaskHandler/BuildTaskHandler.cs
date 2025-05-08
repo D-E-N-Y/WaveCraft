@@ -8,13 +8,15 @@ public class BuildTaskHandler : ITaskHandler
     {
         BuildTask buildTask = (BuildTask)task;
         
+        buildTask.SetExecutingState(EBuildExecutingState.MoveToBuilding);
+
         // move to building
         worker.animator.SetBool("isMove", true);
         yield return worker.movement.MoveTo(buildTask.building.GetPosition(), UnitMovement.E_MoveTo.Object);
         
         worker.animator.SetBool("isMove", false);
 
-        // Debug.Log("start build");
+        buildTask.SetExecutingState(EBuildExecutingState.Construstion);
 
         // build
         worker.animator.SetTrigger("Build");
@@ -24,9 +26,8 @@ public class BuildTaskHandler : ITaskHandler
         {
             elapsedTime += Time.deltaTime;
 
-            // Update UI
-
-            // Debug.Log($"Building progress: {elapsedTime / task.timeToBuild * 100}%");
+            float progress = Time.deltaTime / buildTask.building.GetTimeToBuild() * 100;
+            buildTask.SetProgress(progress);
 
             yield return null;
         }
@@ -36,6 +37,8 @@ public class BuildTaskHandler : ITaskHandler
 
         buildTask.building.Built();
         
+        buildTask.SetExecutingState(EBuildExecutingState.none);
+
         // complete
         onComplete?.Invoke();
     }

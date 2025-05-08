@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class Task
 {
@@ -8,6 +9,9 @@ public class Task
     public E_TaskState state { protected set; get; }
     public UP_Worker worker { protected set; get; }
     public bool isAutoWorker { protected set; get; } = true;
+
+    public float goal { protected set; get; }
+    public float progress { protected set; get; } = 0;
 
     public void SetState(E_TaskState state)
     {
@@ -30,6 +34,13 @@ public class Task
     public void SetAutoWorker(bool value) 
     {
         isAutoWorker = value;
+        Update?.Invoke();
+    }
+
+    public void SetProgress(float value)
+    {
+        progress += value;
+        progress = Mathf.Clamp(progress, 0, goal);
         Update?.Invoke();
     }
 }

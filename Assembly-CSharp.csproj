@@ -68,6 +68,7 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexJitter.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/SimpleScript.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Tasks/UI_TasksContainer.cs" />
+    <Compile Include="Assets/Scripts/Task/Store/E_StoreExecutingState.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Gate/D_Gate.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Wall/E_WallType.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" />
@@ -93,6 +94,8 @@
     <Compile Include="Assets/Scripts/Systems/ProcessorSystem/ProcessorSystem.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/E_WorkerState.cs" />
+    <Compile Include="Assets/Scripts/Task/Mining/E_MiningExecutingState.cs" />
+    <Compile Include="Assets/Scripts/Task/Destroy/DestroyTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Storage.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/TownHall/UI_TownHall.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Assets/Scripts/Structures/S_Cost.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Description/UI_StoreDescription.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Resource/UI_Resource.cs" />
+    <Compile Include="Assets/Scripts/Task/Destroy/E_DestroyExecutingState.cs" />
     <Compile Include="Assets/Scripts/Systems/Build/BaseBuild.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TextConsoleSimulator.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/SkewTextExample.cs" />
@@ -139,7 +143,6 @@
     <Compile Include="Assets/Shaders/Outline by The Developer/Example Scene/Example Scene/O_ReviewCam.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/ISpawnUnit.cs" />
     <Compile Include="Assets/Scripts/UI/Button/UICloseCurrentPanelButton.cs" />
-    <Compile Include="Assets/Scripts/Task/StoreTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/DestroyTaskHandler.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/UIGameMenu.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
@@ -157,11 +160,11 @@
     <Compile Include="Assets/Scripts/Systems/Resource/ResourceSystem.cs" />
     <Compile Include="Assets/Scripts/UI/Button/UITogglePanelButton.cs" />
     <Compile Include="Assets/ImportAssets/UI/UI pack/Scripts/FillValueNumber.cs" />
-    <Compile Include="Assets/Scripts/Task/MiningTask.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_UiFrameRateCounter.cs" />
     <Compile Include="Assets/ImportAssets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieFree.cs" />
+    <Compile Include="Assets/Scripts/Task/Build/E_BuildExecutingState.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Description/UI_TaskDescription.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Unit.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_TasksListPanel.cs" />
@@ -172,9 +175,9 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ShaderPropAnimator.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/StoreTaskHandler.cs" />
     <Compile Include="Assets/Scripts/UI/World/UI_WorldRotation.cs" />
-    <Compile Include="Assets/Scripts/Task/DestroyTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/BuildingModule.cs" />
     <Compile Include="Assets/Scripts/UI/Blackout/UIStartScene.cs" />
+    <Compile Include="Assets/Scripts/Task/Mining/MiningTask.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" />
     <Compile Include="Assets/Scripts/UI/Input/UIInput.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextInfoDebugTool.cs" />
@@ -199,7 +202,6 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Attack.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Workers/UI_WorkerSlot.cs" />
-    <Compile Include="Assets/Scripts/Task/BuildTask.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/UIMenu.cs" />
     <Compile Include="Assets/Scripts/Systems/Interaction/InteractionSytem.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/I_Storage.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="Assets/Scripts/Actor/Resource/Resource.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Description/UI_BuildDescription.cs" />
     <Compile Include="Assets/Scripts/UI/Blackout/UIBlackBackground.cs" />
+    <Compile Include="Assets/Scripts/Task/Build/BuildTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processor/Wood/P_Saw.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processor/I_Processor.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Town Hall/B_TownHall.cs" />
@@ -216,6 +219,7 @@
     <Compile Include="Assets/Scripts/Camera/RotateCamera.cs" />
     <Compile Include="Assets/ImportAssets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieCameraLogic.cs" />
     <Compile Include="Assets/Scripts/Actor/IPosition.cs" />
+    <Compile Include="Assets/Scripts/Task/Store/StoreTask.cs" />
     <Compile Include="Assets/Scripts/Terrain/TerrainResourceSpawner.cs" />
     <Compile Include="Assets/Scripts/Systems/Bootstrap/Bootstraper.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Mage&apos;s Tower/D_MageTower.cs" />

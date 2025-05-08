@@ -1,9 +1,12 @@
 public class StoreTask : Task
 {
     public E_Resource resource { private set; get; }
+    public int amount { private set; get; }
 
     public Building source { private set; get; }
     public Building storage { private set; get; }
+
+    public EStoreExecutingState executingState { private set; get; } = EStoreExecutingState.none;
 
     public StoreTask(E_Resource resource, Building source)
     {
@@ -11,6 +14,9 @@ public class StoreTask : Task
 
         this.resource = resource;
         this.source = source;
+
+        amount = 0;
+        goal = 100;
     }
 
     public void SetStorage(Building storage) 
@@ -18,4 +24,12 @@ public class StoreTask : Task
         this.storage = storage;
         Update?.Invoke();
     }
+
+    public void SetExecutingState(EStoreExecutingState state)
+    {
+        executingState = state;
+        Update?.Invoke();
+    }
+
+    public void SetAmount(int value) => amount = value;
 }

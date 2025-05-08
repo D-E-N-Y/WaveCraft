@@ -16,21 +16,24 @@ public class MiningTaskHandler : ITaskHandler
         
         miningTask = (MiningTask)task;
         Resource resource = miningTask.resource;
-        int currentMine = 0;
 
         if(!resource)
         {
             // get nearby resource by type
         }
 
-        while (currentMine < miningTask.resourceAmount)
+        while (miningTask.progress < miningTask.goal)
         {
             if(!resource.gameObject.activeSelf) break;
+
+            miningTask.SetExecutingState(EMiningExecutingState.MoveToResource);
 
             // Move to resource
             worker.animator.SetBool("isMove", true);
             yield return worker.movement.MoveTo(resource.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
+
+            miningTask.SetExecutingState(EMiningExecutingState.Mining);
 
             // Mining phase
             worker.ActiceInsturcent(UP_Worker.E_Instrument.Pickaxe);
@@ -40,7 +43,7 @@ public class MiningTaskHandler : ITaskHandler
                 yield return null;
                 yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
 
-                if(currentMine + worker.GetCurrentMineAmount() >= miningTask.resourceAmount)
+                if(miningTask.progress + worker.GetCurrentMineAmount() >= miningTask.goal)
                 {
                     break;
                 }
@@ -54,11 +57,13 @@ public class MiningTaskHandler : ITaskHandler
             worker.animator.Play("Idle");
             worker.DisactiveInstument(UP_Worker.E_Instrument.Pickaxe);
 
-            currentMine += worker.GetCurrentMineAmount();
+            miningTask.SetExecutingState(EMiningExecutingState.MoveToProcessor);
 
             // Move to processor
             yield return StoreResources(worker);
         }
+
+        miningTask.SetExecutingState(EMiningExecutingState.none);
 
         // complete
         onComplete?.Invoke();
@@ -89,6 +94,7 @@ public class MiningTaskHandler : ITaskHandler
                     yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
                     worker.animator.SetBool("isMove", false);
 
+                    miningTask.SetProgress(worker.GetCurrentMineAmount());
                     miningTask.SetProcessor(null);
 
                     // Store resources

@@ -45,6 +45,8 @@ public class StoreTaskHandler : ITaskHandler
                 yield return StoreToStorage(worker);
             }
             
+            storeTask.SetExecutingState(EStoreExecutingState.MoveToSource);
+
             // move to processor
             IPosition position = (IPosition)processor;
             
@@ -52,10 +54,12 @@ public class StoreTaskHandler : ITaskHandler
             yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
             worker.animator.SetBool("isMove", false);
 
+            storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
+
             // store to storage
             worker.AddCurrentStoreAmount(storeTask.resource, processor.Unload());
+            storeTask.SetAmount(worker.GetCurrentStoreAmountByResource(storeTask.resource));
             yield return StoreToStorage(worker);
-            
         }
         else if(production != null)
         {
@@ -65,6 +69,8 @@ public class StoreTaskHandler : ITaskHandler
                 yield return StoreToProcessor(worker);
             }
             
+            storeTask.SetExecutingState(EStoreExecutingState.MoveToSource);
+
             // move to production
             IPosition position = (IPosition)storeTask.source;
 
@@ -72,10 +78,16 @@ public class StoreTaskHandler : ITaskHandler
             yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
             worker.animator.SetBool("isMove", false);
 
+            storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
+
             // store to processor
             worker.AddCurrentMineAmount(storeTask.resource, production.Unload(worker.GetMaxMineAmount()));
+            storeTask.SetAmount(worker.GetCurrentStoreAmountByResource(storeTask.resource));
             yield return StoreToProcessor(worker);
         }
+
+        storeTask.SetExecutingState(EStoreExecutingState.none);
+        storeTask.SetProgress(storeTask.goal);
 
         onComplete?.Invoke();
     }
@@ -97,6 +109,8 @@ public class StoreTaskHandler : ITaskHandler
             {
                 storeTask.SetStorage((Building)processor);
             }
+
+            storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
 
             worker.animator.SetBool("isMove", true);
             yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
@@ -133,11 +147,18 @@ public class StoreTaskHandler : ITaskHandler
                     storeTask.SetStorage((Building)storage);
                 }
 
+                storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
+
                 worker.animator.SetBool("isMove", true);
                 yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
                 worker.animator.SetBool("isMove", false);
 
                 residue = ResourceSystem.current.AddResources(storage, resource, worker.GetCurrentStoreAmountByResource(resource));
+
+                if(residue > 0)
+                {
+                    storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
+                }
             }
             while(residue > 0);
             worker.ClearCurrentStoreAmount(resource);
