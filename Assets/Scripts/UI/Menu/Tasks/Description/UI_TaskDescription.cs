@@ -22,11 +22,6 @@ public class UI_TaskDescription : UIPanel
 
     protected Task task;
 
-    private void OnEnable()
-    {
-        task.Update += UpdateInfo;
-    }
-
     private void OnDisable()
     {
         task.Update -= UpdateInfo;
@@ -34,7 +29,10 @@ public class UI_TaskDescription : UIPanel
 
     public virtual void Initialize(Task task) 
     {
+        if(this.task != null) this.task.Update -= UpdateInfo;
+        
         this.task = task;
+        this.task.Update += UpdateInfo;
 
         UpdateInfo();
 
@@ -45,8 +43,6 @@ public class UI_TaskDescription : UIPanel
 
     protected virtual void UpdateInfo()
     {
-        ui_autoWorker.isOn = task.isAutoWorker;
-        
         ui_progress.text = task.progress.ToString("F0");
         ui_goal.text = task.goal.ToString();
 
@@ -83,17 +79,17 @@ public class UI_TaskDescription : UIPanel
         ui_cancel.onClick.RemoveAllListeners();
         ui_cancel.interactable = false;
         
+        ui_autoWorker.onValueChanged.RemoveAllListeners();
         ui_autoWorker.interactable = false;
+        ui_autoWorker.isOn = task.isAutoWorker;
         if(task.state != E_TaskState.Completed)
         {
             ui_autoWorker.interactable = true;
-            ui_autoWorker.onValueChanged.RemoveAllListeners();
             ui_autoWorker.onValueChanged.AddListener(delegate {
                 ToggleValueChanged(ui_autoWorker);
                 });
         }
         
-
         if(task.worker != null)
         {
             if(task.worker.GetCurrentTask() != task) return;
@@ -122,7 +118,7 @@ public class UI_TaskDescription : UIPanel
 
     private void ToggleValueChanged(Toggle change)
     {
-        task.SetAutoWorker(change.isOn);
+        task.SetAutoWorker(ui_autoWorker.isOn);
     }
 
     protected void FocusTo(Actor actor)

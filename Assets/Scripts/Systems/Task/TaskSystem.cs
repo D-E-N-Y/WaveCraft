@@ -66,7 +66,6 @@ public class TaskSystem : GameSystem
     public void DoTask(Task task, UP_Worker worker)
     {
         worker.AddTask(task);
-        task.SetWorker(worker);
 
         tasks[E_TaskState.Execured].Add(task);
         task.SetState(E_TaskState.Execured);

@@ -21,7 +21,7 @@ public class UI_TasksContainer : MonoBehaviour
     [SerializeField] private List<InfoType> ui_info;
     private Dictionary<E_TaskType, UI_TaskDescription> infoType;
 
-    [SerializeField] private GameObject ui_freeWorkers;
+    [SerializeField] private UI_WorkersContainer ui_freeWorkers;
 
     [SerializeField] private UI_StatusFilter ui_statusFilter;
     [SerializeField] private UI_TypeFilter ui_typeFilter;
@@ -107,10 +107,10 @@ public class UI_TasksContainer : MonoBehaviour
         ui_task.gameObject.SetActive(true);
         
         Button _btn = ui_task.transform.GetComponentInChildren<Button>();
-
+        _btn.onClick.RemoveAllListeners();
         _btn.onClick.AddListener(() => infoType[ui_task.task.type].Initialize(ui_task.task));
         _btn.onClick.AddListener(() => taskMenu.OpenSection(infoType[ui_task.task.type].gameObject));
         _btn.onClick.AddListener(() => taskMenu.SelectTabSection(ui_task.transform.GetChild(0).gameObject));
-        // _btn.onClick.AddListener(() => taskMenu.OpenSection(ui_freeWorkers));
+        _btn.onClick.AddListener(() => ui_freeWorkers.SetTask(ui_task.task));
     }
 }

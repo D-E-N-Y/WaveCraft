@@ -6,11 +6,13 @@ public class UI_WorkersContainer : MonoBehaviour
 {
     [SerializeField] private GameObject ui_workerPref;
     private List<UI_WorkerSlot> workers;
+    private Task openTask;    
 
     private void OnEnable()
     {
         TaskSystem.current.UpdateWorkers += UpdateWorkers;
         TaskSystem.current.UpdateTasks += UpdateWorkers;
+        openTask = null; 
 
         UpdateWorkers();
     }
@@ -47,7 +49,7 @@ public class UI_WorkersContainer : MonoBehaviour
             
             if(!_worker.HasFreeTaskSpace()) continue;
 
-            workers[i].Initialize(_worker);
+            workers[i].Initialize(_worker, openTask);
             workers[i].gameObject.SetActive(true);
         }
 
@@ -60,5 +62,11 @@ public class UI_WorkersContainer : MonoBehaviour
         {   
             workers[i].transform.SetSiblingIndex(i);
         }
+    }
+
+    public void SetTask(Task task)
+    {
+        openTask = task;
+        UpdateWorkers();
     }
 }

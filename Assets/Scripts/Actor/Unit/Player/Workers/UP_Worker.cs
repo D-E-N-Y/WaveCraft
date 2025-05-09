@@ -157,7 +157,6 @@ public class UP_Worker : U_Player
             UpdateTasks?.Invoke();
         }
 
-        task.ResetWorker();
         TaskSystem.current.CancelTask(task);
     }
 
