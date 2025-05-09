@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class UIMenu : UIPanel
 {
-    [SerializeField] Image selectMenu;
+    [SerializeField] private Image selectMenu;
+    
+    [SerializeField] private Color normal, select;
     
     private GameObject openSection;
     private GameObject selectTabSection;
-
-    private Color normalColor;
 
     void OnEnable()
     {
@@ -69,11 +69,7 @@ public class UIMenu : UIPanel
     {
         if(tab)
         {
-            normalColor = tab.GetComponent<Image>().color;
-            
-            Color color = tab.GetComponent<Image>().color;
-            color = new Color(125f / 255f, 101f / 255f, 101f / 255f);
-            tab.GetComponent<Image>().color = color;
+            tab.GetComponent<Image>().color = select;
         }
     }
 
@@ -81,7 +77,7 @@ public class UIMenu : UIPanel
     {
         if(tab)
         {
-            tab.GetComponent<Image>().color = normalColor; 
+            tab.GetComponent<Image>().color = normal; 
         }
     }
 }

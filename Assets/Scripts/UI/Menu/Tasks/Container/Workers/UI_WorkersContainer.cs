@@ -47,7 +47,14 @@ public class UI_WorkersContainer : MonoBehaviour
         {
             UP_Worker _worker = (UP_Worker)VillageSystem.current.GetVillages(EVillageType.Worker)[i];
             
-            if(!_worker.HasFreeTaskSpace()) continue;
+            
+            if(!_worker.HasFreeTaskSpace())
+            {
+                if(!(openTask != null && openTask.worker == _worker))
+                {
+                    continue;
+                }
+            }
 
             workers[i].Initialize(_worker, openTask);
             workers[i].gameObject.SetActive(true);
@@ -58,9 +65,27 @@ public class UI_WorkersContainer : MonoBehaviour
             OrderByDescending(x => x.worker.GetFreeSlots()).
             ToList();
 
+        int start = 0;
+        if(openTask != null)
+        {
+            UI_WorkerSlot usedWorker = workers
+                .Where(x => x.worker == openTask.worker)
+                .FirstOrDefault();
+
+            if(usedWorker != null)
+            {
+                workers.Remove(usedWorker);
+
+                usedWorker.Select();
+                usedWorker.transform.SetSiblingIndex(start);
+                start++;
+            }
+        }
+
         for(int i = 0; i < workers.Count; i++)
         {   
-            workers[i].transform.SetSiblingIndex(i);
+            workers[i].transform.SetSiblingIndex(start + i);
+            workers[i].UnSelect();
         }
     }
 

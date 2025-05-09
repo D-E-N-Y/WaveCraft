@@ -6,6 +6,10 @@ public class UI_WorkerSlot : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ui_name;
     [SerializeField] private TextMeshProUGUI ui_freeSlots;
+    
+    [SerializeField] private Color normal, select;
+
+    [SerializeField] private Button button;
 
     public UP_Worker worker { get; private set; }
     public Task openTask;
@@ -18,7 +22,6 @@ public class UI_WorkerSlot : MonoBehaviour
         ui_name.text = worker.nameActor;
         ui_freeSlots.text = worker.GetFreeSlots().ToString();
 
-        Button button = GetComponentInChildren<Button>();
         button.onClick.RemoveAllListeners();
         if(openTask != null && openTask.worker != worker)
         {
@@ -29,5 +32,15 @@ public class UI_WorkerSlot : MonoBehaviour
             
             button.onClick.AddListener(() => TaskSystem.current.DoTask(openTask, worker));
         }
+    }
+
+    public void Select()
+    {
+        button.image.color = select;
+    }
+
+    public void UnSelect()
+    {
+        button.image.color = normal;
     }
 }
