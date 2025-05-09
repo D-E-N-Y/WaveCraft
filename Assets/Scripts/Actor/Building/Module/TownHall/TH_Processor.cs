@@ -6,7 +6,7 @@ using UnityEngine;
 public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
 {
     public Action<E_Resource> UpdadeProcessedAmount;
-    public Action<E_Resource> UpdateRawAmount;
+    public Action<E_Resource> UpdateRawAmount; 
 
     [SerializeField] private E_Resource resource;
     [SerializeField] private float factor;

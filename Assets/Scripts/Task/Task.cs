@@ -34,6 +34,12 @@ public class Task
     public void SetAutoWorker(bool value) 
     {
         isAutoWorker = value;
+
+        if(isAutoWorker && !worker)
+        {
+            TaskSystem.current.DoTask(this);
+        }
+
         Update?.Invoke();
     }
 

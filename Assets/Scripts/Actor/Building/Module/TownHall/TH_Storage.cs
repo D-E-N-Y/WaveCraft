@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
 {
-    public Action<E_Resource> UpdateCurrentAmount;
+    public Action<E_Resource> UpdateCurrentAmount; 
     
     [SerializeField] private E_Resource resource;
     [SerializeField] private int maxAmount;

@@ -1,4 +1,6 @@
+using System;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,6 +83,17 @@ public class UI_TaskDescription : UIPanel
         ui_cancel.onClick.RemoveAllListeners();
         ui_cancel.interactable = false;
         
+        ui_autoWorker.interactable = false;
+        if(task.state != E_TaskState.Completed)
+        {
+            ui_autoWorker.interactable = true;
+            ui_autoWorker.onValueChanged.RemoveAllListeners();
+            ui_autoWorker.onValueChanged.AddListener(delegate {
+                ToggleValueChanged(ui_autoWorker);
+                });
+        }
+        
+
         if(task.worker != null)
         {
             if(task.worker.GetCurrentTask() != task) return;
@@ -91,7 +104,7 @@ public class UI_TaskDescription : UIPanel
                 ui_continue.gameObject.SetActive(true);
                 ui_continue.interactable = true;
 
-                ui_stop.gameObject.SetActive(false);
+                ui_stop.gameObject.SetActive(false); 
             }
             else
             {
@@ -105,7 +118,12 @@ public class UI_TaskDescription : UIPanel
             ui_cancel.onClick.AddListener(() => task.worker.CancelTask(task));
             ui_cancel.interactable = true;
         }
-    } 
+    }
+
+    private void ToggleValueChanged(Toggle change)
+    {
+        task.SetAutoWorker(change.isOn);
+    }
 
     protected void FocusTo(Actor actor)
     {

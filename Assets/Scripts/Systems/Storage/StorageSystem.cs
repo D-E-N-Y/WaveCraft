@@ -17,6 +17,9 @@ public class StorageSystem : GameSystem
         if(storages == null)
         {
             storages = new Dictionary<E_Resource, List<IStorage>>();
+            storages[E_Resource.Wood] = new List<IStorage>();
+            storages[E_Resource.Stone] = new List<IStorage>();
+            storages[E_Resource.Food] = new List<IStorage>();
         }
     }
 

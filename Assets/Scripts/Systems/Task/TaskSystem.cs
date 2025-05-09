@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TaskSystem : GameSystem
@@ -43,7 +44,14 @@ public class TaskSystem : GameSystem
             tasks[E_TaskState.Execured].Add(task);
             task.SetState(E_TaskState.Execured);
             
-            tasks[E_TaskState.Pending].Remove(task);
+            if(tasks[E_TaskState.Pending].Contains(task))
+            {
+                tasks[E_TaskState.Pending].Remove(task);
+            } 
+            if(tasks[E_TaskState.Canceled].Contains(task))
+            {
+                tasks[E_TaskState.Canceled].Remove(task);
+            } 
 
             UpdateTasks?.Invoke();
 
@@ -117,7 +125,7 @@ public class TaskSystem : GameSystem
         
         tasks[E_TaskState.Canceled].Add(task);
         task.SetState(E_TaskState.Canceled);
-
+        task.SetAutoWorker(false);
         task.ResetWorker();
 
         UpdateTasks?.Invoke();
@@ -125,7 +133,7 @@ public class TaskSystem : GameSystem
 
     public void RemoveTask(Task task)
     {
-        if(task.worker != null)
+        if(task.worker != null && task.state != E_TaskState.Completed)
         {
             task.worker.CancelTask(task);
         }
@@ -148,7 +156,14 @@ public class TaskSystem : GameSystem
 
         if(tasks.ContainsKey(E_TaskState.Pending) && tasks[E_TaskState.Pending].Count > 0)
         {
-            DoTask(tasks[E_TaskState.Pending][0]);
+            Task freeTask = tasks[E_TaskState.Pending]
+                .Where(x => x.isAutoWorker)
+                .FirstOrDefault();
+            
+            if(freeTask != null)
+            {
+                DoTask(freeTask);
+            }
         }
     }
 
