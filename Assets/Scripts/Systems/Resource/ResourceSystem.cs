@@ -25,7 +25,7 @@ public class ResourceSystem : GameSystem
             int residue = StorageSystem.current.FindStorageToAddResource(resourceType).AddResources(amount);
             UpdateCurrentCount?.Invoke(resourceType);
 
-            if(residue != null)
+            if(residue != -1)
             {
                 if(!resources.ContainsKey(resourceType))
                 {
@@ -66,22 +66,14 @@ public class ResourceSystem : GameSystem
             int residue = StorageSystem.current.FindStorageToRemoveResource(resourceType).RemoveResources(amount);
             UpdateCurrentCount?.Invoke(resourceType);
 
-            if(residue != null)
+            if(residue > 0)
             {
-                if(residue > 0)
-                {
-                    resources[resourceType] -= residue;
-
-                    RemoveResources(resourceType, residue);
-                }
-                else
-                {
-                    resources[resourceType] -= amount;
-                }
+                resources[resourceType] -= residue;
+                RemoveResources(resourceType, residue);
             }
-            else
+            else if(residue == 0)
             {
-                Debug.Log($"ResourceSystem - RemoveResources - Null");
+                resources[resourceType] -= amount;
             }
         }
     }

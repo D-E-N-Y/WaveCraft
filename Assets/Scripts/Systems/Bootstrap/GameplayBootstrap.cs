@@ -7,7 +7,7 @@ public class GameplayBootstrap : MonoBehaviour
     [SerializeField] private List<GameSystem> systems;
     [SerializeField] private TerrainResourceSpawner terrain;
     [SerializeField] private GameObject ui_canvas;
-    [SerializeField] private B_TownHall townHall;
+    [SerializeField] private B_TownHall townHall; 
 
     void Start()
     {
