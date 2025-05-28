@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2311925644611836766, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2311925644611836766, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26,7 +26,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2311925644611836766, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2311925644611836766, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
       propertyPath: m_LocalRotation.y
@@ -59,33 +59,18 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3125019525012259300, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2025706009650708018}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
 --- !u!4 &2644637238308893549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2311925644611836766, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
   m_PrefabInstance: {fileID: 335025116555487283}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3456639308027111895 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3125019525012259300, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
+--- !u!23 &3816958269787998210 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3485417514373718065, guid: c8b350551fbedc84c8025d7d29f3a018, type: 3}
   m_PrefabInstance: {fileID: 335025116555487283}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2025706009650708018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3456639308027111895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c56457ea337eedb5b54e23fb39d5cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3628105998256564486
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113,6 +98,10 @@ PrefabInstance:
     - target: {fileID: 1481510061773357884, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4632263804265162196, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_Size.y
@@ -220,6 +209,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1481510061773357884, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5858183279167107498}
+    - targetCorrespondingSourceObject: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1152381700556453666}
   m_SourcePrefab: {fileID: 100100000, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
 --- !u!4 &317547256863906603 stripped
 Transform:
@@ -254,3 +246,27 @@ CapsuleCollider:
   m_Height: 1.5169169
   m_Direction: 1
   m_Center: {x: 0.013612151, y: 0.47962886, z: -0.04255557}
+--- !u!1 &4288293855616838776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+  m_PrefabInstance: {fileID: 3628105998256564486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!205 &1152381700556453666
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4288293855616838776}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.02554709
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3816958269787998210}
+  m_Enabled: 1

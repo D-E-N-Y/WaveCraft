@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1932841404346126693, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1932841404346126693, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -67,6 +67,18 @@ PrefabInstance:
     - target: {fileID: 4723611995488449968, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323926895507881134, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
+      propertyPath: m_LODs.Array.data[0].screenRelativeHeight
+      value: 0.5516151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323926895507881134, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
+      propertyPath: m_LODs.Array.data[1].screenRelativeHeight
+      value: 0.34784544
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323926895507881134, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
+      propertyPath: m_LODs.Array.data[2].screenRelativeHeight
+      value: 0.29915226
       objectReference: {fileID: 0}
     - target: {fileID: 6476640290302085614, guid: c7827efbbf7212f42803476ce3f9d082, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -266,6 +278,10 @@ PrefabInstance:
       value: PT_Pine_Tree_03_dead_cut
       objectReference: {fileID: 0}
     - target: {fileID: 3611794222474779789, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3611794222474779789, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -312,30 +328,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3611794222474779789, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9163470103952572052}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
 --- !u!4 &141598323422104277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4131062105692079671, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
   m_PrefabInstance: {fileID: 4081235385718869218}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &773737603851473007 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3611794222474779789, guid: 53e1939cdeda3f04caaa240bfd830e5e, type: 3}
-  m_PrefabInstance: {fileID: 4081235385718869218}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9163470103952572052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 773737603851473007}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c56457ea337eedb5b54e23fb39d5cff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
