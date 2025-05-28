@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_MineDescription : UI_TaskDescription 
+public class UI_MineDescription : UI_TaskDescription
 {
     [SerializeField] private TextMeshProUGUI ui_resource;
     [SerializeField] private TextMeshProUGUI ui_resource1;
@@ -29,9 +29,9 @@ public class UI_MineDescription : UI_TaskDescription
 
         ui_resource.text = $"{miningTask.goal} {miningTask.resourceType}";
         ui_resource1.text = $"{miningTask.resourceType}";
-        
+
         ui_executingState.ForEach(x => x.ui_panel.SetActive(false));
-        if(miningTask.executingState == EMiningExecutingState.none)
+        if (miningTask.executingState == EMiningExecutingState.none)
         {
             GameObject ui_status = ui_executingState
             .Where(x => x.state == EMiningExecutingState.none)
@@ -54,7 +54,7 @@ public class UI_MineDescription : UI_TaskDescription
 
         ui_processor.text = "none";
         ui_focusToProcessor.interactable = false;
-        if(miningTask.processor != null)
+        if (miningTask.processor != null)
         {
             ui_processor.text = miningTask.processor.nameActor;
 
@@ -63,4 +63,6 @@ public class UI_MineDescription : UI_TaskDescription
             ui_focusToProcessor.interactable = true;
         }
     }
+    
+    public override E_TaskType TaskType() => E_TaskType.Mining;
 }

@@ -15,7 +15,7 @@ public class U_Player : Unit
     }; 
 
     [SerializeField] protected EVillageType type;
-    [SerializeField] protected EVillageType Type() => type;
+    public EVillageType Type() => type;
 
     public override void Initialize()
     {
@@ -23,6 +23,6 @@ public class U_Player : Unit
 
         nameActor = names[Random.Range(0, names.Length)];
 
-        VillageSystem.current.AddVillage(type, this);
+        VillageSystem.current.AddVillage(this);
     }
 }

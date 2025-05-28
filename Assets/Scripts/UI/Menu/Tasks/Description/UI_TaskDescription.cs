@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_TaskDescription : UIPanel 
+public abstract class UI_TaskDescription : UIPanel
 {
     [SerializeField] private UIMenu ui_menu;
 
@@ -12,7 +12,7 @@ public class UI_TaskDescription : UIPanel
     [SerializeField] protected TextMeshProUGUI ui_goal;
 
     [SerializeField] private TextMeshProUGUI ui_nameWorker;
-    [SerializeField] private Toggle ui_autoWorker; 
+    [SerializeField] private Toggle ui_autoWorker;
     [SerializeField] private Button ui_focusToWorker;
 
     [SerializeField] private Button ui_stop;
@@ -20,17 +20,28 @@ public class UI_TaskDescription : UIPanel
     [SerializeField] private Button ui_cancel;
     [SerializeField] private Button ui_remove;
 
+    [SerializeField] private UI_TypeFilter ui_typeFilter;
+    [SerializeField] private UI_StatusFilter ui_statusFilter;
+
     protected Task task;
+
+    private void OnEnable()
+    {
+        ui_typeFilter.update += VisibleForFilter;
+        ui_statusFilter.update += VisibleForFilter;
+    }
 
     private void OnDisable()
     {
         task.Update -= UpdateInfo;
+        ui_typeFilter.update -= VisibleForFilter;
+        ui_statusFilter.update -= VisibleForFilter;
     }
 
-    public virtual void Initialize(Task task) 
+    public virtual void Initialize(Task task)
     {
-        if(this.task != null) this.task.Update -= UpdateInfo;
-        
+        if (this.task != null) this.task.Update -= UpdateInfo;
+
         this.task = task;
         this.task.Update += UpdateInfo;
 
@@ -52,17 +63,17 @@ public class UI_TaskDescription : UIPanel
 
     private void UpdateFocusWorkerButton()
     {
-        if(task.worker != null)
+        if (task.worker != null)
         {
             ui_nameWorker.text = task.worker.nameActor;
-            
+
             ui_focusToWorker.onClick.AddListener(() => FocusTo(task.worker));
             ui_focusToWorker.interactable = true;
         }
         else
         {
             ui_nameWorker.text = "none";
-            
+
             ui_focusToWorker.onClick.RemoveAllListeners();
             ui_focusToWorker.interactable = false;
         }
@@ -78,29 +89,30 @@ public class UI_TaskDescription : UIPanel
 
         ui_cancel.onClick.RemoveAllListeners();
         ui_cancel.interactable = false;
-        
+
         ui_autoWorker.onValueChanged.RemoveAllListeners();
         ui_autoWorker.interactable = false;
         ui_autoWorker.isOn = task.isAutoWorker;
-        if(task.state != E_TaskState.Completed)
+        if (task.state != E_TaskState.Completed)
         {
             ui_autoWorker.interactable = true;
-            ui_autoWorker.onValueChanged.AddListener(delegate {
+            ui_autoWorker.onValueChanged.AddListener(delegate
+            {
                 ToggleValueChanged(ui_autoWorker);
-                });
+            });
         }
-        
-        if(task.worker != null)
+
+        if (task.worker != null)
         {
-            if(task.worker.GetCurrentTask() != task) return;
-            
-            if(task.worker.isStopTask)
+            if (task.worker.GetCurrentTask() != task) return;
+
+            if (task.worker.isStopTask)
             {
                 ui_continue.onClick.AddListener(() => task.worker.ContinueTask());
                 ui_continue.gameObject.SetActive(true);
                 ui_continue.interactable = true;
 
-                ui_stop.gameObject.SetActive(false); 
+                ui_stop.gameObject.SetActive(false);
             }
             else
             {
@@ -110,7 +122,7 @@ public class UI_TaskDescription : UIPanel
 
                 ui_continue.gameObject.SetActive(false);
             }
-            
+
             ui_cancel.onClick.AddListener(() => task.worker.CancelTask(task));
             ui_cancel.interactable = true;
         }
@@ -123,7 +135,7 @@ public class UI_TaskDescription : UIPanel
 
     protected void FocusTo(Actor actor)
     {
-        if(actor == null) return;
+        if (actor == null) return;
 
         FocusSystem.current.FocusToObject(actor);
         UISystem.current.CloseAllPanels();
@@ -131,7 +143,7 @@ public class UI_TaskDescription : UIPanel
 
     protected void SetStatus(GameObject ui_status)
     {
-        if(task.state != E_TaskState.Completed)
+        if (task.state != E_TaskState.Completed)
         {
             ui_status.GetComponent<TextMeshProUGUI>().text = E_TaskState.Pending.ToString();
         }
@@ -142,4 +154,14 @@ public class UI_TaskDescription : UIPanel
 
         ui_status.SetActive(true);
     }
+
+    private void VisibleForFilter()
+    {
+        if (!ui_typeFilter.values[TaskType()] || !ui_statusFilter.values[task.state])
+        {
+            ui_menu.CloseCurrentSection();
+        }
+    }
+    
+    public abstract E_TaskType TaskType();
 }

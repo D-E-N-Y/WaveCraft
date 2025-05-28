@@ -47,16 +47,22 @@ public class UIMenu : UIPanel
 
     public void CloseCurrentSection()
     {
-        if(openSection != null)
+        if (openSection != null)
         {
             openSection.SetActive(false);
             openSection = null;
+
+            if (selectTabSection != null)
+            {
+                UnSelect(selectTabSection);
+                selectTabSection = null;
+            }
         }
     }
 
     public void SelectTabSection(GameObject tab)
     {
-        if(selectTabSection != tab)
+        if (selectTabSection != tab)
         {
             UnSelect(selectTabSection);
 

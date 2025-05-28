@@ -27,12 +27,22 @@ public class VillageSystem : GameSystem
     }
 
     public bool CheckFreeSpace() => maxAmount > villages.Count;
-    public int GetCurrentAmount() => villages.Count;
+    public int GetCurrentAmount()
+    {
+        int count = 0;
+
+        foreach (EVillageType type in Enum.GetValues(typeof(EVillageType)))
+        {
+            count += villages[type].Count;
+        }
+
+        return count;
+    }
     public int GetMaxAmount() => maxAmount;
 
-    public void AddVillage(EVillageType type, U_Player village) 
+    public void AddVillage(U_Player village)
     {
-        villages[type].Add(village);
+        villages[village.Type()].Add(village);
         UpdateCurrentAmount?.Invoke();
     }
 

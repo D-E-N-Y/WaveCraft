@@ -75,4 +75,6 @@ public class UI_StoreDescription : UI_TaskDescription
             ui_focusToStorage.interactable = true;
         }
     }
+
+    public override E_TaskType TaskType() => E_TaskType.Store;
 }
