@@ -1,5 +1,64 @@
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
 
-/Temp
-Library/
-Library
-Logs
+# Unity generated VS/JetBrains files
+.vs/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+
+# Unity cache
+*.mdb
+*.opendb
+*.pdb
+
+# Crash and analysis logs
+sysinfo.txt
+
+# Asset pipeline
+*.apk
+*.aab
+*.unitypackage
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Builds
+*.exe
+*.app
+*.dll
+
+# Ignore addressables build output
+Assets/AddressableAssetsData/*/BuildOutput/
+Assets/AddressableAssetsData/*/AssetBundles/
+
+# Ignore generated lighting
+LightingData.asset
+
+# Ignore auto-generated meta files backup
+*.bak
+
+# Optional: Collaborate & Plastic SCM (if not using)
+.collabignore
+.plastic/
