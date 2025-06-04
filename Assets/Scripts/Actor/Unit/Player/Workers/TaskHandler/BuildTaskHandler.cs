@@ -12,7 +12,7 @@ public class BuildTaskHandler : ITaskHandler
 
         // move to building
         worker.animator.SetBool("isMove", true);
-        yield return worker.movement.MoveTo(buildTask.building.GetPosition(), UnitMovement.E_MoveTo.Object);
+        yield return worker.movement.MoveTo(buildTask.building.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
         
         worker.animator.SetBool("isMove", false);
 

@@ -10,7 +10,7 @@ public class D_ArcherTower : B_Defence, ISpawnUnit
     
     public void SpawnUnit()
     {
-        ResourceSystem.current.RemoveResources(E_Resource.Food, spawnCost.count);
+        ResourceSystem.current.RemoveResourceByType(E_Resource.Food, spawnCost.count);
         
         StartCoroutine(Spawning());
     }

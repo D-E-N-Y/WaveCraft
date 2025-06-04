@@ -13,16 +13,15 @@ public class BaseBuild : MonoBehaviour
         enabled = false;
     }
 
-    public virtual void InitializeBuilding(GameObject prefab)
+    public virtual void InitializeBuilding(Building prefab)
     {
         if(building) return;
 
         Vector3 position = buildSystem.SnapCoordinateToGrid(InteractionSystem.GetMouseWorldPosition());
 
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        building = obj.GetComponent<Building>();
+        building = Instantiate(prefab, position, Quaternion.identity);
         building.Initialize();        
-        obj.AddComponent<ObjectDrag>();
+        building.gameObject.AddComponent<ObjectDrag>();
 
         materialBuilding = building.GetComponent<MaterialBuilding>();
         materialBuilding.StartPlace();
@@ -83,6 +82,8 @@ public class BaseBuild : MonoBehaviour
 
             BuildTask task = new BuildTask(building);
             TaskSystem.current.AddTask(task);
+
+            ResourceSystem.current.RemoveResources(building.GetCost());
 
             building = null;
             materialBuilding = null;

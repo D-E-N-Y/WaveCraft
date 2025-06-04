@@ -5,7 +5,7 @@ using UnityEngine;
 public class GateBuild : BaseBuild 
 {
     private D_Gate gate;
-    private bool isColumn;
+    private bool isPillar;
 
     protected override void Update()
     {
@@ -14,13 +14,13 @@ public class GateBuild : BaseBuild
         ViewAreaPlace(gate);
     }
 
-    public override void InitializeBuilding(GameObject prefab)
+    public override void InitializeBuilding(Building prefab)
     {
         base.InitializeBuilding(prefab);
         
-        gate = building.gameObject.GetComponent<D_Gate>();
+        gate = (D_Gate)building;
         gate.gameObject.GetComponent<ObjectDrag>().stopDrag += PlaceBetweenWalls;
-        gate.isColumn += SetIsColumn;
+        gate.isPillar += SetIsColumn;
     }
 
     protected override void Rotate()
@@ -28,7 +28,7 @@ public class GateBuild : BaseBuild
         gate.transform.Rotate(Vector3.up, 180f);
     }
 
-    private void SetIsColumn(bool value) => isColumn = value;
+    private void SetIsColumn(bool value) => isPillar = value;
 
     private void PlaceBetweenWalls()
     {
@@ -41,7 +41,7 @@ public class GateBuild : BaseBuild
 
     private new void ViewAreaPlace(Building _object)
     {
-        if(!isColumn && gate.GetOptimalWalls() != null)
+        if(!isPillar && gate.GetOptimalWalls() != null)
         {
             // can place (green tiles)
             materialBuilding.SetColor(MaterialBuilding.BuildColor.canPlace);
@@ -57,7 +57,7 @@ public class GateBuild : BaseBuild
 
     protected override void Place()
     {
-        if(isColumn || gate.GetOptimalWalls() == null) return;
+        if(isPillar || gate.GetOptimalWalls() == null) return;
         
         building.Place();
         materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
@@ -83,6 +83,8 @@ public class GateBuild : BaseBuild
 
         BuildTask task = new BuildTask(building);
         TaskSystem.current.AddTask(task);
+
+        ResourceSystem.current.RemoveResources(building.GetCost());
 
         building = null;
         materialBuilding = null;

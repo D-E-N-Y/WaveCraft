@@ -59,7 +59,7 @@ public class ResourceSystem : GameSystem
         return residue;
     }
 
-    public void RemoveResources(E_Resource resourceType, int amount)
+    public void RemoveResourceByType(E_Resource resourceType, int amount)
     {
         if(StorageSystem.current.CheckCountResurces(resourceType) >= amount)
         {
@@ -69,7 +69,7 @@ public class ResourceSystem : GameSystem
             if(residue > 0)
             {
                 resources[resourceType] -= residue;
-                RemoveResources(resourceType, residue);
+                RemoveResourceByType(resourceType, residue);
             }
             else if(residue == 0)
             {
@@ -78,9 +78,17 @@ public class ResourceSystem : GameSystem
         }
     }
 
+    public void RemoveResources(S_Cost[] costs)
+    {
+        foreach (S_Cost cost in costs)
+        {
+            RemoveResourceByType(cost.resourse, cost.count);
+        }
+    }
+
     public void AddNaturalResources(Resource resource)
     {
-        if(!naturalResources.ContainsKey(resource.Type()))
+        if (!naturalResources.ContainsKey(resource.Type()))
         {
             naturalResources[resource.Type()] = new List<Resource>();
         }

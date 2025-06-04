@@ -8,12 +8,12 @@ public class WallBuild : BaseBuild
     #region Fields
 
     [SerializeField] private UI_CostWallsPanel ui_costWallsPanel;
-    [SerializeField] private GameObject columnPrefab;
-    [SerializeField] private GameObject wallPrefab;
+    [SerializeField] private D_Pillar pillarPrefab;
+    [SerializeField] private D_Wall wallPrefab;
     
-    private List<D_Wall> columns;
+    private List<D_Pillar> pillars;
     private List<D_Wall> walls;
-    private List<D_Wall> placedWalls;
+    private List<Building> placedWalls;
     
     private bool isContinue;
     private List<int> countsWall;
@@ -38,7 +38,7 @@ public class WallBuild : BaseBuild
             isContinue = !isContinue;
         }
 
-        if(columns.Count >= 2)
+        if (pillars.Count >= 2)
         {
             UpdateWallPreview();
         }
@@ -54,34 +54,34 @@ public class WallBuild : BaseBuild
     {
         base.Initialize(buildSystem);
 
-        columns = new List<D_Wall>();
+        pillars = new List<D_Pillar>();
         walls = new List<D_Wall>();
-        placedWalls = new List<D_Wall>();
+        placedWalls = new List<Building>();
 
         countsWall = new List<int>();
         countsWall.Add(0);
 
-        woodCost = columnPrefab.GetComponent<D_Wall>().GetCostByResource(E_Resource.Wood);
-        stoneCost = columnPrefab.GetComponent<D_Wall>().GetCostByResource(E_Resource.Stone);
+        woodCost = pillarPrefab.GetCostByResource(E_Resource.Wood);
+        stoneCost = pillarPrefab.GetCostByResource(E_Resource.Stone);
 
         currentWoodCost = currentStoneCost = 0;
     }
 
-    public override void InitializeBuilding(GameObject prefab)
+    public override void InitializeBuilding(Building prefab)
     {
-        if(!columns.Contains(prefab.GetComponent<D_Wall>()))
+        if (!pillars.Contains(prefab))
         {
             // take new column
             base.InitializeBuilding(prefab);
             building.gameObject.GetComponent<ObjectDrag>().stopDrag += ConnectColumn;
-            columns.Add(building.GetComponent<D_Wall>());
+            pillars.Add((D_Pillar)building);
         }
         else
         {
             // take old column
-            building = prefab.GetComponent<Building>();
+            building = prefab;
             materialBuilding = building.GetComponent<MaterialBuilding>();
-            prefab.AddComponent<ObjectDrag>().stopDrag += ConnectColumn;
+            prefab.gameObject.AddComponent<ObjectDrag>().stopDrag += ConnectColumn;
         }
 
         isContinue = true;
@@ -102,10 +102,17 @@ public class WallBuild : BaseBuild
 
     private void ClearWalls()
     {
-        placedWalls.ForEach(x => walls.Remove(x));
+        foreach (Building _building in placedWalls)
+        {
+            if (_building is D_Wall _wall)
+            {
+                walls.Remove(_wall);
+            }
+        }
+
         placedWalls.Clear();
 
-        columns.Clear();
+        pillars.Clear();
         countsWall.Clear();
 
         countsWall.Add(0);
@@ -137,13 +144,13 @@ public class WallBuild : BaseBuild
             walls.ForEach(x => x.gameObject.SetActive(false));
         }
         
-        float totalDistance = Vector3.Distance(columns.Last().transform.position, columns[^2].transform.position);
+        float totalDistance = Vector3.Distance(pillars.Last().transform.position, pillars[^2].transform.position);
         float wallLength = wallPrefab.GetComponent<D_Wall>().GetWallLength();
 
         currentCountWalls = (int)MathF.Round((totalDistance - wallLength) / wallLength);
         
-        Vector3 direction = (columns[^2].transform.position - columns.Last().transform.position).normalized;
-        Vector3 middlePosition = (columns[^2].transform.position + columns.Last().transform.position) / 2;
+        Vector3 direction = (pillars[^2].transform.position - pillars.Last().transform.position).normalized;
+        Vector3 middlePosition = (pillars[^2].transform.position + pillars.Last().transform.position) / 2;
         Vector3 startPosition = middlePosition + direction * (currentCountWalls * wallLength / 2);
 
         currentCountWalls++;
@@ -159,7 +166,7 @@ public class WallBuild : BaseBuild
         
             walls[i].gameObject.SetActive(true);
             walls[i].transform.position = spawnPosition;
-            walls[i].transform.LookAt(columns.Last().transform.position);
+            walls[i].transform.LookAt(pillars.Last().transform.position);
             walls[i].GetComponent<MaterialBuilding>().StartPlace(); 
         }
 
@@ -171,7 +178,7 @@ public class WallBuild : BaseBuild
                 ViewAreaPlace(walls[i], i == start || i == countsWall.Last() + currentCountWalls - 1);
             }
         }
-        ViewAreaPlace(columns.Last(), isConnect());
+        ViewAreaPlace(pillars.Last(), isConnect());
     }
         
     #endregion
@@ -184,8 +191,8 @@ public class WallBuild : BaseBuild
 
     private void UpdateCostUI()
     {
-        currentWoodCost = woodCost * (columns.Count + countsWall.Last() + currentCountWalls);
-        currentStoneCost = stoneCost * (columns.Count + countsWall.Last() + currentCountWalls);
+        currentWoodCost = woodCost * (pillars.Count + countsWall.Last() + currentCountWalls);
+        currentStoneCost = stoneCost * (pillars.Count + countsWall.Last() + currentCountWalls);
 
         ui_costWallsPanel.UpdateCost(currentWoodCost, currentStoneCost);
     }
@@ -211,23 +218,23 @@ public class WallBuild : BaseBuild
     }
     
     // start built from built column
-    public void ContinueWall(D_Wall startColumn)
+    public void ContinueWall(D_Pillar startPillar)
     {
-        columns.Add(startColumn);
-        InitializeBuilding(columnPrefab);
+        pillars.Add(startPillar);
+        InitializeBuilding(pillarPrefab);
     }
 
     private bool isConnect()
     {
-        if(columns.Last().connectColumn)
+        if(pillars.Last().connectPillar)
         {
-            if(columns.Count == 1)
+            if(pillars.Count == 1)
             {
                 return true;
             }
             else
             {
-                return columns.Last().connectColumn != columns[^2];
+                return pillars.Last().connectPillar != pillars[^2];
             }
         }
         else
@@ -240,7 +247,7 @@ public class WallBuild : BaseBuild
     {
         if(isConnect())
         {
-            columns.Last().transform.position = columns.Last().connectColumn.transform.position;
+            pillars.Last().transform.position = pillars.Last().connectPillar.transform.position;
         }
     }
 
@@ -251,7 +258,7 @@ public class WallBuild : BaseBuild
     protected override void Place()
     { 
         // check corrent land for place current column
-        if (!buildSystem.CanBePlaced(columns.Last()) && !isConnect() || !IsCanBuy())
+        if (!buildSystem.CanBePlaced(pillars.Last()) && !isConnect() || !IsCanBuy())
         {
             return;
         }
@@ -265,13 +272,13 @@ public class WallBuild : BaseBuild
             }
         }
 
-        columns.Last().gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;  
-        columns.Last()?.connectColumn?.ResetConnect();
+        pillars.Last().gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;  
+        pillars.Last()?.connectPillar?.ResetConnect();
         
         // place current column
         building.Place();
         buildSystem.PlaceTakeArea(building);
-        placedWalls.Add((D_Wall)building);
+        placedWalls.Add(building);
 
         // add walls to placed walls list
         if(currentCountWalls > 0)
@@ -288,10 +295,10 @@ public class WallBuild : BaseBuild
             countsWall.Add(countsWall.Last() + currentCountWalls);  
         }
 
-        if(isContinue)
+        if (isContinue)
         {
             building = null;
-            InitializeBuilding(columnPrefab);
+            InitializeBuilding(pillarPrefab);
 
             return;
         }
@@ -299,11 +306,11 @@ public class WallBuild : BaseBuild
         buildSystem.ClearPlacedTilemap();
 
         // place walls
-        foreach(D_Wall _wall in placedWalls)
+        foreach(Building _wall in placedWalls)
         {
             // skip or destroy unnecessary wall
             if(_wall.isBuild) continue;
-            if(_wall.connectColumn)
+            if(_wall is D_Pillar _pillar && _pillar.connectPillar)
             {
                 Destroy(_wall.gameObject);
                 continue;
@@ -322,8 +329,8 @@ public class WallBuild : BaseBuild
             _wall.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.placed);
         }
         
-        ResourceSystem.current.RemoveResources(E_Resource.Wood, currentWoodCost);
-        ResourceSystem.current.RemoveResources(E_Resource.Stone, currentStoneCost);
+        ResourceSystem.current.RemoveResourceByType(E_Resource.Wood, currentWoodCost);
+        ResourceSystem.current.RemoveResourceByType(E_Resource.Stone, currentStoneCost);
 
         ClearWalls();
         buildSystem.ActiveTilemap(false);
@@ -334,8 +341,8 @@ public class WallBuild : BaseBuild
     {
         // remove last column
         building.gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;
-        Destroy(columns.Last().gameObject);
-        columns.Remove(columns.Last());
+        Destroy(pillars.Last().gameObject);
+        pillars.Remove(pillars.Last());
 
         if(countsWall.Count > 1)
         {
@@ -365,14 +372,14 @@ public class WallBuild : BaseBuild
         }
 
         // redraw placed tilemap
-        if(columns.Count != 0)
+        if(pillars.Count != 0)
         {
-            placedWalls.Remove(columns.Last());
+            placedWalls.Remove(pillars.Last());
         } 
         buildSystem.ClearPlacedTilemap();
         placedWalls.ForEach(x => buildSystem.PlaceTakeArea(x));
 
-        if(columns.Count == 0 || columns.Last().isBuild)
+        if(pillars.Count == 0 || pillars.Last().isBuild)
         {
             base.Cancel();
             ClearWalls();
@@ -380,7 +387,7 @@ public class WallBuild : BaseBuild
         }
         
         // take last column like current
-        InitializeBuilding(columns.Last().gameObject);
+        InitializeBuilding(pillars.Last());
     }
 
     #endregion

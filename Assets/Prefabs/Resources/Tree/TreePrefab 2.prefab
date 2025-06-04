@@ -87,6 +87,14 @@ PrefabInstance:
       propertyPath: interactionMenuUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: -172039448589557503, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: actorPositions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -172039448589557503, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: actorPositions.Array.data[0]
+      value: 
+      objectReference: {fileID: 4888494390388303208}
     - target: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -98,6 +106,10 @@ PrefabInstance:
     - target: {fileID: 1481510061773357884, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279655482056701174, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.213
       objectReference: {fileID: 0}
     - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -270,3 +282,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3816958269787998210}
   m_Enabled: 1
+--- !u!4 &4888494390388303208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+  m_PrefabInstance: {fileID: 3628105998256564486}
+  m_PrefabAsset: {fileID: 0}

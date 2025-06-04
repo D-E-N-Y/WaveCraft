@@ -28,11 +28,6 @@ public class UI_BuildingSlot : MonoBehaviour
                 return;
             }
         }
-
-        foreach(S_CostUI current in cost)
-        {
-            ResourceSystem.current.RemoveResources(current.resourse, building.GetCostByResource(current.resourse));
-        }
         
         BuildSystem.current.InitializeWithObject(building);
         UISystem.current.CloseAllPanels();

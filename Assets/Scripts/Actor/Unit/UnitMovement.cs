@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,7 +15,7 @@ public class UnitMovement : MonoBehaviour
     public enum E_MoveTo
     {
         PlacedObject,
-        Object
+        NatureObject
     }
 
     public void Initialize()
@@ -38,7 +39,7 @@ public class UnitMovement : MonoBehaviour
     public IEnumerator MoveTo(List<Transform> target, E_MoveTo _object)
     {
         isMoving = true;
-        
+
         while (true)
         {
             switch(_object)
@@ -46,20 +47,22 @@ public class UnitMovement : MonoBehaviour
                 case E_MoveTo.PlacedObject:
                     MoveToPlacedObject(GetNearbyPosition(target));
                     break;
-                
-                case E_MoveTo.Object:
-                    MoveToObject(GetNearbyPosition(target));
+
+                case E_MoveTo.NatureObject:
+                    MoveToNatureObject(GetNearbyPosition(target));
                     break;
             }
 
-            // while(agent.pathPending || !agent.hasPath)
-            // {
-            //     yield return null;
-            // }
+            // MoveToObject(GetNearbyPosition(target));
 
-            yield return new WaitForSeconds(0.25f);
+            while(agent.pathPending || !agent.hasPath)
+            {
+                yield return null;
+            }
 
-            if(agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
+            yield return null;
+
+            if (agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
             {
                 break;
             }
@@ -67,7 +70,16 @@ public class UnitMovement : MonoBehaviour
         agent.ResetPath();
 
         isMoving = false;
+
+        yield return RotateToObject(target.First());
         // OnMoveComplete?.Invoke();
+    }
+
+    private IEnumerator RotateToObject(Transform target)
+    {
+        transform.LookAt(target);
+
+        yield return null;
     }
     
     private Vector3 MiddlePoint(Vector3 vector_1, Vector3 vector_2)
@@ -77,33 +89,40 @@ public class UnitMovement : MonoBehaviour
 
     private Vector3 GetBestNavMeshPoint(Vector3 agentPosition, Vector3 targetPosition)
     {
-        Vector3 midPoint = MiddlePoint(agentPosition, targetPosition);
-        NavMeshHit hit;
+        Vector3 direction = (agentPosition - targetPosition).normalized;
+        float maxDistance = Vector3.Distance(targetPosition, agentPosition);
 
-        if(NavMesh.SamplePosition(midPoint, out hit, 5f, NavMesh.AllAreas))
+        Vector3 bestPoint = targetPosition;
+
+        for (float dist = maxDistance; dist > 0; dist -= 0.1f)
         {
-            return hit.position;
+            bestPoint = targetPosition + direction * (maxDistance - dist);
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(bestPoint, out hit, 0.1f, NavMesh.AllAreas))
+            {
+                bestPoint = hit.position;
+                break;
+            }
         }
-        // if(NavMesh.SamplePosition(agentPosition, out hit, 5f, NavMesh.AllAreas))
-        // {
-        //     return hit.position;
-        // }
-        return targetPosition;
+
+        return bestPoint;
     }
 
-    private void MoveToPlacedObject(Vector3 target) 
+
+    private void MoveToNatureObject(Vector3 target)
     {
         Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
-        
+
         // agent.SetDestination(bestPoint);
-        
+
         if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
         {
             agent.SetDestination(bestPoint);
         }
     }
 
-    private void MoveToObject(Vector3 target)
+    private void MoveToPlacedObject(Vector3 target)
     {
         agent.SetDestination(target);
     }

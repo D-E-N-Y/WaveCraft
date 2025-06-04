@@ -49,6 +49,10 @@ public class Actor : MonoBehaviour, IPosition
     private void OnDestroy() => DestroyActor?.Invoke();
     void OnDisable() => DestroyActor?.Invoke();
 
+    protected virtual void Death()
+    {
+        gameObject.SetActive(false);
+    }
 
     public List<Transform> GetPosition() => actorPositions;
 }

@@ -6,12 +6,12 @@ using UnityEngine;
 
 public class D_Gate : B_Defence
 {
-    public Action<bool> isColumn;
+    public Action<bool> isPillar;
     
     public EGateState state { get; private set; }
 
     private List<D_Wall> walls;
-    private List<D_Wall> columns;
+    private List<D_Pillar> pillars;
 
     [SerializeField] private GameObject leftGate, rightGate;
     [SerializeField] private GameObject prop;
@@ -24,43 +24,46 @@ public class D_Gate : B_Defence
         state = EGateState.open;
 
         walls = new List<D_Wall>();
-        columns = new List<D_Wall>();
+        pillars = new List<D_Pillar>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Transform _actor = other.transform;
-        while(true)
+        while (true)
         {
-            if(_actor.GetComponent<D_Wall>() != null) break;
-            if(_actor.parent == null) return;
+            if (_actor.GetComponent<D_Wall>() != null || _actor.GetComponent<D_Pillar>() != null) break;
+            if (_actor.parent == null) return;
 
             _actor = _actor.parent;
         }
-        
-        if(_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall))
+
+        if (_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall))
         {
-            if(_wall.Type() == E_WallType.Wall && !walls.Contains(_wall))
+            if (!walls.Contains(_wall))
             {
                 walls.Add(_wall);
-                
-                List<D_Wall> _w = walls.Where(x => 
+
+                List<D_Wall> _w = walls.Where(x =>
                     Quaternion.Angle(x.transform.rotation, _wall.transform.rotation) < 0.001f)
                     .ToList();
 
                 Quaternion rotationAt180 = Quaternion.Euler(0, transform.eulerAngles.y + 180, 0);
-                
-                if(_w.Count > Math.Abs(walls.Count - _w.Count) &&
-                   !(Quaternion.Angle(transform.rotation, _wall.transform.rotation) < 0.001f || 
+
+                if (_w.Count > Math.Abs(walls.Count - _w.Count) &&
+                   !(Quaternion.Angle(transform.rotation, _wall.transform.rotation) < 0.001f ||
                      Quaternion.Angle(rotationAt180, _wall.transform.rotation) < 0.001f))
                 {
                     transform.rotation = _wall.transform.rotation;
                 }
             }
-            else if(_wall.Type() == E_WallType.Column && !columns.Contains(_wall)) 
+        }
+        else if (_actor.gameObject.TryGetComponent<D_Pillar>(out D_Pillar _pillar))
+        {
+            if (!pillars.Contains(_pillar))
             {
-                columns.Add(_wall);
-                isColumn?.Invoke(true);
+                pillars.Add(_pillar);
+                isPillar?.Invoke(true);
             }
         }
     }
@@ -68,26 +71,22 @@ public class D_Gate : B_Defence
     private void OnTriggerExit(Collider other)
     {
         Transform _actor = other.transform;
-        while(true)
+        while (true)
         {
-            if(_actor.GetComponent<D_Wall>() != null) break;
-            if(_actor.parent == null) return;
+            if (_actor.GetComponent<D_Wall>() != null || _actor.GetComponent<D_Pillar>() != null) break;
+            if (_actor.parent == null) return;
 
             _actor = _actor.parent;
-        }        
-        
-        if(_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall) && 
-           (walls.Contains(_wall) || columns.Contains(_wall)))
+        }
+
+        if (_actor.gameObject.TryGetComponent<D_Wall>(out D_Wall _wall) && walls.Contains(_wall))
         {
-            if(_wall.Type() == E_WallType.Wall)
-            {
-                walls.Remove(_wall);
-            }
-            else if(_wall.Type() == E_WallType.Column)
-            {
-                columns.Remove(_wall);
-                if(!columns.Any()) isColumn?.Invoke(false);
-            }
+            walls.Remove(_wall);
+        }
+        else if (_actor.gameObject.TryGetComponent<D_Pillar>(out D_Pillar _pillar) && pillars.Contains(_pillar))
+        {
+            pillars.Remove(_pillar);
+            if (!pillars.Any()) isPillar?.Invoke(false);
         }
     }
 

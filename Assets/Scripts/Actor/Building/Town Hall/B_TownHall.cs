@@ -90,7 +90,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
                 break;
             }
             
-            ResourceSystem.current.RemoveResources(spawnCost.resourse, spawnCost.count);
+            ResourceSystem.current.RemoveResourceByType(spawnCost.resourse, spawnCost.count);
 
             float timer = 0;
 

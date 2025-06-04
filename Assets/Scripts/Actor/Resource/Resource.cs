@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Resource : Actor
@@ -33,11 +34,18 @@ public class Resource : Actor
         currentHP = Mathf.Max(currentHP - damage, 0);
         UpdateCurrentHP?.Invoke(currentHP);
 
-        if(currentHP <= 0)
+        if (currentHP <= 0)
         {
-            BuildSystem.current.ClearBusyTilemap(this);
-            gameObject.SetActive(false);
+            Death();
         }
+    }
+
+    protected override void Death()
+    {
+        BuildSystem.current.ClearBusyTilemap(this);
+        BuildSystem.current.RedrawNeighborsBusyArea(this);
+
+        base.Death();
     }
 
     public E_Resource Type() => resource;

@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -27,10 +30,7 @@ public class BuildSystem : GameSystem
         defaultBuild.Initialize(this);
         wallBuild.Initialize(this);
         gateBuild.Initialize(this);
-    }
 
-    private void Start()
-    {
         grid = gridLayout.gameObject.GetComponent<Grid>();
     }
 
@@ -45,27 +45,27 @@ public class BuildSystem : GameSystem
     {
         switch(building)
         {
-            case D_Wall:
+            case D_Pillar:
                 wallBuild.enabled = true;
-                wallBuild.InitializeBuilding(building.gameObject);
+                wallBuild.InitializeBuilding(building);
                 break;
 
             case D_Gate:
                 gateBuild.enabled = true;
-                gateBuild.InitializeBuilding(building.gameObject);
+                gateBuild.InitializeBuilding(building);
                 break;
 
             default:
                 defaultBuild.enabled = true;
-                defaultBuild.InitializeBuilding(building.gameObject);
+                defaultBuild.InitializeBuilding(building);
                 break;
         }
     }
 
-    public void ContinueWall(D_Wall startColumn)
+    public void ContinueWall(D_Pillar startPillar)
     {
         wallBuild.enabled = true;
-        wallBuild.ContinueWall(startColumn);
+        wallBuild.ContinueWall(startPillar);
     }
 
     #region Placement
@@ -132,9 +132,9 @@ public class BuildSystem : GameSystem
         freeTilemap.ClearAllTiles();
     }
 
-    public void BusyTakeArea(Actor building)
+    public void BusyTakeArea(Actor actor)
     {
-        Collider collider = building.GetComponent<Collider>();
+        Collider collider = actor.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
@@ -154,13 +154,39 @@ public class BuildSystem : GameSystem
         }
     }
 
+    public void RedrawNeighborsBusyArea(Actor actor)
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(
+            actor.transform.position,
+            1f, actor.transform.forward,
+            20f
+        );
+
+        if (hits.Length > 0)
+        {
+            List<Actor> _actors = hits
+                .Where(x => x.collider.gameObject.GetComponent<Building>() != null || x.collider.gameObject.GetComponent<Resource>() != null)
+                .Select(x => x.collider.gameObject.GetComponent<Actor>())
+                .ToList();
+
+            // List<Resource> _resources = hits
+            //     .Where(x => x.collider.gameObject.GetComponent<Resource>() != null)
+            //     .Select(x => x.collider.gameObject.GetComponent<Resource>())
+            //     .ToList();
+
+            _actors.Remove(actor);
+
+            _actors.ForEach(x => BusyTakeArea(x));
+        }
+    }
+
     public void ClearBusyTilemap(Actor building)
     {
         Collider collider = building.GetComponent<Collider>();
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
-        
+
         Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
         Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 

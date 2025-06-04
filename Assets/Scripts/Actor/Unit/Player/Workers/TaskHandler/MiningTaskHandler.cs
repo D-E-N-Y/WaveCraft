@@ -30,7 +30,7 @@ public class MiningTaskHandler : ITaskHandler
 
             // Move to resource
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(resource.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
+            yield return worker.movement.MoveTo(resource.GetPosition(), UnitMovement.E_MoveTo.NatureObject);
             worker.animator.SetBool("isMove", false);
 
             miningTask.SetExecutingState(EMiningExecutingState.Mining);
@@ -91,7 +91,7 @@ public class MiningTaskHandler : ITaskHandler
                         miningTask.SetProcessor((Building)processor);
                     }
 
-                    yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
+                    yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
                     worker.animator.SetBool("isMove", false);
 
                     miningTask.SetProgress(worker.GetCurrentMineAmount());

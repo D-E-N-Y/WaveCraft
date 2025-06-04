@@ -51,7 +51,7 @@ public class StoreTaskHandler : ITaskHandler
             IPosition position = (IPosition)processor;
             
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
@@ -75,7 +75,7 @@ public class StoreTaskHandler : ITaskHandler
             IPosition position = (IPosition)storeTask.source;
 
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
@@ -113,7 +113,7 @@ public class StoreTaskHandler : ITaskHandler
             storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
 
             worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
+            yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
             worker.animator.SetBool("isMove", false);
 
             processor.AddResources(worker.GetCurrentMineAmountByResource(resource));
@@ -150,7 +150,7 @@ public class StoreTaskHandler : ITaskHandler
                 storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
 
                 worker.animator.SetBool("isMove", true);
-                yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.Object);
+                yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
                 worker.animator.SetBool("isMove", false);
 
                 residue = ResourceSystem.current.AddResources(storage, resource, worker.GetCurrentStoreAmountByResource(resource));
