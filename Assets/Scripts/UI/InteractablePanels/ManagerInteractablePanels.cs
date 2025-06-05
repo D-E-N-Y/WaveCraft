@@ -33,9 +33,26 @@ public class ManagerInteractablePanels : MonoBehaviour
 
     private void OpenPanel(Actor actor)
     {
-        Type _type = actor.GetType();
+        ClosePanel();
 
-        foreach(var kvp in panelByType)
+        if (actor is Building _building)
+        {
+            if (!_building.isPlace && !_building.isBuild)
+            {
+                return;
+            }
+            else if (_building.isPlace && !_building.isBuild)
+            {
+                panelByType[typeof(Building)].Show();
+                panelByType[typeof(Building)].Initialize(actor);
+                openPanel = panelByType[typeof(Building)];
+
+                return;
+            }
+        }
+
+        Type _type = actor.GetType();
+        foreach (var kvp in panelByType)
         {
             var panelType = kvp.Key;
             if (panelType.IsAssignableFrom(_type))

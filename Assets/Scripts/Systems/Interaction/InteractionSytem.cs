@@ -37,7 +37,8 @@ public class InteractionSystem : GameSystem
     }
 
     public bool HasSelectedActor() => selectActor != null;
-    
+    public bool IsSelectedActor(Actor _actor) => selectActor == _actor;
+
     public void SelectActor(Actor actor)
     {
         selectActor = actor;

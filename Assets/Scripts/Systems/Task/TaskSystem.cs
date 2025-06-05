@@ -11,7 +11,7 @@ public class TaskSystem : GameSystem
     public Action UpdateWorkers;
 
     private Dictionary<E_TaskState, List<Task>> tasks;
-    private List<UP_Worker> workers;    
+    private List<UP_Worker> workers;
 
     public override void Initialize()
     {
@@ -30,28 +30,28 @@ public class TaskSystem : GameSystem
     {
         tasks[E_TaskState.Pending].Add(task);
         UpdateTasks?.Invoke();
-        
+
         DoTask(task);
     }
 
     public void DoTask(Task task)
     {
         UP_Worker worker = FindFreeWorker();
-        if(worker)
+        if (worker)
         {
             worker.AddTask(task);
-            
+
             tasks[E_TaskState.Execured].Add(task);
             task.SetState(E_TaskState.Execured);
-            
-            if(tasks[E_TaskState.Pending].Contains(task))
+
+            if (tasks[E_TaskState.Pending].Contains(task))
             {
                 tasks[E_TaskState.Pending].Remove(task);
-            } 
-            if(tasks[E_TaskState.Canceled].Contains(task))
+            }
+            if (tasks[E_TaskState.Canceled].Contains(task))
             {
                 tasks[E_TaskState.Canceled].Remove(task);
-            } 
+            }
 
             UpdateTasks?.Invoke();
 
@@ -70,31 +70,31 @@ public class TaskSystem : GameSystem
         tasks[E_TaskState.Execured].Add(task);
         task.SetState(E_TaskState.Execured);
 
-        if(tasks[E_TaskState.Pending].Contains(task))
+        if (tasks[E_TaskState.Pending].Contains(task))
         {
             tasks[E_TaskState.Pending].Remove(task);
-        } 
-        if(tasks[E_TaskState.Canceled].Contains(task))
+        }
+        if (tasks[E_TaskState.Canceled].Contains(task))
         {
             tasks[E_TaskState.Canceled].Remove(task);
-        } 
+        }
 
         UpdateTasks?.Invoke();
     }
 
     private UP_Worker FindFreeWorker()
     {
-        foreach(UP_Worker worker in workers)
+        foreach (UP_Worker worker in workers)
         {
-            if(worker.state == E_WorkerState.Idle && worker.isAutoGetTask)
+            if (worker.state == E_WorkerState.Idle && worker.isAutoGetTask)
             {
                 return worker;
             }
         }
 
-        foreach(UP_Worker worker in workers)
+        foreach (UP_Worker worker in workers)
         {
-            if(worker.HasFreeTaskSpace() && worker.isAutoGetTask)
+            if (worker.HasFreeTaskSpace() && worker.isAutoGetTask)
             {
                 return worker;
             }
@@ -106,13 +106,13 @@ public class TaskSystem : GameSystem
     public void CompleteTask(Task task)
     {
         tasks[E_TaskState.Execured].Remove(task);
-        
+
         tasks[E_TaskState.Completed].Add(task);
         task.SetState(E_TaskState.Completed);
-        
+
         UpdateTasks?.Invoke();
 
-        if(tasks[E_TaskState.Pending].Count > 0)
+        if (tasks[E_TaskState.Pending].Count > 0)
         {
             DoTask(tasks[E_TaskState.Pending][0]);
         }
@@ -121,7 +121,7 @@ public class TaskSystem : GameSystem
     public void CancelTask(Task task)
     {
         tasks[E_TaskState.Execured].Remove(task);
-        
+
         tasks[E_TaskState.Canceled].Add(task);
         task.SetState(E_TaskState.Canceled);
         task.SetAutoWorker(false);
@@ -132,20 +132,21 @@ public class TaskSystem : GameSystem
 
     public void RemoveTask(Task task)
     {
-        if(task.worker != null && task.state != E_TaskState.Completed)
+        if (task.worker != null && task.state != E_TaskState.Completed)
         {
             task.worker.CancelTask(task);
         }
-        
-        foreach(E_TaskState state in Enum.GetValues(typeof(E_TaskState)))
+
+        foreach (E_TaskState state in Enum.GetValues(typeof(E_TaskState)))
         {
-            if(tasks[state].Contains(task))
+            if (tasks[state].Contains(task))
             {
                 tasks[state].Remove(task);
             }
         }
 
         UpdateTasks?.Invoke();
+        task.Update?.Invoke();
     }
 
     public void AddWorker(UP_Worker worker)
@@ -153,13 +154,13 @@ public class TaskSystem : GameSystem
         workers.Add(worker);
         UpdateWorkers?.Invoke();
 
-        if(tasks.ContainsKey(E_TaskState.Pending) && tasks[E_TaskState.Pending].Count > 0)
+        if (tasks.ContainsKey(E_TaskState.Pending) && tasks[E_TaskState.Pending].Count > 0)
         {
             Task freeTask = tasks[E_TaskState.Pending]
                 .Where(x => x.isAutoWorker)
                 .FirstOrDefault();
-            
-            if(freeTask != null)
+
+            if (freeTask != null)
             {
                 DoTask(freeTask);
             }
@@ -174,15 +175,60 @@ public class TaskSystem : GameSystem
 
     public List<Task> GetTasks(E_TaskState state) => tasks[state];
 
-    public int GetCount() 
+    public int GetCount()
     {
         int count = 0;
 
-        foreach(var current in tasks)
+        foreach (var current in tasks)
         {
             count += current.Value.Count;
         }
 
         return count;
+    }
+
+    public bool HasBuildingInBuildTask(Building _building)
+    {
+        foreach (var current in tasks)
+        {
+            foreach (Task task in current.Value)
+            {
+                if (task is BuildTask buildTask && buildTask.building == _building)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public BuildTask GetBuildTaskForBuilding(Building _building)
+    {
+        foreach (var current in tasks)
+        {
+            foreach (Task task in current.Value)
+            {
+                if (task is BuildTask buildTask && buildTask.building == _building)
+                {
+                    return buildTask;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public bool HasTask(Task _task)
+    {
+        foreach (var current in tasks)
+        {
+            if (current.Value.Contains(_task))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -68,7 +68,7 @@ public class BaseBuild : MonoBehaviour
 
     protected virtual void Rotate()
     {
-        // building.Rotate();
+        building.transform.Rotate(Vector3.up, 15f);
     }
 
     protected virtual void Place()

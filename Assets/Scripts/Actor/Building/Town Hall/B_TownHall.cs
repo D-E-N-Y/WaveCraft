@@ -24,11 +24,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
             storage.Initialize(this);
             storages.Add(storage);
             StorageSystem.current.AddStorage(storage, storage.GetTypeResource());
-            ResourceSystem.current.AddResources(storage.GetTypeResource(), 0);
+            ResourceSystem.current.AddResourceByType(storage.GetTypeResource(), 0);
         }
-        ResourceSystem.current.AddResources(E_Resource.Food, 100);
-        ResourceSystem.current.AddResources(E_Resource.Stone, 100);
-        ResourceSystem.current.AddResources(E_Resource.Wood, 100);
+        ResourceSystem.current.AddResourceByType(E_Resource.Food, 100);
+        ResourceSystem.current.AddResourceByType(E_Resource.Stone, 100);
+        ResourceSystem.current.AddResourceByType(E_Resource.Wood, 100);
 
         // ininitialize processor
         processors = new List<TH_Processor>();
@@ -73,7 +73,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         if(spawnOrder == 0 && spawning != null)
         {
-            ResourceSystem.current.AddResources(spawnCost.resourse, spawnCost.count);
+            ResourceSystem.current.AddResourceByType(spawnCost.resourse, spawnCost.count);
             UpdateSpawnProgress?.Invoke(1f);
 
             StopCoroutine(spawning);

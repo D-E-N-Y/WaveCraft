@@ -276,7 +276,7 @@ public class WallBuild : BaseBuild
         pillars.Last()?.connectPillar?.ResetConnect();
         
         // place current column
-        building.Place();
+        building.RemoveDrag();
         buildSystem.PlaceTakeArea(building);
         placedWalls.Add(building);
 

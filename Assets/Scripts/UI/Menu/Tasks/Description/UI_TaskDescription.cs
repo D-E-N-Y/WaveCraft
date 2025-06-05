@@ -1,6 +1,4 @@
-using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,6 +52,9 @@ public abstract class UI_TaskDescription : UIPanel
 
     protected virtual void UpdateInfo()
     {
+        if (!TaskSystem.current.HasTask(task))
+            gameObject.SetActive(false);
+
         ui_progress.text = task.progress.ToString("F0");
         ui_goal.text = task.goal.ToString();
 

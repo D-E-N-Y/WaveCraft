@@ -40,7 +40,7 @@ public class DestroyTaskHandler : ITaskHandler
         // return resources for building
         foreach(S_Cost _cost in destroyTask.buildingCost)
         {
-            ResourceSystem.current.AddResources(_cost.resourse, _cost.count);
+            ResourceSystem.current.AddResourceByType(_cost.resourse, _cost.count);
         }
 
         destroyTask.SetExecutingState(EDestroyExecutingState.none);

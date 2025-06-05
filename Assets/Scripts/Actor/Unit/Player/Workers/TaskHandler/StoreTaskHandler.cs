@@ -153,7 +153,7 @@ public class StoreTaskHandler : ITaskHandler
                 yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
                 worker.animator.SetBool("isMove", false);
 
-                residue = ResourceSystem.current.AddResources(storage, resource, worker.GetCurrentStoreAmountByResource(resource));
+                residue = ResourceSystem.current.AddResourceByType(storage, resource, worker.GetCurrentStoreAmountByResource(resource));
 
                 if(residue > 0)
                 {

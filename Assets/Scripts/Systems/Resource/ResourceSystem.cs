@@ -8,35 +8,41 @@ public class ResourceSystem : GameSystem
     public Action<E_Resource> UpdateCurrentCount;
 
     public Dictionary<E_Resource, int> resources { private set; get; }
-    private Dictionary<E_Resource, List<Resource>> naturalResources;
 
     public override void Initialize()
     { 
         current = this;
 
         resources = new Dictionary<E_Resource, int>();
-        naturalResources = new Dictionary<E_Resource, List<Resource>>();
     }
 
-    public void AddResources(E_Resource resourceType, int amount)
+    public void AddResources(S_Cost[] costs)
     {
-        if(StorageSystem.current.CheckFreeSpace(resourceType))
+        foreach (S_Cost cost in costs)
+        {
+            AddResourceByType(cost.resourse, cost.count);
+        }
+    }
+
+    public void AddResourceByType(E_Resource resourceType, int amount)
+    {
+        if (StorageSystem.current.CheckFreeSpace(resourceType))
         {
             int residue = StorageSystem.current.FindStorageToAddResource(resourceType).AddResources(amount);
             UpdateCurrentCount?.Invoke(resourceType);
 
-            if(residue != -1)
+            if (residue != -1)
             {
-                if(!resources.ContainsKey(resourceType))
+                if (!resources.ContainsKey(resourceType))
                 {
                     resources[resourceType] = 0;
                 }
-                
-                if(residue > 0)
+
+                if (residue > 0)
                 {
                     resources[resourceType] += residue;
 
-                    AddResources(resourceType, residue);
+                    AddResourceByType(resourceType, residue);
                 }
                 else
                 {
@@ -50,7 +56,7 @@ public class ResourceSystem : GameSystem
         }
     }
 
-    public int AddResources(IStorage storage, E_Resource resource, int amount)
+    public int AddResourceByType(IStorage storage, E_Resource resource, int amount)
     {
         int residue = storage.AddResources(amount);
         resources[resource] += amount - residue;
@@ -85,27 +91,4 @@ public class ResourceSystem : GameSystem
             RemoveResourceByType(cost.resourse, cost.count);
         }
     }
-
-    public void AddNaturalResources(Resource resource)
-    {
-        if (!naturalResources.ContainsKey(resource.Type()))
-        {
-            naturalResources[resource.Type()] = new List<Resource>();
-        }
-
-        naturalResources[resource.Type()].Add(resource);
-    }
-
-    public void RemoveNaturalResources(Resource resource)
-    {
-        naturalResources[resource.Type()].Remove(resource);
-    }
-
-    // public Resource GetNearbyNaturalResource(E_Resource type, Transform target)
-    // {
-    //     foreach(Resource resource in naturalResources[type])
-    //     {
-
-    //     }
-    // }
 }
