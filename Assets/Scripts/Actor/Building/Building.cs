@@ -66,9 +66,6 @@ public class Building : Actor
         RemoveDrag();
         isPlace = true;
         placed?.Invoke();
-
-        if (InteractionSystem.current.IsSelectedActor(this))
-            InteractionSystem.current.SelectActor(this);
     }
 
     public void RemoveDrag()
@@ -92,9 +89,6 @@ public class Building : Actor
 
         isBuild = true;
         builded?.Invoke();
-
-        if (InteractionSystem.current.IsSelectedActor(this))
-            InteractionSystem.current.SelectActor(this);
     }
 
     public override void TakeDamage(float damage)

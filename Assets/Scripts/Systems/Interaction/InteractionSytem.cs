@@ -73,15 +73,20 @@ public class InteractionSystem : GameSystem
             if(raycastHit.transform.gameObject.layer == layerInteractable || raycastHit.transform.gameObject.layer == layerSelect)
             {
                 Transform actor = raycastHit.transform;
-                
+
                 while (true)
                 {
-                    if(actor.transform.parent == null || actor.gameObject.GetComponent<Actor>() != null)
+                    if (actor.transform.parent == null || actor.gameObject.GetComponent<Actor>() != null)
                     {
                         break;
                     }
-                    
+
                     actor = actor.transform.parent;
+                }
+
+                if (actor.gameObject.TryGetComponent<Building>(out Building building) && !building.isPlace)
+                {
+                    return;
                 }
 
                 SelectActor(actor.gameObject.GetComponent<Actor>());

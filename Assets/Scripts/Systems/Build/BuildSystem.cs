@@ -171,11 +171,6 @@ public class BuildSystem : GameSystem
                 .Select(x => x.collider.gameObject.GetComponent<Actor>())
                 .ToList();
 
-            // List<Resource> _resources = hits
-            //     .Where(x => x.collider.gameObject.GetComponent<Resource>() != null)
-            //     .Select(x => x.collider.gameObject.GetComponent<Resource>())
-            //     .ToList();
-
             _actors.Remove(actor);
 
             _actors.ForEach(x => BusyTakeArea(x));

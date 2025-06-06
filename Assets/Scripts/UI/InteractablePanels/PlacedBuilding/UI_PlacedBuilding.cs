@@ -22,6 +22,7 @@ public class UI_PlacedBuilding : UI_InteractablePanel
         taskSystem.UpdateTasks += UpdateInfo;
 
         building = (Building)_actor;
+        building.builded += Builded;
 
         UpdateInfo();
     }
@@ -44,6 +45,12 @@ public class UI_PlacedBuilding : UI_InteractablePanel
         ui_cancel.interactable = true;
     }
 
+    private void Builded()
+    {
+        if (InteractionSystem.current.IsSelectedActor(building))
+            InteractionSystem.current.SelectActor(building);
+    }
+
     private void Build()
     {
         BuildTask task = new BuildTask(building);
@@ -61,9 +68,10 @@ public class UI_PlacedBuilding : UI_InteractablePanel
         InteractionSystem.current.UnSelectActor();
         building.TakeDamage(99999);
     }
-    
+
     private void OnDisable()
     {
         taskSystem.UpdateTasks -= UpdateInfo;
+        building.builded -= Builded;
     }
 }
