@@ -20,6 +20,8 @@ public class BuildSystem : GameSystem
     [SerializeField] private TileBase notCanPlaceTile;
     [SerializeField] private TileBase canPlaceTile;
 
+    [SerializeField] private UI_CostBuildingPanel ui_costBuildingPanel;
+
     public GridLayout gridLayout;
     private Grid grid;
 
@@ -27,9 +29,9 @@ public class BuildSystem : GameSystem
     {
         current = this;
 
-        defaultBuild.Initialize(this);
-        wallBuild.Initialize(this);
-        gateBuild.Initialize(this);
+        defaultBuild.Initialize(this, ui_costBuildingPanel);
+        wallBuild.Initialize(this, ui_costBuildingPanel);
+        gateBuild.Initialize(this, ui_costBuildingPanel);
 
         grid = gridLayout.gameObject.GetComponent<Grid>();
     }
@@ -242,6 +244,18 @@ public class BuildSystem : GameSystem
         }
 
         return array;
+    }
+
+    public bool IsPlacing()
+    {
+        if (defaultBuild.HasBuilding() || wallBuild.HasBuilding() || gateBuild.HasBuilding())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public TileBase NotCanPlaceTile() => notCanPlaceTile;

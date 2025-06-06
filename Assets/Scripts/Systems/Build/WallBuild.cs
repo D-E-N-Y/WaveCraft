@@ -7,7 +7,6 @@ public class WallBuild : BaseBuild
 {
     #region Fields
 
-    [SerializeField] private UI_CostWallsPanel ui_costWallsPanel;
     [SerializeField] private D_Pillar pillarPrefab;
     [SerializeField] private D_Wall wallPrefab;
     
@@ -25,9 +24,6 @@ public class WallBuild : BaseBuild
     #endregion
     
     #region Unity
-    
-    void OnEnable() => ui_costWallsPanel.gameObject.SetActive(true);
-    void OnDisable() => ui_costWallsPanel.gameObject.SetActive(false);
 
     protected override void Update()
     {
@@ -50,9 +46,9 @@ public class WallBuild : BaseBuild
 
     #region Initialization
         
-    public override void Initialize(BuildSystem buildSystem)
+    public override void Initialize(BuildSystem buildSystem, UI_CostBuildingPanel ui_costBuildingPanel)
     {
-        base.Initialize(buildSystem);
+        base.Initialize(buildSystem, ui_costBuildingPanel);
 
         pillars = new List<D_Pillar>();
         walls = new List<D_Wall>();
@@ -116,7 +112,7 @@ public class WallBuild : BaseBuild
         countsWall.Clear();
 
         countsWall.Add(0);
-        currentCountWalls = -1;
+        currentCountWalls = 0;
 
         currentWoodCost = currentStoneCost = 0;
 
@@ -189,12 +185,12 @@ public class WallBuild : BaseBuild
         currentWoodCost <= ResourceSystem.current.resources[E_Resource.Wood] && 
         currentStoneCost <= ResourceSystem.current.resources[E_Resource.Stone];
 
-    private void UpdateCostUI()
+    protected override void UpdateCostUI()
     {
         currentWoodCost = woodCost * (pillars.Count + countsWall.Last() + currentCountWalls);
         currentStoneCost = stoneCost * (pillars.Count + countsWall.Last() + currentCountWalls);
 
-        ui_costWallsPanel.UpdateCost(currentWoodCost, currentStoneCost);
+        ui_costBuildingPanel.UpdateCost(currentWoodCost, currentStoneCost);
     }
         
     #endregion
@@ -367,7 +363,7 @@ public class WallBuild : BaseBuild
         else
         {
             // deactive all walls
-            currentCountWalls = -1;
+            currentCountWalls = 0;
             walls.ForEach(x => x.gameObject.SetActive(false));
         }
 

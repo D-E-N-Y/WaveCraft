@@ -7,54 +7,61 @@ public class BaseBuild : MonoBehaviour
     protected Building building;
     protected MaterialBuilding materialBuilding;
 
-    public virtual void Initialize(BuildSystem buildSystem)
+    protected UI_CostBuildingPanel ui_costBuildingPanel;
+
+    void OnEnable() => ui_costBuildingPanel.gameObject.SetActive(true);
+    void OnDisable() => ui_costBuildingPanel.gameObject.SetActive(false);
+
+    public virtual void Initialize(BuildSystem buildSystem, UI_CostBuildingPanel ui_costBuildingPanel)
     {
-        this.buildSystem = buildSystem; 
+        this.buildSystem = buildSystem;
+        this.ui_costBuildingPanel = ui_costBuildingPanel;
         enabled = false;
     }
 
     public virtual void InitializeBuilding(Building prefab)
     {
-        if(building) return;
+        if (building) return;
 
         Vector3 position = buildSystem.SnapCoordinateToGrid(InteractionSystem.GetMouseWorldPosition());
 
         building = Instantiate(prefab, position, Quaternion.identity);
-        building.Initialize();        
+        building.Initialize();
         building.gameObject.AddComponent<ObjectDrag>();
 
         materialBuilding = building.GetComponent<MaterialBuilding>();
         materialBuilding.StartPlace();
 
         buildSystem.ActiveTilemap(true);
+        UpdateCostUI();
     }
 
-    protected virtual void Update() 
+    protected virtual void Update()
     {
-        if(!building) return;
+        if (!building) return;
 
         buildSystem.ClearFreeTilemap();
         ViewAreaPlace(building);
 
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Rotate();
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             Place();
         }
-        else if(Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cancel();
         }
     }
 
     #region Control
-        
+
     protected void ViewAreaPlace(Building _object)
     {
-        if(buildSystem.CanBePlaced(_object))
+        if (buildSystem.CanBePlaced(_object))
         {
             _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
             buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
@@ -73,11 +80,11 @@ public class BaseBuild : MonoBehaviour
 
     protected virtual void Place()
     {
-        if(buildSystem.CanBePlaced(building))
+        if (buildSystem.CanBePlaced(building))
         {
             building.Place();
             materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
-            
+
             buildSystem.BusyTakeArea(building);
 
             BuildTask task = new BuildTask(building);
@@ -87,19 +94,26 @@ public class BaseBuild : MonoBehaviour
 
             building = null;
             materialBuilding = null;
-            
+
             buildSystem.ActiveTilemap(false);
 
             enabled = false;
         }
     }
-    
-    protected virtual void Cancel() 
+
+    protected virtual void Cancel()
     {
         Destroy(building.gameObject);
         buildSystem.ActiveTilemap(false);
         enabled = false;
     }
+
+    protected virtual void UpdateCostUI()
+    {
+        ui_costBuildingPanel.UpdateCost(building.GetCostByResource(E_Resource.Wood), building.GetCostByResource(E_Resource.Stone));
+    }
+
+    public bool HasBuilding() => building;
 
     #endregion
 }

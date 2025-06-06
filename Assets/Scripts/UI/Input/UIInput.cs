@@ -18,13 +18,17 @@ public class UIInput : MonoBehaviour
 
     private void Return(InputAction.CallbackContext context)
     {
-        if(UISystem.current.HasOpenPanels())
+        if (UISystem.current.HasOpenPanels())
         {
             UISystem.current.CloseCurrentPanel();
         }
-        else if(InteractionSystem.current.HasSelectedActor())
+        else if (InteractionSystem.current.HasSelectedActor())
         {
             InteractionSystem.current.UnSelectActor();
+        }
+        else if (BuildSystem.current.IsPlacing())
+        {
+            return;
         }
         else
         {

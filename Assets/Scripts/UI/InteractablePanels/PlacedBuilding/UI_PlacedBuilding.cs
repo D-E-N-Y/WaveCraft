@@ -34,16 +34,14 @@ public class UI_PlacedBuilding : UI_InteractablePanel
         ui_cancel.onClick.RemoveAllListeners();
         ui_cancel.interactable = false;
 
-        if (taskSystem.HasBuildingInBuildTask(building))
-        {
-            ui_cancel.onClick.AddListener(() => Cancel());
-            ui_cancel.interactable = true;
-        }
-        else
+        if (!taskSystem.HasBuildingInBuildTask(building))
         {
             ui_build.onClick.AddListener(() => Build());
             ui_build.interactable = true;
         }
+
+        ui_cancel.onClick.AddListener(() => Cancel());
+        ui_cancel.interactable = true;
     }
 
     private void Build()
@@ -54,7 +52,11 @@ public class UI_PlacedBuilding : UI_InteractablePanel
 
     private void Cancel()
     {
-        taskSystem.RemoveTask(taskSystem.GetBuildTaskForBuilding(building));
+        if (taskSystem.HasBuildingInBuildTask(building))
+        {
+            taskSystem.RemoveTask(taskSystem.GetBuildTaskForBuilding(building));
+        }
+        
         ResourceSystem.current.AddResources(building.GetCost());
         InteractionSystem.current.UnSelectActor();
         building.TakeDamage(99999);

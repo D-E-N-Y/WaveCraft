@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UI_CostWallsPanel : MonoBehaviour
+public class UI_CostBuildingPanel : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ui_woodCost;
     [SerializeField] private TextMeshProUGUI ui_stoneCost;
