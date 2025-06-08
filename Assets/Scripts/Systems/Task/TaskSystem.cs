@@ -219,6 +219,38 @@ public class TaskSystem : GameSystem
         return null;
     }
 
+    public bool HasBuildingInDestroyTask(Building _building)
+    {
+        foreach (var current in tasks)
+        {
+            foreach (Task task in current.Value)
+            {
+                if (task is DestroyTask destroyTask && destroyTask.building == _building)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public DestroyTask GetDestroyTaskForBuilding(Building _building)
+    {
+        foreach (var current in tasks)
+        {
+            foreach (Task task in current.Value)
+            {
+                if (task is DestroyTask destroyTask && destroyTask.building == _building)
+                {
+                    return destroyTask;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public bool HasTask(Task _task)
     {
         foreach (var current in tasks)

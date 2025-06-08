@@ -20,7 +20,7 @@ public class GateBuild : BaseBuild
         
         gate = (D_Gate)building;
         gate.gameObject.GetComponent<ObjectDrag>().stopDrag += PlaceBetweenWalls;
-        gate.isPillar += SetIsColumn;
+        gate.isPillar += SetIsPillar;
     }
 
     protected override void Rotate()
@@ -28,7 +28,7 @@ public class GateBuild : BaseBuild
         gate.transform.Rotate(Vector3.up, 180f);
     }
 
-    private void SetIsColumn(bool value) => isPillar = value;
+    private void SetIsPillar(bool value) => isPillar = value;
 
     private void PlaceBetweenWalls()
     {

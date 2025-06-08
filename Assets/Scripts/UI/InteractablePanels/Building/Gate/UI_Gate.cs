@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UI_Gate : UI_InteractablePanel
+public class UI_Gate : UI_Building
 {
     public override Type PanelType => typeof(D_Gate);
     private D_Gate _gate;

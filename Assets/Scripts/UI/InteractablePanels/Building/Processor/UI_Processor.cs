@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Processor : UI_InteractablePanel
+public class UI_Processor : UI_Building
 {
     public override Type PanelType => typeof(I_Processor);
     private I_Processor processor;
@@ -58,7 +58,7 @@ public class UI_Processor : UI_InteractablePanel
         if(processor.processedAmount > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
             StoreTask task = new StoreTask(processor.GetTypeResource(), processor);
-            TaskSystem.current.AddTask(task);
+            taskSystem.AddTask(task);
         }
     }
 }

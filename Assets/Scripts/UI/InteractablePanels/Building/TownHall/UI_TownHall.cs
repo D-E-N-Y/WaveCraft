@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_TownHall : UI_InteractablePanel
+public class UI_TownHall : UI_Building
 {
     public override Type PanelType => typeof(B_TownHall);
     private B_TownHall townHall;
@@ -151,7 +151,7 @@ public class UI_TownHall : UI_InteractablePanel
         if(processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
             StoreTask task = new StoreTask(resource, townHall);
-            TaskSystem.current.AddTask(task);
+            taskSystem.AddTask(task);
         }
     }
 }

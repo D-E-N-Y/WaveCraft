@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/ImportAssets/Civilian/Polytope Studio/Lowpoly_Characters/Sources/Scripts/PT_Create_Prefab.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/PlacedBuilding/UI_PlacedBuilding.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexJitter.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/SimpleScript.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Tasks/UI_TasksContainer.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Gate/D_Gate.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Wall/E_WallType.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexColorCycler.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Storage/UI_Storage.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Processor.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Production/IProdiction.cs" />
     <Compile Include="Assets/Scripts/Systems/Bootstrap/GameplayBootstrap.cs" />
@@ -83,30 +85,27 @@
     <Compile Include="Assets/Scripts/Light/RandomDirectionLight.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/TaskManager.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark02.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Processor/UI_Processor.cs" />
     <Compile Include="Assets/Scripts/Render/Feature/OutlineRenderFeature.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/UIMainMenu.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Tasks/UI_Task.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Wall/UI_Wall.cs" />
     <Compile Include="Assets/Scripts/Structures/S_ResourceImage.cs" />
     <Compile Include="Assets/ImportAssets/UI/DefaceGames/ZoomAndPan.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Residential/IResidential.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Gate/UI_Gate.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TeleType.cs" />
     <Compile Include="Assets/Scripts/Systems/ProcessorSystem/ProcessorSystem.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Pillar/UI_Pillar.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/E_WorkerState.cs" />
     <Compile Include="Assets/Scripts/Task/Mining/E_MiningExecutingState.cs" />
     <Compile Include="Assets/Scripts/Task/Destroy/DestroyTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Storage.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/TownHall/UI_TownHall.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Workers/UI_WorkersContainer.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/UP_Worker.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Gate/UI_Gate.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Filter/UI_TypeFilter.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/IIndustrial.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_TaskWorker.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Wall/UI_Wall.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Wall/D_Wall.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/UnitMovement.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeB.cs" />
@@ -116,6 +115,7 @@
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Unit/Player/Worker/UI_Worker.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/IModule.cs" />
     <Compile Include="Assets/Scripts/Systems/GameSystem.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/TownHall/UI_TownHall.cs" />
     <Compile Include="Assets/Scripts/Task/Task.cs" />
     <Compile Include="Assets/Scripts/UI/FPS/UIFPS.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexShakeA.cs" />
@@ -150,6 +150,7 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/U_Player.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/ManagerInteractablePanels.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Production/UI_Production.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Barrack/D_Barrack.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_FrameRateCounter.cs" />
@@ -193,7 +194,6 @@
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/BuildTaskHandler.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_B.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Residential/B_Residential.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Storage/UI_Storage.cs" />
     <Compile Include="Assets/Scripts/Task/E_TaskStatus.cs" />
     <Compile Include="Assets/Scripts/Systems/Storage/StorageSystem.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ChatController.cs" />
@@ -204,6 +204,7 @@
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_DigitValidator.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/VertexZoom.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Processor/UI_Processor.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Attack.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Container/Workers/UI_WorkerSlot.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/UIMenu.cs" />
@@ -219,18 +220,18 @@
     <Compile Include="Assets/Scripts/Actor/Building/Town Hall/B_TownHall.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01_UGUI.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processor/Wood/P_Sawmill.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/Production/UI_Production.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Pillar/UI_Pillar.cs" />
     <Compile Include="Assets/Scripts/Camera/RotateCamera.cs" />
     <Compile Include="Assets/ImportAssets/Enemy/Supercyan Character Pack Zombie Sample/Scripts/ZombieCameraLogic.cs" />
     <Compile Include="Assets/Scripts/Actor/IPosition.cs" />
     <Compile Include="Assets/Scripts/Task/Store/StoreTask.cs" />
+    <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/UI_Building.cs" />
     <Compile Include="Assets/Scripts/Terrain/TerrainResourceSpawner.cs" />
     <Compile Include="Assets/Scripts/Systems/Bootstrap/Bootstraper.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Mage&apos;s Tower/D_MageTower.cs" />
     <Compile Include="Assets/Scripts/Systems/Focus/FocusSystem.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Storage/IStorage.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Industrial/Processor/IProcessor.cs" />
-    <Compile Include="Assets/Scripts/UI/InteractablePanels/PlacedBuilding/UI_PlacedBuilding.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark03.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextEventHandler.cs" />
     <Compile Include="Assets/Scripts/UI/Provider/UIProvider.cs" />

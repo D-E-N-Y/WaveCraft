@@ -35,13 +35,10 @@ public class DestroyTaskHandler : ITaskHandler
         worker.animator.Play("Idle");
 
         // destroy building
-        destroyTask.building.gameObject.SetActive(false);
+        destroyTask.building.Destroy();
         
         // return resources for building
-        foreach(S_Cost _cost in destroyTask.buildingCost)
-        {
-            ResourceSystem.current.AddResourceByType(_cost.resourse, _cost.count);
-        }
+        ResourceSystem.current.AddResources(destroyTask.buildingCost);
 
         destroyTask.SetExecutingState(EDestroyExecutingState.none);
 

@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UI_Pillar : UI_InteractablePanel
+public class UI_Pillar : UI_Building
 {
     public override Type PanelType => typeof(D_Pillar);
     private D_Pillar pillar;

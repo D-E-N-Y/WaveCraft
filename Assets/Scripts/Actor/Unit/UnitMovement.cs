@@ -55,14 +55,19 @@ public class UnitMovement : MonoBehaviour
 
             // MoveToObject(GetNearbyPosition(target));
 
-            while(agent.pathPending || !agent.hasPath)
+            while (agent.pathPending || !agent.hasPath)
             {
                 yield return null;
+                
+                if (IsAtGoal())
+                {
+                    break;
+                }
             }
 
             yield return null;
 
-            if (agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f)
+            if (IsAtGoal())
             {
                 break;
             }
@@ -74,6 +79,8 @@ public class UnitMovement : MonoBehaviour
         yield return RotateToObject(target.First());
         // OnMoveComplete?.Invoke();
     }
+
+    private bool IsAtGoal() => agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f;
 
     private IEnumerator RotateToObject(Transform target)
     {

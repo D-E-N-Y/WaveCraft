@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Production : UI_InteractablePanel 
+public class UI_Production : UI_Building 
 {
     public override Type PanelType => typeof(I_Production);
     private I_Production production;
@@ -52,7 +52,7 @@ public class UI_Production : UI_InteractablePanel
         if(production.GetProduceAmount() > 0)
         {
             StoreTask task = new StoreTask(production.GetTypeResource(), production);
-            TaskSystem.current.AddTask(task);
+            taskSystem.AddTask(task);
         }
     }
 }

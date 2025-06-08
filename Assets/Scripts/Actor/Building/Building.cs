@@ -91,6 +91,11 @@ public class Building : Actor
         builded?.Invoke();
     }
 
+    public virtual void Destroy()
+    {
+        Death();
+    }
+
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
@@ -106,6 +111,8 @@ public class Building : Actor
 
     protected override void Death()
     {
+        GetComponent<BoxCollider>().enabled = enabled;
+
         BuildSystem.current.ClearBusyTilemap(this);
         BuildSystem.current.RedrawNeighborsBusyArea(this);
 

@@ -2,32 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PlacedBuilding : UI_InteractablePanel
+public class UI_PlacedBuilding : UI_Building
 {
     public override Type PanelType => typeof(Building);
 
     [SerializeField] private Button ui_build, ui_cancel;
-
-    private TaskSystem taskSystem;
-    private Building building;
 
     public override void Initialize(Actor _actor)
     {
         base.Initialize(_actor);
 
         if (taskSystem != null)
-            taskSystem.UpdateTasks -= UpdateInfo;
+            taskSystem.UpdateTasks -= UpdateBuildInfo;
 
-        taskSystem = TaskSystem.current;
-        taskSystem.UpdateTasks += UpdateInfo;
-
-        building = (Building)_actor;
+        taskSystem.UpdateTasks += UpdateBuildInfo;
         building.builded += Builded;
 
-        UpdateInfo();
+        UpdateBuildInfo();
     }
 
-    private void UpdateInfo()
+    private void UpdateBuildInfo()
     {
         ui_build.onClick.RemoveAllListeners();
         ui_build.interactable = false;
@@ -69,9 +63,11 @@ public class UI_PlacedBuilding : UI_InteractablePanel
         building.TakeDamage(99999);
     }
 
-    private void OnDisable()
+    protected override void UnsubscriptionActions()
     {
-        taskSystem.UpdateTasks -= UpdateInfo;
+        base.UnsubscriptionActions();
+
+        taskSystem.UpdateTasks -= UpdateBuildInfo;
         building.builded -= Builded;
     }
 }

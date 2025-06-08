@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Storage : UI_InteractablePanel
+public class UI_Storage : UI_Building
 {
     public override Type PanelType => typeof(I_Storage);
     private I_Storage storage;
