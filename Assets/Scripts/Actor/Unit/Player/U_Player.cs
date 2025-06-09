@@ -17,11 +17,11 @@ public class U_Player : Unit
     [SerializeField] protected EVillageType type;
     public EVillageType Type() => type;
 
+    public override string nameActor => names[Random.Range(0, names.Length)];
+
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = names[Random.Range(0, names.Length)];
 
         VillageSystem.current.AddVillage(this);
     }

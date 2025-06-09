@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour, IPosition
+public abstract class Actor : MonoBehaviour, IPosition
 {
     public Action<float> UpdateCurrentHP;
     public Action DestroyActor;
@@ -13,7 +13,7 @@ public class Actor : MonoBehaviour, IPosition
 
     [SerializeField] protected List<Transform> actorPositions;    
 
-    public string nameActor { get; protected set; }
+    public abstract string nameActor { get; }
 
     [SerializeField] protected float maxHP;
     protected float currentHP;

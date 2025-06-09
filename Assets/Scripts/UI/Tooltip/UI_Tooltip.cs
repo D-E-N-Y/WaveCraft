@@ -2,14 +2,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Tooltip : MonoBehaviour
+[RequireComponent(typeof(LayoutElement), typeof(RectTransform))]
+public class UI_Tooltip : UIPanel
 {
-    [SerializeField] private TextMeshProUGUI ui_header, ui_content;
-    [SerializeField] private LayoutElement layoutElement;
-    [SerializeField] private RectTransform rectTransform;
+    [SerializeField] protected TextMeshProUGUI ui_header, ui_content;
+    private LayoutElement layoutElement;
+    private RectTransform rectTransform;
     [SerializeField, Range(1, 250)] private int characterWrapLimit;
 
-    public void SetText(string content, string header = "")
+    public void Initialize()
+    {
+        layoutElement = GetComponent<LayoutElement>();
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    public void SetContent(string content, string header = "")
+    {
+        SetText(content, header);
+        SetPosition();
+    }
+
+    protected void SetText(string content, string header)
     {
         ui_header.gameObject.SetActive(!string.IsNullOrEmpty(header));
         ui_header.text = header;
@@ -19,11 +32,9 @@ public class UI_Tooltip : MonoBehaviour
         int contentLength = ui_content.text.Length;
 
         layoutElement.enabled = headerLength > characterWrapLimit || contentLength > characterWrapLimit;
-
-        SetPosition();
     }
 
-    private void SetPosition()
+    protected void SetPosition()
     {
         Vector2 position = Input.mousePosition;
 

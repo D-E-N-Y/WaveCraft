@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit : Actor
+public abstract class Unit : Actor
 {
     public bool Died { private set; get; }
 

@@ -11,13 +11,13 @@ public class P_Sawmill : I_Processor, IProcessor
     private float speedSaw = 120f;
 
     private Coroutine rotateMill;
-    private Coroutine rotateSaw; 
+    private Coroutine rotateSaw;
+
+    public override string nameActor => "Sawmill";
 
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "Sawmill";
 
         speedMill = 10f;
         speedSaw = 120f;

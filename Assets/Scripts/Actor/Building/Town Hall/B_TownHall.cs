@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class B_TownHall : Building, ISpawnUnit, IResidential
 {
+    public override string nameActor => "Town Hall";
+    
     public override void Initialize()
     {
         base.Initialize();
 
-        nameActor = "Town Hall";
         spawnOrder = 0;
 
         // fill busy grid 
@@ -19,7 +20,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         // initialize storage
         storages = new List<TH_Storage>();
-        foreach(TH_Storage storage in GetComponents<TH_Storage>())
+        foreach (TH_Storage storage in GetComponents<TH_Storage>())
         {
             storage.Initialize(this);
             storages.Add(storage);
@@ -32,7 +33,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         // ininitialize processor
         processors = new List<TH_Processor>();
-        foreach(TH_Processor processor in GetComponents<TH_Processor>())
+        foreach (TH_Processor processor in GetComponents<TH_Processor>())
         {
             processor.Initialize(this);
             processors.Add(processor);
@@ -54,6 +55,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     [SerializeField] private S_Cost spawnCost;
     private Coroutine spawning;
     public int spawnOrder { get; private set; }
+
+    
 
     public void SpawnUnit()
     {

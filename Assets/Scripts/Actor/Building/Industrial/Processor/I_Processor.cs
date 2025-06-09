@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class I_Processor : B_Industrial, IProcessor
+public abstract class I_Processor : B_Industrial, IProcessor
 {
     public Action UpdateProcessedAmount;
     public Action UpdateRawAmount;
-    
+
     [SerializeField] protected float factor;
     [SerializeField] protected float timeProcess;
 
@@ -39,7 +39,7 @@ public class I_Processor : B_Industrial, IProcessor
         CompleteProcess();
     }
 
-    protected virtual  void CompleteProcess()
+    protected virtual void CompleteProcess()
     {
         rawAmount--;
         UpdateRawAmount?.Invoke();
@@ -47,7 +47,7 @@ public class I_Processor : B_Industrial, IProcessor
         processedAmount += (int)(1 * factor);
         UpdateProcessedAmount?.Invoke();
 
-        if(rawAmount > 0) 
+        if (rawAmount > 0)
         {
             StartProcess();
         }
@@ -62,7 +62,7 @@ public class I_Processor : B_Industrial, IProcessor
         rawAmount += amount;
         UpdateRawAmount?.Invoke();
 
-        if(!isProcessing) StartProcess();
+        if (!isProcessing) StartProcess();
     }
 
     public virtual int Unload()
@@ -73,4 +73,7 @@ public class I_Processor : B_Industrial, IProcessor
 
         return amount;
     }
+
+    public float GetFactor() => factor;
+    public float GetTimeProcess() => timeProcess;
 }

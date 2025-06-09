@@ -3,19 +3,25 @@ using TMPro;
 using UnityEngine;
 public class UI_BuildingSlot : MonoBehaviour
 {
-    [SerializeField] protected GameObject prefab;
+    [SerializeField] protected Building building;
+
+    [SerializeField] protected TextMeshProUGUI ui_name;
     [SerializeField] protected List<S_CostUI> cost;
 
-    private Building building;
 
     void Start()
     {
-        building = prefab.GetComponent<Building>();
+        ui_name.text = building.nameActor;
 
-        foreach(S_CostUI current in cost) 
+        if (building is D_Pillar)
         {
-            current.amount.text = building.GetCostByResource(current.resourse).ToString();
+            ui_name.text = "Wall";
         }
+
+        foreach (S_CostUI current in cost)
+            {
+                current.amount.text = building.GetCostByResource(current.resourse).ToString();
+            }
     }
 
     public void BuyBuilding()

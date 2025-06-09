@@ -16,11 +16,12 @@ public class D_Gate : B_Defence
     [SerializeField] private GameObject leftGate, rightGate;
     [SerializeField] private GameObject prop;
 
+    public override string nameActor => "Gate";
+
     public override void Initialize()
     {
         base.Initialize();
 
-        nameActor = "Gate";
         state = EGateState.open;
 
         walls = new List<D_Wall>();

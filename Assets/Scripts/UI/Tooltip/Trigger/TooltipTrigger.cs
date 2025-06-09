@@ -3,12 +3,12 @@ using UnityEngine.EventSystems;
 
 public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private string header;
-    [SerializeField, Multiline()] private string content;
+    [SerializeField] protected string header;
+    [SerializeField, Multiline()] protected string content;
 
-    private static LTDescr delay;
+    protected static LTDescr delay;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         delay = LeanTween.delayedCall(0.5f, () =>
         {
@@ -17,6 +17,12 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     public void OnPointerExit(PointerEventData eventData)
+    {
+        LeanTween.cancel(delay.uniqueId);
+        TooltipSystem.current.Hide();
+    }
+
+    private void OnDisable()
     {
         LeanTween.cancel(delay.uniqueId);
         TooltipSystem.current.Hide();

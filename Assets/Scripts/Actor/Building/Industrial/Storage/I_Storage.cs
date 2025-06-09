@@ -10,11 +10,12 @@ public class I_Storage : B_Industrial, IStorage
     [SerializeField] private int maxAmount;
     private int currentAmount;
 
+    public override string nameActor => resource + " storage";
+
     public override void Initialize()
     {
         base.Initialize();
 
-        nameActor = resource + " storage";
         currentAmount = 0;
     }
 

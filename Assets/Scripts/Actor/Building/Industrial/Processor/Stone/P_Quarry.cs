@@ -15,11 +15,11 @@ public class P_Quarry : I_Processor
     [SerializeField] GameObject elevator;
     private float speedElevator;
 
+    public override string nameActor => "Quarry";
+
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "Quarry";
 
         speedMechanism = 20f;
         speedElevator = 10f;

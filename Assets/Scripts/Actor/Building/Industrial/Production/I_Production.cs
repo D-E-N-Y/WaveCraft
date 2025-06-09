@@ -1,23 +1,20 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class I_Production : B_Industrial, IProduction
+public abstract class I_Production : B_Industrial, IProduction
 {
     public Action UpdateCountResources;
-    
+
     [SerializeField] private int amountProduce;
     [SerializeField] private float timeProduce;
-    
+
     [SerializeField] private int maxStorage;
     private int currentAmount;
 
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = resource + " prodaction";
         currentAmount = 0;
     }
 
@@ -45,7 +42,7 @@ public class I_Production : B_Industrial, IProduction
         currentAmount = Math.Min(currentAmount + amountProduce, maxStorage);
         UpdateCountResources?.Invoke();
 
-        if(currentAmount < maxStorage)
+        if (currentAmount < maxStorage)
             StartProduce();
     }
 
@@ -62,4 +59,5 @@ public class I_Production : B_Industrial, IProduction
 
     public int GetMaxAmount() => maxStorage;
     public int GetProduceAmount() => currentAmount;
+    public float GetTimeProduce() => timeProduce;
 }

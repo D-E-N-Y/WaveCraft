@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class B_Industrial : Building, IIndustrial
+public abstract class B_Industrial : Building, IIndustrial
 {
     [SerializeField] protected E_Resource resource;
     

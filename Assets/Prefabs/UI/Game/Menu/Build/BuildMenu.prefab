@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1622757993878496486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -265,10 +265,10 @@ RectTransform:
   - {fileID: 4810409012771482410}
   m_Father: {fileID: 4246116911154601463}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 96.5, y: -365}
+  m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6089658770347314723
 CanvasRenderer:
@@ -1716,7 +1716,7 @@ GameObject:
   - component: {fileID: 1469062984921677363}
   - component: {fileID: 3262090496256761330}
   m_Layer: 0
-  m_Name: BarrackButton
+  m_Name: DefenceButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1907,10 +1907,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1622757993878496486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 104.275, y: -5.5}
+  m_SizeDelta: {x: 88.55, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4288750446006383513
 CanvasRenderer:
@@ -2154,10 +2154,10 @@ RectTransform:
   - {fileID: 7466582207911613002}
   m_Father: {fileID: 1622757993878496486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 25}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.5, y: -20.5}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6319033945534298463
 CanvasRenderer:
@@ -2941,7 +2941,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e77eff5fc70312d4991e7b5d6391c67, type: 3}
+  m_Sprite: {fileID: 6844220964883892259, guid: 4355aa8f6e41f3449bfb6c19933598e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3245,8 +3245,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 341987215584029294}
+  m_Children: []
   m_Father: {fileID: 2149572381231983078}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -3885,9 +3884,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5312073357678815586}
-  - {fileID: 6328588172653801477}
+  m_Children: []
   m_Father: {fileID: 1096950801305093097}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -3952,7 +3949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6579889951401133101
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3969,10 +3966,10 @@ RectTransform:
   - {fileID: 511294370071439732}
   m_Father: {fileID: 4246116911154601463}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 96.5, y: -310}
+  m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1952459022881814394
 CanvasRenderer:
@@ -4660,10 +4657,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3061215532400866867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 25}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.5, y: -20.5}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2498962359653311164
 CanvasRenderer:
@@ -5251,7 +5248,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2922196714603856984}
   m_HandleRect: {fileID: 8849748765874780558}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6152,8 +6149,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 252645814528160322}
   m_HandleRect: {fileID: 7114172794218174654}
   m_Direction: 2
-  m_Value: 0.9999695
-  m_Size: 0.99777764
+  m_Value: 1
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6192,10 +6189,10 @@ RectTransform:
   - {fileID: 6624271060485743728}
   m_Father: {fileID: 6579889951401133101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 25}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 37.5, y: -20.5}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6889722523349506937
 CanvasRenderer:
@@ -6537,7 +6534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3061215532400866867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6554,10 +6551,10 @@ RectTransform:
   - {fileID: 9089730631612401102}
   m_Father: {fileID: 4246116911154601463}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 96.5, y: -420}
+  m_SizeDelta: {x: 183, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4778330254519057173
 CanvasRenderer:
@@ -6846,8 +6843,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8226145166217487488}
+  m_Children: []
   m_Father: {fileID: 1801353713415418362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -6907,7 +6903,7 @@ GameObject:
   - component: {fileID: 5993703175628570920}
   - component: {fileID: 3477705680114844319}
   m_Layer: 0
-  m_Name: Barracks
+  m_Name: Defence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7657,12 +7653,16 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5051901614425836140}
+  - {fileID: 341987215584029294}
+  - {fileID: 8226145166217487488}
+  - {fileID: 5312073357678815586}
+  - {fileID: 6328588172653801477}
   m_Father: {fileID: 4280596635070897247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 90}
+  m_SizeDelta: {x: 0, y: 170}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4958631237303109652
 MonoBehaviour:
@@ -7824,10 +7824,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3061215532400866867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 73.815, y: -5.5}
+  m_SizeDelta: {x: 27.63, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2836132261031836156
 CanvasRenderer:
@@ -8373,10 +8373,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6579889951401133101}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 108.685, y: -5.5}
+  m_SizeDelta: {x: 97.37, y: 30}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &589138557868018582
 CanvasRenderer:
@@ -9311,7 +9311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Barrack
+  m_text: Defence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 193cb5d0c4682c9e1bed626b13390a17, type: 2}
   m_sharedMaterial: {fileID: -8000582530859007208, guid: 193cb5d0c4682c9e1bed626b13390a17, type: 2}
@@ -9713,7 +9713,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4467692755957826385}
+    m_TransformParent: {fileID: 4573032083907687580}
     m_Modifications:
     - target: {fileID: 368433132839939031, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -9757,11 +9757,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9793,7 +9793,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -9819,6 +9819,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 1839090251783066715, guid: 58ca04d4e104ebe0b8270334d0b9eba6, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 5422834192418153012, guid: 58ca04d4e104ebe0b8270334d0b9eba6, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Archer's tower
@@ -10058,13 +10062,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3085453715984729503}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6102618937240948018}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &341987215584029294 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 186868454925079717}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1023479960203818876 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 186868454925079717}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3085453715984729503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023479960203818876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &6102618937240948018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023479960203818876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Archer Tower
+  content: Produces archers that attack enemies from a distance. Offers ranged defense
+    and is effective against lightly armored enemies.
+  actor: {fileID: 5422834192418153012, guid: 58ca04d4e104ebe0b8270334d0b9eba6, type: 3}
 --- !u!1001 &1363619122762674030
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10177,6 +10228,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 6354689440409501861, guid: 88033e2f3098e4aa3b4076c1939b858f, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 4442363453324078449, guid: 88033e2f3098e4aa3b4076c1939b858f, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Sawmill
@@ -10416,13 +10471,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 396108290431097646}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &1496765243989660069 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 1363619122762674030}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2184050214788533431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 1363619122762674030}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &396108290431097646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2184050214788533431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Sawmill
+  content: Processes raw wood and provides +2 wood resources. Essential for building
+    construction and upgrading other structures.
+  actor: {fileID: 4442363453324078449, guid: 88033e2f3098e4aa3b4076c1939b858f, type: 3}
 --- !u!1001 &1525495080247910675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10535,6 +10614,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 6354689440409501861, guid: 1178bf1d20830befbb4a7c09f2a22cf5, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 4136717526177151968, guid: 1178bf1d20830befbb4a7c09f2a22cf5, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Quarry
@@ -10774,13 +10857,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8078023377128947184}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &1369866007683604440 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 1525495080247910675}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1839834754743829194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 1525495080247910675}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8078023377128947184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839834754743829194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Quarry
+  content: Processes raw stone and provides +5 stone resources. Important for producing
+    building materials, especially for advanced structures.
+  actor: {fileID: 4136717526177151968, guid: 1178bf1d20830befbb4a7c09f2a22cf5, type: 3}
 --- !u!1001 &1923211485285407503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10893,6 +11000,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 6354689440409501861, guid: 8e5cbf32fa58122ee8095afcbb38feb5, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 4470981713148475630, guid: 8e5cbf32fa58122ee8095afcbb38feb5, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Mill
@@ -11132,8 +11243,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2774631698657764801}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &1590717276121184470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 1923211485285407503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2774631698657764801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590717276121184470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Mill
+  content: Processes raw food materials and provides +2 food resources. Acts as an
+    intermediary production building, enhancing food output efficiency.
+  actor: {fileID: 4470981713148475630, guid: 8e5cbf32fa58122ee8095afcbb38feb5, type: 3}
 --- !u!224 &2060826709132191172 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
@@ -11251,6 +11386,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 4702855382323651005, guid: 01af526807a6ef304960c8e94c7fc044, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 169080085518790607, guid: 01af526807a6ef304960c8e94c7fc044, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Food storage
@@ -11490,8 +11629,55 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4518000697005455959}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2260085572383874010}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &3942779377918965522 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 4185060882985555147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4518000697005455959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3942779377918965522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &2260085572383874010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3942779377918965522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Food storage
+  content: Increases the maximum capacity for storing food. This allows for better
+    resource management and preparation for future needs or emergencies.
+  actor: {fileID: 169080085518790607, guid: 01af526807a6ef304960c8e94c7fc044, type: 3}
 --- !u!224 &4340707951328750080 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
@@ -11547,11 +11733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11609,6 +11795,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 1839090251783066715, guid: b275d0413c32b38c2a156ea11083c6a3, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 2968104798603153858, guid: b275d0413c32b38c2a156ea11083c6a3, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Barrack
@@ -11848,13 +12038,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7925948806541505806}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5869871945562673103}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &5051901614425836140 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 4626020977326060711}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5517243618703873918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 4626020977326060711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7925948806541505806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5517243618703873918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &5869871945562673103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5517243618703873918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Barrack
+  content: Trains and deploys melee warriors at a specified location. Serves as the
+    primary production building for frontline troops.
+  actor: {fileID: 2968104798603153858, guid: b275d0413c32b38c2a156ea11083c6a3, type: 3}
 --- !u!1001 &4944941845650927220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11967,6 +12204,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 4702855382323651005, guid: c77154a6864390adc80b3ca12e535e1d, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 169080085518790607, guid: c77154a6864390adc80b3ca12e535e1d, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Wood storage
@@ -12203,16 +12444,64 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -22.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7729430159861626766, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 724368092828809152}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7189107039133892532}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &4807291584702419135 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 4944941845650927220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5205092648047087021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 4944941845650927220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &724368092828809152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205092648047087021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &7189107039133892532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5205092648047087021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Wood storage
+  content: Increases the maximum capacity for storing wood. Ensures that excess production
+    is not wasted and can be used later for construction.
+  actor: {fileID: 169080085518790607, guid: c77154a6864390adc80b3ca12e535e1d, type: 3}
 --- !u!1001 &5222193038788647005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12325,6 +12614,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 4702855382323651005, guid: d645cfe6ac7c24f1b9b9b3009f7c726b, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 169080085518790607, guid: d645cfe6ac7c24f1b9b9b3009f7c726b, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Stone storage
@@ -12561,11 +12854,59 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -22.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7729430159861626766, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6726379837786473615}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8956746962626599066}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &4961619482895661956 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 5222193038788647005}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6726379837786473615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961619482895661956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &8956746962626599066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961619482895661956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Stone storage
+  content: Increases the maximum capacity for storing stone. Enables stockpiling
+    of stone for large-scale building projects or defense upgrades.
+  actor: {fileID: 169080085518790607, guid: d645cfe6ac7c24f1b9b9b3009f7c726b, type: 3}
 --- !u!224 &5643552081556448918 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
@@ -12683,6 +13024,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 955230225850727744, guid: 9ed9a30d8c4d844caba5fc4e59019177, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 4024935612698714106, guid: 9ed9a30d8c4d844caba5fc4e59019177, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Farm
@@ -12922,8 +13267,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3662304643374767446}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &4904053687760368569 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 5236965773783748704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3662304643374767446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4904053687760368569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Farm
+  content: Produces food continuously over time. Farms are the primary source of
+    food in the settlement and are crucial for sustaining population growth and military
+    unit production.
+  actor: {fileID: 4024935612698714106, guid: 9ed9a30d8c4d844caba5fc4e59019177, type: 3}
 --- !u!224 &5657762269117230763 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
@@ -12935,7 +13305,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3828210159821960458}
+    m_TransformParent: {fileID: 4573032083907687580}
     m_Modifications:
     - target: {fileID: 368433132839939031, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12979,11 +13349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13019,7 +13389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -130
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13041,6 +13411,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 1839090251783066715, guid: a68bcc3b7fc0caaf8975a5f14897ef4e, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 3570161526511361837, guid: a68bcc3b7fc0caaf8975a5f14897ef4e, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Wall
@@ -13280,8 +13654,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1120153759608322415}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &4842104646056195184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 5733467988545656745}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1120153759608322415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842104646056195184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Wall
+  content: A strong barrier with high health, used to block enemy movement. Walls
+    provide no other abilities but are vital for forming defensive perimeters.
+  actor: {fileID: 3570161526511361837, guid: a68bcc3b7fc0caaf8975a5f14897ef4e, type: 3}
 --- !u!224 &5312073357678815586 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
@@ -13293,7 +13691,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3828210159821960458}
+    m_TransformParent: {fileID: 4573032083907687580}
     m_Modifications:
     - target: {fileID: 368433132839939031, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13337,11 +13735,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13377,7 +13775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -130
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -13399,6 +13797,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 3931603906077625711, guid: 942519d3bc9dbc1dcbaa8e53ce469ec1, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 2057258889429757095, guid: 942519d3bc9dbc1dcbaa8e53ce469ec1, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Gate
@@ -13638,20 +14040,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4814135690744569599}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &6328588172653801477 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 5907228717705449166}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6726534511124098327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 5907228717705449166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4814135690744569599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6726534511124098327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Gate
+  content: A passage structure that allows friendly units to move through walls.
+    Gates combine defense with controlled mobility.
+  actor: {fileID: 2057258889429757095, guid: 942519d3bc9dbc1dcbaa8e53ce469ec1, type: 3}
 --- !u!1001 &8358745921087199819
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7849938943519453679}
+    m_TransformParent: {fileID: 4573032083907687580}
     m_Modifications:
     - target: {fileID: 368433132839939031, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchorMax.y
@@ -13695,11 +14121,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13731,7 +14157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13757,6 +14183,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 1839090251783066715, guid: 56d258a8d8578a526a6bf70d914ce07f, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 686559517015989458, guid: 56d258a8d8578a526a6bf70d914ce07f, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Mage's tower
@@ -13996,13 +14426,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2257829794652767092}
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6850457608327708668}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
 --- !u!224 &8226145166217487488 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
   m_PrefabInstance: {fileID: 8358745921087199819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8693065929602447762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 8358745921087199819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2257829794652767092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693065929602447762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!114 &6850457608327708668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8693065929602447762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Mage Tower
+  content: Produces mages that use magical attacks. Mage Towers are effective against
+    groups of enemies and offer powerful area-of-effect damage.
+  actor: {fileID: 686559517015989458, guid: 56d258a8d8578a526a6bf70d914ce07f, type: 3}
 --- !u!1001 &8726243242749219057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14115,6 +14592,10 @@ PrefabInstance:
       propertyPath: prefab
       value: 
       objectReference: {fileID: 449047762829489157, guid: ea7edb133618f39db94747f7cf6d79df, type: 3}
+    - target: {fileID: 1283376794946955145, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 2431082679091527981, guid: ea7edb133618f39db94747f7cf6d79df, type: 3}
     - target: {fileID: 1920263593782637346, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
       propertyPath: m_text
       value: Residential
@@ -14354,8 +14835,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7138651151049356673}
   m_SourcePrefab: {fileID: 100100000, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+--- !u!1 &8483116735214170920 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 910785161017484249, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}
+  m_PrefabInstance: {fileID: 8726243242749219057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7138651151049356673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483116735214170920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b4c89356c251264807a201074ffdb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: Residential
+  content: Residential buildings increase the total population capacity, allowing
+    more units to be used. These structures are essential for expanding your workforce
+    and army size.
+  actor: {fileID: 2431082679091527981, guid: ea7edb133618f39db94747f7cf6d79df, type: 3}
 --- !u!224 &9165053595558424122 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 443912775066287819, guid: 97e3e8150ace794e28d1e96eff02906c, type: 3}

@@ -2974,15 +2974,15 @@ PrefabInstance:
       addedObject: {fileID: 6458251882571331648}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6354689440409501861, guid: 9908b716554da2442b60a262ab45cfae, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 4946955578616073476}
+      insertIndex: -1
+      addedObject: {fileID: 4024935612698714106}
   m_SourcePrefab: {fileID: 100100000, guid: 9908b716554da2442b60a262ab45cfae, type: 3}
 --- !u!1 &955230225850727744 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6354689440409501861, guid: 9908b716554da2442b60a262ab45cfae, type: 3}
   m_PrefabInstance: {fileID: 6156927243135532517}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4946955578616073476
+--- !u!114 &4024935612698714106
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2991,7 +2991,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 955230225850727744}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f821160d792b1253854e565b4ed8d15, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e0c8ff9934c92bc7b78eb1efc119c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 2282736043159910805}
@@ -3069,15 +3069,15 @@ MonoBehaviour:
   - {fileID: 6550830896168491044}
   - {fileID: 6458251882571331648}
   maxHP: 100
-  timeToBuild: 15
+  timeToBuild: 17
   cost:
   - resourse: 0
-    count: 25
+    count: 40
   - resourse: 1
-    count: 12
+    count: 40
   resource: 2
   amountProduce: 1
-  timeProduce: 7
+  timeProduce: 4
   maxStorage: 30
 --- !u!4 &4237278073930649058 stripped
 Transform:

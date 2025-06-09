@@ -5,12 +5,7 @@ public class D_Pillar : B_Defence
     public D_Pillar connectPillar { get; private set; }
     public bool isConnect;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        nameActor = "Pillar";
-    }
+    public override string nameActor => "Pillar";
     
     private void OnTriggerEnter(Collider other)
     {

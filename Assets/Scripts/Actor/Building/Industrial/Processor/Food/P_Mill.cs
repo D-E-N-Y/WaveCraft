@@ -8,11 +8,11 @@ public class P_Mill : I_Processor
 
     private Coroutine rotateMill;
 
+    public override string nameActor => "Mill";
+
     public override void Initialize()
     {
         base.Initialize();
-
-        nameActor = "Mill";
 
         speedMill = 7f;
     }

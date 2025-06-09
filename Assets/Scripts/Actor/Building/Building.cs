@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Building : Actor
+public abstract class Building : Actor
 {
     public Action placed, builded;
 

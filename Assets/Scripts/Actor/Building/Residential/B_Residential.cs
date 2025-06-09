@@ -4,6 +4,8 @@ public class B_Residential : Building, IResidential
 {
     [SerializeField] private int villageAmount;
 
+    public override string nameActor => "Residential";
+
     public override void Built()
     {
         base.Built();
@@ -11,15 +13,5 @@ public class B_Residential : Building, IResidential
         VillageSystem.current.AddResidential(this);
     }
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        nameActor = "Residential";
-    }
-
-    public int GetVillageAmount()
-    {
-        return villageAmount;
-    }
+    public int GetVillageAmount() => villageAmount;
 }
