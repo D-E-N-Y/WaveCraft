@@ -4,7 +4,11 @@ using UnityEngine.UI;
 
 public abstract class UI_TaskDescription : UIPanel
 {
-    [SerializeField] private UIMenu ui_menu;
+    private UI_TaskMenu ui_taskMenu;
+
+    private TaskSystem taskSystem;
+    private FocusSystem focusSystem;
+    private UISystem uiSystem;
 
     [SerializeField] protected TextMeshProUGUI ui_progress;
     [SerializeField] protected TextMeshProUGUI ui_goal;
@@ -36,7 +40,16 @@ public abstract class UI_TaskDescription : UIPanel
         ui_statusFilter.update -= VisibleForFilter;
     }
 
-    public virtual void Initialize(Task task)
+    public virtual void Initialize(UI_TaskMenu ui_taskMenu)
+    {
+        this.ui_taskMenu = ui_taskMenu;
+
+        taskSystem = TaskSystem.current;
+        focusSystem = FocusSystem.current;
+        uiSystem = UISystem.current;
+    }
+
+    public virtual void InitializeTask(Task task)
     {
         if (this.task != null) this.task.Update -= UpdateInfo;
 
@@ -46,13 +59,13 @@ public abstract class UI_TaskDescription : UIPanel
         UpdateInfo();
 
         ui_remove.onClick.RemoveAllListeners();
-        ui_remove.onClick.AddListener(() => TaskSystem.current.RemoveTask(task));
-        ui_remove.onClick.AddListener(() => ui_menu.CloseCurrentSection());
+        ui_remove.onClick.AddListener(() => taskSystem.RemoveTask(task));
+        ui_remove.onClick.AddListener(() => ui_taskMenu.CloseCurrentSection());
     }
 
     protected virtual void UpdateInfo()
     {
-        if (!TaskSystem.current.HasTask(task))
+        if (!taskSystem.HasTask(task))
             gameObject.SetActive(false);
 
         ui_progress.text = task.progress.ToString("F0");
@@ -138,8 +151,8 @@ public abstract class UI_TaskDescription : UIPanel
     {
         if (actor == null) return;
 
-        FocusSystem.current.FocusToObject(actor);
-        UISystem.current.CloseAllPanels();
+        focusSystem.FocusToObject(actor);
+        uiSystem.CloseAllPanels();
     }
 
     protected void SetStatus(GameObject ui_status)
@@ -160,7 +173,7 @@ public abstract class UI_TaskDescription : UIPanel
     {
         if (!ui_typeFilter.values[TaskType()] || !ui_statusFilter.values[task.state])
         {
-            ui_menu.CloseCurrentSection();
+            ui_taskMenu.CloseCurrentSection();
         }
     }
     

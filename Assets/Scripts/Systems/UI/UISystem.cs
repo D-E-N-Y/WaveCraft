@@ -14,8 +14,10 @@ public class UISystem : GameSystem
     public override void Initialize()
     {
         current = this;
-        
+
         openPanels = new Dictionary<string, UIPanel>();
+
+        DontDestroyOnLoad(this);
     }
 
     public void Initialize(UIProvider provider)

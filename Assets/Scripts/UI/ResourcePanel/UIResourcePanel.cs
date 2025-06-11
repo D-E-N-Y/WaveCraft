@@ -25,22 +25,42 @@ public class UIResourcePanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentAmountVillageText;
     [SerializeField] private TextMeshProUGUI maxAmountVillageText;
 
+    private StorageSystem storageSystem;
+    private ResourceSystem resourceSystem;
+    private VillageSystem villageSystem;
+
+    public void Initialize()
+    {
+        storageSystem = StorageSystem.current;
+        resourceSystem = ResourceSystem.current;
+        villageSystem = VillageSystem.current;
+
+        foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+        {
+            RefreshCurrentAmount(resource);
+            RefreshMaxAmount(resource);
+        }
+
+        RefreshCurrentVillageAmount();
+        RefreshMaxVillageAmount();
+    }
+
     private void OnEnable()
     {
-        ResourceSystem.current.UpdateCurrentCount += RefreshCurrentAmount;
-        StorageSystem.current.UpdateMaxCount += RefreshMaxAmount;
+        resourceSystem.UpdateCurrentCount += RefreshCurrentAmount;
+        storageSystem.UpdateMaxCount += RefreshMaxAmount;
 
-        VillageSystem.current.UpdateCurrentAmount += RefreshCurrentVillageAmount;
-        VillageSystem.current.UpdateMaxAmount += RefreshMaxVillageAmount;
+        villageSystem.UpdateCurrentAmount += RefreshCurrentVillageAmount;
+        villageSystem.UpdateMaxAmount += RefreshMaxVillageAmount;
     }
 
     private void OnDisable()
     {
-        ResourceSystem.current.UpdateCurrentCount -= RefreshCurrentAmount;
-        StorageSystem.current.UpdateMaxCount -= RefreshMaxAmount;
+        resourceSystem.UpdateCurrentCount -= RefreshCurrentAmount;
+        storageSystem.UpdateMaxCount -= RefreshMaxAmount;
 
-        VillageSystem.current.UpdateCurrentAmount -= RefreshCurrentVillageAmount;
-        VillageSystem.current.UpdateMaxAmount -= RefreshMaxVillageAmount;
+        villageSystem.UpdateCurrentAmount -= RefreshCurrentVillageAmount;
+        villageSystem.UpdateMaxAmount -= RefreshMaxVillageAmount;
     }
 
     private void RefreshCurrentAmount(E_Resource resource)
@@ -49,7 +69,7 @@ public class UIResourcePanel : MonoBehaviour
         {
             if(current.resource == resource)
             {
-                current.textMesh.text = CorrectFormat(StorageSystem.current.CheckCountResurces(resource));
+                current.textMesh.text = CorrectFormat(storageSystem.CheckCountResurces(resource));
                 break;
             }
         }
@@ -61,7 +81,7 @@ public class UIResourcePanel : MonoBehaviour
         {
             if(current.resource == resource)
             {
-                current.textMesh.text = CorrectFormat(StorageSystem.current.CheckMaxCountResources(resource));
+                current.textMesh.text = CorrectFormat(storageSystem.CheckMaxCountResources(resource));
                 break;
             }
         }
@@ -69,12 +89,12 @@ public class UIResourcePanel : MonoBehaviour
 
     private void RefreshCurrentVillageAmount()
     {
-        currentAmountVillageText.text = VillageSystem.current.GetCurrentAmount().ToString();
+        currentAmountVillageText.text = villageSystem.GetCurrentAmount().ToString();
     }
 
     private void RefreshMaxVillageAmount()
     {
-        maxAmountVillageText.text = VillageSystem.current.GetMaxAmount().ToString();
+        maxAmountVillageText.text = villageSystem.GetMaxAmount().ToString();
     }
 
     private string CorrectFormat(int value)

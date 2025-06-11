@@ -6,27 +6,36 @@ public class UI_WorkersContainer : MonoBehaviour
 {
     [SerializeField] private GameObject ui_workerPref;
     private List<UI_WorkerSlot> workers;
-    private Task openTask;    
+    private Task openTask;
+
+    private TaskSystem taskSystem;
+    private VillageSystem villageSystem;
+
+    public void Initialize()
+    {
+        taskSystem = TaskSystem.current;
+        villageSystem = VillageSystem.current;
+    }
 
     private void OnEnable()
     {
-        TaskSystem.current.UpdateWorkers += UpdateWorkers;
-        TaskSystem.current.UpdateTasks += UpdateWorkers;
-        openTask = null; 
+        taskSystem.UpdateWorkers += UpdateWorkers;
+        taskSystem.UpdateTasks += UpdateWorkers;
+        openTask = null;
 
         UpdateWorkers();
     }
     private void OnDisable()
     {
-        TaskSystem.current.UpdateWorkers -= UpdateWorkers;
-        TaskSystem.current.UpdateTasks -= UpdateWorkers;
+        taskSystem.UpdateWorkers -= UpdateWorkers;
+        taskSystem.UpdateTasks -= UpdateWorkers;
     }
 
     private void UpdateWorkers()
     {
         workers = new List<UI_WorkerSlot>();
         
-        int dif = VillageSystem.current.GetCount(EVillageType.Worker) - transform.GetComponentsInChildren<UI_WorkerSlot>(true).Length;
+        int dif = villageSystem.GetCount(EVillageType.Worker) - transform.GetComponentsInChildren<UI_WorkerSlot>(true).Length;
         if(dif > 0)
         {
             for(int i = 0; i < dif; i++)
@@ -41,11 +50,11 @@ public class UI_WorkersContainer : MonoBehaviour
             worker.gameObject.SetActive(false);
         }
 
-        if(VillageSystem.current.GetCount(EVillageType.Worker) == 0) return;
+        if(villageSystem.GetCount(EVillageType.Worker) == 0) return;
 
-        for(int i = 0; i < VillageSystem.current.GetCount(EVillageType.Worker); i++)
+        for(int i = 0; i < villageSystem.GetCount(EVillageType.Worker); i++)
         {
-            UP_Worker _worker = (UP_Worker)VillageSystem.current.GetVillages(EVillageType.Worker)[i];
+            UP_Worker _worker = (UP_Worker)villageSystem.GetVillages(EVillageType.Worker)[i];
             
             
             if(!_worker.HasFreeTaskSpace())

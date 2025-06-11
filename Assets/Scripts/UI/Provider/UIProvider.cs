@@ -7,7 +7,7 @@ public class UIProvider : MonoBehaviour
     [SerializeField] private UIPanel ui_lastMenu;
     public Dictionary<string, UIPanel> panels;
 
-    void Start()
+    public void Initialize()
     {
         panels = new Dictionary<string, UIPanel>();
         

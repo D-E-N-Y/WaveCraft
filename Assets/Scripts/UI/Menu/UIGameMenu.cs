@@ -1,11 +1,20 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class UIGameMenu : UIPanel 
 {
-    [SerializeField] private UIBlackBackground ui_blackBackground;
-    
+    private UIBlackout ui_blackout;
+
+    private UISystem uiSystem;
+    private SceneLoaderSystem sceneLoaderSystem;
+
+    public void Initialize(UIBlackout ui_blackout)
+    {
+        this.ui_blackout = ui_blackout;
+
+        uiSystem = UISystem.current;
+        sceneLoaderSystem = SceneLoaderSystem.current;
+    }
+
     void OnEnable()
     {
         Time.timeScale = 0f;
@@ -18,7 +27,7 @@ public class UIGameMenu : UIPanel
 
     public void Continue()
     {
-        UISystem.current.CloseCurrentPanel();
+        uiSystem.CloseCurrentPanel();
     }
 
     public void Save()
@@ -34,15 +43,16 @@ public class UIGameMenu : UIPanel
     public void ExitToMainMenu()
     {
         isCanClose = false;
-        
-        ui_blackBackground.SetLoadScene("MainMenuScene");
-        ui_blackBackground.Hide();
+
+        ui_blackout.Up();
+        ui_blackout.finalUp += sceneLoaderSystem.LoadMainMenu;
     }
 
     public void QuitGame()
     {
         isCanClose = false;
         
-        ui_blackBackground.Hide();
+        ui_blackout.Up();
+        ui_blackout.finalUp += Application.Quit;
     }
 }

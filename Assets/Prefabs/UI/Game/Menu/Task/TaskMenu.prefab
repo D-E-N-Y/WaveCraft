@@ -8521,7 +8521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a43b0d3c88764465a7dc981e85120e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui_menu: {fileID: 1951441934634374886}
   ui_progress: {fileID: 646612187469813878}
   ui_goal: {fileID: 6219545653439461758}
   ui_nameWorker: {fileID: 7654460128704939156}
@@ -12467,7 +12466,7 @@ GameObject:
   - component: {fileID: 1990279866497496470}
   - component: {fileID: 2374650234415743944}
   m_Layer: 0
-  m_Name: FreeWorkers
+  m_Name: Workers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13308,7 +13307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9b4e975c6e226a2a3d7820584f3b9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui_menu: {fileID: 1951441934634374886}
   ui_progress: {fileID: 5238168528433025001}
   ui_goal: {fileID: 2340405493403232125}
   ui_nameWorker: {fileID: 6960956992102201860}
@@ -15229,7 +15227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui_taskPref: {fileID: 5319178615996002409, guid: 58e2d21fdca6c2ec29fdf93a32fb36ec, type: 3}
-  taskMenu: {fileID: 1951441934634374886}
   ui_info:
   - _type: 0
     info: {fileID: 8338204561149426177}
@@ -15239,9 +15236,6 @@ MonoBehaviour:
     info: {fileID: 6585527081989208151}
   - _type: 3
     info: {fileID: 3281109297694728931}
-  ui_freeWorkers: {fileID: 5396950653314948156}
-  ui_statusFilter: {fileID: 7023723154645413042}
-  ui_typeFilter: {fileID: 9116227781167022738}
 --- !u!1 &4572520141142312976
 GameObject:
   m_ObjectHideFlags: 0
@@ -16858,7 +16852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e44e07f960fc71d3b81dcddee2b7298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui_menu: {fileID: 1951441934634374886}
   ui_progress: {fileID: 375970453782670867}
   ui_goal: {fileID: 7087910761046335408}
   ui_nameWorker: {fileID: 7071474191560614769}
@@ -17554,7 +17547,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8894645926700537039}
   m_HandleRect: {fileID: 3489452805397105387}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -17569,7 +17562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1349358553452206077}
-  - component: {fileID: 1951441934634374886}
+  - component: {fileID: 5080324137247487813}
   m_Layer: 0
   m_Name: TaskMenu
   m_TagString: Untagged
@@ -17597,7 +17590,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 840, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1951441934634374886
+--- !u!114 &5080324137247487813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17606,12 +17599,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5479118457722324355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4197dc46d70481d999e5df92ef30c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 052c34d101eb012049d901b714960921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selectMenu: {fileID: 0}
   normal: {r: 0.5019608, g: 0.4117647, b: 0.4117647, a: 1}
   select: {r: 0.29411766, g: 0.23137255, b: 0.23137255, a: 1}
+  ui_typeFilter: {fileID: 9116227781167022738}
+  ui_statusFilter: {fileID: 7023723154645413042}
+  ui_tasksContainer: {fileID: 3435857442876543633}
+  ui_workersContainer: {fileID: 5396950653314948156}
+  ui_buildDescription: {fileID: 8338204561149426177}
+  ui_destroyDescription: {fileID: 6585527081989208151}
+  ui_storeDescription: {fileID: 3281109297694728931}
+  ui_mineDescription: {fileID: 9154694721215141240}
 --- !u!1 &5508203826084049616
 GameObject:
   m_ObjectHideFlags: 0
@@ -17817,7 +17818,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e85c5979640642abf92481ba7530e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui_menu: {fileID: 1951441934634374886}
   ui_progress: {fileID: 3105832922936723733}
   ui_goal: {fileID: 8629556139519531080}
   ui_nameWorker: {fileID: 4464977143528720913}
@@ -19605,7 +19605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Free workers
+  m_text: Workers
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 193cb5d0c4682c9e1bed626b13390a17, type: 2}
   m_sharedMaterial: {fileID: -8000582530859007208, guid: 193cb5d0c4682c9e1bed626b13390a17, type: 2}
@@ -21291,7 +21291,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6738706083172631213}
   m_HandleRect: {fileID: 291748203266229263}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -34280,11 +34280,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4347791887550472110, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 190.495
+      value: 169.97498
       objectReference: {fileID: 0}
     - target: {fileID: 4347791887550472110, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 140.2475
+      value: 129.98749
       objectReference: {fileID: 0}
     - target: {fileID: 4347791887550472110, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -34316,7 +34316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4558028613366920213, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 245.495
+      value: 224.97498
       objectReference: {fileID: 0}
     - target: {fileID: 4558028613366920213, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_SizeDelta.y
@@ -34352,7 +34352,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4558028613366920213, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 127.7475
+      value: 117.48749
       objectReference: {fileID: 0}
     - target: {fileID: 4558028613366920213, guid: 80f61f70e8712d146a002770483d84cc, type: 3}
       propertyPath: m_AnchoredPosition.y

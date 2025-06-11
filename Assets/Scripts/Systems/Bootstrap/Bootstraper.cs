@@ -3,23 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class Bootstraper : MonoBehaviour 
 {
-    [SerializeField] private GameSystem[] systems;
-
-    private void Awake() 
-    {
-        foreach (GameSystem systemPrefab in systems)
-        {
-            GameSystem systemInstance = Instantiate(systemPrefab);
-            systemInstance.Initialize();
-
-            DontDestroyOnLoad(systemInstance.gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
-    }
+    [SerializeField] private UISystem uiSystem;
+    [SerializeField] private SceneLoaderSystem sceneLoaderSystem;
 
     private void Start() 
     {
-        SceneManager.LoadScene("MainMenuScene");
+        uiSystem.Initialize();
+        sceneLoaderSystem.Initialize();
+
+        sceneLoaderSystem.LoadMainMenu();
     }
 }

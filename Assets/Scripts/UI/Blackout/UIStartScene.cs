@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class UIStartScene : MonoBehaviour
 {
-    [SerializeField] private UIBlackBackground ui_blackBaground;
+    [SerializeField] private UIBlackout ui_blackout;
 
     void Start()
     {
-        ui_blackBaground.gameObject.SetActive(true);
+        ui_blackout.gameObject.SetActive(true);
         StartCoroutine(nameof(Show));
     }
 
@@ -15,6 +15,6 @@ public class UIStartScene : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         
-        ui_blackBaground.Show();
+        ui_blackout.Show();
     }
 }

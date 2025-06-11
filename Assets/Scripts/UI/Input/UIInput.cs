@@ -6,6 +6,17 @@ public class UIInput : MonoBehaviour
 {
     [SerializeField] private InputActionReference returnAction;
 
+    private UISystem uiSystem;
+    private InteractionSystem interactionSystem;
+    private BuildSystem buildSystem;
+
+    public void Initialize()
+    {
+        uiSystem = UISystem.current;
+        interactionSystem = InteractionSystem.current;
+        buildSystem = BuildSystem.current;
+    }
+
     void OnEnable()
     {
         returnAction.action.started += Return;
@@ -18,21 +29,21 @@ public class UIInput : MonoBehaviour
 
     private void Return(InputAction.CallbackContext context)
     {
-        if (UISystem.current.HasOpenPanels())
+        if (uiSystem.HasOpenPanels())
         {
-            UISystem.current.CloseCurrentPanel();
+            uiSystem.CloseCurrentPanel();
         }
-        else if (InteractionSystem.current.HasSelectedActor())
+        else if (interactionSystem.HasSelectedActor())
         {
-            InteractionSystem.current.UnSelectActor();
+            interactionSystem.UnSelectActor();
         }
-        else if (BuildSystem.current.IsPlacing())
+        else if (buildSystem.IsPlacing())
         {
             return;
         }
         else
         {
-            UISystem.current.OpenLastMenu();
+            uiSystem.OpenLastMenu();
         }
     }
 }

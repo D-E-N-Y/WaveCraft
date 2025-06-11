@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,15 +5,23 @@ public class GameplayBootstrap : MonoBehaviour
 {
     [SerializeField] private List<GameSystem> systems;
     [SerializeField] private TerrainResourceSpawner terrain;
-    [SerializeField] private GameObject ui_canvas;
-    [SerializeField] private B_TownHall townHall; 
+
+    [SerializeField] private LoadingCanvas loadingCanvas;
+    [SerializeField] private UICanvas uiCanvas;
+    [SerializeField] private TooltipCanvas tooltipCanvas;
+
+    [SerializeField] private B_TownHall townHall;
 
     void Start()
     {
+        loadingCanvas.Initialize();
+
         systems.ForEach(x => x.Initialize());
         terrain.Initialize();
 
-        ui_canvas.SetActive(true);
+        uiCanvas.Initialize(loadingCanvas.GetBlackout());
+        // tooltipCanvas.Initialize();
+
         townHall.Initialize();
     }
 }

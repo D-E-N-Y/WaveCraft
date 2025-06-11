@@ -8,9 +8,16 @@ public class UI_BuildingSlot : MonoBehaviour
     [SerializeField] protected TextMeshProUGUI ui_name;
     [SerializeField] protected List<S_CostUI> cost;
 
+    private StorageSystem storageSystem;
+    private BuildSystem buildSystem;
+    private UISystem uiSystem;
 
-    void Start()
+    public void Initialize()
     {
+        storageSystem = StorageSystem.current;
+        buildSystem = BuildSystem.current;
+        uiSystem = UISystem.current;
+
         ui_name.text = building.nameActor;
 
         if (building is D_Pillar)
@@ -19,23 +26,23 @@ public class UI_BuildingSlot : MonoBehaviour
         }
 
         foreach (S_CostUI current in cost)
-            {
-                current.amount.text = building.GetCostByResource(current.resourse).ToString();
-            }
+        {
+            current.amount.text = building.GetCostByResource(current.resourse).ToString();
+        }
     }
 
     public void BuyBuilding()
     {
         foreach(S_CostUI current in cost) 
         {
-            if(StorageSystem.current.CheckCountResurces(current.resourse) < building.GetCostByResource(current.resourse))
+            if(storageSystem.CheckCountResurces(current.resourse) < building.GetCostByResource(current.resourse))
             {
                 Debug.Log($"not enought {current.resourse}");
                 return;
             }
         }
         
-        BuildSystem.current.InitializeWithObject(building);
-        UISystem.current.CloseAllPanels();
+        buildSystem.InitializeWithObject(building);
+        uiSystem.CloseAllPanels();
     }
 }

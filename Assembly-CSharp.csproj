@@ -99,6 +99,7 @@
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Wall/UI_Wall.cs" />
     <Compile Include="Assets/Scripts/Structures/S_ResourceImage.cs" />
     <Compile Include="Assets/ImportAssets/UI/DefaceGames/ZoomAndPan.cs" />
+    <Compile Include="Assets/Scripts/UI/Canvas/Game/UICanvas.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Residential/IResidential.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Building/Gate/UI_Gate.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Testing/TestingSequencer.cs" />
@@ -106,9 +107,11 @@
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/GeneralBasic.cs" />
     <Compile Include="Assets/Scripts/Systems/ProcessorSystem/ProcessorSystem.cs" />
     <Compile Include="Assets/Scripts/Camera/CameraControler.cs" />
+    <Compile Include="Assets/Scripts/UI/Canvas/Game/TooltipCanvas.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/E_WorkerState.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Testing/Testing243.cs" />
     <Compile Include="Assets/Scripts/Task/Mining/E_MiningExecutingState.cs" />
+    <Compile Include="Assets/Scripts/Systems/SceneLoader/SceneLoaderSystem.cs" />
     <Compile Include="Assets/Scripts/Task/Destroy/DestroyTask.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Module/TownHall/TH_Storage.cs" />
     <Compile Include="Assets/Scripts/Enum/E_Resources.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="Assets/Scripts/Structures/S_Cost.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Description/UI_StoreDescription.cs" />
     <Compile Include="Assets/Scripts/UI/Tooltip/UI_Tooltip.cs" />
+    <Compile Include="Assets/Scripts/UI/Menu/Tasks/UI_TaskMenu.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/LogoCinematic.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/Resource/UI_Resource.cs" />
     <Compile Include="Assets/Scripts/Task/Destroy/E_DestroyExecutingState.cs" />
@@ -169,6 +173,7 @@
     <Compile Include="Assets/Scripts/UI/Button/UICloseCurrentPanelButton.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/DestroyTaskHandler.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/UIGameMenu.cs" />
+    <Compile Include="Assets/Scripts/UI/Menu/Build/UI_BuildMenu.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_A.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/U_Player.cs" />
     <Compile Include="Assets/Scripts/UI/InteractablePanels/ManagerInteractablePanels.cs" />
@@ -185,6 +190,7 @@
     <Compile Include="Assets/Scripts/UI/Button/UITogglePanelButton.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/PathSpline2d.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Testing/Testing246.cs" />
+    <Compile Include="Assets/Scripts/UI/LoadingScreen/E_LoadScene.cs" />
     <Compile Include="Assets/ImportAssets/UI/UI pack/Scripts/FillValueNumber.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TextMeshProFloatingText.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/Benchmark01.cs" />
@@ -221,6 +227,7 @@
     <Compile Include="Assets/Scripts/Task/Mining/MiningTask.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/ObjectSpin.cs" />
     <Compile Include="Assets/Scripts/UI/Input/UIInput.cs" />
+    <Compile Include="Assets/Scripts/UI/Canvas/Game/LoadingCanvas.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/Following.cs" />
     <Compile Include="Assets/Shaders/Outline by The Developer/Outline/O_CustomImageEffect.cs" />
@@ -232,6 +239,7 @@
     <Compile Include="Assets/Scripts/Actor/Building/Defence/Gate/E_GateState.cs" />
     <Compile Include="Assets/Scripts/Actor/Unit/Player/Workers/TaskHandler/BuildTaskHandler.cs" />
     <Compile Include="Assets/ImportAssets/TextMesh Pro/Examples &amp; Extras/Scripts/TMP_TextSelector_B.cs" />
+    <Compile Include="Assets/Scripts/UI/Blackout/UIBlackout.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/PathSplinePerformance.cs" />
     <Compile Include="Assets/Scripts/Actor/Building/Residential/B_Residential.cs" />
     <Compile Include="Assets/Scripts/Task/E_TaskStatus.cs" />
@@ -260,7 +268,6 @@
     <Compile Include="Assets/ImportAssets/LeanTween/Testing/FollowingTests.cs" />
     <Compile Include="Assets/Scripts/Actor/Resource/Resource.cs" />
     <Compile Include="Assets/Scripts/UI/Menu/Tasks/Description/UI_BuildDescription.cs" />
-    <Compile Include="Assets/Scripts/UI/Blackout/UIBlackBackground.cs" />
     <Compile Include="Assets/Scripts/Task/Build/BuildTask.cs" />
     <Compile Include="Assets/ImportAssets/LeanTween/Examples/Scripts/PathSplineTrack.cs" />
     <Compile Include="Assets/Scripts/UI/Tooltip/Actor/Building/Industrial/UI_TooltipIndustrial.cs" />

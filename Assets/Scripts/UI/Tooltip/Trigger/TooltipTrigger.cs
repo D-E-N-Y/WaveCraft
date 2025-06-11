@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,11 +21,17 @@ public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         LeanTween.cancel(delay.uniqueId);
         TooltipSystem.current.Hide();
+
+        delay = null;
     }
 
     private void OnDisable()
     {
+        if (delay == null) return;
+
         LeanTween.cancel(delay.uniqueId);
         TooltipSystem.current.Hide();
+
+        delay = null;
     }
 }

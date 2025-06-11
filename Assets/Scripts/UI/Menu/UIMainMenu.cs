@@ -3,15 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class UIMainMenu : UIPanel
 {
-    [SerializeField] private UILoadingScreen ui_loadingScreen;
-    [SerializeField] private UIBlackBackground ui_blackBackground;
-    
+    [SerializeField] private UIBlackout ui_blackout;
+
+    void Start()
+    {
+        ui_blackout.Initialize();
+    }
+
     public void NewGameButton()
     {
-        ui_loadingScreen.Show();
-        ui_loadingScreen.Initialize();
-
-        Hide();
+        ui_blackout.Up();
+        ui_blackout.finalUp += SceneLoaderSystem.current.LoadGame;
     }
 
     public void LoadGameButton()
@@ -26,6 +28,7 @@ public class UIMainMenu : UIPanel
 
     public void QuitGameButton()
     {
-        ui_blackBackground.Hide();
+        ui_blackout.Up();
+        ui_blackout.finalUp += Application.Quit;
     }
 }

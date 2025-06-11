@@ -8,9 +8,13 @@ public class ManagerInteractablePanels : MonoBehaviour
     private Dictionary<Type, UI_InteractablePanel> panelByType = new();
     private UI_InteractablePanel openPanel;
 
-    private void Start() 
+    private InteractionSystem interactionSystem;
+
+    public void Initialize()
     {
-        foreach(UI_InteractablePanel panel in ui_panels)
+        interactionSystem = InteractionSystem.current;
+
+        foreach (UI_InteractablePanel panel in ui_panels)
         {
             if (panel.PanelType != null && !panelByType.ContainsKey(panel.PanelType))
             {
@@ -21,14 +25,14 @@ public class ManagerInteractablePanels : MonoBehaviour
 
     private void OnEnable()
     {
-        InteractionSystem.current.Select += OpenPanel;
-        InteractionSystem.current.UnSelect += ClosePanel;
+        interactionSystem.Select += OpenPanel;
+        interactionSystem.UnSelect += ClosePanel;
     }
 
     private void OnDisable() 
     {
-        InteractionSystem.current.Select -= OpenPanel;
-        InteractionSystem.current.UnSelect -= ClosePanel;
+        interactionSystem.Select -= OpenPanel;
+        interactionSystem.UnSelect -= ClosePanel;
     }
 
     private void OpenPanel(Actor actor)

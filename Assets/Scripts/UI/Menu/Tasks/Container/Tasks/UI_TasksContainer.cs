@@ -9,7 +9,7 @@ public class UI_TasksContainer : MonoBehaviour
     [SerializeField] private GameObject ui_taskPref;
     private List<UI_Task> tasks;
 
-    [SerializeField] private UIMenu taskMenu;
+    private UI_TaskMenu ui_taskMenu;
 
     [System.Serializable]
     private struct InfoType
@@ -21,19 +21,15 @@ public class UI_TasksContainer : MonoBehaviour
     [SerializeField] private List<InfoType> ui_info;
     private Dictionary<E_TaskType, UI_TaskDescription> infoType;
 
-    [SerializeField] private UI_WorkersContainer ui_freeWorkers;
+    private UI_WorkersContainer ui_freeWorkers;
+    private UI_StatusFilter ui_statusFilter;
+    private UI_TypeFilter ui_typeFilter;
 
-    [SerializeField] private UI_StatusFilter ui_statusFilter;
-    [SerializeField] private UI_TypeFilter ui_typeFilter;
-
-    private void Awake()
-    {
-        Initialize();
-    }
+    private TaskSystem taskSystem;
 
     private void OnEnable()
     {
-        TaskSystem.current.UpdateTasks += TasksUpdate;
+        taskSystem.UpdateTasks += TasksUpdate;
         ui_statusFilter.update += TasksUpdate;
         ui_typeFilter.update += TasksUpdate;
 
@@ -42,22 +38,25 @@ public class UI_TasksContainer : MonoBehaviour
 
     private void OnDisable()
     {
-        TaskSystem.current.UpdateTasks -= TasksUpdate;
+        taskSystem.UpdateTasks -= TasksUpdate;
         ui_statusFilter.update -= TasksUpdate;
         ui_typeFilter.update -= TasksUpdate;
     }
 
-    private void Initialize()
+    public void Initialize(UI_TaskMenu ui_taskMenu, UI_WorkersContainer ui_freeWorkers, UI_StatusFilter ui_statusFilter, UI_TypeFilter ui_typeFilter)
     {
+        this.ui_taskMenu = ui_taskMenu;
+        this.ui_freeWorkers = ui_freeWorkers;
+        this.ui_statusFilter = ui_statusFilter;
+        this.ui_typeFilter = ui_typeFilter;
+
+        taskSystem = TaskSystem.current;
         infoType = new Dictionary<E_TaskType, UI_TaskDescription>();
 
         foreach(InfoType current in ui_info)
         {
             infoType.Add(current._type, current.info);
         }
-        
-        ui_statusFilter.Initialize();
-        ui_typeFilter.Initialize();
     }
 
 
@@ -65,7 +64,7 @@ public class UI_TasksContainer : MonoBehaviour
     {
         tasks = new List<UI_Task>();
         
-        int dif = TaskSystem.current.GetCount() - transform.GetComponentsInChildren<UI_Task>(true).Length;
+        int dif = taskSystem.GetCount() - transform.GetComponentsInChildren<UI_Task>(true).Length;
         if(dif > 0)
         {
             for(int i = 0; i < dif; i++)
@@ -80,14 +79,14 @@ public class UI_TasksContainer : MonoBehaviour
             task.gameObject.SetActive(false);
         }
 
-        if(TaskSystem.current.GetCount() == 0) return;
+        if(taskSystem.GetCount() == 0) return;
 
         int taskIndex = 0;
         foreach (E_TaskState type in Enum.GetValues(typeof(E_TaskState)))
         {
             if (ui_statusFilter.values[type])
             {
-                var stateTasks = TaskSystem.current.GetTasks(type);
+                var stateTasks = taskSystem.GetTasks(type);
                 
                 for (int i = 0; i < stateTasks.Count; i++)
                 {
@@ -100,7 +99,7 @@ public class UI_TasksContainer : MonoBehaviour
 
     private void InitializeTask(UI_Task ui_task, E_TaskState state, int i)
     {
-        ui_task.Initialize(TaskSystem.current.GetTasks(state)[i]);
+        ui_task.Initialize(taskSystem.GetTasks(state)[i]);
         
         if(!ui_typeFilter.values[ui_task.task.type]) return;
 
@@ -108,9 +107,9 @@ public class UI_TasksContainer : MonoBehaviour
         
         Button _btn = ui_task.transform.GetComponentInChildren<Button>();
         _btn.onClick.RemoveAllListeners();
-        _btn.onClick.AddListener(() => infoType[ui_task.task.type].Initialize(ui_task.task));
-        _btn.onClick.AddListener(() => taskMenu.OpenSection(infoType[ui_task.task.type].gameObject));
-        _btn.onClick.AddListener(() => taskMenu.SelectTabSection(ui_task.transform.GetChild(0).gameObject));
+        _btn.onClick.AddListener(() => infoType[ui_task.task.type].InitializeTask(ui_task.task));
+        _btn.onClick.AddListener(() => ui_taskMenu.OpenSection(infoType[ui_task.task.type].gameObject));
+        _btn.onClick.AddListener(() => ui_taskMenu.SelectTabSection(ui_task.transform.GetChild(0).gameObject));
         _btn.onClick.AddListener(() => ui_freeWorkers.SetTask(ui_task.task));
     }
 }
