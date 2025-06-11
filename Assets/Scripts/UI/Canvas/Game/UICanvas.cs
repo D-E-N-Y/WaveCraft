@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class UICanvas : MonoBehaviour
@@ -12,17 +13,37 @@ public class UICanvas : MonoBehaviour
     [SerializeField] private UIProvider uiProvider;
     [SerializeField] private UIInput uiInput;
 
-    public void Initialize(UIBlackout ui_Blackout)
+    public IEnumerator Initializing(UIBlackout ui_Blackout, UILoadingScreen ui_loadingScreen)
     {
+        ui_loadingScreen.SetMaxPartProgress(7);
+
         ui_resourcePanel.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
+
         managerInteractablePanels.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
 
         ui_buildMenu.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
+
         ui_taskMenu.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
+
         ui_GameMenu.Initialize(ui_Blackout);
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
 
         uiProvider.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
+
         uiInput.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
 
         gameObject.SetActive(true);
     }

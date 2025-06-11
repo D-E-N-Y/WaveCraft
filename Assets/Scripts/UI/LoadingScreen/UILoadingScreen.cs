@@ -1,48 +1,56 @@
 using System;
-using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UILoadingScreen : UIPanel
 {
-    public Action finalLoading;
+    public Action completeMainLoading, completePartLoading;
 
-    [SerializeField] private Image _progressImage;
-    [SerializeField, Range(0.1f, 1f)] float _loadSpeed;
-    private float maxFill = 1f;
-
-    private Coroutine loading;
+    [SerializeField] private TextMeshProUGUI ui_initilize;
+    [SerializeField] private Image ui_mainProgress, ui_partProgress;
+    private float mainMaxProgress, partMaxProgress;
 
     public void Initialize()
     {
-        _progressImage.fillAmount = 0f;
+        ui_mainProgress.fillAmount = 0f;
+        ui_partProgress.fillAmount = 0f;
     }
 
-    public void StartLoading()
+    public void SetInitializeText(string _initialize)
     {
-        if (loading != null)
-            StopCoroutine(loading);
-
-        loading = StartCoroutine(nameof(Loading));
+        ui_initilize.text = _initialize;
     }
 
-    private IEnumerator Loading()
+    public void AddMainProgress()
     {
-        while (_progressImage.fillAmount != maxFill)
+        ui_mainProgress.fillAmount += 1f / mainMaxProgress;
+
+        if (ui_mainProgress.fillAmount >= 1f)
         {
-            _progressImage.fillAmount += _loadSpeed * Time.deltaTime;
-
-            yield return null;
+            completeMainLoading?.Invoke();
         }
-
-        StopLoading();
     }
 
-    public void StopLoading()
+    public void AddPartProgress()
     {
-        StopCoroutine(loading);
+        ui_partProgress.fillAmount += 1f / partMaxProgress;
 
-        finalLoading?.Invoke();
+        if (ui_partProgress.fillAmount >= 1f)
+        {
+            completePartLoading?.Invoke();
+        }
+    }
+
+    public void SetMaxMainProgress(int value)
+    {
+        mainMaxProgress = Math.Max(value, 1);
+        ui_mainProgress.fillAmount = 0f;
+    }
+
+    public void SetMaxPartProgress(int value)
+    {
+        partMaxProgress = Math.Max(value, 1);
+        ui_partProgress.fillAmount = 0f;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class TerrainResourceSpawner : MonoBehaviour
@@ -7,20 +8,18 @@ public class TerrainResourceSpawner : MonoBehaviour
     [SerializeField] private GameObject[] resourcePrefabs;
     private TreeInstance[] savedTreeData; 
 
-    public void Initialize()
-    {
-        ReplaceTerrainTrees();
-    }
-
-    private void ReplaceTerrainTrees()
+    public IEnumerator Initializing(UILoadingScreen ui_loadingScreen)
     {
         TerrainData terrainData = terrain.terrainData;
         TreeInstance[] resources = terrainData.treeInstances;
 
-        foreach(TreeInstance _resource in resources)
+        int _count = 0;
+        ui_loadingScreen.SetMaxPartProgress(resources.Length / 100);
+
+        foreach (TreeInstance _resource in resources)
         {
-            if(_resource.prototypeIndex >= resourcePrefabs.Length) continue;
-            
+            if (_resource.prototypeIndex >= resourcePrefabs.Length) continue;
+
             Vector3 _position = ConvertToWorldPosition(_resource.position);
             Quaternion _rotation = Quaternion.Euler(0f, UnityEngine.Random.Range(0f, 360f), 0f);
 
@@ -28,6 +27,15 @@ public class TerrainResourceSpawner : MonoBehaviour
             resource.transform.localScale = new Vector3(_resource.heightScale, _resource.heightScale, _resource.heightScale);
             resource.transform.SetParent(this.transform);
             resource.Initialize();
+
+            _count++;
+
+            if (_count < 100) continue;
+
+            ui_loadingScreen.AddPartProgress();
+            _count = 0;
+
+            yield return null;
         }
 
         savedTreeData = resources;

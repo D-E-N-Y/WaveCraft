@@ -44,15 +44,15 @@ public class UIGameMenu : UIPanel
     {
         isCanClose = false;
 
-        ui_blackout.Up();
         ui_blackout.finalUp += sceneLoaderSystem.LoadMainMenu;
+        ui_blackout.Up();
     }
 
     public void QuitGame()
     {
         isCanClose = false;
-        
-        ui_blackout.Up();
+
         ui_blackout.finalUp += Application.Quit;
+        ui_blackout.Up();
     }
 }

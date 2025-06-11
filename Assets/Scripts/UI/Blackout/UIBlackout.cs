@@ -24,6 +24,12 @@ public class UIBlackout : UIPanel
         _animator.SetTrigger("Up");
     }
 
+    // public void PlayUpAnimayion() => _animator.Play("A_Up", 0, 0f);
+    // public void PlayDownAnimayion() => _animator.Play("A_Down", 0, 0f);
+
+    public void SetUnscaledTimeUpdateMode() => _animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+    public void SetNormalUpdateMode() => _animator.updateMode = AnimatorUpdateMode.Normal;
+
     public void ClearFinalUpActions() => finalUp = null;
     public void ClearFinalDownActions() => finalDown = null;
 
