@@ -5,9 +5,9 @@ using UnityEngine;
 public class UI_TasksListPanel : MonoBehaviour
 {
     [SerializeField] private List<UI_Task> taskPrefabs;
-    private UP_Worker worker;
+    private UV_Worker worker;
 
-    public void Initialize(UP_Worker worker)
+    public void Initialize(UV_Worker worker)
     {
         this.worker = worker;
         

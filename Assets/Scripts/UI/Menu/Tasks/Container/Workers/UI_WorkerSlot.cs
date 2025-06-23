@@ -11,10 +11,10 @@ public class UI_WorkerSlot : MonoBehaviour
 
     [SerializeField] private Button button;
 
-    public UP_Worker worker { get; private set; }
+    public UV_Worker worker { get; private set; }
     public Task openTask;
 
-    public void Initialize(UP_Worker worker, Task task)
+    public void Initialize(UV_Worker worker, Task task)
     {
         this.worker = worker;
         openTask = task;

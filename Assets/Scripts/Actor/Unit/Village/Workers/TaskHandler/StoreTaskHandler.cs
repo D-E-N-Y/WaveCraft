@@ -7,7 +7,7 @@ public class StoreTaskHandler : ITaskHandler
 {
     private StoreTask storeTask;
 
-    public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
+    public IEnumerator ExecuteTask(UV_Worker worker, Task task, Action onComplete)
     {
         storeTask = (StoreTask)task;
 
@@ -92,7 +92,7 @@ public class StoreTaskHandler : ITaskHandler
         onComplete?.Invoke();
     }
 
-    private IEnumerator StoreToProcessor(UP_Worker worker)
+    private IEnumerator StoreToProcessor(UV_Worker worker)
     {
         foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
@@ -120,7 +120,7 @@ public class StoreTaskHandler : ITaskHandler
         }
     }
 
-    private IEnumerator StoreToStorage(UP_Worker worker)
+    private IEnumerator StoreToStorage(UV_Worker worker)
     {
         foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {

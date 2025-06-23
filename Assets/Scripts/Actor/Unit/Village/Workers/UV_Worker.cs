@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UP_Worker : U_Player
+public class UV_Worker : U_Village
 {
     public Action UpdateTasks;
     public Action UpdateState;
@@ -29,8 +29,6 @@ public class UP_Worker : U_Player
     public override void Initialize()
     {
         base.Initialize();
-
-        proffesion = "Worker";
 
         taskManager = new TaskManager();
         tasks = new List<Task>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuildTaskHandler : ITaskHandler
 {
-    public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
+    public IEnumerator ExecuteTask(UV_Worker worker, Task task, Action onComplete)
     {
         BuildTask buildTask = (BuildTask)task;
         
@@ -20,7 +20,7 @@ public class BuildTaskHandler : ITaskHandler
 
         // build
         worker.animator.SetTrigger("Build");
-        worker.ActiceInsturcent(UP_Worker.E_Instrument.Hammer);
+        worker.ActiceInsturcent(UV_Worker.E_Instrument.Hammer);
         float elapsedTime = 0f;
         while(elapsedTime < buildTask.building.GetTimeToBuild())
         {
@@ -32,7 +32,7 @@ public class BuildTaskHandler : ITaskHandler
             yield return null;
         }
         yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
-        worker.DisactiveInstument(UP_Worker.E_Instrument.Hammer);
+        worker.DisactiveInstument(UV_Worker.E_Instrument.Hammer);
         worker.animator.Play("Idle");
 
         buildTask.building.Built();

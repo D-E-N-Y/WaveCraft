@@ -1,9 +1,8 @@
 
 using UnityEngine;
 
-public class U_Player : Unit
+public class U_Village : Unit
 {
-    public string proffesion { get; protected set; }
     private string[] names = {
         "Stigr Bosques", "Gaufrid Grosf", "Arnulf Färberg", "Herman Forstg", "Humbert Fishere",
         "Stigr Bognárh", "Robert Beutelg", "Ealhstan Fryee", "Hartmut Eichelg", "Cyneric Bradleye",
@@ -14,8 +13,8 @@ public class U_Player : Unit
         "Grimwald Forneyg", "Aldwin Frye"
     }; 
 
-    [SerializeField] protected EVillageType type;
-    public EVillageType Type() => type;
+    [SerializeField] protected EVillageProfession profession;
+    public EVillageProfession Profession() => profession;
 
     public override string nameActor => unitName;
     private string unitName;

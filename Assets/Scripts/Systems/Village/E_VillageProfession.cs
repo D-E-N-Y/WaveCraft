@@ -1,4 +1,4 @@
-public enum EVillageType
+public enum EVillageProfession
 {
     Worker,
     Warrior,

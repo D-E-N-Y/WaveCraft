@@ -11,7 +11,7 @@ public class TaskSystem : GameSystem
     public Action UpdateWorkers;
 
     private Dictionary<E_TaskState, List<Task>> tasks;
-    private List<UP_Worker> workers;
+    private List<UV_Worker> workers;
 
     public override void Initialize()
     {
@@ -23,7 +23,7 @@ public class TaskSystem : GameSystem
         tasks[E_TaskState.Canceled] = new List<Task>();
         tasks[E_TaskState.Completed] = new List<Task>();
 
-        workers = new List<UP_Worker>();
+        workers = new List<UV_Worker>();
     }
 
     public void AddTask(Task task)
@@ -36,7 +36,7 @@ public class TaskSystem : GameSystem
 
     public void DoTask(Task task)
     {
-        UP_Worker worker = FindFreeWorker();
+        UV_Worker worker = FindFreeWorker();
         if (worker)
         {
             worker.AddTask(task);
@@ -63,7 +63,7 @@ public class TaskSystem : GameSystem
         }
     }
 
-    public void DoTask(Task task, UP_Worker worker)
+    public void DoTask(Task task, UV_Worker worker)
     {
         worker.AddTask(task);
 
@@ -82,9 +82,9 @@ public class TaskSystem : GameSystem
         UpdateTasks?.Invoke();
     }
 
-    private UP_Worker FindFreeWorker()
+    private UV_Worker FindFreeWorker()
     {
-        foreach (UP_Worker worker in workers)
+        foreach (UV_Worker worker in workers)
         {
             if (worker.state == E_WorkerState.Idle && worker.isAutoGetTask)
             {
@@ -92,7 +92,7 @@ public class TaskSystem : GameSystem
             }
         }
 
-        foreach (UP_Worker worker in workers)
+        foreach (UV_Worker worker in workers)
         {
             if (worker.HasFreeTaskSpace() && worker.isAutoGetTask)
             {
@@ -149,7 +149,7 @@ public class TaskSystem : GameSystem
         task.Update?.Invoke();
     }
 
-    public void AddWorker(UP_Worker worker)
+    public void AddWorker(UV_Worker worker)
     {
         workers.Add(worker);
         UpdateWorkers?.Invoke();
@@ -167,7 +167,7 @@ public class TaskSystem : GameSystem
         }
     }
 
-    public void RemoveWorker(UP_Worker worker)
+    public void RemoveWorker(UV_Worker worker)
     {
         workers.Remove(worker);
         UpdateWorkers?.Invoke();

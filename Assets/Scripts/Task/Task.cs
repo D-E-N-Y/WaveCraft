@@ -7,7 +7,7 @@ public class Task
     
     public E_TaskType type { protected set; get; }
     public E_TaskState state { protected set; get; }
-    public UP_Worker worker { protected set; get; }
+    public UV_Worker worker { protected set; get; }
     public bool isAutoWorker { protected set; get; } = true;
 
     public float goal { protected set; get; }
@@ -19,7 +19,7 @@ public class Task
         Update?.Invoke();
     }
     
-    public void SetWorker(UP_Worker worker)
+    public void SetWorker(UV_Worker worker)
     {
         this.worker = worker;
         Update?.Invoke();

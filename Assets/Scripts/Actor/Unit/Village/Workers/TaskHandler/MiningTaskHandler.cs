@@ -6,7 +6,7 @@ public class MiningTaskHandler : ITaskHandler
 {
     MiningTask miningTask;
     
-    public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
+    public IEnumerator ExecuteTask(UV_Worker worker, Task task, Action onComplete)
     {
         // check have resource
         if(!worker.CheckFreeSpaceMineAmount())
@@ -36,7 +36,7 @@ public class MiningTaskHandler : ITaskHandler
             miningTask.SetExecutingState(EMiningExecutingState.Mining);
 
             // Mining phase
-            worker.ActiceInsturcent(UP_Worker.E_Instrument.Pickaxe);
+            worker.ActiceInsturcent(UV_Worker.E_Instrument.Pickaxe);
             while (worker.GetCurrentMineAmount() < worker.GetMaxMineAmount())
             {
                 worker.animator.SetTrigger("Mine");
@@ -55,7 +55,7 @@ public class MiningTaskHandler : ITaskHandler
             }
             
             worker.animator.Play("Idle");
-            worker.DisactiveInstument(UP_Worker.E_Instrument.Pickaxe);
+            worker.DisactiveInstument(UV_Worker.E_Instrument.Pickaxe);
 
             miningTask.SetExecutingState(EMiningExecutingState.MoveToProcessor);
 
@@ -69,7 +69,7 @@ public class MiningTaskHandler : ITaskHandler
         onComplete?.Invoke();
     }
 
-    private IEnumerator StoreResources(UP_Worker worker)
+    private IEnumerator StoreResources(UV_Worker worker)
     {
         while(worker.GetCurrentMineAmount() > 0)
         {

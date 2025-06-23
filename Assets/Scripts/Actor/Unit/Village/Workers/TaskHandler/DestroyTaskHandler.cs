@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DestroyTaskHandler : ITaskHandler
 {
-    public IEnumerator ExecuteTask(UP_Worker worker, Task task, Action onComplete)
+    public IEnumerator ExecuteTask(UV_Worker worker, Task task, Action onComplete)
     {
         DestroyTask destroyTask = (DestroyTask)task;
         
@@ -19,7 +19,7 @@ public class DestroyTaskHandler : ITaskHandler
 
         // destruction
         worker.animator.SetTrigger("Build");
-        worker.ActiceInsturcent(UP_Worker.E_Instrument.Hammer);
+        worker.ActiceInsturcent(UV_Worker.E_Instrument.Hammer);
         float elapsedTime = 0f;
         while(elapsedTime < destroyTask.timeToDestroy)
         {
@@ -31,7 +31,7 @@ public class DestroyTaskHandler : ITaskHandler
             yield return null;
         }
         yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
-        worker.DisactiveInstument(UP_Worker.E_Instrument.Hammer);
+        worker.DisactiveInstument(UV_Worker.E_Instrument.Hammer);
         worker.animator.Play("Idle");
 
         // destroy building

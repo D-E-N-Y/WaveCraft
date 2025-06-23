@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Mining : Attack
 {
-    private UP_Worker worker;
+    private UV_Worker worker;
     
     public override void Initialize(Unit unit)
     {
         base.Initialize(unit);
-        worker = (UP_Worker)unit;
+        worker = (UV_Worker)unit;
     }
 
     protected override void OnTriggerEnter(Collider other)

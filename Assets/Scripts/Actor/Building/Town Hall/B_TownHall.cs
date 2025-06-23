@@ -104,7 +104,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
                 yield return null;
             }
 
-            UP_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UP_Worker>();
+            UV_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UV_Worker>();
             worker.Initialize();
 
             spawnOrder--;

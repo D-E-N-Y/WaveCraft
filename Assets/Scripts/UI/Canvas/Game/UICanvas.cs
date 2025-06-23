@@ -8,6 +8,7 @@ public class UICanvas : MonoBehaviour
 
     [SerializeField] private UI_BuildMenu ui_buildMenu;
     [SerializeField] private UI_TaskMenu ui_taskMenu;
+    [SerializeField] private UI_VillageMenu ui_villageMenu;
     [SerializeField] private UIGameMenu ui_GameMenu;
 
     [SerializeField] private UIProvider uiProvider;
@@ -15,7 +16,7 @@ public class UICanvas : MonoBehaviour
 
     public IEnumerator Initializing(UIBlackout ui_Blackout, UILoadingScreen ui_loadingScreen)
     {
-        ui_loadingScreen.SetMaxPartProgress(7);
+        ui_loadingScreen.SetMaxPartProgress(8);
 
         ui_resourcePanel.Initialize();
         ui_loadingScreen.AddPartProgress();
@@ -30,6 +31,10 @@ public class UICanvas : MonoBehaviour
         yield return null;
 
         ui_taskMenu.Initialize();
+        ui_loadingScreen.AddPartProgress();
+        yield return null;
+
+        ui_villageMenu.Initialize();
         ui_loadingScreen.AddPartProgress();
         yield return null;
 

@@ -35,7 +35,7 @@ public class UI_WorkersContainer : MonoBehaviour
     {
         workers = new List<UI_WorkerSlot>();
         
-        int dif = villageSystem.GetCount(EVillageType.Worker) - transform.GetComponentsInChildren<UI_WorkerSlot>(true).Length;
+        int dif = villageSystem.GetCount(EVillageProfession.Worker) - transform.GetComponentsInChildren<UI_WorkerSlot>(true).Length;
         if(dif > 0)
         {
             for(int i = 0; i < dif; i++)
@@ -50,11 +50,11 @@ public class UI_WorkersContainer : MonoBehaviour
             worker.gameObject.SetActive(false);
         }
 
-        if(villageSystem.GetCount(EVillageType.Worker) == 0) return;
+        if(villageSystem.GetCount(EVillageProfession.Worker) == 0) return;
 
-        for(int i = 0; i < villageSystem.GetCount(EVillageType.Worker); i++)
+        for(int i = 0; i < villageSystem.GetCount(EVillageProfession.Worker); i++)
         {
-            UP_Worker _worker = (UP_Worker)villageSystem.GetVillages(EVillageType.Worker)[i];
+            UV_Worker _worker = (UV_Worker)villageSystem.GetVillages(EVillageProfession.Worker)[i];
             
             
             if(!_worker.HasFreeTaskSpace())

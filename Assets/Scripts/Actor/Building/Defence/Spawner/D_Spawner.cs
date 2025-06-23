@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class D_Spawner : B_Defence, ISpawnUnit
 {
-    [SerializeField] private U_Player spawnUnit;
+    [SerializeField] private U_Village spawnUnit;
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
     [SerializeField] private S_Cost spawnCost;
@@ -30,7 +30,7 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit
         Debug.Log("spawn unit");
     }
 
-    public EVillageType GetTypeUnit() => spawnUnit.Type();
+    public EVillageProfession GetTypeUnit() => spawnUnit.Profession();
     public float GetTimeToSpawnUnit() => timeToSpawnUnit;
     public int GetCostSpawnUnit() => spawnCost.count;
 }

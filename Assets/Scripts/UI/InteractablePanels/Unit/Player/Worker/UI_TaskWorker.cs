@@ -21,10 +21,10 @@ public class UI_TaskWorker : MonoBehaviour
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI contexText;
 
-    private UP_Worker worker;
+    private UV_Worker worker;
     private Task task;
 
-    public void Initialize(UP_Worker worker, int order, Task task)
+    public void Initialize(UV_Worker worker, int order, Task task)
     {
         this.worker = worker;
         this.task = task;

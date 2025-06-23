@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class UI_Worker : UI_InteractablePanel 
 {
-    public override Type PanelType => typeof(UP_Worker);
-    private UP_Worker worker;
+    public override Type PanelType => typeof(UV_Worker);
+    private UV_Worker worker;
     
     [SerializeField] private TextMeshProUGUI ui_proffesion;
 
@@ -30,9 +30,9 @@ public class UI_Worker : UI_InteractablePanel
     {
         base.Initialize(_actor);
 
-        worker = (UP_Worker)_actor;
+        worker = (UV_Worker)_actor;
 
-        ui_proffesion.text = worker.proffesion;
+        ui_proffesion.text = worker.Profession().ToString();
 
         ui_armor.text = worker.GetArmor().ToString();
         ui_damage.text = worker.GetDamage().ToString();
