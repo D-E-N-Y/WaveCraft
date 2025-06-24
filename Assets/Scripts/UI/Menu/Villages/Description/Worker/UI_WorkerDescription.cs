@@ -5,7 +5,16 @@ using UnityEngine.UI;
 
 public class UI_WorkerDescription : UI_VillageDescription
 {
-    [SerializeField] private TextMeshProUGUI ui_storeAmount;
+    [SerializeField] private TextMeshProUGUI ui_currentMineStoreAmount;
+    [SerializeField] private TextMeshProUGUI ui_maxMineStoreAmount;
+
+    [SerializeField] private TextMeshProUGUI ui_woodMineAmount;
+    [SerializeField] private TextMeshProUGUI ui_stoneMineAmount;
+    [SerializeField] private TextMeshProUGUI ui_foodMineAmount;
+
+    [SerializeField] private TextMeshProUGUI ui_woodCarryingAmount;
+    [SerializeField] private TextMeshProUGUI ui_stoneCarryingAmount;
+    [SerializeField] private TextMeshProUGUI ui_foodCarryingAmount;
 
     [SerializeField] private GameObject ui_taskContainer;
     [SerializeField] private List<UI_TaskWorker> ui_tasks;
@@ -35,7 +44,7 @@ public class UI_WorkerDescription : UI_VillageDescription
         worker = (UV_Worker)village;
         AddSubscriptions();
 
-        UpdateData();
+        UpdateResourceAmount();
         UpdateTasks();
         UpdateAutoGetTask();
         UpdateStateTask();
@@ -47,9 +56,20 @@ public class UI_WorkerDescription : UI_VillageDescription
         ui_tasksListPanel.Hide();
     }
 
-    private void UpdateData()
+    private void UpdateResourceAmount()
     {
-        ui_storeAmount.text = worker.GetMaxMineAmount().ToString();
+        ui_currentMineStoreAmount.text = worker.GetCurrentMineAmount().ToString();
+        ui_maxMineStoreAmount.text = worker.GetMaxMineAmount().ToString();
+
+        // mined resources
+        ui_woodMineAmount.text = worker.GetCurrentMineAmountByResource(E_Resource.Wood).ToString();
+        ui_stoneMineAmount.text = worker.GetCurrentMineAmountByResource(E_Resource.Stone).ToString();
+        ui_foodMineAmount.text = worker.GetCurrentMineAmountByResource(E_Resource.Food).ToString();
+
+        // carrying resources
+        ui_woodCarryingAmount.text = worker.GetCurrentCarryingAmountByResource(E_Resource.Wood).ToString();
+        ui_stoneCarryingAmount.text = worker.GetCurrentCarryingAmountByResource(E_Resource.Stone).ToString();
+        ui_foodCarryingAmount.text = worker.GetCurrentCarryingAmountByResource(E_Resource.Food).ToString();
     }
 
     private void UpdateTasks()
@@ -86,6 +106,8 @@ public class UI_WorkerDescription : UI_VillageDescription
 
     private void AddSubscriptions()
     {
+        worker.UpdateResourceAmount += UpdateResourceAmount;
+
         worker.UpdateTasks += UpdateTasks;
 
         worker.UpdateAutoGetTaskTask += UpdateAutoGetTask;
@@ -100,6 +122,8 @@ public class UI_WorkerDescription : UI_VillageDescription
 
     private void RemoveSubscriptions()
     {
+        worker.UpdateResourceAmount -= UpdateResourceAmount;
+
         worker.UpdateTasks -= UpdateTasks;
 
         worker.UpdateAutoGetTaskTask -= UpdateAutoGetTask;

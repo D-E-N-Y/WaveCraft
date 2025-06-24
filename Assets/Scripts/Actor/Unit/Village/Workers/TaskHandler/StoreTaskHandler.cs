@@ -57,8 +57,8 @@ public class StoreTaskHandler : ITaskHandler
             storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
 
             // store to storage
-            worker.AddCurrentStoreAmount(storeTask.resource, processor.Unload());
-            storeTask.SetAmount(worker.GetCurrentStoreAmountByResource(storeTask.resource));
+            worker.AddCurrentCarryingAmount(storeTask.resource, processor.Unload());
+            storeTask.SetAmount(worker.GetCurrentCarryingAmountByResource(storeTask.resource));
             yield return StoreToStorage(worker);
         }
         else if(production != null)
@@ -82,7 +82,7 @@ public class StoreTaskHandler : ITaskHandler
 
             // store to processor
             worker.AddCurrentMineAmount(storeTask.resource, production.Unload(worker.GetMaxMineAmount()));
-            storeTask.SetAmount(worker.GetCurrentStoreAmountByResource(storeTask.resource));
+            storeTask.SetAmount(worker.GetCurrentCarryingAmountByResource(storeTask.resource));
             yield return StoreToProcessor(worker);
         }
 
@@ -124,7 +124,7 @@ public class StoreTaskHandler : ITaskHandler
     {
         foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
-            if(worker.GetCurrentStoreAmountByResource(resource) < 1) continue;
+            if(worker.GetCurrentCarryingAmountByResource(resource) < 1) continue;
             
             int residue = 0;
             do
@@ -153,7 +153,7 @@ public class StoreTaskHandler : ITaskHandler
                 yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
                 worker.animator.SetBool("isMove", false);
 
-                residue = ResourceSystem.current.AddResourceByType(storage, resource, worker.GetCurrentStoreAmountByResource(resource));
+                residue = ResourceSystem.current.AddResourceByType(storage, resource, worker.GetCurrentCarryingAmountByResource(resource));
 
                 if(residue > 0)
                 {
@@ -161,7 +161,7 @@ public class StoreTaskHandler : ITaskHandler
                 }
             }
             while(residue > 0);
-            worker.ClearCurrentStoreAmount(resource);
+            worker.ClearCurrentCarryingAmount(resource);
         }
     }
 }

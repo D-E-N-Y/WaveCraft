@@ -10,6 +10,7 @@ public class UnitMovement : MonoBehaviour
     // public event Action OnMoveComplete;
 
     private NavMeshAgent agent;
+    private Vector3 targetPosition;
     public bool isMoving { get; private set; } 
 
     public enum E_MoveTo
@@ -42,14 +43,16 @@ public class UnitMovement : MonoBehaviour
 
         while (true)
         {
-            switch(_object)
+            targetPosition = GetNearbyPosition(target);
+
+            switch (_object)
             {
                 case E_MoveTo.PlacedObject:
-                    MoveToPlacedObject(GetNearbyPosition(target));
+                    MoveToPlacedObject(targetPosition);
                     break;
 
                 case E_MoveTo.NatureObject:
-                    MoveToNatureObject(GetNearbyPosition(target));
+                    MoveToNatureObject(targetPosition);
                     break;
             }
 
@@ -80,7 +83,7 @@ public class UnitMovement : MonoBehaviour
         // OnMoveComplete?.Invoke();
     }
 
-    private bool IsAtGoal() => agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f;
+    private bool IsAtGoal() => agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f || Vector3.Distance(targetPosition, transform.position) < 1f;
 
     private IEnumerator RotateToObject(Transform target)
     {
@@ -120,8 +123,6 @@ public class UnitMovement : MonoBehaviour
     private void MoveToNatureObject(Vector3 target)
     {
         Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
-
-        // agent.SetDestination(bestPoint);
 
         if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
         {

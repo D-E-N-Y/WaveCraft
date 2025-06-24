@@ -28,7 +28,11 @@ public class UI_TownHall : UI_Building
     }
     [SerializeField] private List<ResourceText> ui_processedResources;
     [SerializeField] private List<ResourceText> ui_rawResources;
-    
+
+    [SerializeField] private Button ui_storeWoodButton;
+    [SerializeField] private Button ui_storeStoneButton;
+    [SerializeField] private Button ui_storeFoodButton;
+
     [SerializeField] private List<ResourceText> ui_curresntStorageResources;
     [SerializeField] private List<ResourceText> ui_maxStorageResources;
 
@@ -60,8 +64,11 @@ public class UI_TownHall : UI_Building
             processor.UpdateRawAmount += RefreshRawResourceAmount;
         }
 
+        ui_storeWoodButton.onClick.AddListener(() => Store(E_Resource.Wood));
+        ui_storeStoneButton.onClick.AddListener(() => Store(E_Resource.Stone));
+        ui_storeFoodButton.onClick.AddListener(() => Store(E_Resource.Food));
 
-        foreach(ResourceText current in ui_curresntStorageResources)
+        foreach (ResourceText current in ui_curresntStorageResources)
         {
             TH_Storage storage = townHall.GetStorage(current.resource);
             current.ui_amount.text = storage.GetCurrentAmount().ToString();
@@ -82,7 +89,7 @@ public class UI_TownHall : UI_Building
         townHall.UpdateSpawnOrder -= RefreshSpawnOrder;
         townHall.UpdateSpawnProgress -= RefreshSpawnProgressIgame;
 
-        foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+        foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
             TH_Processor processor = townHall.GetProcessor(resource);
             processor.UpdadeProcessedAmount -= RefreshProcessedResourceAmount;
@@ -91,6 +98,10 @@ public class UI_TownHall : UI_Building
             TH_Storage storage = townHall.GetStorage(resource);
             storage.UpdateCurrentAmount -= RefreshResourceAmountStorage;
         }
+
+        ui_storeWoodButton.onClick.RemoveAllListeners();
+        ui_storeStoneButton.onClick.RemoveAllListeners();
+        ui_storeFoodButton.onClick.RemoveAllListeners();
     }
 
     public void SpawnWorker()
@@ -143,12 +154,11 @@ public class UI_TownHall : UI_Building
         }
     }
 
-    public void Store(int numberResource)
+    private void Store(E_Resource resource)
     {
-        E_Resource resource = (E_Resource)numberResource;
         TH_Processor processor = townHall.GetProcessor(resource);
-        
-        if(processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+
+        if (processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
         {
             StoreTask task = new StoreTask(resource, townHall);
             taskSystem.AddTask(task);

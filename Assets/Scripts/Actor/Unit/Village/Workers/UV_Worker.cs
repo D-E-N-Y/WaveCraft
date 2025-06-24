@@ -7,6 +7,7 @@ public class UV_Worker : U_Village
     public Action UpdateTasks;
     public Action UpdateStateTask;
     public Action UpdateAutoGetTaskTask;
+    public Action UpdateResourceAmount;
 
     [SerializeField, Range(1, 10)] private int limitTasks;
     public List<Task> tasks { get; private set; }
@@ -19,7 +20,7 @@ public class UV_Worker : U_Village
 
     [SerializeField, Range(1, 20)] private int maxMineAmount;
     private Dictionary<E_Resource, int> currentMineAmount;
-    private Dictionary<E_Resource, int> currentStoreAmount;
+    private Dictionary<E_Resource, int> currentCarryingAmount;
 
     [SerializeField] GameObject hammerPrefab;
     [SerializeField] GameObject pickaxePrefab;
@@ -43,11 +44,11 @@ public class UV_Worker : U_Village
         currentMineAmount.Add(E_Resource.Stone, 0);
         currentMineAmount.Add(E_Resource.Food, 0);
 
-        // initialize store amount 
-        currentStoreAmount = new Dictionary<E_Resource, int>();
-        currentStoreAmount.Add(E_Resource.Wood, 0);
-        currentStoreAmount.Add(E_Resource.Stone, 0);
-        currentStoreAmount.Add(E_Resource.Food, 0);
+        // initialize carrying amount 
+        currentCarryingAmount = new Dictionary<E_Resource, int>();
+        currentCarryingAmount.Add(E_Resource.Wood, 0);
+        currentCarryingAmount.Add(E_Resource.Stone, 0);
+        currentCarryingAmount.Add(E_Resource.Food, 0);
 
         // initialize instruments
         pickaxePrefab.GetComponent<Mining>().Initialize(this);
@@ -197,20 +198,39 @@ public class UV_Worker : U_Village
 
         foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
-            result += currentStoreAmount[resource];
+            result += currentCarryingAmount[resource];
         }
 
         return result;
     }
 
     public int GetCurrentMineAmountByResource(E_Resource resource) => currentMineAmount[resource];
-    public int GetCurrentStoreAmountByResource(E_Resource resource) => currentStoreAmount[resource];
+    public int GetCurrentCarryingAmountByResource(E_Resource resource) => currentCarryingAmount[resource];
 
-    public void AddCurrentMineAmount(E_Resource resource, int value) => currentMineAmount[resource] += value;
-    public void ClearCurrentMineAmount(E_Resource resource) => currentMineAmount[resource] = 0;
+    public void AddCurrentMineAmount(E_Resource resource, int value)
+    {
+        currentMineAmount[resource] += value;
+        UpdateResourceAmount?.Invoke();
 
-    public void AddCurrentStoreAmount(E_Resource resource, int value) => currentStoreAmount[resource] += value;
-    public void ClearCurrentStoreAmount(E_Resource resource) => currentStoreAmount[resource] = 0;
+    }
+    
+    public void ClearCurrentMineAmount(E_Resource resource)
+    {
+        currentMineAmount[resource] = 0;
+        UpdateResourceAmount?.Invoke();
+    }
+
+    public void AddCurrentCarryingAmount(E_Resource resource, int value)
+    {
+        currentCarryingAmount[resource] += value;
+        UpdateResourceAmount?.Invoke();
+    }
+
+    public void ClearCurrentCarryingAmount(E_Resource resource)
+    {
+        currentCarryingAmount[resource] = 0;
+        UpdateResourceAmount?.Invoke();
+    }
 
     public void ChangeAutoGetTasks(bool value)
     {
