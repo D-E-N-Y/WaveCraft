@@ -49,14 +49,11 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     public Action UpdateSpawnOrder;
     public Action<float> UpdateSpawnProgress;
 
-    [SerializeField] private GameObject spawnUnitPref;
+    [SerializeField] private U_Village spawnUnit;
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
-    [SerializeField] private S_Cost spawnCost;
     private Coroutine spawning;
     public int spawnOrder { get; private set; }
-
-    
 
     public void SpawnUnit()
     {
@@ -76,7 +73,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         if(spawnOrder == 0 && spawning != null)
         {
-            ResourceSystem.current.AddResourceByType(spawnCost.resourse, spawnCost.count);
+            ResourceSystem.current.AddResourceByType(spawnUnit.GetSpawnCost().resourse, spawnUnit.GetSpawnCost().count);
             UpdateSpawnProgress?.Invoke(1f);
 
             StopCoroutine(spawning);
@@ -88,12 +85,12 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     {
         while(spawnOrder > 0 && VillageSystem.current.CheckFreeSpace())
         {
-            if(StorageSystem.current.CheckCountResurces(spawnCost.resourse) <= spawnCost.count)
+            if(StorageSystem.current.CheckCountResurces(spawnUnit.GetSpawnCost().resourse) <= spawnUnit.GetSpawnCost().count)
             {
                 break;
             }
             
-            ResourceSystem.current.RemoveResourceByType(spawnCost.resourse, spawnCost.count);
+            ResourceSystem.current.RemoveResourceByType(spawnUnit.GetSpawnCost().resourse, spawnUnit.GetSpawnCost().count);
 
             float timer = 0;
 
@@ -104,7 +101,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
                 yield return null;
             }
 
-            UV_Worker worker = Instantiate(spawnUnitPref, spawnPosition).GetComponent<UV_Worker>();
+            UV_Worker worker = (UV_Worker)Instantiate(spawnUnit, spawnPosition);
             worker.Initialize();
 
             spawnOrder--;
@@ -117,7 +114,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         spawning = null;
     }
 
-    public S_Cost GetSpawnCost() => spawnCost;
+    public S_Cost GetSpawnCost() => spawnUnit.GetSpawnCost();
 
     #endregion
 

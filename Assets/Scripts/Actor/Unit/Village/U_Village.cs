@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class U_Village : Unit
 {
+    [SerializeField] private S_Cost spawnCost;
+
     private string[] names = {
         "Stigr Bosques", "Gaufrid Grosf", "Arnulf Färberg", "Herman Forstg", "Humbert Fishere",
         "Stigr Bognárh", "Robert Beutelg", "Ealhstan Fryee", "Hartmut Eichelg", "Cyneric Bradleye",
@@ -11,7 +13,7 @@ public class U_Village : Unit
         "Eadwulf Bognárh", "Aldric Fryee", "Anselm Froste", "Conrad Clineg", "Albert Bloms",
         "Gernot Eks", "Aldric Garverg", "Stígandr Bösch", "Stigr Faerberg", "Andebert Foxe",
         "Grimwald Forneyg", "Aldwin Frye"
-    }; 
+    };
 
     [SerializeField] protected EVillageProfession profession;
     public EVillageProfession Profession() => profession;
@@ -26,5 +28,13 @@ public class U_Village : Unit
         unitName = names[Random.Range(0, names.Length)];
 
         VillageSystem.current.AddVillage(this);
+    }
+
+    public S_Cost GetSpawnCost() => spawnCost;
+
+    public void Dissolve()
+    {
+        ResourceSystem.current.AddResourceByType(spawnCost.resourse, spawnCost.count / 2);
+        gameObject.SetActive(false);
     }
 }

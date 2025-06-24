@@ -6,11 +6,10 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit
     [SerializeField] private U_Village spawnUnit;
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
-    [SerializeField] private S_Cost spawnCost;
 
     public void SpawnUnit()
     {
-        ResourceSystem.current.RemoveResourceByType(E_Resource.Food, spawnCost.count);
+        ResourceSystem.current.RemoveResourceByType(spawnUnit.GetSpawnCost().resourse, spawnUnit.GetSpawnCost().count);
 
         StartCoroutine(Spawning());
     }
@@ -30,7 +29,7 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit
         Debug.Log("spawn unit");
     }
 
-    public EVillageProfession GetTypeUnit() => spawnUnit.Profession();
+    public EVillageProfession GetProfessionUnit() => spawnUnit.Profession();
     public float GetTimeToSpawnUnit() => timeToSpawnUnit;
-    public int GetCostSpawnUnit() => spawnCost.count;
+    public int GetCostSpawnUnit() => spawnUnit.GetSpawnCost().count;
 }

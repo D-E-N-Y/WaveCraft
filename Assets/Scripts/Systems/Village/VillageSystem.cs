@@ -46,9 +46,9 @@ public class VillageSystem : GameSystem
         UpdateCurrentAmount?.Invoke();
     }
 
-    public void RemoveVillage(EVillageProfession profession, U_Village village) 
+    public void RemoveVillage(U_Village village) 
     {
-        villages[profession].Remove(village);
+        villages[village.Profession()].Remove(village);
         UpdateCurrentAmount?.Invoke();
     }
     

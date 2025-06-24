@@ -80,7 +80,7 @@ public class UI_VillageContainer : MonoBehaviour
         
         Button _btn = ui_village.transform.GetComponentInChildren<Button>();
         _btn.onClick.RemoveAllListeners();
-        _btn.onClick.AddListener(() => infoProfession[village.Profession()].ui_description.Initialize(village));
+        _btn.onClick.AddListener(() => infoProfession[village.Profession()].ui_description.InitializeVillage(village));
         _btn.onClick.AddListener(() => ui_villageMenu.OpenSection(infoProfession[village.Profession()].ui_description.gameObject));
         _btn.onClick.AddListener(() => ui_villageMenu.SelectTabSection(ui_village.transform.GetChild(0).gameObject));
         // _btn.onClick.AddListener(() => ui_freeWorkers.SetTask(ui_task.task));

@@ -26,6 +26,7 @@ public class UI_VillageMenu : UIMenu
         foreach (UIProfessionInfo current in ui_info)
         {
             infoProfession.Add(current.profession, current.professionInfo);
+            current.professionInfo.ui_description?.Initialize(this, villageSystem);
             current.professionInfo.ui_description?.Hide();
         }
 
