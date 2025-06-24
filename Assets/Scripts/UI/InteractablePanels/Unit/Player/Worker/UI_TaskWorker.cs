@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_TaskWorker : MonoBehaviour
+public class UI_TaskWorker : UIPanel
 {
     [SerializeField] private TextMeshProUGUI taskOrderText;
     [SerializeField] private Image taskImage;

@@ -5,8 +5,9 @@ using UnityEngine;
 public class UV_Worker : U_Village
 {
     public Action UpdateTasks;
-    public Action UpdateState;
-    
+    public Action UpdateStateTask;
+    public Action UpdateAutoGetTaskTask;
+
     [SerializeField, Range(1, 10)] private int limitTasks;
     public List<Task> tasks { get; private set; }
     public bool isStopTask { get; private set; }
@@ -32,7 +33,7 @@ public class UV_Worker : U_Village
 
         taskManager = new TaskManager();
         tasks = new List<Task>();
-        
+
         isStopTask = false;
         isAutoGetTask = true;
 
@@ -56,7 +57,7 @@ public class UV_Worker : U_Village
 
         // random material
         Material currentMaterial = materials[UnityEngine.Random.Range(0, materials.Count)];
-        foreach(SkinnedMeshRenderer renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
+        foreach (SkinnedMeshRenderer renderer in GetComponentsInChildren<SkinnedMeshRenderer>())
         {
             renderer.material = currentMaterial;
             renderer.UpdateGIMaterials();
@@ -65,14 +66,14 @@ public class UV_Worker : U_Village
         state = E_WorkerState.Idle;
         TaskSystem.current.AddWorker(this);
     }
-    
+
     #region Control tasks
-        
+
     public void AddTask(Task task)
     {
         tasks.Add(task);
         task.SetWorker(this);
-        
+
         UpdateTasks?.Invoke();
 
         DoTask();
@@ -101,11 +102,11 @@ public class UV_Worker : U_Village
     public void StopTask()
     {
         isStopTask = true;
-        
+
         StopCoroutine(currentTask);
-            
+
         movement.StopMove();
-        
+
         animator.SetBool("isMove", false);
         animator.Play("Idle");
 
@@ -115,30 +116,30 @@ public class UV_Worker : U_Village
         state = E_WorkerState.Idle;
 
         tasks[0].Update?.Invoke();
-        UpdateState?.Invoke();
+        UpdateStateTask?.Invoke();
     }
 
     public void ContinueTask()
     {
         isStopTask = false;
-        
+
         DoTask();
 
         tasks[0].Update?.Invoke();
-        UpdateState?.Invoke();
+        UpdateStateTask?.Invoke();
     }
 
     public void CancelTask(Task task)
     {
-        if(tasks[0] == task)
+        if (tasks[0] == task)
         {
             tasks.Remove(task);
             UpdateTasks?.Invoke();
 
             StopCoroutine(currentTask);
-            
+
             movement.StopMove();
-            
+
             animator.SetBool("isMove", false);
             animator.Play("Idle");
 
@@ -162,7 +163,7 @@ public class UV_Worker : U_Village
     {
         tasks.Remove(task);
         UpdateTasks?.Invoke();
-        
+
         state = E_WorkerState.Idle;
 
         TaskSystem.current.CompleteTask(task);
@@ -181,8 +182,8 @@ public class UV_Worker : U_Village
     public int GetCurrentMineAmount()
     {
         int result = 0;
-        
-        foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+
+        foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
             result += currentMineAmount[resource];
         }
@@ -193,8 +194,8 @@ public class UV_Worker : U_Village
     public int GetCurrentStoreAmount()
     {
         int result = 0;
-        
-        foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+
+        foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
         {
             result += currentStoreAmount[resource];
         }
@@ -211,7 +212,11 @@ public class UV_Worker : U_Village
     public void AddCurrentStoreAmount(E_Resource resource, int value) => currentStoreAmount[resource] += value;
     public void ClearCurrentStoreAmount(E_Resource resource) => currentStoreAmount[resource] = 0;
 
-    public void ChangeAutoGetTasks() => isAutoGetTask = !isAutoGetTask;
+    public void ChangeAutoGetTasks(bool value)
+    {
+        isAutoGetTask = value;
+        UpdateAutoGetTaskTask?.Invoke();
+    }
 
     public enum E_Instrument
     {

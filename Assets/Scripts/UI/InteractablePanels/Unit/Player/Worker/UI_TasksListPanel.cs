@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UI_TasksListPanel : MonoBehaviour
+public class UI_TasksListPanel : UIPanel
 {
     [SerializeField] private List<UI_Task> taskPrefabs;
     private UV_Worker worker;
@@ -38,6 +38,4 @@ public class UI_TasksListPanel : MonoBehaviour
             taskPrefabs[i].Initialize(avaliableTasks[i]);
         }
     }
-
-    public void Hide() => gameObject.SetActive(false);
 }

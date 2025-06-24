@@ -4,14 +4,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Worker : UI_InteractablePanel 
+public class UI_Worker : UI_InteractablePanel
 {
     public override Type PanelType => typeof(UV_Worker);
     private UV_Worker worker;
-    
+
     [SerializeField] private TextMeshProUGUI ui_proffesion;
 
-    [SerializeField] private TextMeshProUGUI ui_armor; 
+    [SerializeField] private TextMeshProUGUI ui_armor;
     [SerializeField] private TextMeshProUGUI ui_damage;
     [SerializeField] private TextMeshProUGUI ui_speed;
     [SerializeField] private TextMeshProUGUI ui_storage;
@@ -19,89 +19,108 @@ public class UI_Worker : UI_InteractablePanel
     [SerializeField] private GameObject ui_taskContainer;
     [SerializeField] private List<UI_TaskWorker> ui_tasks;
 
-    [SerializeField] private TextMeshProUGUI ui_stateTask;
+    [SerializeField] private Toggle ui_autoGetTaskToggle;
+
+    [SerializeField] private Button ui_stopButton;
+    [SerializeField] private Button ui_continueButton;
+    [SerializeField] private Button ui_addTaskButton;
 
     [SerializeField] private UI_TasksListPanel ui_tasksListPanel;
-
-    [SerializeField] private Image ui_trueImage;
-    [SerializeField] private Image ui_falseImage;
 
     public override void Initialize(Actor _actor)
     {
         base.Initialize(_actor);
 
-        worker = (UV_Worker)_actor;
+        if (worker != null)
+        {
+            RemoveSubscriptions();
+            worker = null;
 
+            ui_tasksListPanel.Hide();
+        }
+
+        worker = (UV_Worker)_actor;
+        AddSubscriptions();
+
+        UpdateData();
+        UpdateTasks();
+        UpdateAutoGetTask();
+        UpdateStateTask();
+    }
+
+    void OnDisable()
+    {
+        RemoveSubscriptions();
+        ui_tasksListPanel.Hide();
+    }
+
+    private void UpdateData()
+    {
         ui_proffesion.text = worker.Profession().ToString();
 
         ui_armor.text = worker.GetArmor().ToString();
         ui_damage.text = worker.GetDamage().ToString();
         ui_speed.text = worker.GetSpeed().ToString();
         ui_storage.text = worker.GetMaxMineAmount().ToString();
-        
-        ui_trueImage.gameObject.SetActive(worker.isAutoGetTask);
-        ui_falseImage.gameObject.SetActive(!worker.isAutoGetTask);
-
-        RefreshTasks();
-        worker.UpdateTasks += RefreshTasks;
-        worker.UpdateState += RefreshState;
-
-        RefreshState();
     }
 
-    void OnDisable()
+    private void UpdateTasks()
     {
-        worker.UpdateTasks -= RefreshTasks;
-        worker.UpdateState -= RefreshState;
-        ui_tasksListPanel.Hide();
-    }
+        ui_tasks.ForEach(x => x.Hide());
 
-    private void RefreshTasks()
-    {
-        ui_tasks.ForEach(t => t.gameObject.SetActive(false));
-
-        for(int i = 0; i < worker.tasks.Count; i++)
+        for (int i = 0; i < worker.tasks.Count; i++)
         {
             ui_taskContainer.transform.GetChild(i).gameObject.SetActive(true);
             ui_taskContainer.transform.GetChild(i).gameObject.GetComponent<UI_TaskWorker>().Initialize(worker, i + 1, worker.tasks[i]);
         }
+
+        bool isHasTask = worker.tasks.Count > 0;
+        ui_continueButton.interactable = isHasTask;
+        ui_stopButton.interactable = isHasTask;
     }
 
-    public void RefreshState()
+    private void UpdateStateTask()
     {
-        if(worker.isStopTask)
-        {
-            ui_stateTask.text = "Continue";
-        }
-        else
-        {
-            ui_stateTask.text = "Stop";
-        }
+        ui_continueButton.gameObject.SetActive(worker.isStopTask);
+        ui_stopButton.gameObject.SetActive(!worker.isStopTask);
     }
 
-    public void SetStateTask()
+    private void UpdateAutoGetTask()
     {
-        if(!worker.isStopTask)
-        {
-            worker.StopTask();
-        }
-        else
-        {
-            worker.ContinueTask();
-        }
+        ui_autoGetTaskToggle.isOn = worker.isAutoGetTask;
     }
 
-    public void CheckAutoGetTasks()
+    private void ShowTasksListPanel()
     {
-        worker.ChangeAutoGetTasks();
-
-        ui_trueImage.gameObject.SetActive(worker.isAutoGetTask);
-        ui_falseImage.gameObject.SetActive(!worker.isAutoGetTask);
-    }
-
-    public void ShowTasksListPanel()
-    {
-        ui_tasksListPanel.gameObject.SetActive(true);
+        ui_tasksListPanel.Show();
         ui_tasksListPanel.Initialize(worker);
+    }
+    
+    private void AddSubscriptions()
+    {
+        worker.UpdateTasks += UpdateTasks;
+
+        worker.UpdateAutoGetTaskTask += UpdateAutoGetTask;
+        ui_autoGetTaskToggle.onValueChanged.AddListener(worker.ChangeAutoGetTasks);
+
+        worker.UpdateStateTask += UpdateStateTask;
+        ui_stopButton.onClick.AddListener(() => worker.StopTask());
+        ui_continueButton.onClick.AddListener(() => worker.ContinueTask());
+
+        ui_addTaskButton.onClick.AddListener(() => ShowTasksListPanel());
+    }
+
+    private void RemoveSubscriptions()
+    {
+        worker.UpdateTasks -= UpdateTasks;
+
+        worker.UpdateAutoGetTaskTask -= UpdateAutoGetTask;
+        ui_autoGetTaskToggle.onValueChanged.RemoveAllListeners();
+
+        worker.UpdateStateTask -= UpdateStateTask;
+        ui_stopButton.onClick.RemoveAllListeners();
+        ui_continueButton.onClick.RemoveAllListeners();
+
+        ui_addTaskButton.onClick.RemoveAllListeners();
     }
 }
