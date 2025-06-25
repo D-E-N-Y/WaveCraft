@@ -5,33 +5,31 @@ using UnityEngine;
 public class MiningTaskHandler : ITaskHandler
 {
     MiningTask miningTask;
-    
+
     public IEnumerator ExecuteTask(UV_Worker worker, Task task, Action onComplete)
     {
         // check have resource
-        if(!worker.CheckFreeSpaceMineAmount())
+        if (!worker.CheckFreeSpaceMineAmount())
         {
             yield return StoreResources(worker);
         }
-        
+
         miningTask = (MiningTask)task;
         Resource resource = miningTask.resource;
 
-        if(!resource)
-        {
-            // get nearby resource by type
-        }
+        // if(!resource)
+        // {
+        //     // get nearby resource by type
+        // }
 
         while (miningTask.progress < miningTask.goal)
         {
-            if(!resource.gameObject.activeSelf) break;
+            if (!resource.gameObject.activeSelf) break;
 
             miningTask.SetExecutingState(EMiningExecutingState.MoveToResource);
 
             // Move to resource
-            worker.animator.SetBool("isMove", true);
-            yield return worker.movement.MoveTo(resource.GetPosition(), UnitMovement.E_MoveTo.NatureObject);
-            worker.animator.SetBool("isMove", false);
+            yield return Moving(worker, resource, UnitMovement.E_MoveTo.NatureObject);
 
             miningTask.SetExecutingState(EMiningExecutingState.Mining);
 
@@ -43,17 +41,17 @@ public class MiningTaskHandler : ITaskHandler
                 yield return null;
                 yield return new WaitForSeconds(worker.animator.GetCurrentAnimatorStateInfo(0).length);
 
-                if(miningTask.progress + worker.GetCurrentMineAmount() >= miningTask.goal)
+                if (miningTask.progress + worker.GetCurrentMineAmount() >= miningTask.goal)
                 {
                     break;
                 }
 
-                if(!resource.gameObject.activeSelf)
+                if (!resource.gameObject.activeSelf)
                 {
                     break;
                 }
             }
-            
+
             worker.animator.Play("Idle");
             worker.DisactiveInstument(UV_Worker.E_Instrument.Pickaxe);
 
@@ -71,18 +69,17 @@ public class MiningTaskHandler : ITaskHandler
 
     private IEnumerator StoreResources(UV_Worker worker)
     {
-        while(worker.GetCurrentMineAmount() > 0)
+        while (worker.GetCurrentMineAmount() > 0)
         {
-            foreach(E_Resource resource in Enum.GetValues(typeof(E_Resource)))
+            foreach (E_Resource resource in Enum.GetValues(typeof(E_Resource)))
             {
-                if(worker.GetCurrentMineAmountByResource(resource) > 0)
+                if (worker.GetCurrentMineAmountByResource(resource) > 0)
                 {
                     // Move to processor
-                    worker.animator.SetBool("isMove", true);
                     IProcessor processor = ProcessorSystem.current.GetNearbyProcessor(worker.transform.position, resource);
                     IPosition position = (IPosition)processor;
-                    
-                    if(processor is IModule)
+
+                    if (processor is IModule)
                     {
                         miningTask.SetProcessor(((IModule)processor).GetBuilding());
                     }
@@ -91,8 +88,7 @@ public class MiningTaskHandler : ITaskHandler
                         miningTask.SetProcessor((Building)processor);
                     }
 
-                    yield return worker.movement.MoveTo(position.GetPosition(), UnitMovement.E_MoveTo.PlacedObject);
-                    worker.animator.SetBool("isMove", false);
+                    yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
 
                     miningTask.SetProgress(worker.GetCurrentMineAmount());
                     miningTask.SetProcessor(null);
@@ -103,5 +99,35 @@ public class MiningTaskHandler : ITaskHandler
                 }
             }
         }
+    }
+
+    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, UnitMovement.E_MoveTo to)
+    {
+        int countAttemps = 0;
+
+        worker.animator.SetBool("isMove", true);
+
+        while (true)
+        {
+            yield return worker.movement.MoveTo(iPosition, to);
+
+            if (!worker.movement.isCanMove)
+            {
+                countAttemps++;
+
+                if (countAttemps >= 5)
+                {
+                    Debug.Log("Дойти невозможно, задача отменяется!");
+                    worker.CancelTask(worker.tasks[0]);
+                    break;
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        worker.animator.SetBool("isMove", false);
     }
 }

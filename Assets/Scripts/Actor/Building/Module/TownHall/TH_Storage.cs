@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
 {
-    public Action<E_Resource> UpdateCurrentAmount; 
-    
+    public Action<E_Resource> UpdateCurrentAmount;
+
     [SerializeField] private E_Resource resource;
     [SerializeField] private int maxAmount;
     private int currentAmount;
@@ -25,7 +25,7 @@ public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
         currentAmount += amount;
         UpdatePrefabs();
 
-        if(currentAmount > maxAmount)
+        if (currentAmount > maxAmount)
         {
             int residue = currentAmount - maxAmount;
             currentAmount = maxAmount;
@@ -45,39 +45,39 @@ public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
         currentAmount -= amount;
         UpdatePrefabs();
 
-        if(currentAmount < 0)
+        if (currentAmount < 0)
         {
             int residue = Mathf.Abs(currentAmount);
             currentAmount = 0;
             UpdateCurrentAmount?.Invoke(resource);
-            
+
             return residue;
         }
         else
         {
             UpdateCurrentAmount?.Invoke(resource);
-            
+
             return 0;
         }
     }
 
     private void UpdatePrefabs()
     {
-        if(resourcePrefabs == null) return; 
-        
-        foreach(GameObject current in resourcePrefabs)
+        if (resourcePrefabs == null) return;
+
+        foreach (GameObject current in resourcePrefabs)
             current.SetActive(false);
-        
-        if(currentAmount > 0)
+
+        if (currentAmount > 0)
             resourcePrefabs[0].SetActive(true);
-        
-        if(currentAmount >= maxAmount * 0.3)
+
+        if (currentAmount >= maxAmount * 0.3)
             resourcePrefabs[1].SetActive(true);
 
-        if(currentAmount >= maxAmount * 0.6)
+        if (currentAmount >= maxAmount * 0.6)
             resourcePrefabs[2].SetActive(true);
 
-        if(currentAmount >= maxAmount * 1)
+        if (currentAmount >= maxAmount * 1)
             resourcePrefabs[3].SetActive(true);
     }
 
@@ -85,5 +85,7 @@ public class TH_Storage : BuildingModule, IStorage, IPosition, IIndustrial
     public bool isFreeSpace() => maxAmount - currentAmount != 0;
     public int GetCurrentAmount() => currentAmount;
     public int GetMaxAmount() => maxAmount;
+
     public List<Transform> GetPosition() => actorPositions;
+    public Actor GetActor() => GetBuilding();
 }

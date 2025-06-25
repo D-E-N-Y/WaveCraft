@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ public class UnitMovement : MonoBehaviour
     // public event Action OnMoveComplete;
 
     private NavMeshAgent agent;
-    private Vector3 targetPosition;
-    public bool isMoving { get; private set; } 
+    public bool isMoving { get; private set; }
+    public bool isCanMove { get; private set; }
 
     public enum E_MoveTo
     {
@@ -27,42 +28,58 @@ public class UnitMovement : MonoBehaviour
     public void StopMove() => agent.isStopped = true;
     public void StartMove() => agent.isStopped = false;
 
+    public float DistanceToGoal(List<Transform> target) => Vector3.Distance(GetNearbyPosition(target), transform.position);
+
     private Vector3 GetNearbyPosition(List<Transform> target)
     {
-        if(target == null)
+        if (target == null)
         {
             return transform.position;
         }
-        
+
         return target.OrderBy(x => Vector3.Distance(x.position, transform.position)).First().position;
     }
 
-    public IEnumerator MoveTo(List<Transform> target, E_MoveTo _object)
+    private Vector3 GetNearbyPosition(List<Vector3> target)
+    {
+        if (target == null)
+        {
+            return transform.position;
+        }
+
+        return target.OrderBy(x => Vector3.Distance(x, transform.position)).First();
+    }
+
+    public IEnumerator MoveTo(IPosition iPosition, E_MoveTo _object)
     {
         isMoving = true;
 
+        List<Vector3> avaliablePoints = new List<Vector3>();
+        switch (_object)
+        {
+            case E_MoveTo.NatureObject:
+                avaliablePoints = GetBestNavMeshPoints(transform.position, iPosition);
+                break;
+        }
+
         while (true)
         {
-            targetPosition = GetNearbyPosition(target);
-
             switch (_object)
             {
                 case E_MoveTo.PlacedObject:
-                    MoveToPlacedObject(targetPosition);
+                    MoveToPlacedObject(iPosition);
                     break;
 
                 case E_MoveTo.NatureObject:
-                    MoveToNatureObject(targetPosition);
+                    MoveToNatureObject(avaliablePoints);
                     break;
             }
 
-            // MoveToObject(GetNearbyPosition(target));
-
-            while (agent.pathPending || !agent.hasPath)
+            while (!(agent.hasPath && !agent.pathPending && agent.remainingDistance > 0f))
             {
                 yield return null;
-                
-                if (IsAtGoal())
+
+                if (IsFinish())
                 {
                     break;
                 }
@@ -70,7 +87,7 @@ public class UnitMovement : MonoBehaviour
 
             yield return null;
 
-            if (IsAtGoal())
+            if (IsFinish())
             {
                 break;
             }
@@ -79,58 +96,109 @@ public class UnitMovement : MonoBehaviour
 
         isMoving = false;
 
-        yield return RotateToObject(target.First());
-        // OnMoveComplete?.Invoke();
+        yield return RotateToObject(iPosition.GetActor().transform);
     }
 
-    private bool IsAtGoal() => agent.remainingDistance <= 0.1f || agent.velocity.sqrMagnitude <= 0f || Vector3.Distance(targetPosition, transform.position) < 1f;
+    private bool IsFinish()
+    {
+        return !agent.pathPending
+            && agent.remainingDistance <= agent.stoppingDistance
+            && (!agent.hasPath || agent.velocity.sqrMagnitude < 0.01f);
+    }
 
     private IEnumerator RotateToObject(Transform target)
     {
         transform.LookAt(target);
-
         yield return null;
     }
-    
-    private Vector3 MiddlePoint(Vector3 vector_1, Vector3 vector_2)
-    {
-        return (vector_1 + vector_2) / 2;
-    }
 
-    private Vector3 GetBestNavMeshPoint(Vector3 agentPosition, Vector3 targetPosition)
+    private List<Vector3> GetBestNavMeshPoints(Vector3 agentPosition, IPosition iPosition)
     {
-        Vector3 direction = (agentPosition - targetPosition).normalized;
+        Vector3 targetPosition = GetNearbyPosition(iPosition.GetPosition());
         float maxDistance = Vector3.Distance(targetPosition, agentPosition);
 
-        Vector3 bestPoint = targetPosition;
+        float step = 0.5f;
+        float radius = 0.5f;
 
-        for (float dist = maxDistance; dist > 0; dist -= 0.1f)
+        List<Vector3> _avaliablePoints = new List<Vector3>();
+
+        for (float dist = radius; dist <= maxDistance; dist += step)
         {
-            bestPoint = targetPosition + direction * (maxDistance - dist);
+            List<Vector3> testPoints = new List<Vector3>();
+            float angleStep = 15f; // градусы
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(bestPoint, out hit, 0.1f, NavMesh.AllAreas))
+            int countPointsInOtherObject = 0;
+            for (float angle = 0; angle < 360f; angle += angleStep)
             {
-                bestPoint = hit.position;
-                break;
+                float rad = angle * Mathf.Deg2Rad;
+                float x = targetPosition.x + dist * Mathf.Cos(rad);
+                float z = targetPosition.z + dist * Mathf.Sin(rad);
+                float y = targetPosition.y;
+
+                Vector3 _point = new Vector3(x, y, z);
+
+                testPoints.Add(_point);
+
+                Collider[] colliders = Physics.OverlapSphere(_point, 0.01f);
+                foreach (Collider hit in colliders)
+                {
+                    if (hit.gameObject.TryGetComponent<Actor>(out Actor _actor) && _actor != iPosition.GetActor())
+                    {
+                        countPointsInOtherObject++;
+                    }
+                }
+            }
+
+            if (testPoints.Count * 0.9 <= countPointsInOtherObject)
+            {
+                Debug.Log($"{radius / step} | {testPoints.Count * 0.9}/{testPoints.Count} {countPointsInOtherObject} | Обьект окружен препядствиями!");
+                isCanMove = false;
+                return null;
+            }
+
+            foreach (var point in testPoints)
+            {
+                if (NavMesh.SamplePosition(point, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+                {
+                    NavMeshPath path = new NavMeshPath();
+                    if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        _avaliablePoints.Add(hit.position);
+                    }
+                }
+            }
+
+            if (_avaliablePoints.Count > 30)
+            {
+                isCanMove = true;
+                return _avaliablePoints;
             }
         }
 
-        return bestPoint;
+        isCanMove = false;
+        return null;
     }
 
-
-    private void MoveToNatureObject(Vector3 target)
+    private void MoveToNatureObject(List<Vector3> avaliablePoints)
     {
-        Vector3 bestPoint = GetBestNavMeshPoint(transform.position, target);
-
-        if (Vector3.Distance(agent.destination, bestPoint) > 0.5f)
+        if (avaliablePoints == null)
         {
+            agent.SetDestination(transform.position);
+        }
+        else
+        {
+            Vector3 bestPoint = GetNearbyPosition(avaliablePoints);
             agent.SetDestination(bestPoint);
         }
     }
 
-    private void MoveToPlacedObject(Vector3 target)
+    private void MoveToPlacedObject(IPosition iPosition)
+    {
+        Vector3 bestPoint = GetNearbyPosition(iPosition.GetPosition());
+        agent.SetDestination(bestPoint);
+    }
+
+    public void MoveToPosition(Vector3 target)
     {
         agent.SetDestination(target);
     }

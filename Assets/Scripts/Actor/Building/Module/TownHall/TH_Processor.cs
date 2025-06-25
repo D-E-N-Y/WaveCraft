@@ -6,7 +6,7 @@ using UnityEngine;
 public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
 {
     public Action<E_Resource> UpdadeProcessedAmount;
-    public Action<E_Resource> UpdateRawAmount; 
+    public Action<E_Resource> UpdateRawAmount;
 
     [SerializeField] private E_Resource resource;
     [SerializeField] private float factor;
@@ -46,7 +46,7 @@ public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
         processedAmount += (int)(1 * factor);
         UpdadeProcessedAmount?.Invoke(resource);
 
-        if(rawAmount > 0) 
+        if (rawAmount > 0)
         {
             StartProcess();
         }
@@ -61,7 +61,7 @@ public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
         rawAmount += amount;
         UpdateRawAmount?.Invoke(resource);
 
-        if(!isProcessing) StartProcess();
+        if (!isProcessing) StartProcess();
     }
 
     public int Unload()
@@ -78,5 +78,7 @@ public class TH_Processor : BuildingModule, IProcessor, IPosition, IIndustrial
     public float GetTimeProcess() => timeProcess;
     public int GetRawAmount() => rawAmount;
     public int GetProcessedAmount() => processedAmount;
+
     public List<Transform> GetPosition() => actorPositions;
+    public Actor GetActor() => GetBuilding();
 }

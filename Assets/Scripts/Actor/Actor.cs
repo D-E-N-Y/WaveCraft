@@ -11,17 +11,17 @@ public abstract class Actor : MonoBehaviour, IPosition
     private string selectLayer;
     private string defaultLayer;
 
-    [SerializeField] protected List<Transform> actorPositions;    
+    [SerializeField] protected List<Transform> actorPositions;
 
     public abstract string nameActor { get; }
 
     [SerializeField] protected float maxHP;
     protected float currentHP;
-    
+
 
     public float GetMaxHP() => maxHP;
     public float GetCurrentHP() => currentHP;
-    public virtual void TakeDamage(float damage) {}
+    public virtual void TakeDamage(float damage) { }
 
 
     public virtual void Interaction() => SetLayerRecursively(mesh, selectLayer);
@@ -55,4 +55,5 @@ public abstract class Actor : MonoBehaviour, IPosition
     }
 
     public List<Transform> GetPosition() => actorPositions;
+    public Actor GetActor() => this;
 }

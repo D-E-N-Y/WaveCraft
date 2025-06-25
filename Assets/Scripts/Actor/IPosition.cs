@@ -4,4 +4,5 @@ using UnityEngine;
 public interface IPosition
 {
     List<Transform> GetPosition();
+    Actor GetActor();
 }
