@@ -117,7 +117,7 @@ public class MiningTaskHandler : ITaskHandler
 
                 if (countAttemps >= 5)
                 {
-                    Debug.Log("Дойти невозможно, задача отменяется!");
+                    MessageSystem.current.AddMessage($"Worker {worker.nameActor} canceled the task: {worker.tasks[0].nameTask} due to сan't reach the object");
                     worker.CancelTask(worker.tasks[0]);
                     break;
                 }

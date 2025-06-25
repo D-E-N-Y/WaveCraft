@@ -126,7 +126,7 @@ public class StoreTaskHandler : ITaskHandler
             {
                 if (!StorageSystem.current.CheckFreeSpace(resource))
                 {
-                    Debug.Log($"not have free space for {residue} {resource}");
+                    MessageSystem.current.AddMessage($"Not enough space to store {residue} {resource}");
                     break;
                 }
 
@@ -154,7 +154,7 @@ public class StoreTaskHandler : ITaskHandler
                 }
             }
             while (residue > 0);
-            worker.ClearCurrentCarryingAmount(resource);
+            // worker.ClearCurrentCarryingAmount(resource);
         }
     }
     
@@ -174,7 +174,7 @@ public class StoreTaskHandler : ITaskHandler
 
                 if (countAttemps >= 5)
                 {
-                    Debug.Log("Дойти невозможно, задача отменяется!");
+                    MessageSystem.current.AddMessage($"Worker {worker.nameActor} canceled the task: {worker.tasks[0].nameTask} due to сan't reach the object");
                     worker.CancelTask(worker.tasks[0]);
                     break;
                 }

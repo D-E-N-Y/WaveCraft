@@ -158,10 +158,17 @@ public class UI_TownHall : UI_Building
     {
         TH_Processor processor = townHall.GetProcessor(resource);
 
-        if (processor.GetProcessedAmount() > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+        if (processor.GetProcessedAmount() > 0)
         {
-            StoreTask task = new StoreTask(resource, townHall);
-            taskSystem.AddTask(task);
+            if (StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+            {
+                StoreTask task = new StoreTask(resource, townHall);
+                taskSystem.AddTask(task);
+            }
+            else
+            {
+                MessageSystem.current.AddMessage($"No available space for resource: {processor.GetTypeResource()}");
+            }
         }
     }
 }

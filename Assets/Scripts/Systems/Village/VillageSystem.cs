@@ -44,6 +44,8 @@ public class VillageSystem : GameSystem
     {
         villages[village.Profession()].Add(village);
         UpdateCurrentAmount?.Invoke();
+
+        MessageSystem.current.AddMessage($"A new {village.Profession()} named {village.nameActor} has appeared");
     }
 
     public void RemoveVillage(U_Village village) 

@@ -15,8 +15,10 @@ public class DestroyTask : Task
         this.building = building;
         timeToDestroy = building.GetTimeToBuild() / 2;
 
-        buildingCost = building.GetCost().Select(x => new S_Cost { resourse = x.resourse, count = (int)(x.count * 0.8f) }).ToArray();;
+        buildingCost = building.GetCost().Select(x => new S_Cost { resourse = x.resourse, count = (int)(x.count * 0.8f) }).ToArray(); ;
         goal = 100;
+        
+        nameTask = $"Destroy {building.nameActor}";
     }
 
     public void SetExecutingState(EDestroyExecutingState state)

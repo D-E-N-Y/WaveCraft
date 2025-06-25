@@ -55,11 +55,11 @@ public class TaskSystem : GameSystem
 
             UpdateTasks?.Invoke();
 
-            Debug.Log($"{worker} do {task}");
+            MessageSystem.current.AddMessage($"Worker {worker.nameActor} has accepted the task: {task.nameTask}");
         }
         else
         {
-            Debug.Log("Not have free workers");
+            MessageSystem.current.AddMessage($"No available workers to take the task: {task.nameTask}");
         }
     }
 
@@ -111,6 +111,8 @@ public class TaskSystem : GameSystem
         task.SetState(E_TaskState.Completed);
 
         UpdateTasks?.Invoke();
+
+        MessageSystem.current.AddMessage($"Worker {task.worker.nameActor} has completed the task: {task.nameTask}");
 
         if (tasks[E_TaskState.Pending].Count > 0)
         {

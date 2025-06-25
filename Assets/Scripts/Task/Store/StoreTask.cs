@@ -17,6 +17,8 @@ public class StoreTask : Task
 
         amount = 0;
         goal = 100;
+
+        nameTask = $"Store {resource}";
     }
 
     public void SetStorage(Building storage) 

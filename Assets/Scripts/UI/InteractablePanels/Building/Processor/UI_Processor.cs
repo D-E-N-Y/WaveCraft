@@ -55,10 +55,17 @@ public class UI_Processor : UI_Building
 
     public void Store()
     {
-        if(processor.processedAmount > 0 && StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+        if (processor.processedAmount > 0)
         {
-            StoreTask task = new StoreTask(processor.GetTypeResource(), processor);
-            taskSystem.AddTask(task);
+            if (StorageSystem.current.CheckFreeSpace(processor.GetTypeResource()))
+            {
+                StoreTask task = new StoreTask(processor.GetTypeResource(), processor);
+                taskSystem.AddTask(task);
+            }
+            else
+            {
+                MessageSystem.current.AddMessage($"No available space for resource: {processor.GetTypeResource()}");
+            }
         }
     }
 }

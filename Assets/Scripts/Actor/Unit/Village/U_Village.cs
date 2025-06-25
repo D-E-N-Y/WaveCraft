@@ -36,5 +36,7 @@ public class U_Village : Unit
     {
         ResourceSystem.current.AddResourceByType(spawnCost.resourse, spawnCost.count / 2);
         gameObject.SetActive(false);
+
+        MessageSystem.current.AddMessage($"{profession} {nameActor} has been dismissed");
     }
 }

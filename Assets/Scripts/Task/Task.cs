@@ -13,6 +13,8 @@ public class Task
     public float goal { protected set; get; }
     public float progress { protected set; get; } = 0;
 
+    public string nameTask { protected set; get; }
+
     public void SetState(E_TaskState state)
     {
         this.state = state;

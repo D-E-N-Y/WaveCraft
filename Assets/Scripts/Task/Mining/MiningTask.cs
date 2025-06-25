@@ -13,8 +13,10 @@ public class MiningTask : Task
 
         this.resource = resource;
         resourceType = resource.Type();
-        
+
         goal = resource.GetCurrentHP();
+
+        nameTask = $"Mine {goal} {resourceType}";
     }
 
     public MiningTask(E_Resource resource, int resourceAmount)
@@ -23,6 +25,8 @@ public class MiningTask : Task
 
         this.resourceType = resource;
         goal = resourceAmount;
+
+        nameTask = $"Mine {goal} {resourceType}";
     }
 
     public void SetProcessor(Building processor)

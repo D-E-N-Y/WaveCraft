@@ -10,6 +10,8 @@ public class BuildTask : Task
 
         this.building = building;
         goal = 100;
+
+        nameTask = $"Build {building.nameActor}";
     }
 
     public void SetExecutingState(EBuildExecutingState state)
