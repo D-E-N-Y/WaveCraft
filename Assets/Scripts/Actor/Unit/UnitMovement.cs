@@ -196,6 +196,8 @@ public class UnitMovement : MonoBehaviour
     {
         Vector3 bestPoint = GetNearbyPosition(iPosition.GetPosition());
         agent.SetDestination(bestPoint);
+
+        isCanMove = true;
     }
 
     public void MoveToPosition(Vector3 target)
