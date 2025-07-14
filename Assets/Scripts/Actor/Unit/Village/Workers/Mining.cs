@@ -12,11 +12,13 @@ public class Mining : Attack
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if(targetActor) return;
-        base.OnTriggerEnter(other);
+        if(!other.gameObject.CompareTag(target) || targetActor) return;
 
         Resource resource = other.GetComponent<Resource>();
+        int residue = (int)(resource.GetCurrentHP() - damage);
+        int minedResources = residue >= 0 ? (int)damage : (int)damage + residue;
 
-        worker.AddCurrentMineAmount(resource.Type(), (int)damage);
+        resource.TakeDamage(damage);
+        worker.AddCurrentMineAmount(resource.Type(), minedResources);
     }
 }

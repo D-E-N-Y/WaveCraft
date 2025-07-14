@@ -213,6 +213,14 @@ public class UV_Worker : U_Village
         UpdateResourceAmount?.Invoke();
 
     }
+
+    public void RemoveCurrentMineAmount(E_Resource resource, int value)
+    {
+        if (value == 0) value = 0;
+
+        currentMineAmount[resource] -= value;
+        UpdateResourceAmount?.Invoke();
+    }
     
     public void ClearCurrentMineAmount(E_Resource resource)
     {
@@ -223,6 +231,14 @@ public class UV_Worker : U_Village
     public void AddCurrentCarryingAmount(E_Resource resource, int value)
     {
         currentCarryingAmount[resource] += value;
+        UpdateResourceAmount?.Invoke();
+    }
+
+    public void RemoveCurrentCarryingAmount(E_Resource resource, int value)
+    {
+        if (value == 0) value = 0;
+
+        currentCarryingAmount[resource] -= value;
         UpdateResourceAmount?.Invoke();
     }
 

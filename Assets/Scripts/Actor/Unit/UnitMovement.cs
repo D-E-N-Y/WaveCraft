@@ -30,6 +30,36 @@ public class UnitMovement : MonoBehaviour
 
     public float DistanceToGoal(List<Transform> target) => Vector3.Distance(GetNearbyPosition(target), transform.position);
 
+    private Vector3 GetNearbyAvaliablePosition(List<Transform> target)
+    {
+        if (target == null)
+        {
+            return transform.position;
+        }
+
+        List<Vector3> _avaliablePoints = new List<Vector3>();
+        foreach (Transform point in target)
+        {
+            if (NavMesh.SamplePosition(point.position, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+                {
+                    _avaliablePoints.Add(hit.position);
+                }
+            }
+        }
+
+        if (_avaliablePoints.Count > 0)
+        {
+            return _avaliablePoints.OrderBy(x => Vector3.Distance(x, transform.position)).First();
+        }
+        else
+        {
+            return new Vector3(-9999, -9999, -9999);
+        }
+    }
+
     private Vector3 GetNearbyPosition(List<Transform> target)
     {
         if (target == null)
@@ -149,7 +179,7 @@ public class UnitMovement : MonoBehaviour
                 }
             }
 
-            if (testPoints.Count * 0.9 <= countPointsInOtherObject)
+            if (testPoints.Count <= countPointsInOtherObject)
             {
                 Debug.Log($"{radius / step} | {testPoints.Count * 0.9}/{testPoints.Count} {countPointsInOtherObject} | Обьект окружен препядствиями!");
                 isCanMove = false;
@@ -168,7 +198,7 @@ public class UnitMovement : MonoBehaviour
                 }
             }
 
-            if (_avaliablePoints.Count > 30)
+            if (_avaliablePoints.Count > 5)
             {
                 isCanMove = true;
                 return _avaliablePoints;
@@ -194,14 +224,22 @@ public class UnitMovement : MonoBehaviour
 
     private void MoveToPlacedObject(IPosition iPosition)
     {
-        Vector3 bestPoint = GetNearbyPosition(iPosition.GetPosition());
-        agent.SetDestination(bestPoint);
-
-        isCanMove = true;
+        Vector3 bestPoint = GetNearbyAvaliablePosition(iPosition.GetPosition());
+        MoveToPosition(bestPoint);
     }
 
     public void MoveToPosition(Vector3 target)
     {
-        agent.SetDestination(target);
+        NavMeshPath path = new NavMeshPath();
+        if (agent.CalculatePath(target, path) && path.status == NavMeshPathStatus.PathComplete && target != null)
+        {
+            agent.SetDestination(target);
+            isCanMove = true;
+        }
+        else
+        {
+            agent.SetDestination(transform.position);
+            isCanMove = false;
+        }
     }
 }

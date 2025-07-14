@@ -22,18 +22,24 @@ public class P_Hummer : TH_Processor
         base.StartProcess();
 
         stone.SetActive(true);
-
-        if(rotateHummer == null) rotateHummer = StartCoroutine(RotateHummer());
+        if (rotateHummer == null) 
+        {
+            rotateHummer = StartCoroutine(RotateHummer());
+        }
     }
 
     protected override void CompleteProcess()
     {
         base.CompleteProcess();
 
-        if(!isProcessing)
+        if (!isProcessing)
         {
             stone.SetActive(false);
-            if (rotateHummer != null) StopCoroutine(rotateHummer);
+            if (rotateHummer != null)
+            {
+                StopCoroutine(rotateHummer);
+                rotateHummer = null;
+            }
         }
     }
 

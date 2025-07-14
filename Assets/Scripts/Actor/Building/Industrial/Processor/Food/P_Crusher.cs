@@ -20,17 +20,24 @@ public class P_Crusher : TH_Processor
         base.StartProcess();
 
         flourEffect.gameObject.SetActive(true);
-        rotateCrusher = StartCoroutine(RotateCrusher());
+        if (rotateCrusher == null)
+        {
+            rotateCrusher = StartCoroutine(RotateCrusher());
+        }
     }
 
     protected override void CompleteProcess()
     {
         base.CompleteProcess();
 
-        if(!isProcessing)
+        if (!isProcessing)
         {
-            // StopCoroutine(rotateCrusher);
             flourEffect.gameObject.SetActive(false);
+            if (rotateCrusher != null)
+            {
+                StopCoroutine(rotateCrusher);
+                rotateCrusher = null;
+            }
         }
     }
 

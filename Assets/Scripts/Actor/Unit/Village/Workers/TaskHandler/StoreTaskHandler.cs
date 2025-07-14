@@ -112,6 +112,7 @@ public class StoreTaskHandler : ITaskHandler
             yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
 
             processor.AddResources(worker.GetCurrentMineAmountByResource(resource));
+            worker.ClearCurrentMineAmount(resource);
         }
     }
 
@@ -151,10 +152,14 @@ public class StoreTaskHandler : ITaskHandler
                 if (residue > 0)
                 {
                     storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
+                    worker.RemoveCurrentCarryingAmount(resource, worker.GetCurrentCarryingAmountByResource(resource) - residue);
+                }
+                else
+                {
+                    worker.ClearCurrentCarryingAmount(resource);
                 }
             }
             while (residue > 0);
-            // worker.ClearCurrentCarryingAmount(resource);
         }
     }
     

@@ -21,17 +21,24 @@ public class P_Saw : TH_Processor
         base.StartProcess();
 
         sliversEffect.gameObject.SetActive(true);
-        if(rotateSaw == null) rotateSaw = StartCoroutine(RotateSaw());
+        if (rotateSaw == null) 
+        {
+            rotateSaw = StartCoroutine(RotateSaw());
+        }
     }
 
     protected override void CompleteProcess()
     {
         base.CompleteProcess();
 
-        if(!isProcessing)
+        if (!isProcessing)
         {
             sliversEffect.gameObject.SetActive(false);
-            if (rotateSaw != null) StopCoroutine(rotateSaw);
+            if (rotateSaw != null)
+            {
+                StopCoroutine(rotateSaw);
+                rotateSaw = null;
+            }
         }
     }
 
