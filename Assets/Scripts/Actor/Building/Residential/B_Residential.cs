@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class B_Residential : Building, IResidential
 {
+    [SerializeField] private EResidentialHouseSize houseSize;
     [SerializeField] private int villageAmount;
 
-    public override string nameActor => "Residential";
+    public override string nameActor => $"{houseSize} House";
 
     public override void Built()
     {
@@ -13,5 +14,6 @@ public class B_Residential : Building, IResidential
         VillageSystem.current.AddResidential(this);
     }
 
+    public EResidentialHouseSize GetHouseSize() => houseSize;
     public int GetVillageAmount() => villageAmount;
 }
