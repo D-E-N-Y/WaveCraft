@@ -73,11 +73,11 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 3.185, y: 5, z: 8.355}
+  m_Extents: {x: 3.05, y: 0.5, z: 8.36}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 3.56, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &561812970168657264
 GameObject:
@@ -1575,11 +1575,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1957714659164753623, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: cost.Array.data[0].count
-      value: 34
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 1957714659164753623, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: cost.Array.data[1].count
-      value: 46
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 1957714659164753623, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: actorPositions.Array.size
@@ -1790,6 +1790,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3728954511440242552, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728954511440242552, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
@@ -1799,7 +1803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728954511440242552, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: m_Extents.y
-      value: 5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3728954511440242552, guid: a589495ebc48ef43d87de7c6e322e757, type: 3}
       propertyPath: m_Extents.z

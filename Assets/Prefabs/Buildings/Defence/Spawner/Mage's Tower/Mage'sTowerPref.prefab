@@ -536,7 +536,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5894114819481439373}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnPosition
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -662,11 +662,11 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.23, y: 5, z: 3.495}
+  m_Extents: {x: 2.23, y: 0.5, z: 3.495}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 3.56, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &7352931796132507228
 GameObject:
@@ -710,11 +710,11 @@ NavMeshObstacle:
   m_Enabled: 0
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 2.23, y: 5, z: 3.495}
+  m_Extents: {x: 2.23, y: 0.5, z: 3.495}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 3.56, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &7833668514490406903
 GameObject:
@@ -949,8 +949,16 @@ PrefabInstance:
       value: 7.240795
       objectReference: {fileID: 0}
     - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_Extents.x
       value: 2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      propertyPath: m_Extents.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_Extents.z
@@ -1069,9 +1077,9 @@ MonoBehaviour:
   timeToBuild: 15
   cost:
   - resourse: 0
-    count: 50
+    count: 10
   - resourse: 1
-    count: 50
+    count: 160
   spawnUnit: {fileID: 0}
   timeToSpawnUnit: 15
   spawnPosition: {fileID: 5894114819481439373}
@@ -1104,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a51479f115b2685f3bbd82d8fb077ebe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.833701
+      value: 7.53
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a51479f115b2685f3bbd82d8fb077ebe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1141,6 +1149,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a51479f115b2685f3bbd82d8fb077ebe, type: 3}
       propertyPath: m_Name
       value: Mage'sTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a51479f115b2685f3bbd82d8fb077ebe, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1184,7 +1196,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1205,7 +1217,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1226,7 +1238,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1247,7 +1259,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

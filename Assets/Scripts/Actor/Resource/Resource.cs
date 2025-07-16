@@ -12,7 +12,7 @@ public class Resource : Actor
     {
         base.Initialize();
 
-        maxHP = MathF.Round(maxHP * transform.localScale.x * 0.4f);
+        maxHP = MathF.Round(maxHP * transform.localScale.x * 0.2f);
         currentHP = maxHP;
 
         BuildSystem.current.BusyTakeArea(this);

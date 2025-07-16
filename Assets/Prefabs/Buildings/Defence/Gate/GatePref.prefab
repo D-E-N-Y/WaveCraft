@@ -1065,9 +1065,9 @@ MonoBehaviour:
   timeToBuild: 5
   cost:
   - resourse: 0
-    count: 20
+    count: 40
   - resourse: 1
-    count: 10
+    count: 25
   leftGate: {fileID: 3510932349503288160}
   rightGate: {fileID: 875265354409384260}
   prop: {fileID: 4219127933990346154}
@@ -1182,12 +1182,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2971590244256713485, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -2971590244256713485, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1071302230196921521, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
       propertyPath: m_Name
       value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 990587983496053532, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1208,6 +1220,14 @@ PrefabInstance:
     - target: {fileID: 990587983496053532, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6698759974387046969, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947367409169002525, guid: fef9fbc8c813df81f884657001f762b5, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

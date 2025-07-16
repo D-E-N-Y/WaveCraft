@@ -629,7 +629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637613780871881099}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawnPosition
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -756,6 +756,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer'sTowerPref
       objectReference: {fileID: 0}
+    - target: {fileID: 2343564492826288977, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343564492826288977, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.13
+      objectReference: {fileID: 0}
     - target: {fileID: 2931899103171402966, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.41
@@ -837,6 +845,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      propertyPath: m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
@@ -846,7 +858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_Extents.y
-      value: 5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8409280080854485929, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       propertyPath: m_Extents.z
@@ -959,9 +971,9 @@ MonoBehaviour:
   timeToBuild: 15
   cost:
   - resourse: 0
-    count: 40
+    count: 80
   - resourse: 1
-    count: 40
+    count: 80
   spawnUnit: {fileID: 0}
   timeToSpawnUnit: 7
   spawnPosition: {fileID: 1637613780871881099}
@@ -1027,6 +1039,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Archer'sTower
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: eea8adfc7ec1fa3aaa16d0830a845733, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1082,12 +1098,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.335232, y: 9.857748, z: 5.426091}
-  m_Center: {x: 0.24577844, y: -1.3322744, z: -0.05268097}
+  m_Size: {x: 5.200485, y: 9.857748, z: 5.214346}
+  m_Center: {x: 0.005159855, y: -1.3322744, z: -0.23555148}
 --- !u!65 &6499684275889882355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1103,12 +1119,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.35441685, y: 3.936696, z: 0.4439788}
-  m_Center: {x: -2.217898, y: 5.565496, z: -2.4531825}
+  m_Size: {x: 0.31625986, y: 3.860382, z: 0.2982614}
+  m_Center: {x: -2.4531977, y: 5.527339, z: -2.6694555}
 --- !u!65 &5380665582452480510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1124,12 +1140,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.34967566, y: 2.8964682, z: 0.37697697}
-  m_Center: {x: -2.214053, y: 4.9633193, z: 2.4212427}
+  m_Size: {x: 0, y: 3.9394197, z: 0.3172207}
+  m_Center: {x: -2.3063126, y: 5.484795, z: 2.2001462}
 --- !u!65 &2127664488018070352
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1145,12 +1161,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.34967566, y: 2.8964682, z: 0.37697697}
-  m_Center: {x: 2.6828125, y: 4.9633193, z: 2.4212427}
+  m_Size: {x: 0.31151867, y: 2.8964682, z: 0.32917166}
+  m_Center: {x: 2.4093556, y: 4.9633193, z: 2.1941702}
 --- !u!65 &6210239045122648070
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1166,12 +1182,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.34103775, y: 3.936696, z: 0.4439788}
-  m_Center: {x: 2.685657, y: 5.565496, z: -2.4531825}
+  m_Size: {x: 0.30288124, y: 2.8047113, z: 0.3043537}
+  m_Center: {x: 2.3994813, y: 4.9995036, z: -2.6759052}
 --- !u!65 &6632170148457580514
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1187,12 +1203,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.8486147, y: 0.6375675, z: 5.8029094}
-  m_Center: {x: 0.22769022, y: 6.8147306, z: 0.22350478}
+  m_Size: {x: 5.8486147, y: 0.6375675, z: 5.2890086}
+  m_Center: {x: 0.22769022, y: 6.8147306, z: -0.2366159}
 --- !u!65 &8051037332657687804
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1208,12 +1224,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.36681843, y: 1.32306, z: 4.543186}
-  m_Center: {x: 2.691389, y: 4.1599183, z: 0.00046539307}
+  m_Size: {x: 0.3116274, y: 1.32306, z: 5.18855}
+  m_Center: {x: 2.4010115, y: 4.1599183, z: -0.22660697}
 --- !u!65 &3903754368854127271
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1229,12 +1245,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3375392, y: 1.32306, z: 4.543186}
-  m_Center: {x: -2.2155817, y: 4.1599183, z: 0.00046539307}
+  m_Size: {x: 0.3121009, y: 1.32306, z: 5.200501}
+  m_Center: {x: -2.4445221, y: 4.1599183, z: -0.23258281}
 --- !u!65 &6788102054512305866
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1250,12 +1266,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.249967, y: 1.31709, z: 0.35272074}
-  m_Center: {x: 0.22768998, y: 4.15836, z: 2.435404}
+  m_Size: {x: 5.1479645, y: 1.31709, z: 0.32881784}
+  m_Center: {x: -0.026813984, y: 4.15836, z: 2.1963804}
 --- !u!65 &5896423496368182522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1271,12 +1287,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.249967, y: 1.31709, z: 0.41470432}
-  m_Center: {x: 0.22768998, y: 4.15836, z: -2.4717016}
+  m_Size: {x: 5.1806946, y: 1.31709, z: 0}
+  m_Center: {x: -0.010448933, y: 4.15836, z: -2.8344193}
 --- !u!4 &5666382827396289434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eea8adfc7ec1fa3aaa16d0830a845733, type: 3}
