@@ -51,7 +51,7 @@ public class StoreTaskHandler : ITaskHandler
             // move to processor
             IPosition position = (IPosition)processor;
 
-            yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
+            yield return Moving(worker, position, E_MoveTo.PlacedObject);
 
             storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
 
@@ -73,7 +73,7 @@ public class StoreTaskHandler : ITaskHandler
             // move to production
             IPosition position = (IPosition)storeTask.source;
 
-            yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
+            yield return Moving(worker, position, E_MoveTo.PlacedObject);
 
             storeTask.SetProgress((storeTask.goal - storeTask.progress) / 2);
 
@@ -109,7 +109,7 @@ public class StoreTaskHandler : ITaskHandler
 
             storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
 
-            yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
+            yield return Moving(worker, position, E_MoveTo.PlacedObject);
 
             processor.AddResources(worker.GetCurrentMineAmountByResource(resource));
             worker.ClearCurrentMineAmount(resource);
@@ -145,7 +145,7 @@ public class StoreTaskHandler : ITaskHandler
 
                 storeTask.SetExecutingState(EStoreExecutingState.MoveToStorage);
 
-                yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
+                yield return Moving(worker, position, E_MoveTo.PlacedObject);
 
                 residue = ResourceSystem.current.AddResourceByType(storage, resource, worker.GetCurrentCarryingAmountByResource(resource));
 
@@ -163,7 +163,7 @@ public class StoreTaskHandler : ITaskHandler
         }
     }
     
-    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, UnitMovement.E_MoveTo to)
+    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, E_MoveTo to)
     {
         int countAttemps = 0;
 

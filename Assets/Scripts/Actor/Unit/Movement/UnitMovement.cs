@@ -1,28 +1,37 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class UnitMovement : MonoBehaviour
 {
-    // public event Action OnMoveComplete;
-
     private NavMeshAgent agent;
     public bool isMoving { get; private set; }
     public bool isCanMove { get; private set; }
 
-    public enum E_MoveTo
-    {
-        PlacedObject,
-        NatureObject
-    }
+    private Coroutine updateAvoidancePriority;
+    private float timeUpdateAvoidancePriority = 5.0f;
 
     public void Initialize()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+        updateAvoidancePriority = StartCoroutine(nameof(UpdateAvoidancePriority));
+    }
+
+    private IEnumerator UpdateAvoidancePriority()
+    {
+        agent.avoidancePriority = Random.Range(10, 90);
+
+        while (true)
+        {
+            if (agent.velocity.magnitude < 0.1f)
+            {
+                agent.avoidancePriority = Random.Range(10, 90);
+            }
+
+            yield return new WaitForSeconds(timeUpdateAvoidancePriority + Random.Range(0f, 1f));
+        }
     }
 
     public void StopMove() => agent.isStopped = true;
@@ -152,6 +161,10 @@ public class UnitMovement : MonoBehaviour
 
         List<Vector3> _avaliablePoints = new List<Vector3>();
 
+        debugPointsNotMove = new List<Vector3>();
+        debugPointsMove = new List<Vector3>();
+        debugPoints = new List<Vector3>();
+
         for (float dist = radius; dist <= maxDistance; dist += step)
         {
             List<Vector3> testPoints = new List<Vector3>();
@@ -168,20 +181,40 @@ public class UnitMovement : MonoBehaviour
                 Vector3 _point = new Vector3(x, y, z);
 
                 testPoints.Add(_point);
+                debugPoints.Add(_point);
 
                 Collider[] colliders = Physics.OverlapSphere(_point, 0.01f);
+
+                bool isObstacle = false;
+                bool isSelf = false;
+
                 foreach (Collider hit in colliders)
                 {
-                    if (hit.gameObject.TryGetComponent<Actor>(out Actor _actor) && _actor != iPosition.GetActor())
+                    if (hit.gameObject.TryGetComponent<Actor>(out Actor _actor))
                     {
-                        countPointsInOtherObject++;
+                        if (_actor != iPosition.GetActor() && !isObstacle)
+                        {
+                            isObstacle = true;
+                        }
+                        else if (_actor == iPosition.GetActor() && !isSelf)
+                        {
+                            isSelf = true;
+                        }
                     }
+
+                    if (isSelf && isObstacle) break;
+                }
+
+                if (isObstacle && !isSelf)
+                {
+                    debugPointsNotMove.Add(_point);
+                    countPointsInOtherObject++;
                 }
             }
 
-            if (testPoints.Count <= countPointsInOtherObject)
+            if (testPoints.Count * 0.8f <= countPointsInOtherObject)
             {
-                Debug.Log($"{radius / step} | {testPoints.Count * 0.9}/{testPoints.Count} {countPointsInOtherObject} | Обьект окружен препядствиями!");
+                Debug.Log($"{radius / step} | {testPoints.Count * 0.8f}/{countPointsInOtherObject} {countPointsInOtherObject} | Обьект окружен препядствиями!");
                 isCanMove = false;
                 return null;
             }
@@ -194,6 +227,7 @@ public class UnitMovement : MonoBehaviour
                     if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
                     {
                         _avaliablePoints.Add(hit.position);
+                        debugPointsMove.Add(hit.position);
                     }
                 }
             }
@@ -208,6 +242,47 @@ public class UnitMovement : MonoBehaviour
         isCanMove = false;
         return null;
     }
+
+
+
+
+
+    private List<Vector3> debugPointsNotMove;
+    private List<Vector3> debugPointsMove;
+    private List<Vector3> debugPoints;
+    public bool showDebugNavMeshPoints = true;
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!(!showDebugNavMeshPoints || debugPointsMove == null))
+        {
+            Gizmos.color = Color.green;
+            foreach (var point in debugPointsMove)
+            {
+                Gizmos.DrawSphere(point, 0.1f);
+            }
+        }
+
+        if (!(!showDebugNavMeshPoints || debugPointsNotMove == null))
+        {
+            Gizmos.color = Color.red;
+            foreach (var point in debugPointsNotMove)
+            {
+                Gizmos.DrawSphere(point, 0.1f);
+            }
+        }
+
+        if (!(!showDebugNavMeshPoints || debugPoints == null))
+        {
+            Gizmos.color = Color.yellow;
+            foreach (var point in debugPoints)
+            {
+                Gizmos.DrawSphere(point, 0.05f);
+            }
+        }
+    }
+
+
 
     private void MoveToNatureObject(List<Vector3> avaliablePoints)
     {
@@ -240,6 +315,14 @@ public class UnitMovement : MonoBehaviour
         {
             agent.SetDestination(transform.position);
             isCanMove = false;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (updateAvoidancePriority != null)
+        {
+            StopCoroutine(updateAvoidancePriority);
         }
     }
 }

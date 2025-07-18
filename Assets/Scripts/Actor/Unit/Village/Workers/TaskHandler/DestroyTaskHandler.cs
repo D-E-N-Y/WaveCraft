@@ -12,7 +12,7 @@ public class DestroyTaskHandler : ITaskHandler
         destroyTask.SetExecutingState(EDestroyExecutingState.MoveToBuilding);
 
         // move to building
-        yield return Moving(worker, destroyTask.building, UnitMovement.E_MoveTo.PlacedObject);
+        yield return Moving(worker, destroyTask.building, E_MoveTo.PlacedObject);
 
         destroyTask.SetExecutingState(EDestroyExecutingState.Destruction);
 
@@ -45,7 +45,7 @@ public class DestroyTaskHandler : ITaskHandler
         onComplete?.Invoke();
     }
     
-    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, UnitMovement.E_MoveTo to)
+    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, E_MoveTo to)
     {
         int countAttemps = 0;
 

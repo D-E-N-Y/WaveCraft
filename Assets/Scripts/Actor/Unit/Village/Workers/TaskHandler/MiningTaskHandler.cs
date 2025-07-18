@@ -29,7 +29,7 @@ public class MiningTaskHandler : ITaskHandler
             miningTask.SetExecutingState(EMiningExecutingState.MoveToResource);
 
             // Move to resource
-            yield return Moving(worker, resource, UnitMovement.E_MoveTo.NatureObject);
+            yield return Moving(worker, resource, E_MoveTo.NatureObject);
 
             miningTask.SetExecutingState(EMiningExecutingState.Mining);
 
@@ -88,7 +88,7 @@ public class MiningTaskHandler : ITaskHandler
                         miningTask.SetProcessor((Building)processor);
                     }
 
-                    yield return Moving(worker, position, UnitMovement.E_MoveTo.PlacedObject);
+                    yield return Moving(worker, position, E_MoveTo.PlacedObject);
 
                     miningTask.SetProgress(worker.GetCurrentMineAmount());
                     miningTask.SetProcessor(null);
@@ -101,7 +101,7 @@ public class MiningTaskHandler : ITaskHandler
         }
     }
 
-    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, UnitMovement.E_MoveTo to)
+    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, E_MoveTo to)
     {
         int countAttemps = 0;
 

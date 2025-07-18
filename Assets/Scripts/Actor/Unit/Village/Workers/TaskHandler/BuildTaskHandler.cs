@@ -12,7 +12,7 @@ public class BuildTaskHandler : ITaskHandler
         buildTask.SetExecutingState(EBuildExecutingState.MoveToBuilding);
 
         // move to building
-        yield return Moving(worker, buildTask.building, UnitMovement.E_MoveTo.PlacedObject);
+        yield return Moving(worker, buildTask.building, E_MoveTo.PlacedObject);
 
         buildTask.SetExecutingState(EBuildExecutingState.Construstion); 
 
@@ -41,7 +41,7 @@ public class BuildTaskHandler : ITaskHandler
         onComplete?.Invoke();
     }
     
-    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, UnitMovement.E_MoveTo to)
+    public IEnumerator Moving(UV_Worker worker, IPosition iPosition, E_MoveTo to)
     {
         int countAttemps = 0;
 
