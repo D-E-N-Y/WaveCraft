@@ -14,7 +14,19 @@ public class Mining : Attack
     {
         if(!other.gameObject.CompareTag(target) || targetActor) return;
 
-        Resource resource = other.GetComponent<Resource>();
+        Transform actor = other.transform;
+
+        while (true)
+        {
+            if (actor.transform.parent == null || actor.gameObject.GetComponent<Actor>() != null)
+            {
+                break;
+            }
+
+            actor = actor.transform.parent;
+        }
+
+        Resource resource = actor.GetComponent<Resource>();
         int residue = (int)(resource.GetCurrentHP() - damage);
         int minedResources = residue >= 0 ? (int)damage : (int)damage + residue;
 

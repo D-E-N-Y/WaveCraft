@@ -158,20 +158,18 @@ public class BuildSystem : GameSystem
 
     public void RedrawNeighborsBusyArea(Actor actor)
     {
-        RaycastHit[] hits = Physics.SphereCastAll(
+        Collider[] hits = Physics.OverlapSphere(
             actor.transform.position,
-            1f, actor.transform.forward,
-            20f
+            10f
         );
 
         if (hits.Length > 0)
         {
             List<Actor> _actors = hits
-                .Where(x => x.collider.gameObject.GetComponent<Building>() != null || x.collider.gameObject.GetComponent<Resource>() != null)
-                .Select(x => x.collider.gameObject.GetComponent<Actor>())
+                .Select(x => x.gameObject.GetComponent<Actor>())
+                .Where(x => x != null && x != actor &&
+                    ((x is Building && !((Building)x).isPlace) || (x is Resource)))
                 .ToList();
-
-            _actors.Remove(actor);
 
             _actors.ForEach(x => BusyTakeArea(x));
         }

@@ -37,7 +37,7 @@ public class UI_BuildingSlot : MonoBehaviour
         {
             if(storageSystem.CheckCountResurces(current.resourse) < building.GetCostByResource(current.resourse))
             {
-                Debug.Log($"not enought {current.resourse}");
+                MessageSystem.current.AddMessage($"Not enough resources to construct {building.nameActor}");
                 return;
             }
         }

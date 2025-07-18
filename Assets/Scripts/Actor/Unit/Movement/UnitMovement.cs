@@ -232,7 +232,7 @@ public class UnitMovement : MonoBehaviour
                 }
             }
 
-            if (_avaliablePoints.Count > 5)
+            if (_avaliablePoints.Count > 15)
             {
                 isCanMove = true;
                 return _avaliablePoints;

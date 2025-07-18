@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Rocks_01
       objectReference: {fileID: 0}
+    - target: {fileID: 8933749797280981253, guid: 46e654c102087004988f6462e5ae7133, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933749797280981253, guid: 46e654c102087004988f6462e5ae7133, type: 3}
+      propertyPath: m_TagString
+      value: Resource
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -107,6 +115,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.198
       objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4632263804265162196, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_Size.x
       value: 3.45
@@ -130,6 +154,18 @@ PrefabInstance:
     - target: {fileID: 4632263804265162196, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_Center.z
       value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -171,6 +207,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -208,11 +248,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.5, y: 0.25, z: 1.3}
+  m_Extents: {x: 1.3, y: 0.25, z: 1.15}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0.09651709, y: 0, z: 0.114614}
+  m_Center: {x: 0.1146106, y: 0, z: 0.09652042}
   m_TimeToStationary: 0.5
 --- !u!65 &4602315266127058416
 BoxCollider:
@@ -229,12 +269,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 2.0815344, z: 2.6}
-  m_Center: {x: 0.096517086, y: 0.7965932, z: 0.11461401}
+  m_Size: {x: 2.6, y: 1.7379375, z: 2.3}
+  m_Center: {x: 0.11461055, y: 0.6242187, z: 0.096520424}
 --- !u!1 &4288293855616838776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}

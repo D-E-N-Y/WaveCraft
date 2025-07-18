@@ -40,6 +40,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.725
       objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3905105361678250541, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4632263804265162196, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_Size.x
       value: 3.45
@@ -63,6 +79,18 @@ PrefabInstance:
     - target: {fileID: 4632263804265162196, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_Center.z
       value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,6 +132,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8182746479675198574, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -116,7 +148,7 @@ PrefabInstance:
       addedObject: {fileID: 897503455945599187}
     - targetCorrespondingSourceObject: {fileID: 1481510061773357884, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4602315266127058416}
+      addedObject: {fileID: 1620434960494701431}
     - targetCorrespondingSourceObject: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7637605238289426445}
@@ -141,13 +173,13 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 1.75, y: 0.25, z: 1.75}
+  m_Extents: {x: 1.5, y: 0.25, z: 1.55}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: -0.0001045465, y: 0, z: 0.02259338}
+  m_Center: {x: 0.06077349, y: 0, z: -0.02170491}
   m_TimeToStationary: 0.5
---- !u!65 &4602315266127058416
+--- !u!65 &1620434960494701431
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,12 +194,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5, y: 3.0719748, z: 3.5}
-  m_Center: {x: -0.00010454655, y: 1.273767, z: 0.022593379}
+  m_Size: {x: 3, y: 2.65, z: 3.1}
+  m_Center: {x: 0.06077349, y: 1.0761167, z: -0.021704912}
 --- !u!1 &4288293855616838776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 710033428913046910, guid: e9f72653cfc96e32fa37a8bb496fdcdc, type: 3}
@@ -203,6 +235,14 @@ PrefabInstance:
     - target: {fileID: 6173341499977504312, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
       propertyPath: m_Name
       value: SM_Rocks_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173341499977504312, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6173341499977504312, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
+      propertyPath: m_TagString
+      value: Resource
       objectReference: {fileID: 0}
     - target: {fileID: 6298293515804775796, guid: 9cf4cca6be6d72b4191cec509848f6ac, type: 3}
       propertyPath: m_LocalPosition.x

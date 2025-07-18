@@ -57,6 +57,12 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     public void SpawnUnit()
     {
+        if (StorageSystem.current.CheckCountResurces(spawnUnit.GetSpawnCost().resourse) <= spawnUnit.GetSpawnCost().count)
+        {
+            MessageSystem.current.AddMessage($"Not enough resources to spawn {spawnUnit.nameActor}");
+            return;
+        }
+
         spawnOrder++;
         UpdateSpawnOrder?.Invoke();
 
