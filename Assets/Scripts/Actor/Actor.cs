@@ -56,4 +56,6 @@ public abstract class Actor : MonoBehaviour, IPosition
 
     public List<Transform> GetPosition() => actorPositions;
     public Actor GetActor() => this;
+
+    public GameObject GetMesh() => mesh;
 }
