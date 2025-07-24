@@ -6,11 +6,13 @@ public class Bootstraper : MonoBehaviour
     [SerializeField] private UISystem uiSystem;
     [SerializeField] private SceneLoaderSystem sceneLoaderSystem;
 
-    private void Start() 
+    [SerializeField] private BootstrapCanvas bootstrapCanvas;
+
+    private void Start()
     {
         uiSystem.Initialize();
         sceneLoaderSystem.Initialize();
 
-        sceneLoaderSystem.LoadMainMenu();
+        bootstrapCanvas.Initialize(sceneLoaderSystem);
     }
 }

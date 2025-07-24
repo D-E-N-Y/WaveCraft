@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class UIMainMenu : UIPanel
 {
-    [SerializeField] private UIBlackout ui_blackout;
+    private UIBlackout ui_blackout;
 
-    void Start()
+    public void Initialize(UIBlackout ui_blackout)
     {
-        ui_blackout.Initialize();
+        this.ui_blackout = ui_blackout;
     }
 
     public void NewGameButton()
