@@ -8,9 +8,11 @@ public class ManagerInteractablePanels : MonoBehaviour
     private Dictionary<Type, UI_InteractablePanel> panelByType = new();
     private UI_InteractablePanel openPanel;
 
+    [SerializeField] private UI_InteractableIndicator ui_indicator;
+
     private InteractionSystem interactionSystem;
 
-    public void Initialize()
+    public void Initialize(RectTransform canvas)
     {
         interactionSystem = InteractionSystem.current;
 
@@ -19,8 +21,11 @@ public class ManagerInteractablePanels : MonoBehaviour
             if (panel.PanelType != null && !panelByType.ContainsKey(panel.PanelType))
             {
                 panelByType.Add(panel.PanelType, panel);
+                panel.Initialize(canvas, ui_indicator);
             }
         }
+
+        ui_indicator.Initialize(canvas);
     }
 
     private void OnEnable()
@@ -48,7 +53,7 @@ public class ManagerInteractablePanels : MonoBehaviour
             else if (_building.isPlace && !_building.isBuild)
             {
                 panelByType[typeof(Building)].Show();
-                panelByType[typeof(Building)].Initialize(actor);
+                panelByType[typeof(Building)].InitializeInfo(actor);
                 openPanel = panelByType[typeof(Building)];
 
                 return;
@@ -64,7 +69,7 @@ public class ManagerInteractablePanels : MonoBehaviour
                 _type = panelType;
 
                 panelByType[_type].Show();
-                panelByType[_type].Initialize(actor);
+                panelByType[_type].InitializeInfo(actor);
                 openPanel = panelByType[_type];
 
                 return;

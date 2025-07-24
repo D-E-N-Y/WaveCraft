@@ -3,7 +3,7 @@ using UnityEngine;
 public class FocusSystem : GameSystem
 {
     public static FocusSystem current;
-    
+
     [SerializeField] private CameraControler cameraControler;
 
     public override void Initialize()
@@ -17,5 +17,10 @@ public class FocusSystem : GameSystem
 
         InteractionSystem.current.UnSelectActor();
         InteractionSystem.current.SelectActor(actor);
+    }
+
+    public void FocusToPoint(Vector3 point)
+    {
+        cameraControler.FocusToPoint(point);
     }
 }

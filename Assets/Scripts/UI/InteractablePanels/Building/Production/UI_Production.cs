@@ -15,9 +15,9 @@ public class UI_Production : UI_Building
     [SerializeField] private List<ResourceImage> ui_resourceImages;
 
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         production = (I_Production)_actor;
 

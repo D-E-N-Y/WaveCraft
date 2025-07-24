@@ -36,9 +36,9 @@ public class UI_TownHall : UI_Building
     [SerializeField] private List<ResourceText> ui_curresntStorageResources;
     [SerializeField] private List<ResourceText> ui_maxStorageResources;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         townHall = (B_TownHall)_actor;
 

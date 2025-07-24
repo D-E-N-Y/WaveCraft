@@ -7,9 +7,9 @@ public class UI_Wall : UI_Building
     public override Type PanelType => typeof(D_Wall);
     private D_Wall wall;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         wall = (D_Wall)_actor;
     }

@@ -9,9 +9,9 @@ public abstract class UI_Building : UI_InteractablePanel
     protected TaskSystem taskSystem;
     protected Building building;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         building = (Building)_actor;
 

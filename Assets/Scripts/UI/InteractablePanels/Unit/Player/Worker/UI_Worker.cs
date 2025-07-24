@@ -27,9 +27,9 @@ public class UI_Worker : UI_InteractablePanel
 
     [SerializeField] private UI_TasksListPanel ui_tasksListPanel;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         if (worker != null)
         {

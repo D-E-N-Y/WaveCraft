@@ -9,12 +9,12 @@ public class CameraControler : MonoBehaviour
 {
     [SerializeField] private Transform cameraTransform;
     private Camera _camera;
-    
+
     [SerializeField] private float movementSpeed;
     [SerializeField] private float movementTime;
     [SerializeField] private float rotationAmount;
     [SerializeField] private float zoomAmount;
-    
+
     private Vector3 newPosition;
     private Quaternion newRotation;
     private Vector3 newZoom;
@@ -26,7 +26,7 @@ public class CameraControler : MonoBehaviour
 
     private UniversalRenderPipelineAsset urpAsset;
 
-    private void Start() 
+    private void Start()
     {
         newPosition = transform.position;
         newRotation = transform.rotation;
@@ -42,11 +42,11 @@ public class CameraControler : MonoBehaviour
         urpAsset.shadowDistance = 800f;
     }
 
-    private void Update() 
+    private void Update()
     {
         HandleMouseInput();
         HandleMovementInput();
-        
+
         SetNearCamera();
         SetShadowDistance();
         Control();
@@ -57,7 +57,7 @@ public class CameraControler : MonoBehaviour
     {
         _camera.nearClipPlane = (int)cameraTransform.localPosition.y * nearFactor;
     }
-    
+
     private readonly List<(float zoomThreshold, float shadowDistance)> shadowTable = new()
     {
         (50f, 100f),            // if zoom < 50 then set shadow distance 100
@@ -87,7 +87,7 @@ public class CameraControler : MonoBehaviour
     private void Control()
     {
         // move
-        transform.position = Vector3.Lerp(transform. position, newPosition, Time.deltaTime * movementTime);
+        transform.position = Vector3.Lerp(transform.position, newPosition, Time.deltaTime * movementTime);
 
         // rotation
         transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * movementTime);
@@ -99,52 +99,52 @@ public class CameraControler : MonoBehaviour
     private bool isDrag = false;
     private void HandleMouseInput()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) 
+        if (EventSystem.current.IsPointerOverGameObject())
         {
             isDrag = false;
             return;
         }
-        
+
         // move
-        if(Input.GetMouseButtonDown((int)MouseButton.Right))
+        if (Input.GetMouseButtonDown((int)MouseButton.Right))
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
 
-            if(plane.Raycast(ray, out entry))
+            if (plane.Raycast(ray, out entry))
                 dragStartPosition = ray.GetPoint(entry);
 
             isDrag = true;
         }
 
-        if(Input.GetMouseButton((int)MouseButton.Right) && isDrag)
+        if (Input.GetMouseButton((int)MouseButton.Right) && isDrag)
         {
             Plane plane = new Plane(Vector3.up, Vector3.zero);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             float entry;
 
-            if(plane.Raycast(ray, out entry))
-            { 
+            if (plane.Raycast(ray, out entry))
+            {
                 dragCurrentPosition = ray.GetPoint(entry);
 
                 newPosition = transform.position + dragStartPosition - dragCurrentPosition;
             }
         }
 
-        if(Input.GetMouseButtonUp((int)MouseButton.Right))
+        if (Input.GetMouseButtonUp((int)MouseButton.Right))
         {
             isDrag = false;
         }
 
 
         // rotation
-        if(Input.GetMouseButtonDown((int)MouseButton.Middle))
+        if (Input.GetMouseButtonDown((int)MouseButton.Middle))
             rotateStartPosition = Input.mousePosition;
-        
-        if(Input.GetMouseButton((int)MouseButton.Middle))
+
+        if (Input.GetMouseButton((int)MouseButton.Middle))
         {
             rotateCurrentPosition = Input.mousePosition;
 
@@ -157,57 +157,62 @@ public class CameraControler : MonoBehaviour
 
 
         // zoom
-        if(Input.mouseScrollDelta.y != 0)
+        if (Input.mouseScrollDelta.y != 0)
             newZoom += Input.mouseScrollDelta.y * (cameraTransform.localPosition * -zoomAmount);
 
-        if(newZoom.z < -500f)
+        if (newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
 
-        if(newZoom.z > -10f)
+        if (newZoom.z > -10f)
             newZoom = new Vector3(newZoom.x, 10f, -10f);
     }
 
     private void HandleMovementInput()
     {
         // move
-        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
             newPosition += (transform.forward * (movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
-        if(Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
             newPosition += (transform.forward * -(movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.RightArrow))
             newPosition += (transform.right * -(movementSpeed + 0.005f * cameraTransform.localPosition.y));
 
-        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.LeftArrow))
             newPosition += (transform.right * (movementSpeed + 0.005f * cameraTransform.localPosition.y));
-        
+
 
         // rotation
-        if(Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
             newRotation *= Quaternion.Euler(Vector3.up * rotationAmount);
 
-        if(Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
             newRotation *= Quaternion.Euler(Vector3.up * -rotationAmount);
 
-        
+
         // zoom
-        if(Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
             newZoom += (cameraTransform.localPosition * -zoomAmount / 4);
-        
-        if(Input.GetKey(KeyCode.X))
+
+        if (Input.GetKey(KeyCode.X))
             newZoom -= (cameraTransform.localPosition * -zoomAmount / 4);
 
-        if(newZoom.z < -500f)
+        if (newZoom.z < -500f)
             newZoom = new Vector3(newZoom.x, 500f, -500f);
 
-        if(newZoom.z > -10f)
+        if (newZoom.z > -10f)
             newZoom = new Vector3(newZoom.x, 10f, -10f);
     }
 
     public void FocusToObject(Actor actor)
     {
-        newPosition = actor.GetPosition()[0].position;
+        FocusToPoint(actor.GetPosition()[0].position);
+    }
+
+    public void FocusToPoint(Vector3 point)
+    {
+        newPosition = point;
         newZoom = new Vector3(newZoom.x, 100f, -100f);
     }
 }

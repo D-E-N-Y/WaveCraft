@@ -25,7 +25,7 @@ public class UICanvas : MonoBehaviour
         ui_loadingScreen.AddPartProgress();
         yield return null;
 
-        managerInteractablePanels.Initialize();
+        managerInteractablePanels.Initialize(GetComponent<RectTransform>());
         ui_loadingScreen.AddPartProgress();
         yield return null;
 

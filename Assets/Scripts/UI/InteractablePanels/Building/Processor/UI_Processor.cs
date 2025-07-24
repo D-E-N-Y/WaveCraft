@@ -14,9 +14,9 @@ public class UI_Processor : UI_Building
     [SerializeField] private TextMeshProUGUI ui_processedAmount;
     [SerializeField] private List<ResourceImage> ui_resourceImages;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         processor = (I_Processor)_actor;
 

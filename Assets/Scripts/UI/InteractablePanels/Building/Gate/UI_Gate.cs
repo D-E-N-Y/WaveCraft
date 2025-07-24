@@ -9,9 +9,9 @@ public class UI_Gate : UI_Building
     
     [SerializeField] private TextMeshProUGUI ui_sateGate;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         _gate = (D_Gate)_actor;
         

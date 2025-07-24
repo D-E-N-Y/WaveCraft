@@ -5,9 +5,9 @@ public class UI_Resource : UI_InteractablePanel
     public override Type PanelType => typeof(Resource);   
     private Resource resource;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         resource = (Resource)_actor;
     }

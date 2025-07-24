@@ -8,9 +8,9 @@ public class UI_PlacedBuilding : UI_Building
 
     [SerializeField] private Button ui_build, ui_cancel;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         if (taskSystem != null)
             taskSystem.UpdateTasks -= UpdateBuildInfo;

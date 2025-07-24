@@ -14,9 +14,9 @@ public class UI_Storage : UI_Building
     [SerializeField] private TextMeshProUGUI ui_maxAmount;
     [SerializeField] private List<ResourceImage> ui_resourceImages;
 
-    public override void Initialize(Actor _actor)
+    public override void InitializeInfo(Actor _actor)
     {
-        base.Initialize(_actor);
+        base.InitializeInfo(_actor);
 
         storage = (I_Storage)_actor;
 
