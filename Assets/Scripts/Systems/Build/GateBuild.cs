@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GateBuild : BaseBuild 
@@ -19,7 +18,7 @@ public class GateBuild : BaseBuild
         base.InitializeBuilding(prefab);
         
         gate = (D_Gate)building;
-        gate.gameObject.GetComponent<ObjectDrag>().stopDrag += PlaceBetweenWalls;
+        gate.canPlace += PlaceBetweenWalls;
         gate.isPillar += SetIsPillar;
     }
 
@@ -34,6 +33,8 @@ public class GateBuild : BaseBuild
     {
         if(gate.GetOptimalWalls() != null)
         {
+            gate.gameObject.GetComponent<ObjectDrag>().TrueConnect();
+
             List<D_Wall> _walls = gate.GetOptimalWalls();
             gate.transform.position =( _walls[0].transform.position + _walls[1].transform.position) / 2;
         }
@@ -85,6 +86,9 @@ public class GateBuild : BaseBuild
         TaskSystem.current.AddTask(task);
 
         ResourceSystem.current.RemoveResources(building.GetCost());
+
+        gate.canPlace -= PlaceBetweenWalls;
+        gate.isPillar -= SetIsPillar;
 
         building = null;
         materialBuilding = null;

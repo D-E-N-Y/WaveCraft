@@ -69,7 +69,7 @@ public class WallBuild : BaseBuild
         {
             // take new column
             base.InitializeBuilding(prefab);
-            building.gameObject.GetComponent<ObjectDrag>().stopDrag += ConnectColumn;
+            ((D_Pillar)building).canConnect += ConnectColumn;
             pillars.Add((D_Pillar)building);
         }
         else
@@ -77,7 +77,9 @@ public class WallBuild : BaseBuild
             // take old column
             building = prefab;
             materialBuilding = building.GetComponent<MaterialBuilding>();
-            prefab.gameObject.AddComponent<ObjectDrag>().stopDrag += ConnectColumn;
+            prefab.gameObject.AddComponent<ObjectDrag>();
+
+            ((D_Pillar)building).canConnect += ConnectColumn;
         }
 
         isContinue = true;
@@ -224,13 +226,22 @@ public class WallBuild : BaseBuild
     {
         if(pillars.Last().connectPillar)
         {
-            if(pillars.Count == 1)
+            if (pillars.Count == 1)
             {
+                building.gameObject.GetComponent<ObjectDrag>().TrueConnect();
                 return true;
             }
             else
             {
-                return pillars.Last().connectPillar != pillars[^2];
+                if (pillars.Last().connectPillar != pillars[^2])
+                {
+                    building.gameObject.GetComponent<ObjectDrag>().TrueConnect();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else
@@ -268,7 +279,7 @@ public class WallBuild : BaseBuild
             }
         }
 
-        pillars.Last().gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;  
+        pillars.Last().canConnect -= ConnectColumn;  
         pillars.Last()?.connectPillar?.ResetConnect();
         
         // place current column
@@ -336,7 +347,7 @@ public class WallBuild : BaseBuild
     protected override void Cancel()
     {
         // remove last column
-        building.gameObject.GetComponent<ObjectDrag>().stopDrag -= ConnectColumn;
+        ((D_Pillar)building).canConnect -= ConnectColumn;;
         Destroy(pillars.Last().gameObject);
         pillars.Remove(pillars.Last());
 

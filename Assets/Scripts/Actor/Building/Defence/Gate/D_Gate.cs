@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class D_Gate : B_Defence
 {
     public Action<bool> isPillar;
-    
+    public Action canPlace;
+
     public EGateState state { get; private set; }
 
     private List<D_Wall> walls;
@@ -57,6 +57,8 @@ public class D_Gate : B_Defence
                 {
                     transform.rotation = _wall.transform.rotation;
                 }
+
+                canPlace?.Invoke();
             }
         }
         else if (_actor.gameObject.TryGetComponent<D_Pillar>(out D_Pillar _pillar))
