@@ -27,6 +27,6 @@ public class BuildingSystems : GameSystem
     public List<Building> GetBuildings() => buildings;
     public List<SCircleZone> GetExpansionPlaceZones()
     {
-        return buildings.Select(x => x.GetExpansionPlaceZone()).ToList();
+        return buildings.Select(x => ((ICircleZone)x).GetCircleZone()).ToList();
     }
 }

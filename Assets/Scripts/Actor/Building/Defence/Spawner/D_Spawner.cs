@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class D_Spawner : B_Defence, ISpawnUnit
+public abstract class D_Spawner : B_Defence, ISpawnUnit, ICircleZone
 {
     [SerializeField] private U_Village spawnUnit;
     [SerializeField] private float timeToSpawnUnit;
@@ -32,4 +32,11 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit
     public EVillageProfession GetProfessionUnit() => spawnUnit.Profession();
     public float GetTimeToSpawnUnit() => timeToSpawnUnit;
     public int GetCostSpawnUnit() => spawnUnit.GetSpawnCost().count;
+
+    #region Expansion Plaze Zone
+
+    [SerializeField] private SCircleZone expansionPlaceZone;
+    public SCircleZone GetCircleZone() => expansionPlaceZone;
+
+    #endregion
 }

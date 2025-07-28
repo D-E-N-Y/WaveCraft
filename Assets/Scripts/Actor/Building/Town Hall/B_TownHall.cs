@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class B_TownHall : Building, ISpawnUnit, IResidential
+public class B_TownHall : Building, ISpawnUnit, IResidential, ICircleZone
 {
     public override string nameActor => "Town Hall";
-    
+
     public override void Initialize()
     {
         base.Initialize();
@@ -42,7 +42,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         // intialize residential
         VillageSystem.current.AddResidential(this);
-    } 
+    }
 
     #region SpawnUnit
 
@@ -66,7 +66,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         spawnOrder++;
         UpdateSpawnOrder?.Invoke();
 
-        if(spawnOrder == 1)
+        if (spawnOrder == 1)
         {
             spawning = StartCoroutine(Spawning());
         }
@@ -77,7 +77,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
         spawnOrder = Mathf.Max(0, spawnOrder - 1);
         UpdateSpawnOrder?.Invoke();
 
-        if(spawnOrder == 0 && spawning != null)
+        if (spawnOrder == 0 && spawning != null)
         {
             ResourceSystem.current.AddResourceByType(spawnUnit.GetSpawnCost().resourse, spawnUnit.GetSpawnCost().count);
             UpdateSpawnProgress?.Invoke(1f);
@@ -89,18 +89,18 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
     private IEnumerator Spawning()
     {
-        while(spawnOrder > 0 && VillageSystem.current.CheckFreeSpace())
+        while (spawnOrder > 0 && VillageSystem.current.CheckFreeSpace())
         {
-            if(StorageSystem.current.CheckCountResurces(spawnUnit.GetSpawnCost().resourse) <= spawnUnit.GetSpawnCost().count)
+            if (StorageSystem.current.CheckCountResurces(spawnUnit.GetSpawnCost().resourse) <= spawnUnit.GetSpawnCost().count)
             {
                 break;
             }
-            
+
             ResourceSystem.current.RemoveResourceByType(spawnUnit.GetSpawnCost().resourse, spawnUnit.GetSpawnCost().count);
 
             float timer = 0;
 
-            while(timer < timeToSpawnUnit)
+            while (timer < timeToSpawnUnit)
             {
                 timer += Time.deltaTime;
                 UpdateSpawnProgress?.Invoke(timer / timeToSpawnUnit);
@@ -125,33 +125,33 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     #endregion
 
     #region Storage
-    
+
     private List<TH_Storage> storages;
 
     public TH_Storage GetStorage(E_Resource resource)
     {
-        foreach(TH_Storage storage in storages)
+        foreach (TH_Storage storage in storages)
         {
-            if(storage.GetTypeResource() == resource)
+            if (storage.GetTypeResource() == resource)
             {
                 return storage;
             }
         }
-        
+
         return null;
     }
-        
+
     #endregion
 
     #region Processor
-    
+
     private List<TH_Processor> processors;
 
     public TH_Processor GetProcessor(E_Resource resource)
     {
-        foreach(TH_Processor processor in processors)
+        foreach (TH_Processor processor in processors)
         {
-            if(processor.GetTypeResource() == resource)
+            if (processor.GetTypeResource() == resource)
             {
                 return processor;
             }
@@ -159,7 +159,7 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
 
         return null;
     }
-        
+
     #endregion
 
     #region Residential
@@ -167,6 +167,13 @@ public class B_TownHall : Building, ISpawnUnit, IResidential
     [SerializeField] private int villageAmount;
 
     public int GetVillageAmount() => villageAmount;
-    
+
+    #endregion
+
+    #region Expansion Plaze Zone
+
+    [SerializeField] private SCircleZone expansionPlaceZone;
+    public SCircleZone GetCircleZone() => expansionPlaceZone;
+
     #endregion
 }

@@ -114,6 +114,8 @@ public class BuildSystem : GameSystem
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
                 Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
+                if (!IsPointCellInAdmissibleArea(closestPoint)) return false;
+
                 if (busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile ||
                    placedTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == canPlaceTile)
                 {
@@ -123,6 +125,21 @@ public class BuildSystem : GameSystem
         }
 
         return true;
+    }
+
+    private bool IsPointCellInAdmissibleArea(Vector3 point)
+    {
+        int countIsInArea = 0;
+
+        foreach (SCircleZone area in buildingSystems.GetExpansionPlaceZones())
+        {
+            if (Vector3.Distance(point, area._transform.position) <= area._radius)
+            {
+                countIsInArea++;
+            }
+        }
+
+        return countIsInArea > 0;
     }
 
     public void FreeTakeArea(Actor building, TileBase tile)

@@ -20,8 +20,6 @@ public abstract class Building : Actor
 
     protected NavMeshObstacle[] navMeshObstacles;
 
-    [SerializeField] private SCircleZone expansionPlaceZone;
-
     public override void Interaction()
     {
         base.Interaction();
@@ -125,6 +123,4 @@ public abstract class Building : Actor
 
         base.Death();
     }
-
-    public SCircleZone GetExpansionPlaceZone() => expansionPlaceZone;
 }
