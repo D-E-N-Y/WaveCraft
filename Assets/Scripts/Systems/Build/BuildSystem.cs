@@ -92,7 +92,7 @@ public class BuildSystem : GameSystem
     {
         if (active)
         {
-            placeZone.DrawLine(buildingSystems.GetExpansionPlaceZones());
+            placeZone.DrawLines(buildingSystems.GetExpansionPlaceZones());
         }
 
         placeZone.gameObject.SetActive(active);
