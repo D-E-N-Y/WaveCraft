@@ -341,6 +341,7 @@ public class WallBuild : BaseBuild
 
         ClearWalls();
         buildSystem.ActiveTilemap(false);
+        buildSystem.ActivePlaceZone(false);
         enabled = false;
     }
 

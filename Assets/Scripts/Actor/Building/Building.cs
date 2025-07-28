@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +19,8 @@ public abstract class Building : Actor
     private Vector3[] Vertices;
 
     protected NavMeshObstacle[] navMeshObstacles;
+
+    [SerializeField] private SCircleZone expansionPlaceZone;
 
     public override void Interaction()
     {
@@ -89,6 +92,8 @@ public abstract class Building : Actor
 
         isBuild = true;
         builded?.Invoke();
+
+        BuildingSystems.current.AddBuilding(this);
     }
 
     public virtual void Destroy()
@@ -116,6 +121,10 @@ public abstract class Building : Actor
         BuildSystem.current.ClearBusyTilemap(this);
         BuildSystem.current.RedrawNeighborsBusyArea(this);
 
+        BuildingSystems.current.RemoveBuilding(this);
+
         base.Death();
     }
+
+    public SCircleZone GetExpansionPlaceZone() => expansionPlaceZone;
 }

@@ -10,6 +10,8 @@ public class UnitMovement : MonoBehaviour
     public bool isMoving { get; private set; }
     public bool isCanMove { get; private set; }
 
+    private float maxDistance;
+
     private Coroutine updateAvoidancePriority;
     private float timeUpdateAvoidancePriority = 5.0f;
 
@@ -17,6 +19,8 @@ public class UnitMovement : MonoBehaviour
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
         updateAvoidancePriority = StartCoroutine(nameof(UpdateAvoidancePriority));
+
+        maxDistance = 200f;
     }
 
     private IEnumerator UpdateAvoidancePriority()
@@ -36,8 +40,6 @@ public class UnitMovement : MonoBehaviour
 
     public void StopMove() => agent.isStopped = true;
     public void StartMove() => agent.isStopped = false;
-
-    public float DistanceToGoal(List<Transform> target) => Vector3.Distance(GetNearbyPosition(target), transform.position);
 
     private Vector3 GetNearbyAvaliablePosition(List<Transform> target)
     {
@@ -93,42 +95,55 @@ public class UnitMovement : MonoBehaviour
     {
         isMoving = true;
 
-        List<Vector3> avaliablePoints = new List<Vector3>();
-        switch (_object)
+        if (Vector3.Distance(transform.position, iPosition.GetActor().transform.position) <= maxDistance)
         {
-            case E_MoveTo.NatureObject:
-                avaliablePoints = GetBestNavMeshPoints(transform.position, iPosition);
-                break;
-        }
+            float maxDistance = 100f;
+            float power = 2.5f;
+            float ratio;
+            float delay;
 
-        while (true)
-        {
+            List<Vector3> avaliablePoints = new List<Vector3>(); 
             switch (_object)
             {
-                case E_MoveTo.PlacedObject:
-                    MoveToPlacedObject(iPosition);
-                    break;
-
                 case E_MoveTo.NatureObject:
-                    MoveToNatureObject(avaliablePoints);
+                    avaliablePoints = GetBestNavMeshPoints(transform.position, iPosition);
                     break;
             }
 
-            while (!(agent.hasPath && !agent.pathPending && agent.remainingDistance > 0f))
+            while (true)
             {
+                switch (_object)
+                {
+                    case E_MoveTo.PlacedObject:
+                        MoveToPlacedObject(iPosition);
+                        break;
+
+                    case E_MoveTo.NatureObject:
+                        MoveToNatureObject(avaliablePoints);
+                        break;
+                }
+
+                while (!(agent.hasPath && !agent.pathPending && agent.remainingDistance > 0f))
+                {
+                    if (IsFinish())
+                    {
+                        break;
+                    }
+
+                    yield return null;
+                }
+
                 yield return null;
 
                 if (IsFinish())
                 {
                     break;
                 }
-            }
 
-            yield return null;
+                ratio = GetPathLength(agent.path) / maxDistance;
+                delay = Mathf.Pow(ratio, power) * 7f;
 
-            if (IsFinish())
-            {
-                break;
+                yield return new WaitForSeconds(delay);
             }
         }
         agent.ResetPath();
@@ -143,6 +158,16 @@ public class UnitMovement : MonoBehaviour
         return !agent.pathPending
             && agent.remainingDistance <= agent.stoppingDistance
             && (!agent.hasPath || agent.velocity.sqrMagnitude < 0.01f);
+    }
+
+    private float GetPathLength(NavMeshPath path)
+    {
+        float distance = 0f;
+        for (int i = 1; i < path.corners.Length; i++)
+        {
+            distance += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+        }
+        return distance;
     }
 
     private IEnumerator RotateToObject(Transform target)

@@ -22,6 +22,10 @@ public class BuildSystem : GameSystem
 
     [SerializeField] private UI_CostBuildingPanel ui_costBuildingPanel;
 
+    [SerializeField] private CircleZone placeZone;
+
+    private BuildingSystems buildingSystems;
+
     public GridLayout gridLayout;
     private Grid grid;
 
@@ -33,7 +37,11 @@ public class BuildSystem : GameSystem
         wallBuild.Initialize(this, ui_costBuildingPanel);
         gateBuild.Initialize(this, ui_costBuildingPanel);
 
+        placeZone.Initialize();
+
         grid = gridLayout.gameObject.GetComponent<Grid>();
+
+        buildingSystems = BuildingSystems.current;
     }
 
     public Vector3 SnapCoordinateToGrid(Vector3 position)
@@ -45,7 +53,7 @@ public class BuildSystem : GameSystem
 
     public void InitializeWithObject(Building building)
     {
-        switch(building)
+        switch (building)
         {
             case D_Pillar:
                 wallBuild.enabled = true;
@@ -71,7 +79,7 @@ public class BuildSystem : GameSystem
     }
 
     #region Placement
-        
+
     public void ActiveTilemap(bool active)
     {
         gridTilemap.gameObject.SetActive(active);
@@ -79,13 +87,23 @@ public class BuildSystem : GameSystem
         placedTilemap.gameObject.SetActive(active);
         busyTilemap.gameObject.SetActive(active);
     }
-    
+
+    public void ActivePlaceZone(bool active)
+    {
+        if (active)
+        {
+            placeZone.DrawLine(buildingSystems.GetExpansionPlaceZones());
+        }
+
+        placeZone.gameObject.SetActive(active);
+    }
+
     public bool CanBePlaced(Building building)
     {
         Collider collider = building.GetComponent<Collider>();
 
         Bounds bounds = collider.bounds;
-        
+
         Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
         Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 
@@ -96,7 +114,7 @@ public class BuildSystem : GameSystem
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
                 Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
-                if(busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile ||
+                if (busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile ||
                    placedTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == canPlaceTile)
                 {
                     return false;
@@ -113,7 +131,7 @@ public class BuildSystem : GameSystem
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
-        
+
         Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
         Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 
@@ -140,7 +158,7 @@ public class BuildSystem : GameSystem
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
-        
+
         Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
         Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 
@@ -203,7 +221,7 @@ public class BuildSystem : GameSystem
         if (!collider) return;
 
         Bounds bounds = collider.bounds;
-        
+
         Vector3Int minCell = gridLayout.WorldToCell(bounds.min);
         Vector3Int maxCell = gridLayout.WorldToCell(bounds.max);
 
@@ -229,7 +247,7 @@ public class BuildSystem : GameSystem
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int counter = 0;
 
-        foreach(var v in area.allPositionsWithin)
+        foreach (var v in area.allPositionsWithin)
         {
             Vector3Int pos = new Vector3Int(v.x, v.y, 0);
             array[counter] = tilemap.GetTile(pos);

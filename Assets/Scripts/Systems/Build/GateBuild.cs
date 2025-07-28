@@ -95,6 +95,7 @@ public class GateBuild : BaseBuild
         gate = null;
         
         buildSystem.ActiveTilemap(false);
+        buildSystem.ActivePlaceZone(false);
 
         enabled = false;
     }

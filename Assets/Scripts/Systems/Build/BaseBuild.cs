@@ -33,6 +33,7 @@ public class BaseBuild : MonoBehaviour
         materialBuilding.StartPlace();
 
         buildSystem.ActiveTilemap(true);
+        buildSystem.ActivePlaceZone(true);
         UpdateCostUI();
     }
 
@@ -96,6 +97,7 @@ public class BaseBuild : MonoBehaviour
             materialBuilding = null;
 
             buildSystem.ActiveTilemap(false);
+            buildSystem.ActivePlaceZone(false);
 
             enabled = false;
         }
@@ -105,6 +107,7 @@ public class BaseBuild : MonoBehaviour
     {
         Destroy(building.gameObject);
         buildSystem.ActiveTilemap(false);
+        buildSystem.ActivePlaceZone(false);
         enabled = false;
     }
 
