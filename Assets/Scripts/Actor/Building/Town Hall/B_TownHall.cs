@@ -27,9 +27,9 @@ public class B_TownHall : Building, ISpawnUnit, IResidential, ICircleZone
             StorageSystem.current.AddStorage(storage, storage.GetTypeResource());
             ResourceSystem.current.AddResourceByType(storage.GetTypeResource(), 0);
         }
-        ResourceSystem.current.AddResourceByType(E_Resource.Food, 10000);
-        ResourceSystem.current.AddResourceByType(E_Resource.Stone, 10000);
-        ResourceSystem.current.AddResourceByType(E_Resource.Wood, 10000);
+        ResourceSystem.current.AddResourceByType(E_Resource.Food, 1000);
+        ResourceSystem.current.AddResourceByType(E_Resource.Stone, 1000);
+        ResourceSystem.current.AddResourceByType(E_Resource.Wood, 1000);
 
         // ininitialize processor
         processors = new List<TH_Processor>();

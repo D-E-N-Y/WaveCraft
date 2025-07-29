@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class I_Storage : B_Industrial, IStorage
@@ -15,33 +16,34 @@ public class I_Storage : B_Industrial, IStorage
     public override void Initialize()
     {
         base.Initialize();
-
         currentAmount = 0;
     }
 
     public override void Built()
     {
         base.Built();
-
         StorageSystem.current.AddStorage(this, resource);
+        UpdatePrefabs();
     }
 
     public int AddResources(int amount)
     {
         currentAmount += amount;
-        // UpdatePrefabs();
 
         if(currentAmount > maxAmount)
         {
             int residue = currentAmount - maxAmount;
             currentAmount = maxAmount;
             UpdateCurrentAmount?.Invoke();
-            
+            UpdatePrefabs();
+
             return residue;
         }
         else
         {
             UpdateCurrentAmount?.Invoke();
+            UpdatePrefabs();
+
             return 0;
         }
     }
@@ -49,19 +51,21 @@ public class I_Storage : B_Industrial, IStorage
     public int RemoveResources(int amount)
     {
         currentAmount -= amount;
-        // UpdatePrefabs();
 
         if(currentAmount < 0)
         {
             int residue = Mathf.Abs(currentAmount);
             currentAmount = 0;
             UpdateCurrentAmount?.Invoke();
+            UpdatePrefabs();
             
             return residue;
         }
         else
         {
             UpdateCurrentAmount?.Invoke();
+            UpdatePrefabs();
+            
             return 0;
         }
     }
@@ -72,18 +76,14 @@ public class I_Storage : B_Industrial, IStorage
         
         foreach(GameObject current in resourcePrefabs)
             current.SetActive(false);
-        
-        if(currentAmount > 0)
-            resourcePrefabs[0].SetActive(true);
-        
-        if(currentAmount >= maxAmount * 0.3)
-            resourcePrefabs[1].SetActive(true);
 
-        if(currentAmount >= maxAmount * 0.6)
-            resourcePrefabs[2].SetActive(true);
+        for (int i = 0; i < resourcePrefabs.Length; i++)
+        {
+            float factor = i / ((float)resourcePrefabs.Length - 1f);
+            float value = maxAmount * factor;
 
-        if(currentAmount >= maxAmount * 1)
-            resourcePrefabs[3].SetActive(true);
+            resourcePrefabs[i].SetActive(currentAmount >= value && currentAmount > 0);
+        }
     }
 
     public bool isFreeSpace() => maxAmount - currentAmount != 0;
