@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class D_Spawner : B_Defence, ISpawnUnit, ICircleZone
@@ -6,6 +7,24 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit, ICircleZone
     [SerializeField] private U_Village spawnUnit;
     [SerializeField] private float timeToSpawnUnit;
     [SerializeField] private Transform spawnPosition;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        List<SCircleZone> zones = new List<SCircleZone>();
+        zones.Add(GetCircleZone());
+
+        expansionPlaceZone.Initialize();
+        expansionPlaceZone.DrawLines(zones);
+        expansionPlaceZone.gameObject.SetActive(true);
+    }
+
+    public override void Place()
+    {
+        base.Place();
+        expansionPlaceZone.gameObject.SetActive(false);
+    }
 
     public void SpawnUnit()
     {
@@ -35,8 +54,9 @@ public abstract class D_Spawner : B_Defence, ISpawnUnit, ICircleZone
 
     #region Expansion Plaze Zone
 
-    [SerializeField] private SCircleZone expansionPlaceZone;
-    public SCircleZone GetCircleZone() => expansionPlaceZone;
+    [SerializeField] private CircleZone expansionPlaceZone;
+    [SerializeField] private float radiusExpansionPlaceZone;
+    public SCircleZone GetCircleZone() => new SCircleZone(transform, radiusExpansionPlaceZone);
 
     #endregion
 }

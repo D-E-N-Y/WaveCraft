@@ -196,6 +196,8 @@ public class UnitMovement : MonoBehaviour
             float angleStep = 15f; // градусы
 
             int countPointsInOtherObject = 0;
+            int countPointsInSels = 0;
+
             for (float angle = 0; angle < 360f; angle += angleStep)
             {
                 float rad = angle * Mathf.Deg2Rad;
@@ -224,6 +226,7 @@ public class UnitMovement : MonoBehaviour
                         else if (_actor == iPosition.GetActor() && !isSelf)
                         {
                             isSelf = true;
+                            countPointsInSels++;
                         }
                     }
 
@@ -255,6 +258,12 @@ public class UnitMovement : MonoBehaviour
                         debugPointsMove.Add(hit.position);
                     }
                 }
+            }
+
+            if (countPointsInSels <= testPoints.Count * 0.8f && countPointsInSels == 0 && _avaliablePoints.Count == 0)
+            {
+                isCanMove = false;
+                return null;
             }
 
             if (_avaliablePoints.Count > 15)

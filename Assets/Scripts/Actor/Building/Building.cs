@@ -62,7 +62,7 @@ public abstract class Building : Actor
         return 0;
     }
 
-    public void Place()
+    public virtual void Place()
     {
         RemoveDrag();
         isPlace = true;

@@ -37,11 +37,15 @@ public class BuildSystem : GameSystem
         wallBuild.Initialize(this, ui_costBuildingPanel);
         gateBuild.Initialize(this, ui_costBuildingPanel);
 
-        placeZone.Initialize();
-
         grid = gridLayout.gameObject.GetComponent<Grid>();
 
         buildingSystems = BuildingSystems.current;
+        buildingSystems.updateBuildings += RedrawPlaceZone;
+
+        placeZone.Initialize();
+
+        ActiveTilemap(false);
+        ActivePlaceZone(false);
     }
 
     public Vector3 SnapCoordinateToGrid(Vector3 position)
@@ -53,22 +57,43 @@ public class BuildSystem : GameSystem
 
     public void InitializeWithObject(Building building)
     {
-        switch (building)
+        if (IsPlacing())
         {
-            case D_Pillar:
-                wallBuild.enabled = true;
-                wallBuild.InitializeBuilding(building);
-                break;
+            CancelPlacing();
+        }
 
-            case D_Gate:
-                gateBuild.enabled = true;
-                gateBuild.InitializeBuilding(building);
-                break;
+        switch (building)
+            {
+                case D_Pillar:
+                    wallBuild.enabled = true;
+                    wallBuild.InitializeBuilding(building);
+                    break;
 
-            default:
-                defaultBuild.enabled = true;
-                defaultBuild.InitializeBuilding(building);
-                break;
+                case D_Gate:
+                    gateBuild.enabled = true;
+                    gateBuild.InitializeBuilding(building);
+                    break;
+
+                default:
+                    defaultBuild.enabled = true;
+                    defaultBuild.InitializeBuilding(building);
+                    break;
+            }
+    }
+
+    public void CancelPlacing()
+    {
+        if (defaultBuild.HasBuilding())
+        {
+            defaultBuild.CancelPlacing();
+        }
+        else if (gateBuild.HasBuilding())
+        {
+            gateBuild.CancelPlacing();
+        }
+        else if(wallBuild.HasBuilding())
+        {
+            wallBuild.CancelPlacing();
         }
     }
 
@@ -90,15 +115,15 @@ public class BuildSystem : GameSystem
 
     public void ActivePlaceZone(bool active)
     {
-        if (active)
-        {
-            placeZone.DrawLines(buildingSystems.GetExpansionPlaceZones());
-        }
-
         placeZone.gameObject.SetActive(active);
     }
 
-    public bool CanBePlaced(Building building)
+    private void RedrawPlaceZone()
+    {
+        placeZone.DrawLines(buildingSystems.GetExpansionPlaceZones());
+    }
+
+    public bool CanBePlaced(Building building, bool checkInPlaceZone)
     {
         Collider collider = building.GetComponent<Collider>();
 
@@ -114,7 +139,10 @@ public class BuildSystem : GameSystem
                 Vector3Int cellPos = new Vector3Int(x, y, 0);
                 Vector3 closestPoint = collider.ClosestPoint(gridLayout.CellToWorld(cellPos));
 
-                if (!IsPointCellInAdmissibleArea(closestPoint)) return false;
+                if (checkInPlaceZone)
+                {
+                    if (!IsPointCellInAdmissibleArea(closestPoint)) return false;
+                }
 
                 if (busyTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == notCanPlaceTile ||
                    placedTilemap.GetTile(gridLayout.WorldToCell(closestPoint)) == canPlaceTile)

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CircleZone : MonoBehaviour
 {
-    [SerializeField] private int segments = 64;
+    [SerializeField] private int segments = 200;
     [SerializeField] Color lineColor;
     [SerializeField, Range(0.1f, 5f)] float lineWidth;
 
@@ -14,31 +14,25 @@ public class CircleZone : MonoBehaviour
         public List<Vector3> points;
     }
 
-    [SerializeField] private List<SCircleZone> zones;
-    [SerializeField] private bool isUpdate;
+    // [SerializeField] private List<SCircleZone> zones;
+    // [SerializeField] private bool isUpdate;
 
-    void Start()
-    {
-        Initialize();
-    }
+    // void Start()
+    // {
+    //     Initialize();
+    // }
 
-    void Update()
-    {
-        if (isUpdate)
-        {
-            NoPoints = new List<Vector3>();
-            YesPoints = new List<Vector3>();
-            BreakPoints = new List<Vector3>();
-
-            DrawLines(zones);
-        }
-    }
+    // void Update()
+    // {
+    //     if (isUpdate)
+    //     {
+    //         DrawLines(zones);
+    //     }
+    // }
 
     public void Initialize()
     {
-        NoPoints = new List<Vector3>();
-        YesPoints = new List<Vector3>();
-        BreakPoints = new List<Vector3>();
+        transform.localPosition = new Vector3(0f, lineWidth / 2, 0f);
     }
 
     public void DrawLines(List<SCircleZone> zones)
@@ -134,10 +128,16 @@ public class CircleZone : MonoBehaviour
         line.material = new Material(Shader.Find("Sprites/Default"));
         line.startWidth = line.endWidth = lineWidth;
         line.startColor = line.endColor = lineColor;
-        line.positionCount = points.Count;
-        line.SetPositions(points.ToArray());
+
+        List<Vector3> localPoints = points
+            .Select(p => transform.InverseTransformPoint(p) + new Vector3(0f, MathF.Abs(transform.InverseTransformPoint(p).y), 0))
+            .ToList();
+
+        line.positionCount = localPoints.Count;
+        line.SetPositions(localPoints.ToArray());
 
         line.gameObject.SetActive(true);
+        line.transform.localPosition = Vector3.zero;
     }
 
     private void CreateLine(List<LineRenderer> lines)
@@ -158,48 +158,9 @@ public class CircleZone : MonoBehaviour
 
             if (Vector3.Distance(point, zone._transform.position) < zone._radius)
             {
-                NoPoints.Add(point);
                 return false;
             }
         }
-
-        YesPoints.Add(point);
         return true;
-    }
-
-    private List<Vector3> YesPoints;
-    private List<Vector3> NoPoints;
-    private List<Vector3> BreakPoints;
-
-    private void OnDrawGizmos()
-    {
-        if (!isUpdate) return;
-
-        if (YesPoints != null)
-        {
-            Gizmos.color = Color.green;
-            foreach (var p in YesPoints)
-            {
-                Gizmos.DrawSphere(p, 0.2f); // точки как шарики
-            }
-        }
-
-        if (NoPoints != null)
-        {
-            Gizmos.color = Color.red;
-            foreach (var p in NoPoints)
-            {
-                Gizmos.DrawSphere(p, 0.2f); // точки как шарики
-            }
-        }
-
-        if (BreakPoints != null)
-        {
-            Gizmos.color = Color.yellow;
-            foreach (var p in BreakPoints)
-            {
-                Gizmos.DrawSphere(p, 0.4f); // точки как шарики
-            }
-        }
     }
 }

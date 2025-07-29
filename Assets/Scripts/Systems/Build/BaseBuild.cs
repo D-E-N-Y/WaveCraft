@@ -62,7 +62,7 @@ public class BaseBuild : MonoBehaviour
 
     protected void ViewAreaPlace(Building _object)
     {
-        if (buildSystem.CanBePlaced(_object))
+        if (buildSystem.CanBePlaced(_object, true))
         {
             _object.GetComponent<MaterialBuilding>().SetColor(MaterialBuilding.BuildColor.canPlace);
             buildSystem.FreeTakeArea(_object, buildSystem.CanPlaceTile());
@@ -81,7 +81,7 @@ public class BaseBuild : MonoBehaviour
 
     protected virtual void Place()
     {
-        if (buildSystem.CanBePlaced(building))
+        if (buildSystem.CanBePlaced(building, true))
         {
             building.Place();
             materialBuilding.SetColor(MaterialBuilding.BuildColor.placed);
@@ -106,6 +106,8 @@ public class BaseBuild : MonoBehaviour
     protected virtual void Cancel()
     {
         Destroy(building.gameObject);
+        building = null;
+
         buildSystem.ActiveTilemap(false);
         buildSystem.ActivePlaceZone(false);
         enabled = false;
@@ -119,4 +121,18 @@ public class BaseBuild : MonoBehaviour
     public bool HasBuilding() => building;
 
     #endregion
+
+
+    public virtual void CancelPlacing()
+    {
+        while (true)
+        {
+            Cancel();
+
+            if (!building)
+            {
+                break;
+            }
+        }
+    }
 }

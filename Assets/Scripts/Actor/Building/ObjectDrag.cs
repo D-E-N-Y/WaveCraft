@@ -15,6 +15,7 @@ public class ObjectDrag : MonoBehaviour
             if (!isConnect)
             {
                 transform.position = BuildSystem.current.SnapCoordinateToGrid(raycastHit.point);
+                ResetYCoordinate();
             }
             else
             {
@@ -23,6 +24,7 @@ public class ObjectDrag : MonoBehaviour
                 {
                     FalseConnect();
                     transform.position = BuildSystem.current.SnapCoordinateToGrid(raycastHit.point);
+                    ResetYCoordinate();
                 }
             }
         }
@@ -30,4 +32,13 @@ public class ObjectDrag : MonoBehaviour
 
     public void TrueConnect() => isConnect = true;
     public void FalseConnect() => isConnect = false;
+
+    private void ResetYCoordinate()
+    {
+        transform.position = new Vector3(
+            transform.position.x,
+            0f,
+            transform.position.z
+        );
+    }
 }

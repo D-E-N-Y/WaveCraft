@@ -172,8 +172,8 @@ public class B_TownHall : Building, ISpawnUnit, IResidential, ICircleZone
 
     #region Expansion Plaze Zone
 
-    [SerializeField] private SCircleZone expansionPlaceZone;
-    public SCircleZone GetCircleZone() => expansionPlaceZone;
+    [SerializeField] private float radiusExpansionPlaceZone;
+    public SCircleZone GetCircleZone() => new SCircleZone(transform, radiusExpansionPlaceZone);
 
     #endregion
 }

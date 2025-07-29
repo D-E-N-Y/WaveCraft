@@ -217,6 +217,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4673648353268727318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2924131587344830853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1775932344456498859}
+  - component: {fileID: 6106162461996350787}
+  m_Layer: 6
+  m_Name: ExpansionPlaceZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1775932344456498859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2924131587344830853}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6613706800539429596}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6106162461996350787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2924131587344830853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 428fdf9be6c7a8b2da2322036a852d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  segments: 200
+  lineColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+  lineWidth: 1
 --- !u!1 &3105991630388649092
 GameObject:
   m_ObjectHideFlags: 0
@@ -973,6 +1020,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6733187167444013811, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5894114819481439373}
+    - targetCorrespondingSourceObject: {fileID: 6733187167444013811, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1775932344456498859}
     - targetCorrespondingSourceObject: {fileID: 8560543935925182131, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7106516551306912158}
@@ -1107,9 +1157,8 @@ MonoBehaviour:
   spawnUnit: {fileID: 0}
   timeToSpawnUnit: 15
   spawnPosition: {fileID: 5894114819481439373}
-  expansionPlaceZone:
-    _transform: {fileID: 6613706800539429596}
-    _radius: 50
+  expansionPlaceZone: {fileID: 6106162461996350787}
+  radiusExpansionPlaceZone: 60
 --- !u!4 &3317393664201041145 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2931899103171402966, guid: a00ecd895b2bedb6983b1ae7297d183b, type: 3}

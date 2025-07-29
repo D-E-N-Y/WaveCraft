@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class BuildingSystems : GameSystem
 {
     public static BuildingSystems current;
+    public Action updateBuildings;
 
     private List<Building> buildings;
 
@@ -17,16 +19,19 @@ public class BuildingSystems : GameSystem
     public void AddBuilding(Building building)
     {
         buildings.Add(building);
+        updateBuildings?.Invoke();
     }
 
     public void RemoveBuilding(Building building)
     {
         buildings.Remove(building);
+        updateBuildings?.Invoke();
     }
 
     public List<Building> GetBuildings() => buildings;
     public List<SCircleZone> GetExpansionPlaceZones()
     {
-        return buildings.Select(x => ((ICircleZone)x).GetCircleZone()).ToList();
+        List<ICircleZone> expansionBuildings = buildings.OfType<ICircleZone>().ToList();
+        return expansionBuildings.Select(x => x.GetCircleZone()).ToList();
     }
 }
