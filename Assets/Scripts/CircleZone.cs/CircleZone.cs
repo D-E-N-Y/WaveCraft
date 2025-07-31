@@ -9,13 +9,15 @@ public class CircleZone : MonoBehaviour
     [SerializeField] Color lineColor;
     [SerializeField, Range(0.1f, 5f)] float lineWidth;
 
+    [SerializeField] Material material;
+
     private class Side
     {
         public List<Vector3> points;
     }
 
-    // [SerializeField] private List<SCircleZone> zones;
-    // [SerializeField] private bool isUpdate;
+    [SerializeField] private List<SCircleZone> zones;
+    [SerializeField] private bool isUpdate;
 
     // void Start()
     // {
@@ -125,7 +127,7 @@ public class CircleZone : MonoBehaviour
     private void InitializeLine(LineRenderer line, List<Vector3> points)
     {
         line.useWorldSpace = false;
-        line.material = new Material(Shader.Find("Sprites/Default"));
+        line.material = material;
         line.startWidth = line.endWidth = lineWidth;
         line.startColor = line.endColor = lineColor;
 
@@ -138,6 +140,16 @@ public class CircleZone : MonoBehaviour
 
         line.gameObject.SetActive(true);
         line.transform.localPosition = Vector3.zero;
+
+        line.material.SetFloat("_segmentLength", GetLengthLine(localPoints));
+        line.material.SetFloat("_segmentCount", segments);
+        line.material.SetColor("_Color", lineColor);
+    }
+
+    private float GetLengthLine(List<Vector3> points)
+    {
+        float distance = Vector3.Distance(points[0], points[1]);
+        return distance * points.Count;
     }
 
     private void CreateLine(List<LineRenderer> lines)
